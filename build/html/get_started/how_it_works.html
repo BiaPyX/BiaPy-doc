@@ -1,0 +1,272 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>How it works &mdash; BiaPy  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> BiaPy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Get started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How it works</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pre-processing">Pre-processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#training">Training</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inference">Inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="select_workflow.html">Select workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workflows</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/semantic_segmentation.html">Semantic segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/instance_segmentation.html">Instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/detection.html">Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/denoising.html">Denoising</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/super_resolution.html">Super-resolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/self_supervision.html">Self-supervision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/classification.html">Classification</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../config/main_config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/data.html">data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../engine/engine.html">engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../models/models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/utils.html">utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BiaPy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>How it works</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="how-it-works">
+<h1>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h1>
+<p>All BiaPy pipelines are composed of three main steps: data pre-processing, deep learning (DL) model training or inference, and data post-processing.</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/workflow_diagram.svg"><img alt="Workflow diagram" src="../_images/workflow_diagram.svg" width="400px" /></a>
+<p class="caption"><span class="caption-text">General scheme of a BiaPy pipeline/workflow. Dash-lined elements are optional.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="pre-processing">
+<h2>Pre-processing<a class="headerlink" href="#pre-processing" title="Permalink to this headline">¶</a></h2>
+<p>Before the training or inference stage, BiaPy prepares the input data usually by creating 2D/3D image patches and normalizing the pixel/voxel intensities. Furthermore, some workflows require adapting the input data into a representation that can be fed to the DL model. This is the case of the instance segmentation pipelines, where the label images are transformed into binary masks, contours and distance maps ; and also the object detection pipelines, where the point detection lists are transformed into point mask images.</p>
+</div>
+<div class="section" id="training">
+<h2>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h2>
+<p>After pre-processing stage the training of the model is performed. The DL model is trained by example where an input and a target output need to be specified. The purpose of the DL model is to generate an output as closest as possible to the provided target data, also called ground truth.</p>
+<p>To create more training data a data augmentation (DA) is applied. DA converts the input image applying some transformation to it, e.g. random rotation or flips, so the model is feed with a different version of the original image. Furthermore, this technique alleviates the problem of overfitting, that happens when a model learns the detail and noise in the training data to the extent that it negatively impacts the performance of the model on new data.</p>
+<p>Apart for the DA, in the training stage is also common to define a validation set to prevent model overfitting. This way, the training process can be monitorized so it is stopped when no improvement is seeing in the validation data after some defined epochs (this is called patience). An epoch refers to see all the images in the training data. This process is repeated again and again. This way, epoch by epoch, the model can learn to map input images to their respective target.</p>
+</div>
+<div class="section" id="inference">
+<h2>Inference<a class="headerlink" href="#inference" title="Permalink to this headline">¶</a></h2>
+<p>After the training process is done the inference, or prediction, phase comes. The idea is pass through the model images of the same type used to train so it can produce its corresponding target. If the ground truth exists it can be compared with the model’s output to measure its performance. Different metrics are used depending on the workflow.</p>
+</div>
+<div class="section" id="post-processing">
+<h2>Post-processing<a class="headerlink" href="#post-processing" title="Permalink to this headline">¶</a></h2>
+<p>Most frequently, the output of the DL models needs to be post-processed to achieve the desired results. The post-processing methods implemented in BiaPy include simple binarization (for semantic segmentation), z-filtering (for 3D data), marker-controlled watershed and Voronoi tessellation (for instance segmentation), and close point suppression (for object detection), among others.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Daniel Franco-Barranco.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

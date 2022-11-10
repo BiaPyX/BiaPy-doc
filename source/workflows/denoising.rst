@@ -1,0 +1,6 @@
+.. _denoising:
+
+Denoising
+---------
+
+.

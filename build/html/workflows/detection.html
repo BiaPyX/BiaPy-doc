@@ -1,0 +1,557 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Detection &mdash; BiaPy  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Denoising" href="denoising.html" />
+    <link rel="prev" title="Instance segmentation" href="instance_segmentation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> BiaPy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Get started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/how_it_works.html">How it works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/select_workflow.html">Select workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workflows</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="semantic_segmentation.html">Semantic segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instance_segmentation.html">Instance segmentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Detection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-preparation">Data preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#problem-resolution">Problem resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-file">Configuration file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#special-workflow-configuration">Special workflow configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run">Run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#results">Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="denoising.html">Denoising</a></li>
+<li class="toctree-l1"><a class="reference internal" href="super_resolution.html">Super-resolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="self_supervision.html">Self-supervision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classification.html">Classification</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitoem.html">MitoEM dataset: large-scale 3d mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/nucleus.html">NucMM dataset: 3d neuronal nuclei instance segmentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../config/main_config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/data.html">data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../engine/engine.html">engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../models/models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/utils.html">utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BiaPy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Detection</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="detection">
+<span id="id1"></span><h1>Detection<a class="headerlink" href="#detection" title="Permalink to this headline">¶</a></h1>
+<p>The goal of this workflow is assign an unique id, i.e. integer, to each object of the input image.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Input:</strong></dt><dd><ul>
+<li><p>Image.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.csv</span></code> file containing the coordinates of each object to detect.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Output:</strong></dt><dd><ul>
+<li><p>Image with the detected points as white dots.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.csv</span></code> file with the list of detected points in napari format.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">_prob.csv</span></code> file with the same list of points as above but now with their detection probability (also in napary format).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>In the figure below an example of this workflow’s <strong>input</strong> is depicted. Each color in the mask corresponds to a unique object.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><div class="figure align-center" id="id4">
+<img alt="../_images/mitoem_crop.png" src="../_images/mitoem_crop.png" />
+<p class="caption"><span class="caption-text">Input image.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</td>
+<td><div class="figure align-center" id="id5">
+<img alt="../_images/mitoem_crop_mask.png" src="../_images/mitoem_crop_mask.png" />
+<p class="caption"><span class="caption-text">Input instance mask (ground truth).</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="data-preparation">
+<span id="instance-segmentation-data-prep"></span><h2>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">¶</a></h2>
+<p>To ensure the proper operation of the library the data directory tree should be something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>dataset/
+├── train
+│   ├── x
+│   │   ├── training-0001.tif
+│   │   ├── training-0002.tif
+│   │   ├── . . .
+│   │   ├── training-9999.tif
+│   └── y
+│       ├── training_groundtruth-0001.tif
+│       ├── training_groundtruth-0002.tif
+│       ├── . . .
+│       ├── training_groundtruth-9999.tif
+└── test
+    ├── x
+    │   ├── testing-0001.tif
+    │   ├── testing-0002.tif
+    │   ├── . . .
+    │   ├── testing-9999.tif
+    └── y
+        ├── testing_groundtruth-0001.tif
+        ├── testing_groundtruth-0002.tif
+        ├── . . .
+        ├── testing_groundtruth-9999.tif
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Ensure that images and their corresponding masks are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example).</p>
+</div>
+</div>
+<div class="section" id="problem-resolution">
+<h2>Problem resolution<a class="headerlink" href="#problem-resolution" title="Permalink to this headline">¶</a></h2>
+<p>Firstly, a <strong>pre-processing</strong> step is done where the new data representation is created from the input instance masks. The new data is a multi-channel mask with up to three channels (controlled by <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_CHANNELS</span></code>). This way, the model is trained with the input images and these new multi-channel masks. Available channels to choose are the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Binary mask (referred as <code class="docutils literal notranslate"><span class="pre">B</span></code> in the code), contains each instance region without the contour. This mask is binary, i.e. pixels in the instance region are <code class="docutils literal notranslate"><span class="pre">1</span></code> and the rest are <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p>Contour (<code class="docutils literal notranslate"><span class="pre">C</span></code>), contains each instance contour. This mask is binary, i.e. pixels in the contour are <code class="docutils literal notranslate"><span class="pre">1</span></code> and the rest are <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p>Distances (<code class="docutils literal notranslate"><span class="pre">D</span></code>), each pixel containing the euclidean distance of it to the instance contour. This mask is a float, not binary.</p></li>
+<li><p>Mask (<code class="docutils literal notranslate"><span class="pre">M</span></code>), contains the <code class="docutils literal notranslate"><span class="pre">B</span></code> and the <code class="docutils literal notranslate"><span class="pre">C</span></code> channels, i.e. the foreground mask. Is simply achieved by binarizing input instance masks. This mask is also binary.</p></li>
+<li><p>Updated version of distances (<code class="docutils literal notranslate"><span class="pre">Dv2</span></code>), that extends <code class="docutils literal notranslate"><span class="pre">D</span></code> channel by calculating the background distances as well. This mask is a float, not binary. The piecewise function is as follows:</p></li>
+</ul>
+</div></blockquote>
+<div class="figure align-center" id="id6">
+<a class="reference internal image-reference" href="../_images/Dv2_equation.svg"><img alt="Dv2 channel equation" src="../_images/Dv2_equation.svg" width="300px" /></a>
+<p class="caption"><span class="caption-text">where A, B and C denote the binary mask, background and contour, respectively. <code class="docutils literal notranslate"><span class="pre">dist</span></code> refers to euclidean distance formula.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_CHANNELS</span></code> is in charge of selecting the channels to be created. It can be set to one of the following configurations <code class="docutils literal notranslate"><span class="pre">BC</span></code>, <code class="docutils literal notranslate"><span class="pre">BCM</span></code>, <code class="docutils literal notranslate"><span class="pre">BCD</span></code>, <code class="docutils literal notranslate"><span class="pre">BCDv2</span></code>, <code class="docutils literal notranslate"><span class="pre">Dv2</span></code> and <code class="docutils literal notranslate"><span class="pre">BDv2</span></code>. For instance, <code class="docutils literal notranslate"><span class="pre">BC</span></code> will create a 2-channel mask: the first channel will be <code class="docutils literal notranslate"><span class="pre">B</span></code> and the second  <code class="docutils literal notranslate"><span class="pre">C</span></code>. In the image below the creation of 3-channel mask based on <code class="docutils literal notranslate"><span class="pre">BCD</span></code> is depicted:</p>
+<div class="figure align-center" id="id7">
+<a class="reference internal image-reference" href="../_images/cysto_instance_bcd_scheme.svg"><img alt="multi-channel mask creation" src="../_images/cysto_instance_bcd_scheme.svg" width="300px" /></a>
+<p class="caption"><span class="caption-text">Process of the new multi-channel mask creation based on <code class="docutils literal notranslate"><span class="pre">BCD</span></code> configuration. From instance segmentation labels (left) to contour, binary mask and distances (right). Here a small patch is presented just for the sake of visualization but the process is done for each full resolution image.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<p>This new data representation is stored in <code class="docutils literal notranslate"><span class="pre">DATA.TRAIN.INSTANCE_CHANNELS_DIR</span></code> and <code class="docutils literal notranslate"><span class="pre">DATA.TRAIN.INSTANCE_CHANNELS_MASK_DIR</span></code> for train data, <code class="docutils literal notranslate"><span class="pre">DATA.VAL.INSTANCE_CHANNELS_DIR</span></code> and <code class="docutils literal notranslate"><span class="pre">DATA.VAL.INSTANCE_CHANNELS_MASK_DIR</span></code> for validation, and <code class="docutils literal notranslate"><span class="pre">DATA.TEST.INSTANCE_CHANNELS_DIR</span></code>, <code class="docutils literal notranslate"><span class="pre">DATA.TEST.INSTANCE_CHANNELS_MASK_DIR</span></code> for test.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>You can modify <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_CHANNEL_WEIGHTS</span></code> to control which channels the model will learn the most. For instance, in <code class="docutils literal notranslate"><span class="pre">BCD</span></code> setting you can set it to <code class="docutils literal notranslate"><span class="pre">(1,1,0.5)</span></code> for distance channel (<code class="docutils literal notranslate"><span class="pre">D</span></code>) to have half the impact during the learning process.</p>
+</div>
+<p>After the train phase, the model output will have the same channels as the ones used to train. In the case of binary channels, i.e. <code class="docutils literal notranslate"><span class="pre">B</span></code>, <code class="docutils literal notranslate"><span class="pre">C</span></code> and <code class="docutils literal notranslate"><span class="pre">M</span></code>, each pixel of each channel will have the probability (in <code class="docutils literal notranslate"><span class="pre">[0-1]</span></code> range) of being of the class that represents that channel. Whereas for the <code class="docutils literal notranslate"><span class="pre">D</span></code> and <code class="docutils literal notranslate"><span class="pre">Dv2</span></code> channel each pixel will have a float that represents the distance.</p>
+<p>In a <strong>post-processing</strong> step the multi-channel data information will be used to create the final instance segmentation labels using a marker-controlled watershed. The process is as follows:</p>
+<ul>
+<li><p>First, instance seeds are created based on <code class="docutils literal notranslate"><span class="pre">B</span></code>, <code class="docutils literal notranslate"><span class="pre">C</span></code>, <code class="docutils literal notranslate"><span class="pre">D</span></code> and <code class="docutils literal notranslate"><span class="pre">Dv2</span></code> (notice that depending on the configuration selected not all of them will be present). For that, each channel is binarized using different thresholds: <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH1</span></code> for <code class="docutils literal notranslate"><span class="pre">B</span></code> channel, <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH2</span></code> for <code class="docutils literal notranslate"><span class="pre">C</span></code> and <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH4</span></code> for <code class="docutils literal notranslate"><span class="pre">D</span></code> or <code class="docutils literal notranslate"><span class="pre">Dv2</span></code>. These thresholds will decide wheter a point is labeled as a class or not. This way, the seeds are created following this formula:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">seeds</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span> <span class="o">&gt;</span> <span class="n">DATA_MW_TH1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">D</span> <span class="o">&gt;</span> <span class="n">DATA_MW_TH4</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">C</span> <span class="o">&lt;</span> <span class="n">DATA_MW_TH2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Translated to words seeds will be: all pixels part of the binary mask (<code class="docutils literal notranslate"><span class="pre">B</span></code> channel), which will be those higher than <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH1</span></code>; and also in the center of each instances, i.e. higher than <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH4</span></code> ; but not labeled as contour, i.e. less than <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH2</span></code>.</p>
+</li>
+<li><p>After that, each instance is labeled with a unique integer, e.g. using <a class="reference external" href="https://en.wikipedia.org/wiki/Connected-component_labeling">connected component</a>. Then a foreground mask is created to delimit the area in which the seeds may grow. This foreground mask is defined based on <code class="docutils literal notranslate"><span class="pre">B</span></code> channel using <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH3</span></code> and <code class="docutils literal notranslate"><span class="pre">D</span></code> or <code class="docutils literal notranslate"><span class="pre">Dv2</span></code> using <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH5</span></code>. The formula is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">foreground</span> <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span> <span class="o">&gt;</span> <span class="n">DATA_MW_TH3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">D</span> <span class="o">&gt;</span> <span class="n">DATA_MW_TH5</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Afterwards, tiny instances are removed using <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ</span></code> value. Finally, the seeds are grown using marker-controlled watershed.</p></li>
+</ul>
+</div>
+<div class="section" id="configuration-file">
+<h2>Configuration file<a class="headerlink" href="#configuration-file" title="Permalink to this headline">¶</a></h2>
+<p>Find in <a class="reference external" href="https://github.com/danifranco/BiaPy/tree/master/templates/instance_segmentation">templates/instance_segmentation</a> folder of BiaPy a few YAML configuration templates for this workflow.</p>
+</div>
+<div class="section" id="special-workflow-configuration">
+<h2>Special workflow configuration<a class="headerlink" href="#special-workflow-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Here some special configuration options that can be selected in this workflow are described:</p>
+<ul>
+<li><p><strong>Metrics</strong>: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, <code class="docutils literal notranslate"><span class="pre">DATA.TEST.LOAD_GT</span></code> is enabled. In the case of instance segmentation the <strong>Intersection over Union</strong> (IoU), <strong>mAP</strong> and <strong>matching metrics</strong> are calculated:</p>
+<ul>
+<li><p><strong>IoU</strong> metric, also referred as the Jaccard index, is essentially a method to quantify the percent of overlap between the target mask and the prediction output. Depending on the configuration different values are calculated (as explained in <a class="reference internal" href="../get_started/configuration.html#config-test"><span class="std std-ref">Test phase</span></a>).</p></li>
+<li><p><strong>mAP</strong>, which is the mean average precision score adapted for 3D images (but can be used in BiaPy for 2D also). It was introduced in <span id="id2">[<a class="reference internal" href="../bibliography.html#id3" title="Donglai Wei, Zudi Lin, Daniel Franco-Barranco, Nils Wendt, Xingyu Liu, Wenjie Yin, Xin Huang, Aarush Gupta, Won-Dong Jang, Xueying Wang, and others. Mitoem dataset: large-scale 3d mitochondria instance segmentation from em images. In International Conference on Medical Image Computing and Computer-Assisted Intervention, 66–76. Springer, 2020.">WLFB+20</a>]</span> and can be enabled with <code class="docutils literal notranslate"><span class="pre">TEST.MAP</span></code>. This metric is used with a external code that need to be installed as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download the repo</span>
+git clone https://github.com/danifranco/mAP_3Dvolume.Git
+<span class="c1"># Change the branch</span>
+git checkout grand-challenge
+</pre></div>
+</div>
+<p>You need to also set the variable <code class="docutils literal notranslate"><span class="pre">PATHS.MAP_CODE_DIR</span></code> to the path where <code class="docutils literal notranslate"><span class="pre">mAP_3Dvolume</span></code> project resides.</p>
+</li>
+<li><p><strong>Matching metrics</strong>, that was adapted from Stardist (<span id="id3">[<a class="reference internal" href="../bibliography.html#id5" title="Martin Weigert, Uwe Schmidt, Robert Haase, Ko Sugawara, and Gene Myers. Star-convex polyhedra for 3d object detection and segmentation in microscopy. In Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision, 3666–3673. 2020.">WSH+20</a>]</span>) evaluation <a class="reference external" href="https://github.com/stardist/stardist">code</a>. It is enabled with <code class="docutils literal notranslate"><span class="pre">TEST.MATCHING_STATS</span></code>. It calculates precision, recall, accuracy, F1 and panoptic quality based on a defined threshold to decide wheter an instance is a true positive. That threshold measures the overlap between predicted instance and its ground truth. More than one threshold can be set and it is done with <code class="docutils literal notranslate"><span class="pre">TEST.MATCHING_STATS_THS</span></code>. For instance, if <code class="docutils literal notranslate"><span class="pre">TEST.MATCHING_STATS_THS</span></code> is <code class="docutils literal notranslate"><span class="pre">[0.5,</span> <span class="pre">0.75]</span></code> this means that these metrics will be calculated two times, one for <code class="docutils literal notranslate"><span class="pre">0.5</span></code> threshold and another for <code class="docutils literal notranslate"><span class="pre">0.75</span></code>. In the first case, all instances that have more than <code class="docutils literal notranslate"><span class="pre">0.5</span></code>, i.e. <code class="docutils literal notranslate"><span class="pre">50%</span></code>, of overlap with their respective ground truth are considered true positives.</p></li>
+</ul>
+</li>
+<li><p><strong>Post-processing</strong>: after all instances have been grown with the marker-controlled watershed you can use <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.VORONOI_ON_MASK</span></code> to apply <a class="reference external" href="https://en.wikipedia.org/wiki/Voronoi_diagram">Voronoi tesellation</a> and grow them even more until they touch each other. This grown is restricted by a predefined area from <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_CHANNEL_WEIGHTS</span></code>. For that reason, that last variable need to be set as one between <code class="docutils literal notranslate"><span class="pre">BC</span></code>, <code class="docutils literal notranslate"><span class="pre">BCM</span></code>, <code class="docutils literal notranslate"><span class="pre">BCD</span></code> and <code class="docutils literal notranslate"><span class="pre">BCDv2</span></code>. This way, the area will be the foreground mask, so <code class="docutils literal notranslate"><span class="pre">M</span></code> will be used <code class="docutils literal notranslate"><span class="pre">BCM</span></code> and the sum of <code class="docutils literal notranslate"><span class="pre">B</span></code> and <code class="docutils literal notranslate"><span class="pre">C</span></code> channels in the rest of the options.</p></li>
+</ul>
+</div>
+<div class="section" id="run">
+<span id="instance-segmentation-run"></span><h2>Run<a class="headerlink" href="#run" title="Permalink to this headline">¶</a></h2>
+<p><strong>Command line</strong>: Open a terminal as described in <a class="reference internal" href="../get_started/installation.html#installation"><span class="std std-ref">Installation</span></a>. For instance, using <a class="reference external" href="https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/resunet_3d_instances_bcd_instances.yaml">resunet_3d_instances_bcd_instances.yaml</a> template file, the code can be run as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuration file</span>
+<span class="nv">job_cfg_file</span><span class="o">=</span>/home/user/resunet_3d_instances_bcd_instances.yaml
+<span class="c1"># Where the experiment output directory should be created</span>
+<span class="nv">result_dir</span><span class="o">=</span>/home/user/exp_results
+<span class="c1"># Just a name for the job</span>
+<span class="nv">job_name</span><span class="o">=</span>resunet_instances_3d
+<span class="c1"># Number that should be increased when one need to run the same job multiple times (reproducibility)</span>
+<span class="nv">job_counter</span><span class="o">=</span><span class="m">1</span>
+<span class="c1"># Number of the GPU to run the job in (according to &#39;nvidia-smi&#39; command)</span>
+<span class="nv">gpu_number</span><span class="o">=</span><span class="m">0</span>
+
+<span class="c1"># Move where BiaPy installation resides</span>
+<span class="nb">cd</span> BiaPy
+
+<span class="c1"># Load the environment</span>
+conda activate BiaPy_env
+
+python -u main.py <span class="se">\</span>
+       --config <span class="nv">$job_cfg_file</span> <span class="se">\</span>
+       --result_dir <span class="nv">$result_dir</span>  <span class="se">\</span>
+       --name <span class="nv">$job_name</span>    <span class="se">\</span>
+       --run_id <span class="nv">$job_counter</span>  <span class="se">\</span>
+       --gpu <span class="nv">$gpu_number</span>
+</pre></div>
+</div>
+<p><strong>Docker</strong>: Open a terminal as described in <a class="reference internal" href="../get_started/installation.html#installation"><span class="std std-ref">Installation</span></a>. For instance, using <a class="reference external" href="https://github.com/danifranco/BiaPy/blob/master/templates/semantic_segmentation/resunet_3d_instances_bcd_instances.yaml">resunet_3d_instances_bcd_instances.yaml</a> template file, the code can be run as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuration file</span>
+<span class="nv">job_cfg_file</span><span class="o">=</span>/home/user/resunet_3d_instances_bcd_instances.yaml
+<span class="c1"># Where the experiment output directory should be created</span>
+<span class="nv">result_dir</span><span class="o">=</span>/home/user/exp_results
+<span class="c1"># Just a name for the job</span>
+<span class="nv">job_name</span><span class="o">=</span>resunet_instances_3d
+<span class="c1"># Number that should be increased when one need to run the same job multiple times (reproducibility)</span>
+<span class="nv">job_counter</span><span class="o">=</span><span class="m">1</span>
+<span class="c1"># Number of the GPU to run the job in (according to &#39;nvidia-smi&#39; command)</span>
+<span class="nv">gpu_number</span><span class="o">=</span><span class="m">0</span>
+
+docker run --rm <span class="se">\</span>
+    --gpus <span class="nv">$gpu_number</span> <span class="se">\</span>
+    --mount <span class="nv">type</span><span class="o">=</span>bind,source<span class="o">=</span><span class="nv">$job_cfg_file</span>,target<span class="o">=</span><span class="nv">$job_cfg_file</span> <span class="se">\</span>
+    --mount <span class="nv">type</span><span class="o">=</span>bind,source<span class="o">=</span><span class="nv">$result_dir</span>,target<span class="o">=</span><span class="nv">$result_dir</span> <span class="se">\</span>
+    --mount <span class="nv">type</span><span class="o">=</span>bind,source<span class="o">=</span><span class="nv">$data_dir</span>,target<span class="o">=</span><span class="nv">$data_dir</span> <span class="se">\</span>
+    danifranco/em_image_segmentation <span class="se">\</span>
+        -cfg <span class="nv">$job_cfg_file</span> <span class="se">\</span>
+        -rdir <span class="nv">$result_dir</span> <span class="se">\</span>
+        -name <span class="nv">$job_name</span> <span class="se">\</span>
+        -rid <span class="nv">$job_counter</span> <span class="se">\</span>
+        -gpu <span class="nv">$gpu_number</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="results">
+<span id="instance-segmentation-results"></span><h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
+<p>The results are placed in <code class="docutils literal notranslate"><span class="pre">results</span></code> folder under <code class="docutils literal notranslate"><span class="pre">--result_dir</span></code> directory with the <code class="docutils literal notranslate"><span class="pre">--name</span></code> given.</p>
+<p>Following the example, you should see that the directory <code class="docutils literal notranslate"><span class="pre">/home/user/exp_results/resunet_instances_3d</span></code> has been created. If the same experiment is run 5 times, varying <code class="docutils literal notranslate"><span class="pre">--run_id</span></code> argument only, you should find the following directory tree:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>resunet_instances_3d/
+├── config_files/
+│   └── resunet_3d_instances_bcd_instances.yaml
+├── checkpoints
+│   └── model_weights_resunet_instances_3d_1.h5
+└── results
+    ├── resunet_instances_3d_1
+    ├── . . .
+    └── resunet_instances_3d_5
+        ├── aug
+        │   └── .tif files
+        ├── charts
+        │   ├── resunet_instances_3d_1_jaccard_index.png
+        │   ├── resunet_instances_3d_1_loss.png
+        │   └── model_plot_resunet_instances_3d_1.png
+        ├── per_image
+        │   └── .tif files
+        ├── per_image_instances
+        │   └── .tif files
+        ├── per_image_instances_voronoi
+        │   └── .tif files
+        └── watershed
+            ├── seed_map.tif
+            ├── foreground.tif
+            └── watershed.tif
+</pre></div>
+</div>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_files</span></code>: directory where the .yaml filed used in the experiment is stored.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">resunet_3d_instances_bcd_instances.yaml</span></code>: YAML configuration file used (it will be overwrited every time the code is run).</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">checkpoints</span></code>: directory where model’s weights are stored.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">model_weights_resunet_instances_3d_1.h5</span></code>: model’s weights file.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">results</span></code>: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_1</span></code>: run 1 experiment folder.</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">aug</span></code>: image augmentation samples.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">charts</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_1_jaccard_index.png</span></code>: IoU (jaccard_index) over epochs plot (when training is done).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_1_loss.png</span></code>: Loss over epochs plot (when training is done).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model_plot_resunet_instances_3d_1.png</span></code>: plot of the model.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">per_image</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.tif</span> <span class="pre">files</span></code>: predicted patches are combined again to recover the original test image. This folder contains these images.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">per_image_instances</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.tif</span> <span class="pre">files</span></code>: Same as <code class="docutils literal notranslate"><span class="pre">per_image</span></code> but with the instances.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">per_image_instances_voronoi</span></code> (optional):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.tif</span> <span class="pre">files</span></code>: Same as <code class="docutils literal notranslate"><span class="pre">per_image_instances</span></code> but applied Voronoi. Created when <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.VORONOI_ON_MASK</span></code> is enabled.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">watershed</span></code> (optional):</p>
+<blockquote>
+<div><ul>
+<li><p>Created when <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_CHECK_MW</span></code> is enabled. Inside a folder for each test image will be created containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">seed_map.tif</span></code>: initial seeds created before growing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">foreground.tif</span></code>: foreground mask area that delimits the grown of the seeds.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">watershed.tif</span></code>: result of watershed.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here, for visualization purposes, only <code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_1</span></code> has been described but <code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_2</span></code>, <code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_3</span></code>, <code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_4</span></code> and <code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_5</span></code> will follow the same structure.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="denoising.html" class="btn btn-neutral float-right" title="Denoising" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="instance_segmentation.html" class="btn btn-neutral float-left" title="Instance segmentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Daniel Franco-Barranco.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

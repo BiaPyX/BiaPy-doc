@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Configuration &mdash; BiaPy  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Select workflow" href="select_workflow.html" />
+    <link rel="prev" title="How it works" href="how_it_works.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> BiaPy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Get started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_it_works.html">How it works</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#system">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#problem-specification">Problem specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-management">Data management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-normalization">Data normalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-augmentation-da">Data augmentation (DA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-definition">Model definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#training-phase">Training phase</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-phase">Test phase</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="select_workflow.html">Select workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workflows</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/semantic_segmentation.html">Semantic segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/instance_segmentation.html">Instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/detection.html">Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/denoising.html">Denoising</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/super_resolution.html">Super-resolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/self_supervision.html">Self-supervision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/classification.html">Classification</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../config/main_config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/data.html">data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../engine/engine.html">engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../models/models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/utils.html">utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BiaPy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Configuration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<p>To run BiaPy you need to create a plain text YAML configuration text file built with <a class="reference external" href="https://github.com/rbgirshick/yacs">YACS</a>. This configuration file includes information about the hardware to use (i.e., the number of CPUs/GPUs), the work task, the model name, optional hyperparameters, the optimizer, and the paths lo load/store data from/into. As an example, a full semantic segmentation pipeline can be created as follows:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span> <span class="nt">PROBLEM</span><span class="p">:</span>
+     <span class="nt">TYPE</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">SEMANTIC SEG</span>
+     <span class="nt">NDIM</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2D</span>
+ <span class="nt">DATA</span><span class="p">:</span>
+     <span class="nt">PATCH_SIZE</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">(256, 256, 1)</span>
+     <span class="nt">TRAIN</span><span class="p">:</span>
+         <span class="nt">PATH</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/TRAIN_PATH</span>
+         <span class="nt">MASK_PATH</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/TRAIN_MASK_PATH</span>
+     <span class="nt">VAL</span><span class="p">:</span>
+        <span class="nt">SPLIT_TRAIN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.1</span>
+ <span class=" -Error">   </span><span class="nt">TEST</span><span class="p">:</span>
+        <span class="nt">PATH</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/TEST_PATH</span>
+<span class="nt">AUGMENTOR</span><span class="p">:</span>
+    <span class="nt">ENABLE</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+    <span class="nt">RANDOM_ROT</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="nt">MODEL</span><span class="p">:</span>
+    <span class="nt">ARCHITECTURE</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">unet</span>
+<span class="nt">TRAIN</span><span class="p">:</span>
+    <span class="nt">OPTIMIZER</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">SGD</span>
+    <span class="nt">LR</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1.E−3</span>
+    <span class="nt">BATCH_SIZE</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">6</span>
+    <span class="nt">EPOCHS</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">360</span>
+<span class="nt">TEST</span><span class="p">:</span>
+    <span class="nt">POST_PROCESSING</span><span class="p">:</span>
+        <span class="nt">YZ_FILTERING</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+<p>Find in <a class="reference external" href="https://github.com/danifranco/BiaPy/tree/master/templates">templates</a> folder examples for each workflow. If you do not know which workflow suits your case best go to <a class="reference external" href="select_workflow.html">Select Workflow</a> page.</p>
+<p>All the options can be find in <a class="reference external" href="https://github.com/danifranco/BiaPy/blob/master/config/config.py">config.py</a> file. Nevertheless, here we will try to explain the most common ones.</p>
+<div class="section" id="system">
+<h2>System<a class="headerlink" href="#system" title="Permalink to this headline">¶</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">SYSTEM.NUM_GPUS</span></code> and <code class="docutils literal notranslate"><span class="pre">SYSTEM.NUM_CPUS</span></code> to set how many <strong>GPUs</strong> and <strong>CPUs</strong> you want to use.</p>
+</div>
+<div class="section" id="problem-specification">
+<h2>Problem specification<a class="headerlink" href="#problem-specification" title="Permalink to this headline">¶</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">PROBLEM.TYPE</span></code> to select the <strong>type of workflow</strong> between <code class="docutils literal notranslate"><span class="pre">SEMANTIC_SEG</span></code>, <code class="docutils literal notranslate"><span class="pre">INSTANCE_SEG</span></code>, <code class="docutils literal notranslate"><span class="pre">DETECTION</span></code>, <code class="docutils literal notranslate"><span class="pre">DENOISING</span></code>, <code class="docutils literal notranslate"><span class="pre">SUPER_RESOLUTION</span></code>, <code class="docutils literal notranslate"><span class="pre">SELF_SUPERVISED</span></code> and <code class="docutils literal notranslate"><span class="pre">CLASSIFICATION</span></code>. Use <code class="docutils literal notranslate"><span class="pre">PROBLEM.NDIM</span></code> to set if you are going to work with <code class="docutils literal notranslate"><span class="pre">2D</span></code> or <code class="docutils literal notranslate"><span class="pre">3D</span></code> data.</p>
+</div>
+<div class="section" id="data-management">
+<h2>Data management<a class="headerlink" href="#data-management" title="Permalink to this headline">¶</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">DATA.PATCH_SIZE</span></code> to determine the <strong>image shape</strong> that the workflow will use. <strong>Dimension</strong> order is <code class="docutils literal notranslate"><span class="pre">(y,x,c)</span></code> for 2D and <code class="docutils literal notranslate"><span class="pre">(z,y,x,c)</span></code> for 3D.</p>
+<p>Training <strong>data paths</strong> are set with <code class="docutils literal notranslate"><span class="pre">DATA.TRAIN.PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">DATA.TRAIN.MASK_PATH</span></code> (if needed as it depends on the workflow). Same applies to validation if not extracted from training with <code class="docutils literal notranslate"><span class="pre">DATA.VAL.FROM_TRAIN</span></code>, as it that case there is no need to set those. For test data, <code class="docutils literal notranslate"><span class="pre">DATA.TEST.PATH</span></code> need to be set if <code class="docutils literal notranslate"><span class="pre">TEST.ENABLE</span></code> is set. However, <code class="docutils literal notranslate"><span class="pre">DATA.TEST.MASK_PATH</span></code> is avoided when <code class="docutils literal notranslate"><span class="pre">DATA.TEST.LOAD_GT</span></code> is disabled as normally there is no test ground truth.</p>
+<p>There are two ways to work with the data: 1) <strong>load all images in memory</strong> or 2) <strong>load only each image individually when its required</strong>. This behaviour can be set for training, validation and test data with <code class="docutils literal notranslate"><span class="pre">DATA.TRAIN.IN_MEMORY</span></code>, <code class="docutils literal notranslate"><span class="pre">DATA.VAL.IN_MEMORY</span></code> and <code class="docutils literal notranslate"><span class="pre">DATA.TEST.IN_MEMORY</span></code> respectively.</p>
+<p>When loading <strong>training data in memory</strong>, i.e. setting <code class="docutils literal notranslate"><span class="pre">DATA.TRAIN.IN_MEMORY</span></code>, all the images will be loaded just once. In this process, each image will be cropped into <code class="docutils literal notranslate"><span class="pre">DATA.PATCH_SIZE</span></code> patches using <code class="docutils literal notranslate"><span class="pre">DATA.TRAIN.OVERLAP</span></code> and <code class="docutils literal notranslate"><span class="pre">DATA.TRAIN.PADDING</span></code>. Minimum overlap is made by default and the patches always cover the entire image. In this configuration the validation data can be created from the training using <code class="docutils literal notranslate"><span class="pre">DATA.VAL.SPLIT_TRAIN</span></code> to set the percentage of the training data used as validation. For this <code class="docutils literal notranslate"><span class="pre">DATA.VAL.FROM_TRAIN</span></code> and <code class="docutils literal notranslate"><span class="pre">DATA.VAL.IN_MEMORY</span></code> need to be <code class="docutils literal notranslate"><span class="pre">True</span></code>. In general, loading training data in memory is the fastest approach, but it relays on having enough memory in your computer.</p>
+<p>On the other hand, when <strong>data is not in memory</strong>, i.e. <code class="docutils literal notranslate"><span class="pre">DATA.TRAIN.IN_MEMORY</span></code> is disabled, on each training epoch a number of images equal to <code class="docutils literal notranslate"><span class="pre">TRAIN.BATCH_SIZE</span></code> are loaded from the disk to train the model. If that image does not match in shape the selected shape, i.e. <code class="docutils literal notranslate"><span class="pre">DATA.PATCH_SIZE</span></code>, you need to select <code class="docutils literal notranslate"><span class="pre">DATA.EXTRACT_RANDOM_PATCH</span></code> to extract a random patch from it. As it requires loading again and again each image, this approach is slower than the first one but it saves memory.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>In general, if for some reason the images loaded are smaller than the given patch size, i.e. <code class="docutils literal notranslate"><span class="pre">DATA.PATCH_SIZE</span></code>, there will be no option to extract a patch from it. For that purpose the variable <code class="docutils literal notranslate"><span class="pre">DATA.REFLECT_TO_COMPLETE_SHAPE</span></code> was created so the image can be reshaped in those dimensions to complete <code class="docutils literal notranslate"><span class="pre">DATA.PATCH_SIZE</span></code> shape when needed.</p>
+</div>
+<p>In the case of <strong>test data</strong>, even if <code class="docutils literal notranslate"><span class="pre">DATA.TEST.IN_MEMORY</span></code> is selected or not, each image is cropped to <code class="docutils literal notranslate"><span class="pre">DATA.PATCH_SIZE</span></code> using <code class="docutils literal notranslate"><span class="pre">DATA.TEST.OVERLAP</span></code> and <code class="docutils literal notranslate"><span class="pre">DATA.TEST.PADDING</span></code>. Minimum overlap is made by default and the patches always cover the entire image. If ground truth is available you can set <code class="docutils literal notranslate"><span class="pre">DATA.TEST.LOAD_GT</span></code> to load it and measure the performance of the model. The metrics used depends on the workflow selected.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">DATA.TRAIN.RESOLUTION</span></code> and <code class="docutils literal notranslate"><span class="pre">DATA.TEST.RESOLUTION</span></code> to let the model know the resolution of training and test data respectively. In training, that information will be taken into account for some data augmentations. In test, that information will be used when the user selects to remove points from predictions in detection workflow.</p>
+</div>
+</div>
+<div class="section" id="data-normalization">
+<h2>Data normalization<a class="headerlink" href="#data-normalization" title="Permalink to this headline">¶</a></h2>
+<p>Now two options are available to <strong>normalize the data</strong>:</p>
+<ul class="simple">
+<li><p>Adjust it to <strong>[0-1] range</strong> which is the default option. This is done by setting <code class="docutils literal notranslate"><span class="pre">DATA.NORMALIZATION.TYPE</span></code> to <code class="docutils literal notranslate"><span class="pre">'div'</span></code>.</p></li>
+<li><p><strong>Custom normalization</strong> providing a mean (<code class="docutils literal notranslate"><span class="pre">DATA.NORMALIZATION.CUSTOM_MEAN</span></code>) and std (<code class="docutils literal notranslate"><span class="pre">DATA.NORMALIZATION.CUSTOM_STD</span></code>). This is done by setting <code class="docutils literal notranslate"><span class="pre">DATA.NORMALIZATION.TYPE</span></code> to <code class="docutils literal notranslate"><span class="pre">'custom'</span></code>. If the mean and std are both <code class="docutils literal notranslate"><span class="pre">-1</span></code>, which is the default, those values will be calculated based on the training data. Those values will be stored in the job’s folder to be read at inference phase so the test images are normalized also using same values. If mean and std are provided those values will be used.</p></li>
+</ul>
+</div>
+<div class="section" id="data-augmentation-da">
+<h2>Data augmentation (DA)<a class="headerlink" href="#data-augmentation-da" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">AUGMENTOR.ENABLE</span></code> need to be set to enable DA. Probability of each <strong>transformation</strong> is set by <code class="docutils literal notranslate"><span class="pre">AUGMENTOR.DA_PROB</span></code> variable. BiaPy offers a wide range of transformations so please refers to <a class="reference external" href="https://github.com/danifranco/BiaPy/blob/master/config/config.py">config.py</a> to see the complete list.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">PATHS.DA_SAMPLES</span></code> path, i.e. <code class="docutils literal notranslate"><span class="pre">aug</span></code> folder by default, some images will be generated so you can check the data augmentation applied. In case you want a more exhaustive check you can save all the training data augmented with <code class="docutils literal notranslate"><span class="pre">DATA.CHECK_GENERATORS</span></code> enabled. The images will be saved in <code class="docutils literal notranslate"><span class="pre">PATHS.GEN_CHECKS</span></code> and <code class="docutils literal notranslate"><span class="pre">PATHS.GEN_MASK_CHECKS</span></code>. Be aware with this option and the disk space, as the training data will be entirely copied.</p>
+</div>
+<div class="section" id="model-definition">
+<h2>Model definition<a class="headerlink" href="#model-definition" title="Permalink to this headline">¶</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">MODEL.ARCHITECTURE</span></code> to select the model. Different <strong>models for each workflow</strong> are implemented in BiaPy:</p>
+<ul class="simple">
+<li><p>Semantic segmentation: <code class="docutils literal notranslate"><span class="pre">unet</span></code>, <code class="docutils literal notranslate"><span class="pre">resunet</span></code>, <code class="docutils literal notranslate"><span class="pre">attention_unet</span></code>, <code class="docutils literal notranslate"><span class="pre">seunet</span></code>, <code class="docutils literal notranslate"><span class="pre">fcn32</span></code>, <code class="docutils literal notranslate"><span class="pre">fcn8</span></code>, <code class="docutils literal notranslate"><span class="pre">nnunet</span></code>, <code class="docutils literal notranslate"><span class="pre">tiramisu</span></code>, <code class="docutils literal notranslate"><span class="pre">mnet</span></code>, <code class="docutils literal notranslate"><span class="pre">multiresunet</span></code>, <code class="docutils literal notranslate"><span class="pre">seunet</span></code> and <code class="docutils literal notranslate"><span class="pre">unetr</span></code>.</p></li>
+<li><p>Instance segmentation: <code class="docutils literal notranslate"><span class="pre">unet</span></code>, <code class="docutils literal notranslate"><span class="pre">resunet</span></code>, <code class="docutils literal notranslate"><span class="pre">attention_unet</span></code> and <code class="docutils literal notranslate"><span class="pre">seunet</span></code>.</p></li>
+<li><p>Detection: <code class="docutils literal notranslate"><span class="pre">unet</span></code>, <code class="docutils literal notranslate"><span class="pre">resunet</span></code>, <code class="docutils literal notranslate"><span class="pre">attention_unet</span></code> and <code class="docutils literal notranslate"><span class="pre">seunet</span></code>.</p></li>
+<li><p>Denoising: <code class="docutils literal notranslate"><span class="pre">unet</span></code>, <code class="docutils literal notranslate"><span class="pre">resunet</span></code>, <code class="docutils literal notranslate"><span class="pre">attention_unet</span></code> and <code class="docutils literal notranslate"><span class="pre">seunet</span></code>.</p></li>
+<li><p>Super-resolution: <code class="docutils literal notranslate"><span class="pre">edsr</span></code>.</p></li>
+<li><p>Self-supervision: <code class="docutils literal notranslate"><span class="pre">unet</span></code>, <code class="docutils literal notranslate"><span class="pre">resunet</span></code>, <code class="docutils literal notranslate"><span class="pre">attention_unet</span></code> and <code class="docutils literal notranslate"><span class="pre">seunet</span></code>.</p></li>
+<li><p>Classification: <code class="docutils literal notranslate"><span class="pre">simple_cnn</span></code> and <code class="docutils literal notranslate"><span class="pre">EfficientNetB0</span></code>.</p></li>
+</ul>
+<p>For <code class="docutils literal notranslate"><span class="pre">unet</span></code>, <code class="docutils literal notranslate"><span class="pre">resunet</span></code>, <code class="docutils literal notranslate"><span class="pre">attention_unet</span></code>, <code class="docutils literal notranslate"><span class="pre">seunet</span></code> and <code class="docutils literal notranslate"><span class="pre">tiramisu</span></code> architectures you can set <code class="docutils literal notranslate"><span class="pre">MODEL.FEATURE_MAPS</span></code> to determine the feature maps to use on each network level. In the same way, <code class="docutils literal notranslate"><span class="pre">MODEL.DROPOUT_VALUES</span></code> can be set for each level in those networks. For <code class="docutils literal notranslate"><span class="pre">tiramisu</span></code> network only the first value of those variables will be taken into account. <code class="docutils literal notranslate"><span class="pre">MODEL.DROPOUT_VALUES</span></code> also can be set for <code class="docutils literal notranslate"><span class="pre">unetr</span></code> transformer.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">MODEL.BATCH_NORMALIZATION</span></code> to use batch normalization on <code class="docutils literal notranslate"><span class="pre">unet</span></code>, <code class="docutils literal notranslate"><span class="pre">resunet</span></code>, <code class="docutils literal notranslate"><span class="pre">attention_unet</span></code>, <code class="docutils literal notranslate"><span class="pre">seunet</span></code> and <code class="docutils literal notranslate"><span class="pre">unetr</span></code> models. Except this last transformer, the 3D version of those networks also supports <code class="docutils literal notranslate"><span class="pre">Z_DOWN</span></code> option to not make downsampling in z axis, which usually works better in anisotropic data.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">MODEL.N_CLASSES</span></code> to set the <strong>number of classes</strong> without counting the background class (that should be using 0 label). With <code class="docutils literal notranslate"><span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">2</span></code> classes, the problem is cosidered binary and the behaviour is the same. With more than 2 classes a multi-class problem is considered so the output of the models will have also that amount of channels.</p>
+<p>Finally, use <code class="docutils literal notranslate"><span class="pre">MODEL.LOAD_CHECKPOINT</span></code> when you want to <strong>load a checkpoint</strong> of the network. For instance, when you want to predict new data you can enable it while deactivating training phase disabling <code class="docutils literal notranslate"><span class="pre">TRAIN.ENABLE</span></code>.</p>
+</div>
+<div class="section" id="training-phase">
+<h2>Training phase<a class="headerlink" href="#training-phase" title="Permalink to this headline">¶</a></h2>
+<p>Set <code class="docutils literal notranslate"><span class="pre">TRAIN.ENABLE</span></code> to <strong>activate training phase</strong>. Here you can set <code class="docutils literal notranslate"><span class="pre">TRAIN.OPTIMIZER</span></code> between <code class="docutils literal notranslate"><span class="pre">SGD</span></code> and <code class="docutils literal notranslate"><span class="pre">ADAM</span></code> and its learning rate with <code class="docutils literal notranslate"><span class="pre">TRAIN.LR</span></code>. If you do not have much expertise you can use <code class="docutils literal notranslate"><span class="pre">ADAM</span></code> and <code class="docutils literal notranslate"><span class="pre">1.E-4</span></code> as starting point.</p>
+<p>Apart from that you need to specify <strong>how many images will be feed into the network</strong> at the same time with <code class="docutils literal notranslate"><span class="pre">TRAIN.BATCH_SIZE</span></code>. E.g. if you have 100 training samples and you select a batch size of 6: <code class="docutils literal notranslate"><span class="pre">100/6=16.6</span></code> means that 17 batches are needed to input all training data to the network. When done an epoch is completed.</p>
+<p>For training you need to choose how many <strong>epochs</strong> to train the network with <code class="docutils literal notranslate"><span class="pre">TRAIN.EPOCHS</span></code>. You can also set patience with <code class="docutils literal notranslate"><span class="pre">TRAIN.PATIENCE</span></code>, which will stop the training process if no improvement in the validation data was made in those epochs.</p>
+</div>
+<div class="section" id="test-phase">
+<span id="config-test"></span><h2>Test phase<a class="headerlink" href="#test-phase" title="Permalink to this headline">¶</a></h2>
+<p>Set <code class="docutils literal notranslate"><span class="pre">TEST.ENABLE</span></code> to <strong>activate test phase</strong>, sometimes called also as inference or prediction. Here, if the <strong>test images are too big</strong> to input them directly in the GPU, e.g. 3D images, you need to set <code class="docutils literal notranslate"><span class="pre">TEST.STATS.PER_PATCH</span></code>. With this option each test image will be cropped into <code class="docutils literal notranslate"><span class="pre">DATA.PATCH_SIZE</span></code> patches, pass them through the network, and then reconstruct the original image. This option will automatically calculate performance metrics per patch if the ground truth is available (enabled by <code class="docutils literal notranslate"><span class="pre">DATA.TEST.LOAD_GT</span></code>). Here you can also set <code class="docutils literal notranslate"><span class="pre">TEST.STATS.MERGE_PATCHES</span></code> to calculate same metrics but once the patches have been merged into the original image.</p>
+<p>In case that the <strong>entire images can be placed in the GPU</strong> you can set only <code class="docutils literal notranslate"><span class="pre">TEST.STATS.FULL_IMG</span></code> without <code class="docutils literal notranslate"><span class="pre">TEST.STATS.PER_PATCH</span></code> and <code class="docutils literal notranslate"><span class="pre">TEST.STATS.MERGE_PATCHES</span></code> as explained above. For simplicity this setting is only available for <code class="docutils literal notranslate"><span class="pre">2D</span></code>. Here the performance metrics will be calculated if a ground truth the available (enabled by <code class="docutils literal notranslate"><span class="pre">DATA.TEST.LOAD_GT</span></code>).</p>
+<p>You can use <strong>test-time augmentation</strong> setting <code class="docutils literal notranslate"><span class="pre">TEST.AUGMENTATION</span></code>, which will create multiple augmented copies of each test image, or patch if <code class="docutils literal notranslate"><span class="pre">TEST.STATS.PER_PATCH</span></code> has been selected, by all possible rotations (8 copies in 2D and 16 in 3D). This will slow down the inference process but will return more robust predictions.</p>
+<p>You can use also use <code class="docutils literal notranslate"><span class="pre">DATA.REFLECT_TO_COMPLETE_SHAPE</span></code> to ensure that the patches can be made.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>If the test images are big and you have memory problems you can set <code class="docutils literal notranslate"><span class="pre">TEST.REDUCE_MEMORY</span></code> which will save as much memory as the library can at the price of slow down the inference process.</p>
+</div>
+</div>
+<div class="section" id="post-processing">
+<h2>Post-processing<a class="headerlink" href="#post-processing" title="Permalink to this headline">¶</a></h2>
+<p>BiaPy offers the following post-processing methods:</p>
+<ul class="simple">
+<li><p>Apply <strong>binary mask</strong> to remove everything not contained in that mask. For this <code class="docutils literal notranslate"><span class="pre">DATA.TEST.BINARY_MASKS</span></code> path need to be set. <code class="docutils literal notranslate"><span class="pre">TEST.STATS.PER_PATCH</span></code> need to be enabled and will be done after the original image is reconstructed from patches.</p></li>
+<li><p><strong>Z axis filtering</strong> with <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.Z_FILTERING</span></code> for 3D data when <code class="docutils literal notranslate"><span class="pre">TEST.STATS.PER_PATCH</span></code> option is set. Also, <strong>YZ axes filtering</strong> is implemented via <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.YZ_FILTERING</span></code> variable.</p></li>
+<li><p>In instance segmentation workflow <strong>Voronoi</strong> can be used after creating the instances to ensure all cells are touching each other setting <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.VORONOI_ON_MASK</span></code>.</p></li>
+<li><p>In detection workflow <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.REMOVE_CLOSE_POINTS</span></code> can be used to <strong>remove points</strong> close to each other.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="select_workflow.html" class="btn btn-neutral float-right" title="Select workflow" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="how_it_works.html" class="btn btn-neutral float-left" title="How it works" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Daniel Franco-Barranco.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

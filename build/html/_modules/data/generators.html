@@ -1,0 +1,498 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>data.generators &mdash; BiaPy  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> BiaPy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Get started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/how_it_works.html">How it works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/select_workflow.html">Select workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workflows</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/semantic_segmentation.html">Semantic segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/instance_segmentation.html">Instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/detection.html">Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/denoising.html">Denoising</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/super_resolution.html">Super-resolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/self_supervision.html">Self-supervision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/classification.html">Classification</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/cysto.html">3D Cysto Instance Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitochondria.html">2D Mitochondria segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../config/main_config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data/data.html">data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../engine/engine.html">engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../models/models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utils/utils.html">utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../bibliography.html">Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">BiaPy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>data.generators</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for data.generators</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">from</span> <span class="nn">utils.util</span> <span class="kn">import</span>  <span class="n">save_tif</span>
+<span class="kn">from</span> <span class="nn">data.pre_processing</span> <span class="kn">import</span> <span class="n">calculate_2D_volume_prob_map</span><span class="p">,</span> <span class="n">calculate_3D_volume_prob_map</span><span class="p">,</span> <span class="n">save_tif</span>
+<span class="kn">from</span> <span class="nn">data.generators.data_2D_generator</span> <span class="kn">import</span> <span class="n">ImageDataGenerator</span>
+<span class="kn">from</span> <span class="nn">data.generators.data_2D_generator_img_pair</span> <span class="kn">import</span> <span class="n">PairImageDataGenerator</span>
+<span class="kn">from</span> <span class="nn">data.generators.data_2D_generator_classification</span> <span class="kn">import</span> <span class="n">ClassImageDataGenerator</span>
+<span class="kn">from</span> <span class="nn">data.generators.data_3D_generator</span> <span class="kn">import</span> <span class="n">VoxelDataGenerator</span>
+<span class="kn">from</span> <span class="nn">data.generators.simple_data_generators</span> <span class="kn">import</span> <span class="n">simple_data_generator</span>
+
+
+<div class="viewcode-block" id="create_train_val_augmentors"><a class="viewcode-back" href="../../data/generators/init.html#data.generators.create_train_val_augmentors">[docs]</a><span class="k">def</span> <span class="nf">create_train_val_augmentors</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">Y_val</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create training and validation generators.</span>
+
+<span class="sd">       Parameters</span>
+<span class="sd">       ----------</span>
+<span class="sd">       cfg : YACS CN object</span>
+<span class="sd">           Configuration.</span>
+
+<span class="sd">       X_train : 4D Numpy array</span>
+<span class="sd">           Training data. E.g. ``(num_of_images, y, x, channels)``.</span>
+
+<span class="sd">       Y_train : 4D Numpy array</span>
+<span class="sd">           Training data mask. E.g. ``(num_of_images, y, x, 1)``.</span>
+
+<span class="sd">       X_val : 4D Numpy array</span>
+<span class="sd">           Validation data mask. E.g. ``(num_of_images, y, x, channels)``.</span>
+
+<span class="sd">       Y_val : 4D Numpy array</span>
+<span class="sd">           Validation data mask. E.g. ``(num_of_images, y, x, 1)``.</span>
+
+<span class="sd">       Returns</span>
+<span class="sd">       -------</span>
+<span class="sd">       train_generator : ImageDataGenerator (2D) or VoxelDataGenerator (3D)</span>
+<span class="sd">           Training data generator.</span>
+
+<span class="sd">       val_generator : ImageDataGenerator (2D) or VoxelDataGenerator (3D)</span>
+<span class="sd">           Validation data generator.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Calculate the probability map per image</span>
+    <span class="n">prob_map</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">PROBABILITY_MAP</span> <span class="ow">and</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">EXTRACT_RANDOM_PATCH</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">PROB_MAP_DIR</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading probability map&quot;</span><span class="p">)</span>
+            <span class="n">prob_map_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">PROB_MAP_DIR</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">PROB_MAP_FILENAME</span><span class="p">)</span>
+            <span class="n">num_files</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">PROB_MAP_DIR</span><span class="p">))[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">prob_map</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">PROB_MAP_DIR</span> <span class="k">if</span> <span class="n">num_files</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">prob_map_file</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">f_name</span> <span class="o">=</span> <span class="n">calculate_2D_volume_prob_map</span> <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">NDIM</span> <span class="o">==</span> <span class="s1">&#39;2D&#39;</span> <span class="k">else</span> <span class="n">calculate_3D_volume_prob_map</span>
+            <span class="n">prob_map</span> <span class="o">=</span> <span class="n">f_name</span><span class="p">(</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">MASK_PATH</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">W_FOREGROUND</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">W_BACKGROUND</span><span class="p">,</span>
+                              <span class="n">save_dir</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">PROB_MAP_DIR</span><span class="p">)</span>
+
+    <span class="c1"># Normalization checks</span>
+    <span class="n">custom_mean</span><span class="p">,</span> <span class="n">custom_std</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">NORMALIZATION</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">==</span> <span class="s1">&#39;custom&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">NORMALIZATION</span><span class="o">.</span><span class="n">CUSTOM_MEAN</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">NORMALIZATION</span><span class="o">.</span><span class="n">CUSTOM_STD</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Train/Val normalization: trying to load mean and std from </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">MEAN_INFO_FILE</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Train/Val normalization: trying to load std from </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">STD_INFO_FILE</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">MEAN_INFO_FILE</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">STD_INFO_FILE</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Train/Val normalization: mean and/or std files not found. Calculating it for the first time&quot;</span><span class="p">)</span>
+                <span class="n">custom_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+                <span class="n">custom_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">MEAN_INFO_FILE</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">MEAN_INFO_FILE</span><span class="p">,</span> <span class="n">custom_mean</span><span class="p">)</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">STD_INFO_FILE</span><span class="p">,</span> <span class="n">custom_std</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">custom_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">MEAN_INFO_FILE</span><span class="p">)</span>
+                <span class="n">custom_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">STD_INFO_FILE</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Train/Val normalization values loaded!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">custom_mean</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">NORMALIZATION</span><span class="o">.</span><span class="n">CUSTOM_MEAN</span>
+            <span class="n">custom_std</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">NORMALIZATION</span><span class="o">.</span><span class="n">CUSTOM_STD</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Train/Val normalization: using mean </span><span class="si">{}</span><span class="s2"> and std: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">custom_mean</span><span class="p">,</span> <span class="n">custom_std</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">NDIM</span> <span class="o">==</span> <span class="s1">&#39;2D&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">==</span> <span class="s1">&#39;CLASSIFICATION&#39;</span><span class="p">:</span>
+            <span class="n">f_name</span> <span class="o">=</span> <span class="n">ClassImageDataGenerator</span>
+        <span class="k">elif</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">TYPE</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;SUPER_RESOLUTION&#39;</span><span class="p">,</span> <span class="s1">&#39;SELF_SUPERVISED&#39;</span><span class="p">]:</span>
+            <span class="n">f_name</span> <span class="o">=</span> <span class="n">PairImageDataGenerator</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># Semantic/Instance segmentation and Denoising</span>
+            <span class="n">f_name</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span> 
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">f_name</span> <span class="o">=</span> <span class="n">VoxelDataGenerator</span>
+    
+    <span class="n">ndim</span> <span class="o">=</span> <span class="mi">3</span> <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">NDIM</span> <span class="o">==</span> <span class="s2">&quot;3D&quot;</span> <span class="k">else</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">!=</span> <span class="s1">&#39;CLASSIFICATION&#39;</span><span class="p">:</span>
+        <span class="n">dic</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">BATCH_SIZE</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">SYSTEM</span><span class="o">.</span><span class="n">SEED</span><span class="p">,</span>
+            <span class="n">shuffle_each_epoch</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHUFFLE_TRAIN_DATA_EACH_EPOCH</span><span class="p">,</span> <span class="n">in_memory</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">IN_MEMORY</span><span class="p">,</span>
+            <span class="n">data_paths</span><span class="o">=</span><span class="p">[</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">MASK_PATH</span><span class="p">],</span> <span class="n">da</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ENABLE</span><span class="p">,</span>
+            <span class="n">da_prob</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">DA_PROB</span><span class="p">,</span> <span class="n">rotation90</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ROT90</span><span class="p">,</span> <span class="n">rand_rot</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">RANDOM_ROT</span><span class="p">,</span>
+            <span class="n">rnd_rot_range</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">RANDOM_ROT_RANGE</span><span class="p">,</span> <span class="n">shear</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHEAR</span><span class="p">,</span> <span class="n">shear_range</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHEAR_RANGE</span><span class="p">,</span>
+            <span class="n">zoom</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ZOOM</span><span class="p">,</span> <span class="n">zoom_range</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ZOOM_RANGE</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHIFT</span><span class="p">,</span>
+            <span class="n">affine_mode</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">AFFINE_MODE</span><span class="p">,</span> <span class="n">shift_range</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHIFT_RANGE</span><span class="p">,</span> <span class="n">vflip</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">VFLIP</span><span class="p">,</span>
+            <span class="n">hflip</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">HFLIP</span><span class="p">,</span> <span class="n">elastic</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ELASTIC</span><span class="p">,</span> <span class="n">e_alpha</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">E_ALPHA</span><span class="p">,</span>
+            <span class="n">e_sigma</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">E_SIGMA</span><span class="p">,</span> <span class="n">e_mode</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">E_MODE</span><span class="p">,</span> <span class="n">g_blur</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">G_BLUR</span><span class="p">,</span>
+            <span class="n">g_sigma</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">G_SIGMA</span><span class="p">,</span> <span class="n">median_blur</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MEDIAN_BLUR</span><span class="p">,</span> <span class="n">mb_kernel</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MB_KERNEL</span><span class="p">,</span>
+            <span class="n">motion_blur</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MOTION_BLUR</span><span class="p">,</span> <span class="n">motb_k_range</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MOTB_K_RANGE</span><span class="p">,</span>
+            <span class="n">gamma_contrast</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GAMMA_CONTRAST</span><span class="p">,</span> <span class="n">gc_gamma</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GC_GAMMA</span><span class="p">,</span> <span class="n">brightness</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">BRIGHTNESS</span><span class="p">,</span>
+            <span class="n">brightness_factor</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">BRIGHTNESS_FACTOR</span><span class="p">,</span> <span class="n">brightness_mode</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">BRIGHTNESS_MODE</span><span class="p">,</span>
+            <span class="n">contrast</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CONTRAST</span><span class="p">,</span> <span class="n">contrast_factor</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CONTRAST_FACTOR</span><span class="p">,</span>
+            <span class="n">contrast_mode</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CONTRAST_MODE</span><span class="p">,</span> <span class="n">brightness_em</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">BRIGHTNESS_EM</span><span class="p">,</span>
+            <span class="n">brightness_em_factor</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">BRIGHTNESS_EM_FACTOR</span><span class="p">,</span> <span class="n">brightness_em_mode</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">BRIGHTNESS_EM_MODE</span><span class="p">,</span>
+            <span class="n">contrast_em</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CONTRAST_EM</span><span class="p">,</span> <span class="n">contrast_em_factor</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CONTRAST_EM_FACTOR</span><span class="p">,</span>
+            <span class="n">contrast_em_mode</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CONTRAST_EM_MODE</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">DROPOUT</span><span class="p">,</span>
+            <span class="n">drop_range</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">DROP_RANGE</span><span class="p">,</span> <span class="n">cutout</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CUTOUT</span><span class="p">,</span>
+            <span class="n">cout_nb_iterations</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">COUT_NB_ITERATIONS</span><span class="p">,</span> <span class="n">cout_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">COUT_SIZE</span><span class="p">,</span>
+            <span class="n">cout_cval</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">COUT_CVAL</span><span class="p">,</span> <span class="n">cout_apply_to_mask</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">COUT_APPLY_TO_MASK</span><span class="p">,</span>
+            <span class="n">cutblur</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CUTBLUR</span><span class="p">,</span> <span class="n">cblur_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CBLUR_SIZE</span><span class="p">,</span> <span class="n">cblur_down_range</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CBLUR_DOWN_RANGE</span><span class="p">,</span>
+            <span class="n">cblur_inside</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CBLUR_INSIDE</span><span class="p">,</span> <span class="n">cutmix</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CUTMIX</span><span class="p">,</span> <span class="n">cmix_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CMIX_SIZE</span><span class="p">,</span>
+            <span class="n">cutnoise</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CUTNOISE</span><span class="p">,</span> <span class="n">cnoise_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CNOISE_SIZE</span><span class="p">,</span>
+            <span class="n">cnoise_nb_iterations</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CNOISE_NB_ITERATIONS</span><span class="p">,</span> <span class="n">cnoise_scale</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CNOISE_SCALE</span><span class="p">,</span>
+            <span class="n">misalignment</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MISALIGNMENT</span><span class="p">,</span> <span class="n">ms_displacement</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MS_DISPLACEMENT</span><span class="p">,</span>
+            <span class="n">ms_rotate_ratio</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MS_ROTATE_RATIO</span><span class="p">,</span> <span class="n">missing_sections</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MISSING_SECTIONS</span><span class="p">,</span>
+            <span class="n">missp_iterations</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MISSP_ITERATIONS</span><span class="p">,</span> <span class="n">grayscale</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GRAYSCALE</span><span class="p">,</span>
+            <span class="n">channel_shuffle</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CHANNEL_SHUFFLE</span><span class="p">,</span> <span class="n">gridmask</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GRIDMASK</span><span class="p">,</span>
+            <span class="n">grid_ratio</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GRID_RATIO</span><span class="p">,</span> <span class="n">grid_d_range</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GRID_D_RANGE</span><span class="p">,</span> <span class="n">grid_rotate</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GRID_ROTATE</span><span class="p">,</span>
+            <span class="n">grid_invert</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GRID_INVERT</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">PATCH_SIZE</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">RESOLUTION</span><span class="p">,</span>
+            <span class="n">random_crops_in_DA</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">EXTRACT_RANDOM_PATCH</span><span class="p">,</span> <span class="n">prob_map</span><span class="o">=</span><span class="n">prob_map</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">N_CLASSES</span><span class="p">,</span>
+            <span class="n">extra_data_factor</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">REPLICATE</span><span class="p">,</span> <span class="n">norm_custom_mean</span><span class="o">=</span><span class="n">custom_mean</span><span class="p">,</span> <span class="n">norm_custom_std</span><span class="o">=</span><span class="n">custom_std</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">NDIM</span> <span class="o">==</span> <span class="s1">&#39;3D&#39;</span><span class="p">:</span>
+            <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;zflip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ZFLIP</span>
+
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">==</span> <span class="s1">&#39;INSTANCE_SEG&#39;</span><span class="p">:</span>
+            <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;instance_problem&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">==</span> <span class="s1">&#39;SUPER_RESOLUTION&#39;</span><span class="p">:</span>
+            <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;random_crop_scale&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">RANDOM_CROP_SCALE</span>
+        <span class="k">elif</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">==</span> <span class="s1">&#39;DENOISING&#39;</span><span class="p">:</span>
+            <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;n2v&#39;</span><span class="p">]</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;n2v_perc_pix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">DENOISING</span><span class="o">.</span><span class="n">N2V_PERC_PIX</span>
+            <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;n2v_manipulator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">DENOISING</span><span class="o">.</span><span class="n">N2V_MANIPULATOR</span>
+            <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;n2v_neighborhood_radius&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">DENOISING</span><span class="o">.</span><span class="n">N2V_NEIGHBORHOOD_RADIUS</span>
+            <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;n2v_structMask&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span> <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">DENOISING</span><span class="o">.</span><span class="n">N2V_STRUCTMASK</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">r_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">224</span><span class="p">,</span><span class="mi">224</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">PATCH_SIZE</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],)</span> <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">ARCHITECTURE</span> <span class="o">==</span> <span class="s1">&#39;EfficientNetB0&#39;</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">dic</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">N_CLASSES</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">BATCH_SIZE</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">SYSTEM</span><span class="o">.</span><span class="n">SEED</span><span class="p">,</span> <span class="n">shuffle_each_epoch</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHUFFLE_TRAIN_DATA_EACH_EPOCH</span><span class="p">,</span>
+            <span class="n">da</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ENABLE</span><span class="p">,</span> <span class="n">in_memory</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">IN_MEMORY</span><span class="p">,</span> <span class="n">da_prob</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">DA_PROB</span><span class="p">,</span>
+            <span class="n">rotation90</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ROT90</span><span class="p">,</span> <span class="n">rand_rot</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">RANDOM_ROT</span><span class="p">,</span> <span class="n">rnd_rot_range</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">RANDOM_ROT_RANGE</span><span class="p">,</span>
+            <span class="n">shear</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHEAR</span><span class="p">,</span> <span class="n">shear_range</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHEAR_RANGE</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ZOOM</span><span class="p">,</span>
+            <span class="n">zoom_range</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ZOOM_RANGE</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHIFT</span><span class="p">,</span> <span class="n">shift_range</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHIFT_RANGE</span><span class="p">,</span>
+            <span class="n">affine_mode</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">AFFINE_MODE</span><span class="p">,</span> <span class="n">vflip</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">VFLIP</span><span class="p">,</span> <span class="n">hflip</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">HFLIP</span><span class="p">,</span>
+            <span class="n">elastic</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ELASTIC</span><span class="p">,</span> <span class="n">e_alpha</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">E_ALPHA</span><span class="p">,</span> <span class="n">e_sigma</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">E_SIGMA</span><span class="p">,</span>
+            <span class="n">e_mode</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">E_MODE</span><span class="p">,</span> <span class="n">g_blur</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">G_BLUR</span><span class="p">,</span> <span class="n">g_sigma</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">G_SIGMA</span><span class="p">,</span>
+            <span class="n">median_blur</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MEDIAN_BLUR</span><span class="p">,</span> <span class="n">mb_kernel</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MB_KERNEL</span><span class="p">,</span> <span class="n">motion_blur</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MOTION_BLUR</span><span class="p">,</span>
+            <span class="n">motb_k_range</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MOTB_K_RANGE</span><span class="p">,</span> <span class="n">gamma_contrast</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GAMMA_CONTRAST</span><span class="p">,</span>
+            <span class="n">gc_gamma</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GC_GAMMA</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">DROPOUT</span><span class="p">,</span> <span class="n">drop_range</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">DROP_RANGE</span><span class="p">,</span>
+            <span class="n">resize_shape</span><span class="o">=</span><span class="n">r_shape</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initializing train data generator . . .&quot;</span><span class="p">)</span>
+    <span class="n">train_generator</span> <span class="o">=</span> <span class="n">f_name</span><span class="p">(</span><span class="o">**</span><span class="n">dic</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initializing val data generator . . .&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">!=</span> <span class="s1">&#39;CLASSIFICATION&#39;</span><span class="p">:</span>
+        <span class="n">dic</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ndim</span><span class="o">=</span><span class="n">ndim</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X_val</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="n">Y_val</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">BATCH_SIZE</span><span class="p">,</span>
+            <span class="n">shuffle_each_epoch</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHUFFLE_VAL_DATA_EACH_EPOCH</span><span class="p">,</span> <span class="n">in_memory</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">IN_MEMORY</span><span class="p">,</span>
+            <span class="n">data_paths</span><span class="o">=</span><span class="p">[</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">MASK_PATH</span><span class="p">],</span> <span class="n">da</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">PATCH_SIZE</span><span class="p">,</span>
+            <span class="n">random_crops_in_DA</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">EXTRACT_RANDOM_PATCH</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">N_CLASSES</span><span class="p">,</span> 
+            <span class="n">seed</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">SYSTEM</span><span class="o">.</span><span class="n">SEED</span><span class="p">,</span> <span class="n">norm_custom_mean</span><span class="o">=</span><span class="n">custom_mean</span><span class="p">,</span> <span class="n">norm_custom_std</span><span class="o">=</span><span class="n">custom_std</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">RESOLUTION</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">==</span> <span class="s1">&#39;SUPER_RESOLUTION&#39;</span><span class="p">:</span>
+            <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;random_crop_scale&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">RANDOM_CROP_SCALE</span>
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">==</span> <span class="s1">&#39;DENOISING&#39;</span><span class="p">:</span>
+            <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;n2v&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;n2v_perc_pix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">DENOISING</span><span class="o">.</span><span class="n">N2V_PERC_PIX</span>
+            <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;n2v_manipulator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">DENOISING</span><span class="o">.</span><span class="n">N2V_MANIPULATOR</span>
+            <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;n2v_neighborhood_radius&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">DENOISING</span><span class="o">.</span><span class="n">N2V_NEIGHBORHOOD_RADIUS</span>
+        <span class="n">val_generator</span> <span class="o">=</span> <span class="n">f_name</span><span class="p">(</span><span class="o">**</span><span class="n">dic</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">val_generator</span> <span class="o">=</span> <span class="n">f_name</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_val</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="n">Y_val</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">N_CLASSES</span><span class="p">,</span> <span class="n">in_memory</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">IN_MEMORY</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">BATCH_SIZE</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">SYSTEM</span><span class="o">.</span><span class="n">SEED</span><span class="p">,</span> <span class="n">shuffle_each_epoch</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHUFFLE_VAL_DATA_EACH_EPOCH</span><span class="p">,</span> <span class="n">da</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+    <span class="c1"># Generate examples of data augmentation</span>
+    <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">AUG_SAMPLES</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Creating generator samples . . .&quot;</span><span class="p">)</span>
+        <span class="n">train_generator</span><span class="o">.</span><span class="n">get_transformed_samples</span><span class="p">(</span>
+            <span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">AUG_NUM_SAMPLES</span><span class="p">,</span> <span class="n">save_to_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">DA_SAMPLES</span><span class="p">,</span>
+            <span class="n">draw_grid</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">DRAW_GRID</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">train_generator</span><span class="p">,</span> <span class="n">val_generator</span></div>
+
+
+<div class="viewcode-block" id="create_test_augmentor"><a class="viewcode-back" href="../../data/generators/init.html#data.generators.create_test_augmentor">[docs]</a><span class="k">def</span> <span class="nf">create_test_augmentor</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create test data generator.</span>
+
+<span class="sd">       Parameters</span>
+<span class="sd">       ----------</span>
+<span class="sd">       cfg : YACS CN object</span>
+<span class="sd">           Configuration.</span>
+
+<span class="sd">       X_test : 4D Numpy array</span>
+<span class="sd">           Test data. E.g. ``(num_of_images, y, x, channels)``.</span>
+
+<span class="sd">       Y_test : 4D Numpy array</span>
+<span class="sd">           Test data mask. E.g. ``(num_of_images, y, x, 1)``.</span>
+
+<span class="sd">       Returns</span>
+<span class="sd">       -------</span>
+<span class="sd">       test_generator : simple_data_generator</span>
+<span class="sd">           Test data generator.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">custom_mean</span><span class="p">,</span> <span class="n">custom_std</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">NORMALIZATION</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">==</span> <span class="s1">&#39;custom&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">NORMALIZATION</span><span class="o">.</span><span class="n">CUSTOM_MEAN</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">NORMALIZATION</span><span class="o">.</span><span class="n">CUSTOM_STD</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test normalization: trying to load mean and std from </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">MEAN_INFO_FILE</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test normalization: trying to load std from </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">STD_INFO_FILE</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">MEAN_INFO_FILE</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">STD_INFO_FILE</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;Not mean/std files found in </span><span class="si">{}</span><span class="s2"> and </span><span class="si">{}</span><span class="s2">&quot;</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">MEAN_INFO_FILE</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">STD_INFO_FILE</span><span class="p">))</span>
+            <span class="n">custom_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">MEAN_INFO_FILE</span><span class="p">)</span>
+            <span class="n">custom_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">STD_INFO_FILE</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">custom_mean</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">NORMALIZATION</span><span class="o">.</span><span class="n">CUSTOM_MEAN</span>
+            <span class="n">custom_std</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">NORMALIZATION</span><span class="o">.</span><span class="n">CUSTOM_STD</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test normalization: using mean </span><span class="si">{}</span><span class="s2"> and std: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">custom_mean</span><span class="p">,</span> <span class="n">custom_std</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">==</span> <span class="s1">&#39;CLASSIFICATION&#39;</span><span class="p">:</span>
+        <span class="n">test_generator</span> <span class="o">=</span> <span class="n">ClassImageDataGenerator</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_test</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span>
+            <span class="n">n_classes</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">N_CLASSES</span><span class="p">,</span> <span class="n">in_memory</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">IN_MEMORY</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">SYSTEM</span><span class="o">.</span><span class="n">SEED</span><span class="p">,</span> <span class="n">shuffle_each_epoch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">da</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">instance_problem</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">==</span> <span class="s1">&#39;INSTANCE_SEG&#39;</span> <span class="k">else</span> <span class="kc">False</span>
+        <span class="n">dic</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_test</span><span class="p">,</span> <span class="n">d_path</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="n">provide_Y</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">LOAD_GT</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="n">Y_test</span><span class="p">,</span>
+            <span class="n">dm_path</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">MASK_PATH</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">NDIM</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">SYSTEM</span><span class="o">.</span><span class="n">SEED</span><span class="p">,</span>
+            <span class="n">instance_problem</span><span class="o">=</span><span class="n">instance_problem</span><span class="p">,</span> <span class="n">norm_custom_mean</span><span class="o">=</span><span class="n">custom_mean</span><span class="p">,</span> <span class="n">norm_custom_std</span><span class="o">=</span><span class="n">custom_std</span><span class="p">)</span>
+        <span class="n">test_generator</span> <span class="o">=</span> <span class="n">simple_data_generator</span><span class="p">(</span><span class="o">**</span><span class="n">dic</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">test_generator</span></div>
+
+
+<div class="viewcode-block" id="check_generator_consistence"><a class="viewcode-back" href="../../data/generators/init.html#data.generators.check_generator_consistence">[docs]</a><span class="k">def</span> <span class="nf">check_generator_consistence</span><span class="p">(</span><span class="n">gen</span><span class="p">,</span> <span class="n">data_out_dir</span><span class="p">,</span> <span class="n">mask_out_dir</span><span class="p">,</span> <span class="n">filenames</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Save all data of a generator in the given path.</span>
+
+<span class="sd">       Parameters</span>
+<span class="sd">       ----------</span>
+<span class="sd">       gen : ImageDataGenerator (2D) or VoxelDataGenerator (3D)</span>
+<span class="sd">           Generator to extract the data from.</span>
+
+<span class="sd">       data_out_dir : str</span>
+<span class="sd">           Path to store the generator data samples.</span>
+
+<span class="sd">       mask_out_dir : str</span>
+<span class="sd">           Path to store the generator data mask samples.</span>
+
+<span class="sd">       Filenames : List, optional</span>
+<span class="sd">           Filenames that should be used when saving each image.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Check generator . . .&quot;</span><span class="p">)</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">filenames</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gen</span><span class="p">))):</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+
+        <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">batch</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">leave</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <span class="n">fil</span> <span class="o">=</span> <span class="n">filenames</span><span class="p">[(</span><span class="n">i</span><span class="o">*</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="n">j</span><span class="p">:(</span><span class="n">i</span><span class="o">*</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">filenames</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;.tif&quot;</span><span class="p">]</span>
+            <span class="n">save_tif</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="mi">0</span><span class="p">),</span> <span class="n">data_out_dir</span><span class="p">,</span> <span class="n">fil</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">save_tif</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">Y_test</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="mi">0</span><span class="p">),</span> <span class="n">mask_out_dir</span><span class="p">,</span> <span class="n">fil</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Daniel Franco-Barranco.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,807 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Util &mdash; BiaPy  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Bibliography" href="../bibliography.html" />
+    <link rel="prev" title="Grad-CAM" href="grad_cam.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> BiaPy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Get started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/how_it_works.html">How it works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/select_workflow.html">Select workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workflows</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/semantic_segmentation.html">Semantic segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/instance_segmentation.html">Instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/detection.html">Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/denoising.html">Denoising</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/super_resolution.html">Super-resolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/self_supervision.html">Self-supervision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/classification.html">Classification</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/cysto.html">3D Cysto Instance Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitochondria.html">2D Mitochondria segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../config/main_config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/data.html">data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../engine/engine.html">engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../models/models.html">models</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="utils.html">utils</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="adabound.html">Adabound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callbacks.html">Callbacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grad_cam.html">Grad-CAM</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Util</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BiaPy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../API.html">&lt;no title&gt;</a> &raquo;</li>
+        
+          <li><a href="utils.html">utils</a> &raquo;</li>
+        
+      <li>Util</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-utils.util">
+<span id="util"></span><h1>Util<a class="headerlink" href="#module-utils.util" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.limit_threads">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">limit_threads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threads_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#limit_threads"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.limit_threads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Limits the number of threads for a python process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>threads_number</strong> (<em>int, optional</em>) – Number of threads.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.set_seed">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">set_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seedValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">42</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">determinism</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#set_seed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.set_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the seed on multiple python modules to obtain results as reproducible as possible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seedValue</strong> (<em>int, optional</em>) – Seed value.</p></li>
+<li><p><strong>determinism</strong> (<em>bool, optional</em>) – To force determism.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.create_plots">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">create_plots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chartOutDir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'jaccard_index'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#create_plots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.create_plots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create loss and main metric plots with the given results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<em>Keras History object</em>) – Record of training loss values and metrics values at successive epochs. History object is returned by Keras
+<a class="reference external" href="https://keras.io/api/models/model_training_apis/#fit-method">fit()</a> method.</p></li>
+<li><p><strong>job_id</strong> (<em>str</em>) – Jod identifier.</p></li>
+<li><p><strong>chartOutDir</strong> (<em>str</em>) – Path where the charts will be stored into.</p></li>
+<li><p><strong>metric</strong> (<em>str, optional</em>) – Metric used.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/chart_loss.png"><img alt="../_images/chart_loss.png" src="../_images/chart_loss.png" style="width: 80%;" /></a>
+<p class="caption"><span class="caption-text">Loss values on each epoch</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</td>
+<td><div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/chart_jaccard_index.png"><img alt="../_images/chart_jaccard_index.png" src="../_images/chart_jaccard_index.png" style="width: 80%;" /></a>
+<p class="caption"><span class="caption-text">Jaccard index values on each epoch</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.threshold_plots">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">threshold_plots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preds_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">det_eval_ge_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">det_eval_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">det_bin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_dig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">char_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#threshold_plots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.threshold_plots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a plot with the different metric values binarizing the prediction with different thresholds, from <code class="docutils literal notranslate"><span class="pre">0.1</span></code>
+to <code class="docutils literal notranslate"><span class="pre">0.9</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>preds_test</strong> (<em>4D Numpy array</em>) – Predictions made by the model. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>Y_test</strong> (<em>4D Numpy array</em>) – Ground truth of the data. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>det_eval_ge_path</strong> (<em>str</em>) – Path where the ground truth is stored for the DET calculation.</p></li>
+<li><p><strong>det_eval_path</strong> (<em>str</em>) – Path where the evaluation of the metric will be done.</p></li>
+<li><p><strong>det_bin</strong> (<em>str</em>) – Path to the DET binary.</p></li>
+<li><p><strong>n_dig</strong> (<em>int</em>) – The number of digits used for encoding temporal indices (e.g. <code class="docutils literal notranslate"><span class="pre">3</span></code>). Used by the DET calculation binary.</p></li>
+<li><p><strong>job_id</strong> (<em>str</em>) – Id of the job.</p></li>
+<li><p><strong>job_file</strong> (<em>str</em>) – Id and run number of the job.</p></li>
+<li><p><strong>char_dir</strong> (<em>str</em>) – Path to store the charts generated.</p></li>
+<li><p><strong>r_val</strong> (<em>float, optional</em>) – Threshold values to return.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>t_jac</strong> (<em>float</em>) – Value of the Jaccard index when the threshold is <code class="docutils literal notranslate"><span class="pre">r_val</span></code>.</p></li>
+<li><p><strong>t_voc</strong> (<em>float</em>) – Value of VOC when the threshold is <code class="docutils literal notranslate"><span class="pre">r_val</span></code>.</p></li>
+<li><p><strong>t_det</strong> (<em>float</em>) – Value of DET when the threshold is <code class="docutils literal notranslate"><span class="pre">r_val</span></code>.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jac</span><span class="p">,</span> <span class="n">voc</span><span class="p">,</span> <span class="n">det</span> <span class="o">=</span> <span class="n">threshold_plots</span><span class="p">(</span>
+    <span class="n">preds_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">,</span> <span class="n">det_eval_ge_path</span><span class="p">,</span> <span class="n">det_eval_path</span><span class="p">,</span> <span class="n">det_bin</span><span class="p">,</span>
+    <span class="n">n_dig</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">job_id</span><span class="p">,</span> <span class="s1">&#39;278_3&#39;</span><span class="p">,</span> <span class="n">char_dir</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Will generate 3 charts, one per each metric: IoU, VOC and DET. In the x axis represents the 9 different
+thresholds applied, that is: <code class="docutils literal notranslate"><span class="pre">0.1,</span> <span class="pre">0.2,</span> <span class="pre">0.3,</span> <span class="pre">...,</span> <span class="pre">0.9</span></code>. The y axis is the value of the metric in each chart. For
+instance, the Jaccard/IoU chart will look like this:</p>
+<a class="reference internal image-reference" href="../_images/278_3_threshold_Jaccard.png"><img alt="../_images/278_3_threshold_Jaccard.png" class="align-center" src="../_images/278_3_threshold_Jaccard.png" style="width: 60%;" /></a>
+<p>In this example, the best value, <code class="docutils literal notranslate"><span class="pre">0.868</span></code>, is obtained with a threshold of <code class="docutils literal notranslate"><span class="pre">0.4</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.save_tif">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">save_tif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#save_tif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.save_tif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save images in the given directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>4D/5D numpy array</em>) – Data to save as images. The first dimension must be the number of images. E.g.
+<code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> or <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>data_dir</strong> (<em>str, optional</em>) – Path to store X images.</p></li>
+<li><p><strong>filenames</strong> (<em>List, optional</em>) – Filenames that should be used when saving each image.</p></li>
+<li><p><strong>verbose</strong> (<em>bool, optional</em>) – To print saving information.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.save_tif_pair_discard">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">save_tif_pair_discard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discard</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#save_tif_pair_discard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.save_tif_pair_discard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save images in the given directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>4D/5D numpy array</em>) – Data to save as images. The first dimension must be the number of images. E.g.
+<code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> or <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>Y</strong> (<em>4D/5D numpy array</em>) – Data mask to save. The first dimension must be the number of images. E.g.
+<code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> or <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>data_dir</strong> (<em>str, optional</em>) – Path to store X images.</p></li>
+<li><p><strong>suffix</strong> (<em>str, optional</em>) – Suffix to apply on output directory.</p></li>
+<li><p><strong>filenames</strong> (<em>List, optional</em>) – Filenames that should be used when saving each image.</p></li>
+<li><p><strong>discard</strong> (<em>bool, optional</em>) – Wheter to discard image/mask pairs if the mask has no label information.</p></li>
+<li><p><strong>verbose</strong> (<em>bool, optional</em>) – To print saving information.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.save_img">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">save_img</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.png'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#save_img"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.save_img" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save images in the given directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>4D numpy array, optional</em>) – Data to save as images. The first dimension must be the number of images. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>data_dir</strong> (<em>str, optional</em>) – Path to store X images.</p></li>
+<li><p><strong>Y</strong> (<em>4D numpy array, optional</em>) – Masks to save as images. The first dimension must be the number of images. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>scale_mask</strong> (<em>bool, optional</em>) – To allow mask be multiplied by 255.</p></li>
+<li><p><strong>mask_dir</strong> (<em>str, optional</em>) – Path to store Y images.</p></li>
+<li><p><strong>prefix</strong> (<em>str, optional</em>) – Path to store generated charts.</p></li>
+<li><p><strong>filenames</strong> (<em>list, optional</em>) – Filenames that should be used when saving each image. If any provided each image should be named as:
+<code class="docutils literal notranslate"><span class="pre">prefix</span> <span class="pre">+</span> <span class="pre">&quot;_x_&quot;</span> <span class="pre">+</span> <span class="pre">image_number</span> <span class="pre">+</span> <span class="pre">extension</span></code> when <code class="docutils literal notranslate"><span class="pre">X.ndim</span> <span class="pre">&lt;</span> <span class="pre">4</span></code> and <code class="docutils literal notranslate"><span class="pre">prefix</span> <span class="pre">+</span> <span class="pre">&quot;_x_&quot;</span> <span class="pre">+</span> <span class="pre">image_number</span> <span class="pre">+</span>
+<span class="pre">&quot;_&quot;</span> <span class="pre">+</span> <span class="pre">slice_numger</span> <span class="pre">+</span> <span class="pre">extension</span></code> otherwise. E.g. <code class="docutils literal notranslate"><span class="pre">prefix_x_000.png</span></code> when <code class="docutils literal notranslate"><span class="pre">X.ndim</span> <span class="pre">&lt;</span> <span class="pre">4</span></code> or
+<code class="docutils literal notranslate"><span class="pre">prefix_x_000_000.png</span></code> when <code class="docutils literal notranslate"><span class="pre">X.ndim</span> <span class="pre">&gt;=</span> <span class="pre">4</span></code>.  The same applies to <code class="docutils literal notranslate"><span class="pre">Y</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.make_weight_map">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">make_weight_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#make_weight_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.make_weight_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a weight map in order to make the U-Net learn better the borders of cells and distinguish individual
+cells that are tightly packed. These weight maps follow the methodology of the original U-Net paper.</p>
+<p>Based on <a class="reference external" href="https://github.com/deepimagej/python4deepimagej/blob/499955a264e1b66c4ed2c014cb139289be0e98a4/unet/py_files/helpers.py">unet/py_files/helpers.py</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>label</strong> (<em>3D numpy array</em>) – Corresponds to a label image. E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>binary</strong> (<em>bool, optional</em>) – Corresponds to whether or not the labels are binary.</p></li>
+<li><p><strong>w0</strong> (<em>float, optional</em>) – Controls for the importance of separating tightly associated entities.</p></li>
+<li><p><strong>sigma</strong> (<em>int, optional</em>) – Represents the standard deviation of the Gaussian used for the weight map.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>Notice that weight has been defined where the objects are almost touching
+each other.</p>
+<a class="reference internal image-reference" href="../_images/weight_map.png"><img alt="../_images/weight_map.png" class="align-center" src="../_images/weight_map.png" style="width: 650px;" /></a>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.do_save_wm">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">do_save_wm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#do_save_wm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.do_save_wm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the label images, applies the weight-map algorithm and save the weight maps in a folder. Uses
+internally <code class="xref py py-meth docutils literal notranslate"><span class="pre">util.make_weight_map()</span></code>.</p>
+<p>Based on <a class="reference external" href="https://github.com/deepimagej/python4deepimagej/blob/499955a264e1b66c4ed2c014cb139289be0e98a4/unet/py_files/helpers.py">deepimagejunet/py_files/helpers.py</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels</strong> (<em>4D numpy array</em>) – Corresponds to given label images. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – Refers to the path where the weight maps should be saved.</p></li>
+<li><p><strong>binary</strong> (<em>bool, optional</em>) – Corresponds to whether or not the labels are binary.</p></li>
+<li><p><strong>w0</strong> (<em>float, optional</em>) – Controls for the importance of separating tightly associated entities.</p></li>
+<li><p><strong>sigma</strong> (<em>int, optional</em>) – Represents the standard deviation of the Gaussian used for the weight
+map.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.foreground_percentage">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">foreground_percentage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#foreground_percentage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.foreground_percentage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Percentage of pixels that corresponds to the class in the given image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mask</strong> (<em>2D Numpy array</em>) – Image mask to analize.</p></li>
+<li><p><strong>class_tag</strong> (<em>int</em>) – Class to find in the image.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>x</strong> – Percentage of pixels that corresponds to the class. Value between <code class="docutils literal notranslate"><span class="pre">0</span></code>
+and <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.divide_images_on_classes">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">divide_images_on_classes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">th</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#divide_images_on_classes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.divide_images_on_classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a folder for each class where the images that have more pixels labeled as the class (in percentage) than
+the given threshold will be stored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>4D numpy array</em>) – Data to save as images. The first dimension must be the number of images. E. g.``(num_of_images, y, x, channels)``.</p></li>
+<li><p><strong>data_mask</strong> (<em>4D numpy array</em>) – Data mask to save as images.  The first dimension must be the number of images. E. g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>out_dir</strong> (<em>str</em>) – Path to save the images.</p></li>
+<li><p><strong>num_classes</strong> (<em>int, optional</em>) – Number of classes.</p></li>
+<li><p><strong>th</strong> (<em>float, optional</em>) – Percentage of the pixels that must be labeled as a class to save it inside that class folder.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.save_filters_of_convlayer">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">save_filters_of_convlayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_per_row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#save_filters_of_convlayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.save_filters_of_convlayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an image of the filters learned by a convolutional layer. One can identify the layer with <code class="docutils literal notranslate"><span class="pre">l_num</span></code> or
+<code class="docutils literal notranslate"><span class="pre">name</span></code> args. If both are passed <code class="docutils literal notranslate"><span class="pre">name</span></code> will be prioritized.</p>
+<p>Inspired by <a class="reference external" href="https://machinelearningmastery.com/how-to-visualize-filters-and-feature-maps-in-convolutional-neural-networks">https://machinelearningmastery.com/how-to-visualize-filters-and-feature-maps-in-convolutional-neural-networks</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>Keras Model</em>) – Model where the layers are stored.</p></li>
+<li><p><strong>out_dir</strong> (<em>str</em>) – Path where the image will be stored.</p></li>
+<li><p><strong>l_num</strong> (<em>int, optional</em>) – Number of the layer to extract filters from.</p></li>
+<li><p><strong>name</strong> (<em>str, optional</em>) – Name of the layer to extract filters from.</p></li>
+<li><p><strong>prefix</strong> (<em>str, optional</em>) – Prefix to add to the output image name.</p></li>
+<li><p><strong>img_per_row</strong> (<em>int, optional</em>) – Filters per row on the image.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if <code class="docutils literal notranslate"><span class="pre">l_num</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code> not provided.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>To save the filters learned by the layer called <code class="docutils literal notranslate"><span class="pre">conv1</span></code> one can call
+the function as follows</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">save_filters_of_convlayer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">char_dir</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;conv1&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>That will save in <code class="docutils literal notranslate"><span class="pre">out_dir</span></code> an image like this:</p>
+<a class="reference internal image-reference" href="../_images/save_filters.png"><img alt="../_images/save_filters.png" class="align-center" src="../_images/save_filters.png" style="width: 60%;" /></a>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.check_masks">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">check_masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#check_masks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.check_masks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check wheter the data masks have the correct labels inspection a few random images of the given path. If the
+function gives no error one should assume that the masks are correct.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – Path to the data mask.</p></li>
+<li><p><strong>n_classes</strong> (<em>int, optional</em>) – Maximum classes that the masks must contain.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.img_to_onehot_encoding">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">img_to_onehot_encoding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#img_to_onehot_encoding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.img_to_onehot_encoding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts image given into one-hot encode format.</p>
+<p>The opposite function is <a class="reference internal" href="#utils.util.onehot_encoding_to_img" title="utils.util.onehot_encoding_to_img"><code class="xref py py-func docutils literal notranslate"><span class="pre">onehot_encoding_to_img()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> (<em>Numpy 3D/4D array</em>) – Image. E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> or <code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>num_classes</strong> (<em>int, optional</em>) – Number of classes to distinguish.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>one_hot_labels</strong> – Data one-hot encoded. E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">num_classes)</span></code> or <code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">num_classes)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Numpy 3D/4D array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.onehot_encoding_to_img">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">onehot_encoding_to_img</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoded_image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#onehot_encoding_to_img"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.onehot_encoding_to_img" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts one-hot encode image into an image with jus tone channel and all the classes represented by an integer.</p>
+<p>The opposite function is <a class="reference internal" href="#utils.util.img_to_onehot_encoding" title="utils.util.img_to_onehot_encoding"><code class="xref py py-func docutils literal notranslate"><span class="pre">img_to_onehot_encoding()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>encoded_image</strong> (<em>Numpy 3D/4D array</em>) – Image. E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> or <code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>img</strong> – Data one-hot encoded. E.g. <code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">num_classes)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Numpy 3D/4D array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.load_data_from_dir">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">load_data_from_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_to_complete_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#load_data_from_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.load_data_from_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load data from a directory. If <code class="docutils literal notranslate"><span class="pre">crop=False</span></code> all the data is suposed to have the same shape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_dir</strong> (<em>str</em>) – Path to read the data from.</p></li>
+<li><p><strong>crop</strong> (<em>bool, optional</em>) – Crop each image into desired shape pointed by <code class="docutils literal notranslate"><span class="pre">crop_shape</span></code>.</p></li>
+<li><p><strong>crop_shape</strong> (<em>Tuple of 3 ints, optional</em>) – Shape of the crop to be made. E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>overlap</strong> (<em>Tuple of 2 floats, optional</em>) – Amount of minimum overlap on x and y dimensions. The values must  be on range <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1)</span></code>, that is, <code class="docutils literal notranslate"><span class="pre">0%</span></code> or
+<code class="docutils literal notranslate"><span class="pre">99%</span></code> of overlap. E. g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x)</span></code>.</p></li>
+<li><p><strong>padding</strong> (<em>Tuple of 2 ints, optional</em>) – Size of padding to be added on each axis <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x)</span></code>. E.g. <code class="docutils literal notranslate"><span class="pre">(24,</span> <span class="pre">24)</span></code>.</p></li>
+<li><p><strong>return_filenames</strong> (<em>bool, optional</em>) – Return a list with the loaded filenames. Useful when you need to save them afterwards with the same names as
+the original ones.</p></li>
+<li><p><strong>reflect_to_complete_shape</strong> (<em>bool, optional</em>) – Wheter to increase the shape of the dimension that have less size than selected patch size padding it with
+‘reflect’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>data</strong> (<em>4D Numpy array or list of 3D Numpy arrays</em>) – Data loaded. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> if all files have same shape, otherwise a list of
+<code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> arrays will be returned.</p></li>
+<li><p><strong>data_shape</strong> (<em>List of tuples</em>) – Shapes of all 3D images readed. Useful to reconstruct the original images together with <code class="docutils literal notranslate"><span class="pre">crop_shape</span></code>.</p></li>
+<li><p><strong>crop_shape</strong> (<em>List of tuples</em>) – Shape of the loaded 3D images after cropping. Useful to reconstruct the original images together with
+<code class="docutils literal notranslate"><span class="pre">data_shape</span></code>.</p></li>
+<li><p><strong>filenames</strong> (<em>List of str, optional</em>) – Loaded filenames.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># EXAMPLE 1</span>
+<span class="c1"># Case where we need to load 165 images of shape (1024, 768)</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="s2">&quot;data/train/x&quot;</span>
+
+<span class="n">load_data_from_dir</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
+<span class="c1"># The function will print the shape of the created array. In this example:</span>
+<span class="c1">#     *** Loaded data shape is (165, 768, 1024, 1)</span>
+<span class="c1"># Notice height and width swap because of Numpy ndarray terminology</span>
+
+<span class="c1"># EXAMPLE 2</span>
+<span class="c1"># Case where we need to load 165 images of shape (1024, 768) but</span>
+<span class="c1"># cropping them into (256, 256, 1) patches</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="s2">&quot;data/train/x&quot;</span>
+<span class="n">crop_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">load_data_from_dir</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">crop_shape</span><span class="o">=</span><span class="n">crop_shape</span><span class="p">)</span>
+<span class="c1"># The function will print the shape of the created array. In this example:</span>
+<span class="c1">#     *** Loaded data shape is (1980, 256, 256, 1)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.load_ct_data_from_dir">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">load_ct_data_from_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#load_ct_data_from_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.load_ct_data_from_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load CT data from a directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_dir</strong> (<em>str</em>) – Path to read the data from.</p></li>
+<li><p><strong>shape</strong> (<em>3D int tuple, optional</em>) – Shape of the data to load. If is not provided the shape is calculated automatically looping over all data
+files and it will be  the maximum value found per axis. So, given the value the process should be faster.
+E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Data loaded. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>4D Numpy array</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># EXAMPLE 1</span>
+<span class="c1"># Case where we need to load 165 images of shape (1024, 768)</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="s2">&quot;data/train/x&quot;</span>
+<span class="n">data_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">768</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">load_data_from_dir</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">data_shape</span><span class="p">)</span>
+
+<span class="c1"># The function will print list&#39;s first position array&#39;s shape. In this example:</span>
+<span class="c1">#     *** Loaded data[0] shape is (165, 768, 1024, 1)</span>
+<span class="c1"># Notice height and width swap because of Numpy ndarray terminology</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.load_3d_images_from_dir">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">load_3d_images_from_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">median_padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflect_to_complete_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#load_3d_images_from_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.load_3d_images_from_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load data from a directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_dir</strong> (<em>str</em>) – Path to read the data from.</p></li>
+<li><p><strong>crop</strong> (<em>bool, optional</em>) – Crop each 3D image when readed.</p></li>
+<li><p><strong>crop_shape</strong> (<em>Tuple of 4 ints, optional</em>) – Shape of the subvolumes to create when cropping.  E.g. <code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>verbose</strong> (<em>bool, optional</em>) – Wheter to enable verbosity.</p></li>
+<li><p><strong>overlap</strong> (<em>Tuple of 3 floats, optional</em>) – Amount of minimum overlap on z, y and x dimensions. The values must be on range <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1)</span></code>, that is, <code class="docutils literal notranslate"><span class="pre">0%</span></code>
+or <code class="docutils literal notranslate"><span class="pre">99%</span></code> of overlap. E.g. <code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x)</span></code>.</p></li>
+<li><p><strong>padding</strong> (<em>Tuple of 3 ints, optional</em>) – Size of padding to be added on each axis <code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x)</span></code>. E.g. <code class="docutils literal notranslate"><span class="pre">(24,</span> <span class="pre">24,</span> <span class="pre">24)</span></code>.</p></li>
+<li><p><strong>median_padding</strong> (<em>bool, optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> the padding value is the median value. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the added values are zeroes.</p></li>
+<li><p><strong>reflect_to_complete_shape</strong> (<em>bool, optional</em>) – Wheter to increase the shape of the dimension that have less size than selected patch size padding it with
+‘reflect’.</p></li>
+<li><p><strong>return_filenames</strong> (<em>bool, optional</em>) – Return a list with the loaded filenames. Useful when you need to save them afterwards with the same names as
+the original ones.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>data</strong> (<em>5D Numpy array or list of 4D Numpy arrays</em>) – Data loaded. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> if all files have same shape, otherwise a list of
+<code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> arrays will be returned.</p></li>
+<li><p><strong>data_shape</strong> (<em>List of tuples</em>) – Shapes of all 3D images readed. Useful to reconstruct the original images together with <code class="docutils literal notranslate"><span class="pre">crop_shape</span></code>.</p></li>
+<li><p><strong>crop_shape</strong> (<em>List of tuples</em>) – Shape of the loaded 3D images after cropping. Useful to reconstruct the original images together with
+<code class="docutils literal notranslate"><span class="pre">data_shape</span></code>.</p></li>
+<li><p><strong>filenames</strong> (<em>List of str, optional</em>) – Loaded filenames.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># EXAMPLE 1</span>
+<span class="c1"># Case where we need to load 20 images of shape (1024, 1024, 91, 1)</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="s2">&quot;data/train/x&quot;</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">load_data_from_dir</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
+<span class="c1"># The function will print list&#39;s first position array&#39;s shape. In this example:</span>
+<span class="c1">#     *** Loaded data[0] shape is (20, 91, 1024, 1024, 1)</span>
+<span class="c1"># Notice height, width and depth swap as skimage.io imread function</span>
+<span class="c1"># is used to load images</span>
+
+<span class="c1"># EXAMPLE 2</span>
+<span class="c1"># Same as example 1 but with unknown shape, cropping them into (256, 256, 40, 1) subvolumes with minimum</span>
+<span class="c1"># overlap and storing filenames.</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="s2">&quot;data/train/x&quot;</span>
+
+<span class="n">X_test</span><span class="p">,</span> <span class="n">orig_test_img_shapes</span><span class="p">,</span>            <span class="n">crop_test_img_shapes</span><span class="p">,</span> <span class="n">te_filenames</span> <span class="o">=</span> <span class="n">load_3d_images_from_dir</span><span class="p">(</span>
+    <span class="n">test_path</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">crop_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">overlap</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">return_filenames</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># The function will print the shape of the created array which its size is the concatenation in 0 axis of all</span>
+<span class="c1"># subvolumes created for each 3D image in the given path. For example:</span>
+<span class="c1">#     *** Loaded data shape is (350, 40, 256, 256, 1)</span>
+<span class="c1"># Notice height, width and depth swap as skimage.io imread function is used to load images.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.check_downsample_division">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">check_downsample_division</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d_levels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#check_downsample_division"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.check_downsample_division" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensures <code class="docutils literal notranslate"><span class="pre">X</span></code> shape is divisible by <code class="docutils literal notranslate"><span class="pre">2</span></code> times <code class="docutils literal notranslate"><span class="pre">d_levels</span></code> adding padding if necessary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>4D Numpy array</em>) – Data to check if its shape.  E.g. <code class="docutils literal notranslate"><span class="pre">(10,</span> <span class="pre">1000,</span> <span class="pre">1000,</span> <span class="pre">1)</span></code>.</p></li>
+<li><p><strong>d_levels</strong> (<em>int</em>) – Levels of downsampling by <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>X</strong> (<em>4D Numpy array</em>) – Data divisible by 2 <code class="docutils literal notranslate"><span class="pre">d_levels</span></code> times.</p></li>
+<li><p><strong>o_shape</strong> (<em>4 int tuple</em>) – Original shape of <code class="docutils literal notranslate"><span class="pre">X</span></code>. E.g. <code class="docutils literal notranslate"><span class="pre">(10,</span> <span class="pre">1000,</span> <span class="pre">1000,</span> <span class="pre">1)</span></code>.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.save_npy_files">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">save_npy_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#save_npy_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.save_npy_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save images in the given directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>4D/5D numpy array</em>) – Data to save as images. The first dimension must be the number of images. E.g.
+<code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> or <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>data_dir</strong> (<em>str, optional</em>) – Path to store X images.</p></li>
+<li><p><strong>filenames</strong> (<em>List, optional</em>) – Filenames that should be used when saving each image.</p></li>
+<li><p><strong>verbose</strong> (<em>bool, optional</em>) – To print saving information.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.pad_and_reflect">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">pad_and_reflect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#pad_and_reflect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.pad_and_reflect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load data from a directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> (<em>3D/4D Numpy array</em>) – Image to pad. E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> or <code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">c)</span></code>.</p></li>
+<li><p><strong>crop_shape</strong> (<em>Tuple of 3/4 ints, optional</em>) – Shape of the subvolumes to create when cropping.  E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> or <code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
+<li><p><strong>verbose</strong> (<em>bool, optional</em>) – Wheter to output information.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>img</strong> – Image padded (if needed). E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> or <code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>3D/4D Numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.wrapper_matching_dataset_lazy">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">wrapper_matching_dataset_lazy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stats_all</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">criterion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'iou'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">by_image</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#wrapper_matching_dataset_lazy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.wrapper_matching_dataset_lazy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.wrapper_matching_segCompare">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">wrapper_matching_segCompare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stats_all</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#wrapper_matching_segCompare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.wrapper_matching_segCompare" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.util.check_value">
+<span class="sig-prename descclassname"><span class="pre">utils.util.</span></span><span class="sig-name descname"><span class="pre">check_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/util.html#check_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.util.check_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if a value is within a range</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../bibliography.html" class="btn btn-neutral float-right" title="Bibliography" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="grad_cam.html" class="btn btn-neutral float-left" title="Grad-CAM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Daniel Franco-Barranco.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

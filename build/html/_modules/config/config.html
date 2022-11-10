@@ -1,0 +1,862 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>config.config &mdash; BiaPy  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> BiaPy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Get started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/how_it_works.html">How it works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/select_workflow.html">Select workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workflows</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/semantic_segmentation.html">Semantic segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/instance_segmentation.html">Instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/detection.html">Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/denoising.html">Denoising</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/super_resolution.html">Super-resolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/self_supervision.html">Self-supervision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/classification.html">Classification</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../config/main_config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data/data.html">data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../engine/engine.html">engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../models/models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utils/utils.html">utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../bibliography.html">Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">BiaPy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>config.config</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for config.config</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">yacs.config</span> <span class="kn">import</span> <span class="n">CfgNode</span> <span class="k">as</span> <span class="n">CN</span>
+
+
+<div class="viewcode-block" id="Config"><a class="viewcode-back" href="../../config/config.html#config.config.Config">[docs]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job_dir</span><span class="p">,</span> <span class="n">job_identifier</span><span class="p">):</span>
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="c1"># Config definition</span>
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="n">_C</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+
+
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="c1"># System</span>
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">SYSTEM</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="c1"># Number of GPUs to use</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">SYSTEM</span><span class="o">.</span><span class="n">NUM_GPUS</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># Number of CPUs to use</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">SYSTEM</span><span class="o">.</span><span class="n">NUM_CPUS</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># Math seed</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">SYSTEM</span><span class="o">.</span><span class="n">SEED</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="c1"># Problem specification</span>
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="c1"># Possible options: &#39;SEMANTIC_SEG&#39;, &#39;INSTANCE_SEG&#39;, &#39;DETECTION&#39;, &#39;DENOISING&#39;, &#39;SUPER_RESOLUTION&#39;, </span>
+        <span class="c1"># &#39;SELF_SUPERVISED&#39; and &#39;CLASSIFICATION&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">=</span> <span class="s1">&#39;SEMANTIC_SEG&#39;</span>
+        <span class="c1"># Possible options: &#39;2D&#39; and &#39;3D&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">NDIM</span> <span class="o">=</span> <span class="s1">&#39;2D&#39;</span>
+
+        <span class="c1">### INSTANCE_SEG</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="c1"># Possible options: &#39;BC&#39;, &#39;BCM&#39;, &#39;BCD&#39;, &#39;BCDv2&#39;, &#39;Dv2&#39; and &#39;BDv2&#39;. This variable determines the channels to be created </span>
+        <span class="c1"># based on input instance masks. These option are composed from these individual options:</span>
+        <span class="c1">#   - &#39;B&#39; stands for &#39;Binary segmentation&#39;, containing each instance region without the contour. </span>
+        <span class="c1">#   - &#39;C&#39; stands for &#39;Contour&#39;, containing each instance contour. </span>
+        <span class="c1">#   - &#39;D&#39; stands for &#39;Distance&#39;, each pixel containing the distance of it to the instance contour. </span>
+        <span class="c1">#   - &#39;M&#39; stands for &#39;Mask&#39;, contains the B and the C channels, i.e. the foreground mask. </span>
+        <span class="c1">#     Is simply achieved by binarizing input instance masks. </span>
+        <span class="c1">#   - &#39;Dv2&#39; stands for &#39;Distance V2&#39;, which is an updated version of &#39;D&#39; channel calculating background distance as well.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHANNELS</span> <span class="o">=</span> <span class="s1">&#39;B&#39;</span>
+
+        <span class="c1"># Weights to be applied to the channels.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHANNEL_WEIGHTS</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># Contour creation mode. Corresponds to &#39;mode&#39; arg of find_boundaries function from ``scikit-image``. More</span>
+        <span class="c1"># info in: https://scikit-image.org/docs/stable/api/skimage.segmentation.html#skimage.segmentation.find_boundaries</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CONTOUR_MODE</span> <span class="o">=</span> <span class="s2">&quot;thick&quot;</span>
+
+        <span class="c1"># To convert the model predictions, which are between 0 and 1 range, into instances with marked controlled</span>
+        <span class="c1"># watershed (MW) a few thresholds need to be set. There can be up to three channels, as explained above and</span>
+        <span class="c1"># based on &#39;PROBLEM.INSTANCE_SEG.DATA_CHANNELS&#39; value. Each threshold is related to one of these channels. See the details in</span>
+        <span class="c1"># bcd_watershed() and bc_watershed() functions:</span>
+        <span class="c1"># https://github.com/danifranco/BiaPy/blob/a1c46e6b8afaf577794aff9c30b52748490f147d/data/post_processing/post_processing.py#L172</span>
+        <span class="c1">#</span>
+        <span class="c1"># This variables are only used when _C.PROBLEM.TYPE = &#39;INSTANCE_SEG</span>
+        <span class="c1"># TH1 controls channel &#39;B&#39; in the creation of the MW seeds</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_MW_TH1</span> <span class="o">=</span> <span class="mf">0.2</span>
+        <span class="c1"># TH2 controls channel &#39;C&#39; in the creation of the MW seeds</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_MW_TH2</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="c1"># TH3 acts over the channel &#39;B&#39; and is used to limit how much the seeds can be grow</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_MW_TH3</span> <span class="o">=</span> <span class="mf">0.3</span>
+        <span class="c1"># TH4 controls channel &#39;D&#39; in the creation of the MW seeds</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_MW_TH4</span> <span class="o">=</span> <span class="mf">1.2</span>
+        <span class="c1"># TH5 acts over the channel &#39;D&#39; and is used to limit how much the seeds can be grow</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_MW_TH5</span> <span class="o">=</span> <span class="mf">1.5</span>
+        <span class="c1"># Size of small objects to be removed after doing watershed</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_REMOVE_SMALL_OBJ</span> <span class="o">=</span> <span class="mi">30</span>
+        <span class="c1"># Whether to remove objects before watershed or after it</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_REMOVE_BEFORE_MW</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># Whether to find an optimum value for each threshold with the validation data. If True the previous MW_TH*</span>
+        <span class="c1"># variables will be replaced by the optimum values found</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_MW_OPTIMIZE_THS</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Whether to save watershed check files</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHECK_MW</span> <span class="o">=</span> <span class="kc">True</span>
+        
+        <span class="c1">### DETECTION</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">DETECTION</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">DETECTION</span><span class="o">.</span><span class="n">CHECK_POINTS_CREATED</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1">### DENOISING</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">DENOISING</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">DENOISING</span><span class="o">.</span><span class="n">N2V_PERC_PIX</span> <span class="o">=</span> <span class="mf">0.198</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">DENOISING</span><span class="o">.</span><span class="n">N2V_MANIPULATOR</span> <span class="o">=</span> <span class="s1">&#39;uniform_withCP&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">DENOISING</span><span class="o">.</span><span class="n">N2V_NEIGHBORHOOD_RADIUS</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">DENOISING</span><span class="o">.</span><span class="n">N2V_STRUCTMASK</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1">### SELF_SUPERVISED</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">SELF_SUPERVISED</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="c1"># Downsizing factor to reshape the image. It will be downsampled and upsampled again by this factor so the </span>
+        <span class="c1"># quality of the image is worsens</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">SELF_SUPERVISED</span><span class="o">.</span><span class="n">RESIZING_FACTOR</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="c1"># Number between [0, 1] indicating the std of the Gaussian noise N(0,std).</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">SELF_SUPERVISED</span><span class="o">.</span><span class="n">NOISE</span> <span class="o">=</span> <span class="mf">0.15</span>
+
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="c1"># Dataset</span>
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+
+        <span class="c1"># Save all data of a generator in the given path.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">CHECK_GENERATORS</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># _C.PROBLEM.NDIM=&#39;2D&#39; -&gt; _C.DATA.PATCH_SIZE=(y,x,c) ; _C.PROBLEM.NDIM=&#39;3D&#39; -&gt; _C.DATA.PATCH_SIZE=(z,y,x,c)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">PATCH_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Extract random patches during data augmentation (DA)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">EXTRACT_RANDOM_PATCH</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Create a probability map so the patches extracted will have a high probability of having an object in the middle </span>
+        <span class="c1"># of it. Useful to avoid extracting patches which no foreground class information. Use it only when</span>
+        <span class="c1"># &#39;PROBLEM.TYPE&#39; is &#39;SEMANTIC_SEG&#39; </span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">PROBABILITY_MAP</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Used when _C.DATA.EXTRACT_RANDOM_PATCH=True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">W_FOREGROUND</span> <span class="o">=</span> <span class="mf">0.94</span> <span class="c1"># Used when _C.DATA.PROBABILITY_MAP=True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">W_BACKGROUND</span> <span class="o">=</span> <span class="mf">0.06</span> <span class="c1"># Used when _C.DATA.PROBABILITY_MAP=True</span>
+
+        <span class="c1"># Whether to reshape de dimensions that does not satisfy the pathc shape selected by padding it with reflect.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">REFLECT_TO_COMPLETE_SHAPE</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">NORMALIZATION</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="c1"># Normalization type to use. Possible options:</span>
+        <span class="c1">#   &#39;div&#39; to divide values from 0/255 (or 0/65535 if uint16) in [0,1] range</span>
+        <span class="c1">#   &#39;custom&#39; to use DATA.NORMALIZATION.CUSTOM_MEAN and DATA.NORMALIZATION.CUSTOM_STD to normalize</span>
+        <span class="c1">#   &#39;&#39; if no normalization to be applied </span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">NORMALIZATION</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">=</span> <span class="s1">&#39;div&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">NORMALIZATION</span><span class="o">.</span><span class="n">CUSTOM_MEAN</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">NORMALIZATION</span><span class="o">.</span><span class="n">CUSTOM_STD</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+
+        <span class="c1"># Train</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="c1"># Whether to check if the data mask contains correct values, e.g. same classes as defined</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">CHECK_DATA</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">IN_MEMORY</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">MASK_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
+        <span class="c1"># File to load/save data prepared with the appropiate channels in a instance segmentation problem.</span>
+        <span class="c1"># E.g. _C.PROBLEM.TYPE =&#39;INSTANCE_SEG&#39; and _C.PROBLEM.INSTANCE_SEG.DATA_CHANNELS != &#39;B&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">INSTANCE_CHANNELS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;x_&#39;</span><span class="o">+</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHANNELS</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">INSTANCE_CHANNELS_MASK_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;y_&#39;</span><span class="o">+</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHANNELS</span><span class="p">)</span>
+        <span class="c1"># Path to load/save detection masks prepared. </span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">DETECTION_MASK_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;y_detection_masks&#39;</span><span class="p">)</span>
+        <span class="c1"># Path to load/save detection masks prepared. </span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">SSL_TARGET_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;y_ssl_target&#39;</span><span class="p">)</span>
+        <span class="c1"># Extra train data generation: number of times to duplicate the train data. Useful when</span>
+        <span class="c1"># _C.DATA.EXTRACT_RANDOM_PATCH=True is made, as more original train data can be cover on each epoch</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">REPLICATE</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Percentage of overlap in (y,x)/(z,y,x) when cropping validation. Set to 0 to calculate  the minimun overlap.</span>
+        <span class="c1"># The values must be floats between range [0, 1). It needs to be a 2D tuple when using _C.PROBLEM.NDIM=&#39;2D&#39; and</span>
+        <span class="c1"># 3D tuple when using _C.PROBLEM.NDIM=&#39;3D&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">OVERLAP</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># Padding to be done in (y,x)/(z,y,x) when reconstructing train data. Useful to avoid patch &#39;border effect&#39;.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">PADDING</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># Train data resolution. It is not completely necessary but when configured it is taken into account when</span>
+        <span class="c1"># performing some augmentations, e.g. cutout. If defined it need to be (y,x)/(z,y,x) and needs to be to be a 2D</span>
+        <span class="c1"># tuple when using _C.PROBLEM.NDIM=&#39;2D&#39; and 3D tuple when using _C.PROBLEM.NDIM=&#39;3D&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">RESOLUTION</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,)</span>
+
+        <span class="c1"># Test</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="c1"># Whether to check if the data mask contains correct values, e.g. same classes as defined</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">CHECK_DATA</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">IN_MEMORY</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Whether to load ground truth (GT)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">LOAD_GT</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Whether to use validation data as test instead of trying to load test from _C.DATA.TEST.PATH and</span>
+        <span class="c1"># _C.DATA.TEST.MASK_PATH. Currently only used if _C.PROBLEM.TYPE == &#39;CLASSIFICATION&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">USE_VAL_AS_TEST</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Path to load the test data from. Not used when _C.DATA.TEST.USE_VAL == True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+        <span class="c1"># Path to load the test data masks from. Not used when _C.DATA.TEST.USE_VAL == True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">MASK_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
+        <span class="c1"># File to load/save data prepared with the appropiate channels in a instance segmentation problem.</span>
+        <span class="c1"># E.g. _C.PROBLEM.TYPE =&#39;INSTANCE_SEG&#39; and _C.PROBLEM.INSTANCE_SEG.DATA_CHANNELS != &#39;B&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">INSTANCE_CHANNELS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;x_&#39;</span><span class="o">+</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHANNELS</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">INSTANCE_CHANNELS_MASK_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;y_&#39;</span><span class="o">+</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHANNELS</span><span class="p">)</span>
+        <span class="c1"># Path to load/save detection masks prepared. </span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">DETECTION_MASK_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;y_detection_masks&#39;</span><span class="p">)</span>
+        <span class="c1"># Percentage of overlap in (y,x)/(z,y,x) when cropping validation. Set to 0 to calculate  the minimun overlap.</span>
+        <span class="c1"># The values must be floats between range [0, 1). It needs to be a 2D tuple when using _C.PROBLEM.NDIM=&#39;2D&#39; and</span>
+        <span class="c1"># 3D tuple when using _C.PROBLEM.NDIM=&#39;3D&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">OVERLAP</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># Padding to be done in (y,x)/(z,y,xz) when reconstructing test data. Useful to avoid patch &#39;border effect&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">PADDING</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># Whether to use median values to fill padded pixels or zeros</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">MEDIAN_PADDING</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Directory where binary masks to apply to resulting images should be. Used when _C.TEST.POST_PROCESSING.APPLY_MASK  == True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">BINARY_MASKS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;bin_mask&#39;</span><span class="p">)</span>
+        <span class="c1"># Test data resolution. Need to be provided in (z,y,x) order. Only applies when _C.PROBLEM.TYPE = &#39;DETECTION&#39; now.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">RESOLUTION</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,)</span>
+        <span class="c1"># Whether to apply argmax to the predicted images </span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">ARGMAX_TO_OUTPUT</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Validation</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="c1"># Whether to create validation data from training set or read it from a directory</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">FROM_TRAIN</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># Use a cross validation strategy instead of just split the train data in two. Currently only used if</span>
+        <span class="c1"># _C.PROBLEM.TYPE == &#39;CLASSIFICATION&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">CROSS_VAL</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Number of folds. Used when _C.DATA.VAL.CROSS_VAL == True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">CROSS_VAL_NFOLD</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="c1"># Number of the fold to choose as validation. Used when _C.DATA.VAL.CROSS_VAL == True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">CROSS_VAL_FOLD</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># Percentage of the training data used as validation. Used when _C.DATA.VAL.FROM_TRAIN = True and _C.DATA.VAL.CROSS_VAL == False</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">SPLIT_TRAIN</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="c1"># Create the validation data with random images of the training data. Used when _C.DATA.VAL.FROM_TRAIN = True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">RANDOM</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># Used when _C.DATA.VAL.FROM_TRAIN = False, as DATA.VAL.FROM_TRAIN = True always implies DATA.VAL.IN_MEMORY = True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">IN_MEMORY</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># Path to the validation data. Used when _C.DATA.VAL.FROM_TRAIN = False</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+        <span class="c1"># Path to the validation data mask. Used when _C.DATA.VAL.FROM_TRAIN = False</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">MASK_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
+        <span class="c1"># File to load/save data prepared with the appropiate channels in a instance segmentation problem.</span>
+        <span class="c1"># E.g. _C.PROBLEM.TYPE =&#39;INSTANCE_SEG&#39; and _C.PROBLEM.INSTANCE_SEG.DATA_CHANNELS != &#39;B&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">INSTANCE_CHANNELS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="s1">&#39;x_&#39;</span><span class="o">+</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHANNELS</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">INSTANCE_CHANNELS_MASK_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="s1">&#39;y_&#39;</span><span class="o">+</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHANNELS</span><span class="p">)</span>
+        <span class="c1"># Path to load/save detection masks prepared. </span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">DETECTION_MASK_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="s1">&#39;y_detection_masks&#39;</span><span class="p">)</span>
+        <span class="c1"># Path to load/save detection masks prepared. </span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">SSL_TARGET_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="s1">&#39;y_ssl_target&#39;</span><span class="p">)</span>
+        <span class="c1"># Percentage of overlap in (y,x)/(z,y,x) when cropping validation. Set to 0 to calculate  the minimun overlap.</span>
+        <span class="c1"># The values must be floats between range [0, 1). It needs to be a 2D tuple when using _C.PROBLEM.NDIM=&#39;2D&#39; and</span>
+        <span class="c1"># 3D tuple when using _C.PROBLEM.NDIM=&#39;3D&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">OVERLAP</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># Padding to be done in (y,x)/(z,y,x) when reconstructing validation data. Useful to avoid patch &#39;border effect&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">PADDING</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># Whether to use median values to fill padded pixels or zeros</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">MEDIAN_PADDING</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Directory where validation binary masks should be located. This binary mask will be applied only when MW_TH*</span>
+        <span class="c1"># optimized values are find, that is, when _C.PROBLEM.INSTANCE_SEG.DATA_MW_OPTIMIZE_THS = True and _C.TEST.POST_PROCESSING.APPLY_MASK = True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">BINARY_MASKS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;user_data&quot;</span><span class="p">,</span> <span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="s1">&#39;bin_mask&#39;</span><span class="p">)</span>
+        <span class="c1"># Not used yet.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">RESOLUTION</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,)</span>
+
+
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="c1"># Data augmentation (DA)</span>
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="c1"># Flag to activate DA</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ENABLE</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Probability of each transformation</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">DA_PROB</span> <span class="o">=</span> <span class="mf">0.5</span>
+        <span class="c1"># Create samples of the DA made. Useful to check the output images made.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">AUG_SAMPLES</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># Draw a grid in the augenation samples generated. Used when _C.AUGMENTOR.AUG_SAMPLES=True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">DRAW_GRID</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># Number of samples to create</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">AUG_NUM_SAMPLES</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="c1"># Flag to shuffle the training data on every epoch</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHUFFLE_TRAIN_DATA_EACH_EPOCH</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># Flag to shuffle the validation data on every epoch</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHUFFLE_VAL_DATA_EACH_EPOCH</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Rotation of 90º to the subvolumes</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ROT90</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Random rotation between a defined range</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">RANDOM_ROT</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Range of random rotations</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">RANDOM_ROT_RANGE</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
+        <span class="c1"># Apply shear to images</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHEAR</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Shear range. Expected value range is around [-360, 360], with reasonable values being in the range of [-45, 45].</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHEAR_RANGE</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="c1"># Apply zoom to images</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ZOOM</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Zoom range. Scaling factor to use, where 1.0 denotes “no change” and 0.5 is zoomed out to 50 percent of the original size.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ZOOM_RANGE</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">)</span>
+        <span class="c1"># Apply shift</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHIFT</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Shift range. Translation as a fraction of the image height/width (x-translation, y-translation), where 0 denotes </span>
+        <span class="c1"># “no change” and 0.5 denotes “half of the axis size”.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">SHIFT_RANGE</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+        <span class="c1"># How to fill up the new values created with affine transformations (rotations, shear, shift and zoom).</span>
+        <span class="c1"># Same meaning as in skimage (and numpy.pad()): &#39;constant&#39;, &#39;edge&#39;, &#39;symmetric&#39;, &#39;reflect&#39; and &#39;wrap&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">AFFINE_MODE</span> <span class="o">=</span> <span class="s1">&#39;constant&#39;</span>
+        <span class="c1"># Make vertical flips</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">VFLIP</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Make horizontal flips</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">HFLIP</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Make z-axis flips</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ZFLIP</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Elastic transformations</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">ELASTIC</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Strength of the distortion field. Higher values mean that pixels are moved further with respect to the distortion </span>
+        <span class="c1"># field’s direction. Set this to around 10 times the value of sigma for visible effects.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">E_ALPHA</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="c1"># Standard deviation of the gaussian kernel used to smooth the distortion fields.  Higher values (for 128x128 images </span>
+        <span class="c1"># around 5.0) lead to more water-like effects, while lower values (for 128x128 images around 1.0 and lower) lead to</span>
+        <span class="c1"># more noisy, pixelated images. Set this to around 1/10th of alpha for visible effects.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">E_SIGMA</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="c1"># Parameter that defines the handling of newly created pixels with the elastic transformation</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">E_MODE</span> <span class="o">=</span> <span class="s1">&#39;constant&#39;</span>
+        <span class="c1"># Gaussian blur</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">G_BLUR</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Standard deviation of the gaussian kernel. Values in the range 0.0 (no blur) to 3.0 (strong blur) are common.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">G_SIGMA</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
+        <span class="c1"># To blur an image by computing median values over neighbourhoods</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MEDIAN_BLUR</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Median blur kernel size</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MB_KERNEL</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+        <span class="c1"># Blur images in a way that fakes camera or object movements</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MOTION_BLUR</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Kernel size to use in motion blur</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MOTB_K_RANGE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+        <span class="c1"># Gamma contrast</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GAMMA_CONTRAST</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Exponent for the contrast adjustment. Higher values darken the image</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GC_GAMMA</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.25</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">)</span>
+        <span class="c1"># To apply brightness changes to images</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">BRIGHTNESS</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Strength of the brightness range. </span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">BRIGHTNESS_FACTOR</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+        <span class="c1"># If apply same contrast to the entire image or select one for each slice. For 2D does not matter but yes for</span>
+        <span class="c1"># 3D images. Possible values: &#39;2D&#39; or &#39;3D&#39;. Used when &#39;_C.PROBLEM.NDIM&#39; = &#39;3D&#39;.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">BRIGHTNESS_MODE</span> <span class="o">=</span> <span class="s1">&#39;3D&#39;</span>
+        <span class="c1"># To apply contrast changes to images</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CONTRAST</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Strength of the contrast change range. </span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CONTRAST_FACTOR</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+        <span class="c1"># If apply same contrast to the entire image or select one for each slice. For 2D does not matter but yes for</span>
+        <span class="c1"># 3D images. Possible values: &#39;2D&#39; or &#39;3D&#39;. Used when &#39;_C.PROBLEM.NDIM&#39; = &#39;3D&#39;.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CONTRAST_MODE</span> <span class="o">=</span> <span class="s1">&#39;3D&#39;</span>
+        <span class="c1"># To apply brightness changes to images based on Pytorch Connectomics library.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">BRIGHTNESS_EM</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Strength of the brightness range</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">BRIGHTNESS_EM_FACTOR</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+        <span class="c1"># If apply same contrast to the entire image or select one for each slice. For 2D does not matter but yes for</span>
+        <span class="c1"># 3D images. Possible values: &#39;2D&#39; or &#39;3D&#39;. Used when &#39;_C.PROBLEM.NDIM&#39; = &#39;3D&#39;.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">BRIGHTNESS_EM_MODE</span> <span class="o">=</span> <span class="s1">&#39;3D&#39;</span>
+        <span class="c1"># To apply contrast changes to images based on Pytorch Connectomics library.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CONTRAST_EM</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Strength of the contrast change range, with valid values being 0 &lt;= contrast_em_factor &lt;= 1</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CONTRAST_EM_FACTOR</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+        <span class="c1"># If apply same contrast to the entire image or select one for each slice. For 2D does not matter but yes for</span>
+        <span class="c1"># 3D images. Possible values: &#39;2D&#39; or &#39;3D&#39;. Used when &#39;_C.PROBLEM.NDIM&#39; = &#39;3D&#39;.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CONTRAST_EM_MODE</span> <span class="o">=</span> <span class="s1">&#39;3D&#39;</span>
+        <span class="c1"># Set a certain fraction of pixels in images to zero (not get confused with the dropout concept of neural networks)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">DROPOUT</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Range to take the probability to drop a pixel</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">DROP_RANGE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+        <span class="c1"># To fill one or more rectangular areas in an image using a fill mode</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CUTOUT</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Range of number of areas to fill the image with. Reasonable values between range [0,4]</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">COUT_NB_ITERATIONS</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="c1"># Size of the areas in % of the corresponding image size</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">COUT_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span>
+        <span class="c1"># Value to fill the area of cutout</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">COUT_CVAL</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Apply cutout to the segmentation mask</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">COUT_APPLY_TO_MASK</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># To apply cutblur operation</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CUTBLUR</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Size of the region to apply cutblur</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CBLUR_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+        <span class="c1"># Range of the downsampling to be made in cutblur</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CBLUR_DOWN_RANGE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="c1"># Whether to apply cut-and-paste just LR into HR image. If False, HR to LR will be applied also (see Figure 1</span>
+        <span class="c1"># of the paper https://arxiv.org/pdf/2004.00448.pdf)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CBLUR_INSIDE</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># Apply cutmix operation</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CUTMIX</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Size of the region to apply cutmix</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CMIX_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+        <span class="c1"># Apply noise to a region of the image</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CUTNOISE</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Range to choose a value that will represent the % of the maximum value of the image that will be used as the std</span>
+        <span class="c1"># of the Gaussian Noise distribution</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CNOISE_SCALE</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+        <span class="c1"># Number of areas to fill with noise</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CNOISE_NB_ITERATIONS</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="c1"># Size of the regions</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CNOISE_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+        <span class="c1"># Add miss-aligment augmentation</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MISALIGNMENT</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Maximum pixel displacement in &#39;xy&#39;-plane for misalignment</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MS_DISPLACEMENT</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="c1"># Ratio of rotation-based mis-alignment</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MS_ROTATE_RATIO</span> <span class="o">=</span> <span class="mf">0.5</span>
+        <span class="c1"># Augment the image by creating a black line in a random position</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MISSING_SECTIONS</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Iterations to dilate the missing line with</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">MISSP_ITERATIONS</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+        <span class="c1"># Convert images in grasycale gradually based on &#39;_C.AUGMENTOR.GRAY_RANGE&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GRAYSCALE</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Shuffle channels of the images</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">CHANNEL_SHUFFLE</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Apply gridmask to the image. Original paper: https://arxiv.org/pdf/2001.04086v1.pdf</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GRIDMASK</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Determines the keep ratio of an input image</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GRID_RATIO</span> <span class="o">=</span> <span class="mf">0.6</span>
+        <span class="c1">#  Range to choose a ``d`` value</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GRID_D_RANGE</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># Rotation of the mask in GridMask. Needs to be between [0,1] where 1 is 360 degrees.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GRID_ROTATE</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># Whether to invert the mask</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">GRID_INVERT</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Whether to scale the second random crop done. Used in SUPER_RESOLUTION and when &#39;DATA.EXTRACT_RANDOM_PATCH&#39;=True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">AUGMENTOR</span><span class="o">.</span><span class="n">RANDOM_CROP_SCALE</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="c1"># Model definition</span>
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="c1"># Architecture of the network. Possible values are: &#39;unet&#39;, &#39;resunet&#39;, &#39;attention_unet&#39;, &#39;fcn32&#39;, &#39;fcn8&#39;, &#39;nnunet&#39;, &#39;tiramisu&#39;, </span>
+        <span class="c1"># &#39;mnet&#39;, &#39;multiresunet&#39;, &#39;seunet&#39;, &#39;simple_cnn&#39;, &#39;EfficientNetB0&#39;, &#39;unetr&#39;, &#39;edsr&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">ARCHITECTURE</span> <span class="o">=</span> <span class="s1">&#39;unet&#39;</span>
+        <span class="c1"># Number of feature maps on each level of the network.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">FEATURE_MAPS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">]</span>
+        <span class="c1"># To activate the Spatial Dropout instead of use the &quot;normal&quot; dropout layer</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">SPATIAL_DROPOUT</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Values to make the dropout with. Set to 0 to prevent dropout</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">DROPOUT_VALUES</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>
+        <span class="c1"># To active batch normalization</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">BATCH_NORMALIZATION</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Kernel type to use on convolution layers</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">KERNEL_INIT</span> <span class="o">=</span> <span class="s1">&#39;he_normal&#39;</span>
+        <span class="c1"># Kernel size</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">KERNEL_SIZE</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="c1"># Upsampling layer to use in the model</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">UPSAMPLE_LAYER</span> <span class="o">=</span> <span class="s2">&quot;convtranspose&quot;</span>
+        <span class="c1"># Activation function to use along the model</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">ACTIVATION</span> <span class="o">=</span> <span class="s1">&#39;elu&#39;</span>
+        <span class="c1"># Las activation to use. Options &#39;sigmoid&#39;, &#39;softmax&#39; or &#39;linear&#39;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">LAST_ACTIVATION</span> <span class="o">=</span> <span class="s1">&#39;sigmoid&#39;</span> 
+        <span class="c1"># Number of classes without counting the background class (that should be using 0 label)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">N_CLASSES</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># Downsampling to be made in Z. This value will be the third integer of the MaxPooling operation. When facing</span>
+        <span class="c1"># anysotropic datasets set it to get better performance</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">Z_DOWN</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># Checkpoint: set to True to load previous training weigths (needed for inference or to make fine-tunning)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">LOAD_CHECKPOINT</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># TIRAMISU</span>
+        <span class="c1"># Depth of the network. Only used when MODEL.ARCHITECTURE = &#39;tiramisu&#39;. For the rest options it is inferred.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">TIRAMISU_DEPTH</span> <span class="o">=</span> <span class="mi">3</span>
+
+        <span class="c1"># UNETR</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">UNETR_TOKEN_SIZE</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">UNETR_EMBED_DIM</span> <span class="o">=</span> <span class="mi">768</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">UNETR_DEPTH</span> <span class="o">=</span> <span class="mi">12</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">UNETR_MLP_HIDDEN_UNITS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2048</span><span class="p">,</span> <span class="mi">1024</span><span class="p">]</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">UNETR_NUM_HEADS</span> <span class="o">=</span> <span class="mi">6</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">MODEL</span><span class="o">.</span><span class="n">UNETR_OUT_DIM</span> <span class="o">=</span> <span class="mi">1</span>
+        
+
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="c1"># Loss</span>
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">LOSS</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="c1"># Loss type, two options: &quot;CE&quot; -&gt; cross entropy ; &quot;W_CE_DICE&quot;, CE and Dice (with a weight term on each one</span>
+        <span class="c1"># (that must sum 1) to calculate the total loss value.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">LOSS</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">=</span> <span class="s1">&#39;CE&#39;</span>
+
+
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="c1"># Training phase</span>
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TRAIN</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">ENABLE</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Optimizer to use. Possible values: &quot;SGD&quot; or &quot;ADAM&quot;</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">OPTIMIZER</span> <span class="o">=</span> <span class="s1">&#39;SGD&#39;</span>
+        <span class="c1"># Learning rate </span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">LR</span> <span class="o">=</span> <span class="mf">1.E-4</span>
+        <span class="c1"># Batch size</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="c1"># Number of epochs to train the model</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">EPOCHS</span> <span class="o">=</span> <span class="mi">360</span>
+        <span class="c1"># Epochs to wait with no validation data improvement until the training is stopped</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">PATIENCE</span> <span class="o">=</span> <span class="mi">50</span>
+
+        <span class="c1"># LR Scheduler</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">LR_SCHEDULER</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">LR_SCHEDULER</span><span class="o">.</span><span class="n">ENABLE</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">LR_SCHEDULER</span><span class="o">.</span><span class="n">NAME</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="c1"># Possible options: &#39;cosine&#39;, &#39;reduceonplateau&#39;</span>
+
+        <span class="c1"># Callbacks</span>
+        <span class="c1"># To determine which value monitor to stop the training</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">EARLYSTOPPING_MONITOR</span> <span class="o">=</span> <span class="s1">&#39;val_loss&#39;</span>
+        <span class="c1"># To determine which value monitor to consider which epoch consider the best to save</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">CHECKPOINT_MONITOR</span> <span class="o">=</span> <span class="s1">&#39;val_loss&#39;</span>
+
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="c1"># Inference phase</span>
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">ENABLE</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Tries to reduce the memory footprint by separating crop/merge operations (it is slower). </span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">REDUCE_MEMORY</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Enable verbosity</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">VERBOSE</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># Make test-time augmentation. Infer over 8 possible rotations for 2D img and 16 when 3D</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">AUGMENTATION</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Whether to evaluate or not</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">EVALUATE</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">STATS</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">STATS</span><span class="o">.</span><span class="n">PER_PATCH</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">STATS</span><span class="o">.</span><span class="n">MERGE_PATCHES</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Only used when _C.TEST.STATS.PER_PATCH = True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">STATS</span><span class="o">.</span><span class="n">FULL_IMG</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Only when if PROBLEM.NDIM = &#39;2D&#39; as 3D images are huge for the GPU</span>
+
+        <span class="c1">### Instance segmentation</span>
+        <span class="c1"># Whether to calculate mAP- Only applies when _C.TEST.STATS.MERGE_PATCHES = True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">MAP</span> <span class="o">=</span> <span class="kc">False</span>  
+        <span class="c1"># Do not forgive to clone the repo:</span>
+        <span class="c1">#       git clone https://github.com/danifranco/mAP_3Dvolume.git</span>
+        <span class="c1">#</span>
+        <span class="c1"># Change the branch:</span>
+        <span class="c1">#       git checkout grand-challenge</span>
+
+        <span class="c1"># Whether to calculate matching statistics (average overlap, accuracy, recall, precision, etc.)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">MATCHING_STATS</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">MATCHING_STATS_THS</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">]</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">MATCHING_SEGCOMPARE</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1">### Detection</span>
+        <span class="c1"># Whether to return local maximum coords</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">DET_LOCAL_MAX_COORDS</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Minimun value to consider a point as a peak. Corresponds to &#39;threshold_abs&#39; argument of the function</span>
+        <span class="c1"># &#39;peak_local_max&#39; of skimage.feature</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">DET_MIN_TH_TO_BE_PEAK</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">]</span>        
+        <span class="c1"># Maximum distance far away from a GT point to consider a point as a true positive</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">DET_TOLERANCE</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="c1"># Post-processing</span>
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="c1"># When PROBLEM.NDIM = &#39;2D&#39; only applies when _C.TEST.STATS.FULL_IMG = True, if PROBLEM.NDIM = &#39;3D&#39; is applied</span>
+        <span class="c1"># when _C.TEST.STATS.MERGE_PATCHES = True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">POST_PROCESSING</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">POST_PROCESSING</span><span class="o">.</span><span class="n">BLENDING</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">POST_PROCESSING</span><span class="o">.</span><span class="n">YZ_FILTERING</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">POST_PROCESSING</span><span class="o">.</span><span class="n">YZ_FILTERING_SIZE</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">POST_PROCESSING</span><span class="o">.</span><span class="n">Z_FILTERING</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">POST_PROCESSING</span><span class="o">.</span><span class="n">Z_FILTERING_SIZE</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="c1"># Apply a binary mask to remove possible segmentation outside it</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">POST_PROCESSING</span><span class="o">.</span><span class="n">APPLY_MASK</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1">### Instance segmentation</span>
+        <span class="c1"># Whether to apply Voronoi using &#39;BC&#39; or &#39;M&#39; channels need to be present</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">POST_PROCESSING</span><span class="o">.</span><span class="n">VORONOI_ON_MASK</span> <span class="o">=</span> <span class="kc">False</span>
+        
+        <span class="c1">### Detection</span>
+        <span class="c1"># The minimal allowed distance between points</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">POST_PROCESSING</span><span class="o">.</span><span class="n">REMOVE_CLOSE_POINTS</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Distance between points to be considered the same. Only applies when TEST.POST_PROCESSING.REMOVE_CLOSE_POINTS = True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">POST_PROCESSING</span><span class="o">.</span><span class="n">REMOVE_CLOSE_POINTS_RADIUS</span> <span class="o">=</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">]</span>
+
+
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="c1"># Auxiliary paths</span>
+        <span class="c1">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+
+        <span class="c1"># Folder where the mAP code should be placed</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">MAP_CODE_DIR</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1"># Path to the GT h5 files to calculate the mAP</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">TEST_FULL_GT_H5</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">MASK_PATH</span><span class="p">,</span> <span class="s1">&#39;h5&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Directories to store the results</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span> <span class="o">=</span> <span class="n">CN</span><span class="p">()</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">job_dir</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="n">job_identifier</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PER_IMAGE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;per_image&#39;</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PER_IMAGE_BIN</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;per_image_binarized&#39;</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PER_IMAGE_INSTANCES</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;per_image_instances&#39;</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PER_IMAGE_INST_VORONOI</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;per_image_instances_voronoi&#39;</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PER_IMAGE_POST_PROCESSING</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;per_image_post_processing&#39;</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">FULL_IMAGE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;full_image&#39;</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">FULL_IMAGE_BIN</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;full_image_binarized&#39;</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">FULL_POST_PROCESSING</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;full_post_processing&#39;</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">DET_LOCAL_MAX_COORDS_CHECK</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;per_image_local_max_check&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Name of the folder where the charts of the loss and metrics values while training the network are stored.</span>
+        <span class="c1"># Additionally, MW_TH* variable charts are stored if _C.PROBLEM.INSTANCE_SEG.DATA_MW_OPTIMIZE_THS = True</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">CHARTS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;charts&#39;</span><span class="p">)</span>
+        <span class="c1"># Folder where samples of DA will be stored</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">DA_SAMPLES</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;aug&#39;</span><span class="p">)</span>
+        <span class="c1"># Folder where generator samples (X) will be stored</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">GEN_CHECKS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;gen_check&#39;</span><span class="p">)</span>
+        <span class="c1"># Folder where generator samples (Y) will be stored</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">GEN_MASK_CHECKS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;gen_mask_check&#39;</span><span class="p">)</span>
+        <span class="c1"># Paths where a few samples of instance channels created will be stored just to check id there is any problem</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">TRAIN_INSTANCE_CHANNELS_CHECK</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;train_instance_channels&#39;</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">VAL_INSTANCE_CHANNELS_CHECK</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;val_instance_channels&#39;</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">TEST_INSTANCE_CHANNELS_CHECK</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;test_instance_channels&#39;</span><span class="p">)</span>
+        <span class="c1"># Name of the folder where weights files will be stored/loaded from.</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">CHECKPOINT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">job_dir</span><span class="p">,</span> <span class="s1">&#39;checkpoints&#39;</span><span class="p">)</span>
+        <span class="c1"># Checkpoint file to load/store the model weights</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">CHECKPOINT_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">CHECKPOINT</span><span class="p">,</span> <span class="s1">&#39;model_weights_&#39;</span> <span class="o">+</span> <span class="n">job_identifier</span> <span class="o">+</span> <span class="s1">&#39;.h5&#39;</span><span class="p">)</span>
+        <span class="c1"># Name of the folder to store the probability map to avoid recalculating it on every run</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">PROB_MAP_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">job_dir</span><span class="p">,</span> <span class="s1">&#39;prob_map&#39;</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">PROB_MAP_FILENAME</span> <span class="o">=</span> <span class="s1">&#39;prob_map.npy&#39;</span>
+        <span class="c1"># Watershed debugging folder</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">WATERSHED_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;watershed&#39;</span><span class="p">)</span>
+        <span class="c1"># To store h5 files needed for the mAP calculation</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">MAP_H5_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">RESULT_DIR</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;mAP_checkpoints&#39;</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">MEAN_INFO_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">CHECKPOINT</span><span class="p">,</span> <span class="s1">&#39;normalization_mean_value.npy&#39;</span><span class="p">)</span>
+        <span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">STD_INFO_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">CHECKPOINT</span><span class="p">,</span> <span class="s1">&#39;normalization_std_value.npy&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span> <span class="o">=</span> <span class="n">_C</span>
+
+<div class="viewcode-block" id="Config.get_cfg_defaults"><a class="viewcode-back" href="../../config/config.html#config.config.Config.get_cfg_defaults">[docs]</a>    <span class="k">def</span> <span class="nf">get_cfg_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a yacs CfgNode object with default values for my_project.&quot;&quot;&quot;</span>
+        <span class="c1"># Return a clone so that the defaults will not be altered</span>
+        <span class="c1"># This is for the &quot;local variable&quot; use pattern</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Config.update_dependencies"><a class="viewcode-back" href="../../config/config.html#config.config.Config.update_dependencies">[docs]</a>    <span class="k">def</span> <span class="nf">update_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update some variables that depend of changes made after merge the .cfg file provide by the user. That is,</span>
+<span class="sd">           this function should be called after YACS&#39;s merge_from_file().</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">INSTANCE_CHANNELS_DIR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHANNELS</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CONTOUR_MODE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">INSTANCE_CHANNELS_MASK_DIR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">MASK_PATH</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHANNELS</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CONTOUR_MODE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">DETECTION_MASK_DIR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">MASK_PATH</span><span class="o">+</span><span class="s1">&#39;_detection_masks&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">SSL_TARGET_DIR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TRAIN</span><span class="o">.</span><span class="n">MASK_PATH</span><span class="o">+</span><span class="s1">&#39;_ssl_target&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">INSTANCE_CHANNELS_DIR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHANNELS</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CONTOUR_MODE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">INSTANCE_CHANNELS_MASK_DIR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">MASK_PATH</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHANNELS</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CONTOUR_MODE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">BINARY_MASKS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;bin_mask&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">DETECTION_MASK_DIR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">MASK_PATH</span><span class="o">+</span><span class="s1">&#39;_detection_masks&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">SSL_TARGET_DIR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">VAL</span><span class="o">.</span><span class="n">MASK_PATH</span><span class="o">+</span><span class="s1">&#39;_ssl_target&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">INSTANCE_CHANNELS_DIR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHANNELS</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CONTOUR_MODE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">INSTANCE_CHANNELS_MASK_DIR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">MASK_PATH</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CHANNELS</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PROBLEM</span><span class="o">.</span><span class="n">INSTANCE_SEG</span><span class="o">.</span><span class="n">DATA_CONTOUR_MODE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">BINARY_MASKS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;bin_mask&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">DETECTION_MASK_DIR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">MASK_PATH</span><span class="o">+</span><span class="s1">&#39;_detection_masks&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PATHS</span><span class="o">.</span><span class="n">TEST_FULL_GT_H5</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DATA</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">MASK_PATH</span><span class="p">,</span> <span class="s1">&#39;h5&#39;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Daniel Franco-Barranco.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

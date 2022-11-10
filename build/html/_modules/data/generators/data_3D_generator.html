@@ -1,0 +1,420 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>data.generators.data_3D_generator &mdash; BiaPy  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> BiaPy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Get started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/how_it_works.html">How it works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/select_workflow.html">Select workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workflows</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../workflows/semantic_segmentation.html">Semantic segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workflows/instance_segmentation.html">Instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workflows/detection.html">Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workflows/denoising.html">Denoising</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workflows/super_resolution.html">Super-resolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workflows/self_supervision.html">Self-supervision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workflows/classification.html">Classification</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/cysto.html">3D Cysto Instance Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/mitochondria.html">2D Mitochondria segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../config/main_config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/data.html">data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../engine/engine.html">engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models/models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../utils/utils.html">utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BiaPy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../generators.html">data.generators</a> &raquo;</li>
+        
+      <li>data.generators.data_3D_generator</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for data.generators.data_3D_generator</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">skimage.io</span> <span class="kn">import</span> <span class="n">imsave</span><span class="p">,</span> <span class="n">imread</span>
+
+<span class="kn">from</span> <span class="nn">imgaug.augmentables.segmaps</span> <span class="kn">import</span> <span class="n">SegmentationMapsOnImage</span>
+<span class="kn">from</span> <span class="nn">data.generators.base_data_generator</span> <span class="kn">import</span> <span class="n">BaseDataGenerator</span>
+<span class="kn">from</span> <span class="nn">data.pre_processing</span> <span class="kn">import</span> <span class="n">denormalize</span>
+
+<div class="viewcode-block" id="VoxelDataGenerator"><a class="viewcode-back" href="../../../data/generators/3d_generator.html#data.generators.data_3D_generator.VoxelDataGenerator">[docs]</a><span class="k">class</span> <span class="nc">VoxelDataGenerator</span><span class="p">(</span><span class="n">BaseDataGenerator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Custom 3D data generator based on `imgaug &lt;https://github.com/aleju/imgaug-doc&gt;`_ and our own</span>
+<span class="sd">       `augmentors.py &lt;https://github.com/danifranco/BiaPy/blob/master/generators/augmentors.py&gt;`_</span>
+<span class="sd">       transformations. This generator will yield an image and its corresponding mask.</span>
+
+<span class="sd">       Based on `microDL &lt;https://github.com/czbiohub/microDL&gt;`_ and</span>
+<span class="sd">       `Shervine&#39;s blog &lt;https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly&gt;`_.</span>
+
+<span class="sd">       Parameters</span>
+<span class="sd">       ----------</span>
+<span class="sd">       zflip : bool, optional</span>
+<span class="sd">           To activate flips in z dimension.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zflip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwars</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwars</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_memory</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">X_channels</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">del</span> <span class="n">img</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">z_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_crops_in_DA</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zflip</span> <span class="o">=</span> <span class="n">zflip</span>
+
+<div class="viewcode-block" id="VoxelDataGenerator.ensure_shape"><a class="viewcode-back" href="../../../data/generators/3d_generator.html#data.generators.data_3D_generator.VoxelDataGenerator.ensure_shape">[docs]</a>    <span class="k">def</span> <span class="nf">ensure_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">mask</span><span class="p">):</span>
+        <span class="c1"># Shape adjustment</span>
+        <span class="k">if</span> <span class="n">img</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span> 
+            <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">:</span> <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">mask</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span> 
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">:</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">img</span><span class="p">,</span> <span class="n">mask</span></div>
+
+<div class="viewcode-block" id="VoxelDataGenerator.apply_imgaug"><a class="viewcode-back" href="../../../data/generators/3d_generator.html#data.generators.data_3D_generator.VoxelDataGenerator.apply_imgaug">[docs]</a>    <span class="k">def</span> <span class="nf">apply_imgaug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">heat</span><span class="p">):</span>
+        <span class="c1"># Change dtype to supported one by imgaug</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+        
+        <span class="n">segmap</span> <span class="o">=</span> <span class="n">SegmentationMapsOnImage</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">image</span><span class="p">,</span> <span class="n">vol_mask</span><span class="p">,</span> <span class="n">heat_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">seq</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">segmentation_maps</span><span class="o">=</span><span class="n">segmap</span><span class="p">,</span> <span class="n">heatmaps</span><span class="o">=</span><span class="n">heat</span><span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">vol_mask</span><span class="o">.</span><span class="n">get_arr</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">image</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">heat_out</span></div>
+
+<div class="viewcode-block" id="VoxelDataGenerator.apply_transform"><a class="viewcode-back" href="../../../data/generators/3d_generator.html#data.generators.data_3D_generator.VoxelDataGenerator.apply_transform">[docs]</a>    <span class="k">def</span> <span class="nf">apply_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">e_im</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">e_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Transpose them so we can merge the z and c channels easily. </span>
+        <span class="c1"># z, y, x, c --&gt; x, y, z, c</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+
+        <span class="c1"># Apply flips in z as imgaug can not do it</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">zflip</span> <span class="ow">and</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">da_prob</span><span class="p">:</span>
+            <span class="n">l_image</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">l_mask</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">l_image</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">l_mask</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">mask</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">l_image</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">l_mask</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">image</span><span class="p">,</span> <span class="n">mask</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">apply_transform</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">e_im</span><span class="p">,</span> <span class="n">e_mask</span><span class="p">)</span>
+
+        <span class="c1"># x, y, z, c --&gt; z, y, x, c</span>
+        <span class="k">return</span> <span class="n">image</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)),</span> <span class="n">mask</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="VoxelDataGenerator.save_aug_samples"><a class="viewcode-back" href="../../../data/generators/3d_generator.html#data.generators.data_3D_generator.VoxelDataGenerator.save_aug_samples">[docs]</a>    <span class="k">def</span> <span class="nf">save_aug_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">orig_images</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">draw_grid</span><span class="p">,</span> <span class="n">point_dict</span><span class="p">):</span>
+        <span class="c1"># Undo X normalization </span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_norm</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;div&#39;</span> <span class="ow">and</span> <span class="s1">&#39;div&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_norm</span><span class="p">:</span> 
+            <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_x&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">255</span>
+            <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_x2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_x2&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">255</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">*</span><span class="mi">255</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_norm</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;custom&#39;</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">denormalize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_norm</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_norm</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">])</span>
+            <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">denormalize</span><span class="p">(</span><span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_x&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_norm</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_norm</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">])</span>
+            <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_x2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">denormalize</span><span class="p">(</span><span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_x2&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_norm</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_norm</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">])</span>
+
+        <span class="c1"># Undo Y normalization </span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_no_bin_channel</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">div_Y_on_load_bin_channels</span><span class="p">:</span>
+                <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">,:</span><span class="bp">self</span><span class="o">.</span><span class="n">first_no_bin_channel</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">,:</span><span class="bp">self</span><span class="o">.</span><span class="n">first_no_bin_channel</span><span class="p">]</span><span class="o">*</span><span class="mi">255</span>
+                <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y2&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">,:</span><span class="bp">self</span><span class="o">.</span><span class="n">first_no_bin_channel</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y2&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">,:</span><span class="bp">self</span><span class="o">.</span><span class="n">first_no_bin_channel</span><span class="p">]</span><span class="o">*</span><span class="mi">255</span>
+                <span class="n">mask</span><span class="p">[</span><span class="o">...</span><span class="p">,:</span><span class="bp">self</span><span class="o">.</span><span class="n">first_no_bin_channel</span><span class="p">]</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="o">...</span><span class="p">,:</span><span class="bp">self</span><span class="o">.</span><span class="n">first_no_bin_channel</span><span class="p">]</span><span class="o">*</span><span class="mi">255</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">div_Y_on_load_no_bin_channels</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_no_bin_channel</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">first_no_bin_channel</span><span class="p">:]</span> <span class="o">=</span> <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">first_no_bin_channel</span><span class="p">:]</span><span class="o">*</span><span class="mi">255</span>
+                    <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y2&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">first_no_bin_channel</span><span class="p">:]</span> <span class="o">=</span> <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y2&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">first_no_bin_channel</span><span class="p">:]</span><span class="o">*</span><span class="mi">255</span>
+                    <span class="n">mask</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">first_no_bin_channel</span><span class="p">:]</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">first_no_bin_channel</span><span class="p">:]</span><span class="o">*</span><span class="mi">255</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">255</span>
+                    <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y2&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">255</span>
+                    <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">*</span><span class="mi">255</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">div_Y_on_load_bin_channels</span><span class="p">:</span> 
+                <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">255</span>
+                <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y2&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">255</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">*</span><span class="mi">255</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Original image/mask</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;_orig_x_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;_&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">trans_made</span><span class="o">+</span><span class="s1">&#39;.tiff&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">draw_grid</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_grid</span><span class="p">(</span><span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_x&#39;</span><span class="p">])</span>
+        <span class="n">aux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_x&#39;</span><span class="p">],</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">imsave</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">imagej</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;axes&#39;</span><span class="p">:</span> <span class="s1">&#39;ZCYXS&#39;</span><span class="p">},</span> <span class="n">check_contrast</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;_orig_y_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;_&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">trans_made</span><span class="o">+</span><span class="s1">&#39;.tiff&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">draw_grid</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_grid</span><span class="p">(</span><span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y&#39;</span><span class="p">])</span>
+        <span class="n">aux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y&#39;</span><span class="p">],</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">imsave</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">imagej</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;axes&#39;</span><span class="p">:</span> <span class="s1">&#39;ZCYXS&#39;</span><span class="p">},</span> <span class="n">check_contrast</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># Transformed</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;_x_aug_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;_&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">trans_made</span><span class="o">+</span><span class="s1">&#39;.tiff&#39;</span><span class="p">)</span>
+        <span class="n">aux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">imsave</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">imagej</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;axes&#39;</span><span class="p">:</span> <span class="s1">&#39;ZCYXS&#39;</span><span class="p">},</span> <span class="n">check_contrast</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># Mask</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;_y_aug_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;_&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">trans_made</span><span class="o">+</span><span class="s1">&#39;.tiff&#39;</span><span class="p">)</span>
+        <span class="n">aux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">imsave</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">imagej</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;axes&#39;</span><span class="p">:</span> <span class="s1">&#39;ZCYXS&#39;</span><span class="p">},</span> <span class="n">check_contrast</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># Save the original images with a red point and a blue square that represents the point selected with</span>
+        <span class="c1"># the probability map and the random volume extracted from the original data</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_crops_in_DA</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_map</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The selected point of the random crop was [</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;oz&#39;</span><span class="p">],</span><span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;oy&#39;</span><span class="p">],</span><span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;ox&#39;</span><span class="p">]))</span>
+
+            <span class="n">aux</span> <span class="o">=</span> <span class="p">(</span><span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_x2&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">aux</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="n">aux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">aux</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">auxm</span> <span class="o">=</span> <span class="p">(</span><span class="n">orig_images</span><span class="p">[</span><span class="s1">&#39;o_y2&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">auxm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="n">auxm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">auxm</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;=</span> <span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;s_z&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;s_z&#39;</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">aux</span><span class="p">[</span><span class="n">s</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">)</span>
+                    <span class="n">px</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+                    <span class="n">m</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">auxm</span><span class="p">[</span><span class="n">s</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">)</span>
+                    <span class="n">py</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+
+                    <span class="c1"># Paint a blue square that represents the crop made. </span>
+                    <span class="c1"># Here the axis are x, y and not y, x (numpy)</span>
+                    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;s_x&#39;</span><span class="p">],</span> <span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;s_x&#39;</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+                        <span class="n">px</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;s_y&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+                        <span class="n">px</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;s_y&#39;</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+                        <span class="n">py</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;s_y&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+                        <span class="n">py</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;s_y&#39;</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;s_y&#39;</span><span class="p">],</span> <span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;s_y&#39;</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                        <span class="n">px</span><span class="p">[</span><span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;s_x&#39;</span><span class="p">],</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+                        <span class="n">px</span><span class="p">[</span><span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;s_x&#39;</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+                        <span class="n">py</span><span class="p">[</span><span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;s_x&#39;</span><span class="p">],</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+                        <span class="n">py</span><span class="p">[</span><span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;s_x&#39;</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+
+                    <span class="c1"># Paint the selected point in red</span>
+                    <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;oz&#39;</span><span class="p">]:</span>
+                        <span class="n">p_size</span><span class="o">=</span><span class="mi">6</span>
+                        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;ox&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">p_size</span><span class="p">,</span><span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;ox&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">p_size</span><span class="p">):</span>
+                            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;oy&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">p_size</span><span class="p">,</span><span class="n">point_dict</span><span class="p">[</span><span class="s1">&#39;oy&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">p_size</span><span class="p">):</span>
+                                <span class="k">if</span> <span class="n">col</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">row</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+                                    <span class="n">px</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                                    <span class="n">py</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+                    <span class="n">aux</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">im</span>
+                    <span class="n">auxm</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span>
+
+            <span class="n">aux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">aux</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="s2">&quot;extract_example_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;_mark_x_&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">trans_made</span><span class="o">+</span><span class="s1">&#39;.tiff&#39;</span><span class="p">)</span>
+            <span class="n">imsave</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">imagej</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;axes&#39;</span><span class="p">:</span> <span class="s1">&#39;ZCYXS&#39;</span><span class="p">},</span> <span class="n">check_contrast</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">auxm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">auxm</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="s2">&quot;extract_example_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;_mark_y_&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">trans_made</span><span class="o">+</span><span class="s1">&#39;.tiff&#39;</span><span class="p">)</span>
+            <span class="n">imsave</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">auxm</span><span class="p">,</span> <span class="n">imagej</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;axes&#39;</span><span class="p">:</span> <span class="s1">&#39;ZCYXS&#39;</span><span class="p">},</span> <span class="n">check_contrast</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div></div>
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Daniel Franco-Barranco.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,523 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Semantic segmentation &mdash; BiaPy  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Instance segmentation" href="instance_segmentation.html" />
+    <link rel="prev" title="FAQ" href="../get_started/faq.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> BiaPy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Get started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/how_it_works.html">How it works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/select_workflow.html">Select workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Workflows</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Semantic segmentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-preparation">Data preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#special-workflow-configuration">Special workflow configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run">Run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#results">Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="instance_segmentation.html">Instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detection.html">Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="denoising.html">Denoising</a></li>
+<li class="toctree-l1"><a class="reference internal" href="super_resolution.html">Super-resolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="self_supervision.html">Self-supervision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classification.html">Classification</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../config/main_config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/data.html">data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../engine/engine.html">engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../models/models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/utils.html">utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BiaPy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Semantic segmentation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="semantic-segmentation">
+<span id="id1"></span><h1>Semantic segmentation<a class="headerlink" href="#semantic-segmentation" title="Permalink to this headline">¶</a></h1>
+<p>The goal of this workflow is assign a class to each pixel of the input image.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Input:</strong></dt><dd><ul>
+<li><p>Image.</p></li>
+<li><p>Class mask where each pixel is labeled with an integer representing a class.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Output:</strong></dt><dd><ul>
+<li><p>Image with the probability of being part of each class.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>In the figure below an example of this workflow’s <strong>input</strong> is depicted. There, only two labels are present in the mask: black pixels, with value 0, represent the background and white ones the mitochondria, labeled with 1. The number of classes is defined by <code class="docutils literal notranslate"><span class="pre">MODEL.N_CLASSES</span></code> variable.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><div class="figure align-center" id="id3">
+<img alt="../_images/FIBSEM_test_0.png" src="../_images/FIBSEM_test_0.png" />
+<p class="caption"><span class="caption-text">Input image.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</td>
+<td><div class="figure align-center" id="id4">
+<img alt="../_images/FIBSEM_test_0_gt.png" src="../_images/FIBSEM_test_0_gt.png" />
+<p class="caption"><span class="caption-text">Input class mask (ground truth).</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>output</strong> in case that only two classes are present, as in this example, will be an image where each pixel will have the probability of being of class 1.</p>
+<p>If there are <strong>3 or more classes</strong>, the output will be a multi-channel image, with the same number of channels as classes, and the same pixel in each channel will be the probability (in <code class="docutils literal notranslate"><span class="pre">[0-1]</span></code> range) of being of the class that represents that channel number. For instance, with 3 classes, e.g. background, mitochondria and contours, the fist channel will represent background, the second mitochondria and the last contour class.</p>
+<div class="section" id="data-preparation">
+<span id="semantic-segmentation-data-prep"></span><h2>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">¶</a></h2>
+<p>To ensure the proper operation of the library the data directory tree should be something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>dataset/
+├── train
+│   ├── x
+│   │   ├── training-0001.tif
+│   │   ├── training-0002.tif
+│   │   ├── . . .
+│   │   ├── training-9999.tif
+│   └── y
+│       ├── training_groundtruth-0001.tif
+│       ├── training_groundtruth-0002.tif
+│       ├── . . .
+│       ├── training_groundtruth-9999.tif
+└── test
+    ├── x
+    │   ├── testing-0001.tif
+    │   ├── testing-0002.tif
+    │   ├── . . .
+    │   ├── testing-9999.tif
+    └── y
+        ├── testing_groundtruth-0001.tif
+        ├── testing_groundtruth-0002.tif
+        ├── . . .
+        ├── testing_groundtruth-9999.tif
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Ensure that images and their corresponding masks are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example).</p>
+</div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Find in <a class="reference external" href="https://github.com/danifranco/BiaPy/tree/master/templates/semantic_segmentation">templates/semantic_segmentation</a> folder of BiaPy a few YAML configuration templates for this workflow.</p>
+</div>
+<div class="section" id="special-workflow-configuration">
+<h2>Special workflow configuration<a class="headerlink" href="#special-workflow-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Here some special configuration options that can be selected in this workflow are described:</p>
+<ul class="simple">
+<li><p><strong>Data loading</strong>: if you want to select <code class="docutils literal notranslate"><span class="pre">DATA.EXTRACT_RANDOM_PATCH</span></code> you can also set <code class="docutils literal notranslate"><span class="pre">DATA.PROBABILITY_MAP</span></code> to create a probability map so the patches extracted will have a high probability of having an object in the middle of it. Useful to avoid extracting patches which no foreground class information. That map will be saved in <code class="docutils literal notranslate"><span class="pre">PATHS.PROB_MAP_DIR</span></code>.</p></li>
+</ul>
+<p>Furthermore, when this is enabled, in <code class="docutils literal notranslate"><span class="pre">PATHS.DA_SAMPLES</span></code> path, i.e. <code class="docutils literal notranslate"><span class="pre">aug</span></code> folder by default (see <a class="reference internal" href="#semantic-segmentation-results"><span class="std std-ref">Results</span></a>), two more images will be created so you can check how this probability map is working. These images will have painted a blue square and a red point in its middle, which correspond to the patch area extracted and the central point selected respectively. One image will be named as <code class="docutils literal notranslate"><span class="pre">mark_x</span></code> and the other one as <code class="docutils literal notranslate"><span class="pre">mark_y</span></code>, which correspond to the input image and ground truth respectively.</p>
+<ul>
+<li><p><strong>Metrics</strong>: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, <code class="docutils literal notranslate"><span class="pre">DATA.TEST.LOAD_GT</span></code> is enabled. In the case of semantic segmentation the <strong>Intersection over Union</strong> (IoU) metrics is calculated. This metric, also referred as the Jaccard index, is essentially a method to quantify the percent of overlap between the target mask and the prediction output. Depending on the configuration different values are calculated (as explained in <span class="xref std std-ref">_config_test</span>). This values can vary a lot as stated in <span id="id2">[<a class="reference internal" href="../bibliography.html#id6" title="Daniel Franco-Barranco, Arrate Muñoz-Barrutia, and Ignacio Arganda-Carreras. Stable deep neural network architectures for mitochondria segmentation on electron microscopy volumes. Neuroinformatics, Dec 2021. URL: https://doi.org/10.1007/s12021-021-09556-1, doi:10.1007/s12021-021-09556-1.">FBMunozBAC21</a>]</span>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">per</span> <span class="pre">patch</span></code> values are calculated if <code class="docutils literal notranslate"><span class="pre">TEST.STATS.PER_PATCH</span></code> is enabled. IoU is calculated for each patch separately and then averaged.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">merge</span> <span class="pre">patches</span></code> values are calculated if <code class="docutils literal notranslate"><span class="pre">TEST.STATS.MERGE_PATCHES</span></code> is enabled. Notice that depending on the amount of overlap/padding selected the merged image can be different than just concatenating each patch.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">full</span> <span class="pre">image</span></code> values are calculated if <code class="docutils literal notranslate"><span class="pre">TEST.STATS.FULL_IMG</span></code> is enabled. This can be done if the model selected if fully convolutional. The results may be slightly different from <code class="docutils literal notranslate"><span class="pre">merge</span> <span class="pre">patches</span></code> as you may notice and probably no border effect will be seen.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Post-processing</strong>: When <code class="docutils literal notranslate"><span class="pre">PROBLEM.NDIM</span></code> is <code class="docutils literal notranslate"><span class="pre">2D</span></code> the post-processing will be enabled only if <code class="docutils literal notranslate"><span class="pre">TEST.STATS.FULL_IMG</span></code> is enabled. In that case the post-processing will process all 2D predicted images as a unique 3D stack. On the other hand, when <code class="docutils literal notranslate"><span class="pre">PROBLEM.NDIM</span></code> is <code class="docutils literal notranslate"><span class="pre">3D</span></code> the post-processing will be applied when <code class="docutils literal notranslate"><span class="pre">TEST.STATS.PER_PATCH</span></code> and <code class="docutils literal notranslate"><span class="pre">TEST.STATS.MERGE_PATCHES</span></code> is selected. In this case, each 3D predicted image will be processed individually.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Z-filtering</strong>: to apply a median filtering in <code class="docutils literal notranslate"><span class="pre">z</span></code> axis. Useful to maintain class coherence across 3D volumes. Enable it with <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.Z_FILTERING</span></code> and use <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.Z_FILTERING_SIZE</span></code> for the size of the median filter.</p></li>
+<li><p><strong>YZ-filtering</strong>: to apply a median filtering in <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">z</span></code> axes. Useful to maintain class coherence across 3D volumes that can work slightly better than <code class="docutils literal notranslate"><span class="pre">Z-filtering</span></code>. Enable it with <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.YZ_FILTERING</span></code> and use <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.YZ_FILTERING_SIZE</span></code> for the size of the median filter.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="run">
+<span id="semantic-segmentation-data-run"></span><h2>Run<a class="headerlink" href="#run" title="Permalink to this headline">¶</a></h2>
+<p><strong>Command line</strong>: Open a terminal as described in <a class="reference internal" href="../get_started/installation.html#installation"><span class="std std-ref">Installation</span></a>. For instance, using <a class="reference external" href="https://github.com/danifranco/BiaPy/blob/master/templates/semantic_segmentation/resunet_2d_semantic_segmentation.yaml">resunet_2d_semantic_segmentation.yaml</a> template file, the code can be run as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuration file</span>
+<span class="nv">job_cfg_file</span><span class="o">=</span>/home/user/resunet_2d_semantic_segmentation.yaml
+<span class="c1"># Where the experiment output directory should be created</span>
+<span class="nv">result_dir</span><span class="o">=</span>/home/user/exp_results
+<span class="c1"># Just a name for the job</span>
+<span class="nv">job_name</span><span class="o">=</span>resunet_2d
+<span class="c1"># Number that should be increased when one need to run the same job multiple times (reproducibility)</span>
+<span class="nv">job_counter</span><span class="o">=</span><span class="m">1</span>
+<span class="c1"># Number of the GPU to run the job in (according to &#39;nvidia-smi&#39; command)</span>
+<span class="nv">gpu_number</span><span class="o">=</span><span class="m">0</span>
+
+<span class="c1"># Move where BiaPy installation resides</span>
+<span class="nb">cd</span> BiaPy
+
+<span class="c1"># Load the environment</span>
+conda activate BiaPy_env
+
+python -u main.py <span class="se">\</span>
+       --config <span class="nv">$job_cfg_file</span> <span class="se">\</span>
+       --result_dir <span class="nv">$result_dir</span>  <span class="se">\</span>
+       --name <span class="nv">$job_name</span>    <span class="se">\</span>
+       --run_id <span class="nv">$job_counter</span>  <span class="se">\</span>
+       --gpu <span class="nv">$gpu_number</span>
+</pre></div>
+</div>
+<p><strong>Docker</strong>: Open a terminal as described in <a class="reference internal" href="../get_started/installation.html#installation"><span class="std std-ref">Installation</span></a>. For instance, using <a class="reference external" href="https://github.com/danifranco/BiaPy/blob/master/templates/semantic_segmentation/resunet_2d_semantic_segmentation.yaml">resunet_2d_semantic_segmentation.yaml</a> template file, the code can be run as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuration file</span>
+<span class="nv">job_cfg_file</span><span class="o">=</span>/home/user/resunet_2d_semantic_segmentation.yaml
+<span class="c1"># Where the experiment output directory should be created</span>
+<span class="nv">result_dir</span><span class="o">=</span>/home/user/exp_results
+<span class="c1"># Just a name for the job</span>
+<span class="nv">job_name</span><span class="o">=</span>resunet_2d
+<span class="c1"># Number that should be increased when one need to run the same job multiple times (reproducibility)</span>
+<span class="nv">job_counter</span><span class="o">=</span><span class="m">1</span>
+<span class="c1"># Number of the GPU to run the job in (according to &#39;nvidia-smi&#39; command)</span>
+<span class="nv">gpu_number</span><span class="o">=</span><span class="m">0</span>
+
+docker run --rm <span class="se">\</span>
+    --gpus <span class="nv">$gpu_number</span> <span class="se">\</span>
+    --mount <span class="nv">type</span><span class="o">=</span>bind,source<span class="o">=</span><span class="nv">$job_cfg_file</span>,target<span class="o">=</span><span class="nv">$job_cfg_file</span> <span class="se">\</span>
+    --mount <span class="nv">type</span><span class="o">=</span>bind,source<span class="o">=</span><span class="nv">$result_dir</span>,target<span class="o">=</span><span class="nv">$result_dir</span> <span class="se">\</span>
+    --mount <span class="nv">type</span><span class="o">=</span>bind,source<span class="o">=</span><span class="nv">$data_dir</span>,target<span class="o">=</span><span class="nv">$data_dir</span> <span class="se">\</span>
+    danifranco/em_image_segmentation <span class="se">\</span>
+        -cfg <span class="nv">$job_cfg_file</span> <span class="se">\</span>
+        -rdir <span class="nv">$result_dir</span> <span class="se">\</span>
+        -name <span class="nv">$job_name</span> <span class="se">\</span>
+        -rid <span class="nv">$job_counter</span> <span class="se">\</span>
+        -gpu <span class="nv">$gpu_number</span>
+</pre></div>
+</div>
+<p><strong>Colab</strong>: The fastest and easiest way to run it is via Google Colab <a class="reference external" href="https://colab.research.google.com/github/danifranco/BiaPy/blob/master/templates/notebooks/semantic_segmentation_workflow.ipynb"><img alt="colablink" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+</div>
+<div class="section" id="results">
+<span id="semantic-segmentation-results"></span><h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
+<p>The results are placed in <code class="docutils literal notranslate"><span class="pre">results</span></code> folder under <code class="docutils literal notranslate"><span class="pre">--result_dir</span></code> directory with the <code class="docutils literal notranslate"><span class="pre">--name</span></code> given. An example of this workflow is depicted below:</p>
+<div class="figure align-center" id="id5">
+<img alt="../_images/unet2d_prediction.gif" src="../_images/unet2d_prediction.gif" />
+<p class="caption"><span class="caption-text">Example of semantic segmentation model predictions. From left to right: input image, its mask and the overlap between the mask and the model’s output binarized.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>Following the example, you should see that the directory <code class="docutils literal notranslate"><span class="pre">/home/user/exp_results/resunet_2d</span></code> has been created. If the same experiment is run 5 times, varying <code class="docutils literal notranslate"><span class="pre">--run_id</span></code> argument only, you should find the following directory tree:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>resunet_2d/
+├── config_files/
+│   └── resunet_2d_semantic_segmentation.yaml
+├── checkpoints
+│   └── model_weights_resunet_2d_1.h5
+└── results
+    ├── resunet_2d_1
+    ├── . . .
+    └── resunet_2d_5
+        ├── aug
+        │   └── .tif files
+        ├── charts
+        │   ├── resunet_2d_1_jaccard_index.png
+        │   ├── resunet_2d_1_loss.png
+        │   └── model_plot_resunet_2d_1.png
+        ├── full_image
+        │   └── .tif files
+        ├── full_image_binarized
+        │   └── .tif files
+        ├── full_post_processing
+        │   └── .tif files
+        ├── per_image
+        │   └── .tif files
+        └── per_image_binarized
+            └── .tif files
+</pre></div>
+</div>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_files</span></code>: directory where the .yaml filed used in the experiment is stored.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">resunet_2d_semantic_segmentation.yaml</span></code>: YAML configuration file used (it will be overwrited every time the code is run)</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">checkpoints</span></code>: directory where model’s weights are stored.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">model_weights_resunet_2d_1.h5</span></code>: model’s weights file.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">results</span></code>: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">resunet_2d_1</span></code>: run 1 experiment folder.</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">aug</span></code>: image augmentation samples.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">charts</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">resunet_2d_1_jaccard_index.png</span></code>: IoU (jaccard_index) over epochs plot (when training is done).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resunet_2d_1_loss.png</span></code>: Loss over epochs plot (when training is done).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model_plot_resunet_2d_1.png</span></code>: plot of the model.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">full_image</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.tif</span> <span class="pre">files</span></code>: output of the model when feeding entire images (without patching).</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">full_image_binarized</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.tif</span> <span class="pre">files</span></code>: Same as <code class="docutils literal notranslate"><span class="pre">full_image</span></code> but with the image binarized.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">full_post_processing</span></code> (optional if any post-processing was selected):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.tif</span> <span class="pre">files</span></code>: output of the model when feeding entire images (without patching) and applying post-processing, which in this case only <cite>y</cite> and <cite>z</cite> axes filtering was selected.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">per_image</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.tif</span> <span class="pre">files</span></code>: predicted patches are combined again to recover the original test image. This folder contains these images.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">per_image_binarized</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.tif</span> <span class="pre">files</span></code>: Same as <code class="docutils literal notranslate"><span class="pre">per_image</span></code> but with the images binarized.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here, for visualization purposes, only <code class="docutils literal notranslate"><span class="pre">resunet_2d_1</span></code> has been described but <code class="docutils literal notranslate"><span class="pre">resunet_2d_2</span></code>, <code class="docutils literal notranslate"><span class="pre">resunet_2d_3</span></code>, <code class="docutils literal notranslate"><span class="pre">resunet_2d_4</span></code>
+and <code class="docutils literal notranslate"><span class="pre">resunet_2d_5</span></code> will follow the same structure.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="instance_segmentation.html" class="btn btn-neutral float-right" title="Instance segmentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../get_started/faq.html" class="btn btn-neutral float-left" title="FAQ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Daniel Franco-Barranco.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
