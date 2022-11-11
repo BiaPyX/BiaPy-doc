@@ -107,10 +107,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/cysto.html">3D Cysto Instance Segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitochondria.html">2D Mitochondria segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitoem.html">MitoEM dataset: large-scale 3d mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/nucleus.html">NucMM dataset: 3d neuronal nuclei instance segmentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -208,109 +208,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-data.generators.data_3D_generator">
-<span id="d-generator"></span><h1>3D generator<a class="headerlink" href="#module-data.generators.data_3D_generator" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="data.generators.data_3D_generator.VoxelDataGenerator">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">data.generators.data_3D_generator.</span></span><span class="sig-name descname"><span class="pre">VoxelDataGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zflip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators/data_3D_generator.html#VoxelDataGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.data_3D_generator.VoxelDataGenerator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">data.generators.base_data_generator.BaseDataGenerator</span></code></p>
-<p>Custom 3D data generator based on <a class="reference external" href="https://github.com/aleju/imgaug-doc">imgaug</a> and our own
-<a class="reference external" href="https://github.com/danifranco/BiaPy/blob/master/generators/augmentors.py">augmentors.py</a>
-transformations. This generator will yield an image and its corresponding mask.</p>
-<p>Based on <a class="reference external" href="https://github.com/czbiohub/microDL">microDL</a> and
-<a class="reference external" href="https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly">Shervine’s blog</a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>zflip</strong> (<em>bool, optional</em>) – To activate flips in z dimension.</p>
-</dd>
-</dl>
-<p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#data.generators.data_3D_generator.VoxelDataGenerator.apply_transform" title="data.generators.data_3D_generator.VoxelDataGenerator.apply_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_transform</span></code></a>(image, mask[, e_im, e_mask])</p></td>
-<td><p>Transform the input image and its mask at the same time with one of the selected choices based on a probability.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_grid</span></code>(im[, grid_width])</p></td>
-<td><p>Draw grid of the specified size on an image.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_transformed_samples</span></code>(num_examples[, …])</p></td>
-<td><p>Apply selected transformations to a defined number of images from the dataset.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_sample</span></code>(idx)</p></td>
-<td><p>Load one data sample given its corresponding index.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_epoch_end</span></code>()</p></td>
-<td><p>Updates indexes after each epoch.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 67%" />
-<col style="width: 33%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>apply_imgaug</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><strong>ensure_shape</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><strong>prepare_n2v</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><strong>save_aug_samples</strong></p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<dl class="py method">
-<dt class="sig sig-object py" id="data.generators.data_3D_generator.VoxelDataGenerator.ensure_shape">
-<span class="sig-name descname"><span class="pre">ensure_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators/data_3D_generator.html#VoxelDataGenerator.ensure_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.data_3D_generator.VoxelDataGenerator.ensure_shape" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="data.generators.data_3D_generator.VoxelDataGenerator.apply_imgaug">
-<span class="sig-name descname"><span class="pre">apply_imgaug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators/data_3D_generator.html#VoxelDataGenerator.apply_imgaug"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.data_3D_generator.VoxelDataGenerator.apply_imgaug" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="data.generators.data_3D_generator.VoxelDataGenerator.apply_transform">
-<span class="sig-name descname"><span class="pre">apply_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_im</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators/data_3D_generator.html#VoxelDataGenerator.apply_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.data_3D_generator.VoxelDataGenerator.apply_transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform the input image and its mask at the same time with one of the selected choices based on a
-probability.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>image</strong> (<em>3D/4D Numpy array</em>) – Image to transform. E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> in 2D or <code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> in 3D.</p></li>
-<li><p><strong>mask</strong> (<em>3D/4D Numpy array</em>) – Mask to transform. E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> in 2D or <code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> in 3D.</p></li>
-<li><p><strong>e_img</strong> (<em>3D/4D Numpy array</em>) – Extra image to help transforming <code class="docutils literal notranslate"><span class="pre">image</span></code>. E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> in 2D or
-<code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> in 3D.</p></li>
-<li><p><strong>e_mask</strong> (<em>3D/4D Numpy array</em>) – Extra mask to help transforming <code class="docutils literal notranslate"><span class="pre">mask</span></code>. E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> in 2D or
-<code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> in 3D.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>image</strong> (<em>3D/4D Numpy array</em>) – Transformed image. E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> in 2D or <code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> in 3D.</p></li>
-<li><p><strong>mask</strong> (<em>3D/4D Numpy array</em>) – Transformed image mask. E.g. <code class="docutils literal notranslate"><span class="pre">(y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> in 2D or <code class="docutils literal notranslate"><span class="pre">(z,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code> in 3D.</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="data.generators.data_3D_generator.VoxelDataGenerator.save_aug_samples">
-<span class="sig-name descname"><span class="pre">save_aug_samples</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orig_images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators/data_3D_generator.html#VoxelDataGenerator.save_aug_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.data_3D_generator.VoxelDataGenerator.save_aug_samples" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="d-generator">
+<h1>3D generator<a class="headerlink" href="#d-generator" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

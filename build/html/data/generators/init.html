@@ -108,9 +108,9 @@
 <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitoem.html">MitoEM dataset: large-scale 3d mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/nucleus.html">NucMM dataset: 3d neuronal nuclei instance segmentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -208,69 +208,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-data.generators">
-<span id="init"></span><h1>Init<a class="headerlink" href="#module-data.generators" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="data.generators.create_train_val_augmentors">
-<span class="sig-prename descclassname"><span class="pre">data.generators.</span></span><span class="sig-name descname"><span class="pre">create_train_val_augmentors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y_val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators.html#create_train_val_augmentors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.create_train_val_augmentors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create training and validation generators.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cfg</strong> (<em>YACS CN object</em>) – Configuration.</p></li>
-<li><p><strong>X_train</strong> (<em>4D Numpy array</em>) – Training data. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
-<li><p><strong>Y_train</strong> (<em>4D Numpy array</em>) – Training data mask. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">1)</span></code>.</p></li>
-<li><p><strong>X_val</strong> (<em>4D Numpy array</em>) – Validation data mask. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
-<li><p><strong>Y_val</strong> (<em>4D Numpy array</em>) – Validation data mask. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">1)</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>train_generator</strong> (<em>ImageDataGenerator (2D) or VoxelDataGenerator (3D)</em>) – Training data generator.</p></li>
-<li><p><strong>val_generator</strong> (<em>ImageDataGenerator (2D) or VoxelDataGenerator (3D)</em>) – Validation data generator.</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="data.generators.create_test_augmentor">
-<span class="sig-prename descclassname"><span class="pre">data.generators.</span></span><span class="sig-name descname"><span class="pre">create_test_augmentor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y_test</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators.html#create_test_augmentor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.create_test_augmentor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create test data generator.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cfg</strong> (<em>YACS CN object</em>) – Configuration.</p></li>
-<li><p><strong>X_test</strong> (<em>4D Numpy array</em>) – Test data. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
-<li><p><strong>Y_test</strong> (<em>4D Numpy array</em>) – Test data mask. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">1)</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>test_generator</strong> – Test data generator.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="simple_generator.html#data.generators.simple_data_generators.simple_data_generator" title="data.generators.simple_data_generators.simple_data_generator">simple_data_generator</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="data.generators.check_generator_consistence">
-<span class="sig-prename descclassname"><span class="pre">data.generators.</span></span><span class="sig-name descname"><span class="pre">check_generator_consistence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_out_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_out_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators.html#check_generator_consistence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.check_generator_consistence" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save all data of a generator in the given path.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>gen</strong> (<em>ImageDataGenerator (2D) or VoxelDataGenerator (3D)</em>) – Generator to extract the data from.</p></li>
-<li><p><strong>data_out_dir</strong> (<em>str</em>) – Path to store the generator data samples.</p></li>
-<li><p><strong>mask_out_dir</strong> (<em>str</em>) – Path to store the generator data mask samples.</p></li>
-<li><p><strong>Filenames</strong> (<em>List, optional</em>) – Filenames that should be used when saving each image.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
+  <div class="section" id="init">
+<h1>Init<a class="headerlink" href="#init" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

@@ -108,9 +108,9 @@
 <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitoem.html">MitoEM dataset: large-scale 3d mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/nucleus.html">NucMM dataset: 3d neuronal nuclei instance segmentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -206,30 +206,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-data.post_processing">
-<span id="init"></span><h1>Init<a class="headerlink" href="#module-data.post_processing" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="data.post_processing.apply_post_processing">
-<span class="sig-prename descclassname"><span class="pre">data.post_processing.</span></span><span class="sig-name descname"><span class="pre">apply_post_processing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/post_processing.html#apply_post_processing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.post_processing.apply_post_processing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create training and validation generators.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cfg</strong> (<em>YACS CN object</em>) – Configuration.</p></li>
-<li><p><strong>data</strong> (<em>4D Numpy array</em>) – Data to apply post_proccessing. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
-<li><p><strong>Y</strong> (<em>4D Numpy array, optional</em>) – Data GT to calculate the metrics. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">channels)</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>iou_post</strong> (<em>float</em>) – Foreground IoU of <code class="docutils literal notranslate"><span class="pre">data</span></code> compared with <code class="docutils literal notranslate"><span class="pre">Y</span></code> after post-processing.</p></li>
-<li><p><strong>ov_iou_post</strong> (<em>float</em>) – Overall IoU of <code class="docutils literal notranslate"><span class="pre">data</span></code> compared with <code class="docutils literal notranslate"><span class="pre">Y</span></code> after post-processing.</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <div class="section" id="init">
+<h1>Init<a class="headerlink" href="#init" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

@@ -107,10 +107,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/cysto.html">3D Cysto Instance Segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitochondria.html">2D Mitochondria segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitoem.html">MitoEM dataset: large-scale 3d mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/nucleus.html">NucMM dataset: 3d neuronal nuclei instance segmentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -206,57 +206,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-data.post_processing.smooth_tiled_predictions">
-<span id="smooth-tiled-predictions"></span><h1>Smooth tiled predictions<a class="headerlink" href="#module-data.post_processing.smooth_tiled_predictions" title="Permalink to this headline">¶</a></h1>
-<p>Do smooth predictions on an image from tiled prediction patches.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="data.post_processing.smooth_tiled_predictions.create_gen">
-<span class="sig-prename descclassname"><span class="pre">data.post_processing.smooth_tiled_predictions.</span></span><span class="sig-name descname"><span class="pre">create_gen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subdivs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subdivs_m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subdivs_w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/post_processing/smooth_tiled_predictions.html#create_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.post_processing.smooth_tiled_predictions.create_gen" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="data.post_processing.smooth_tiled_predictions.predict_img_with_smooth_windowing">
-<span class="sig-prename descclassname"><span class="pre">data.post_processing.smooth_tiled_predictions.</span></span><span class="sig-name descname"><span class="pre">predict_img_with_smooth_windowing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subdivisions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/post_processing/smooth_tiled_predictions.html#predict_img_with_smooth_windowing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.post_processing.smooth_tiled_predictions.predict_img_with_smooth_windowing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply the <cite>pred_func</cite> function to square patches of the image, and overlap
-the predictions to merge them smoothly.
-See 6th, 7th and 8th idea here:
-<a class="reference external" href="http://blog.kaggle.com/2017/05/09/dstl-satellite-imagery-competition-3rd-place-winners-interview-vladimir-sergey/">http://blog.kaggle.com/2017/05/09/dstl-satellite-imagery-competition-3rd-place-winners-interview-vladimir-sergey/</a></p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="data.post_processing.smooth_tiled_predictions.predict_img_with_overlap">
-<span class="sig-prename descclassname"><span class="pre">data.post_processing.smooth_tiled_predictions.</span></span><span class="sig-name descname"><span class="pre">predict_img_with_overlap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subdivisions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/post_processing/smooth_tiled_predictions.html#predict_img_with_overlap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.post_processing.smooth_tiled_predictions.predict_img_with_overlap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Based on predict_img_with_smooth_windowing but works just with the
-original image instead of creating 8 new ones.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="data.post_processing.smooth_tiled_predictions.predict_img_with_overlap_weighted">
-<span class="sig-prename descclassname"><span class="pre">data.post_processing.smooth_tiled_predictions.</span></span><span class="sig-name descname"><span class="pre">predict_img_with_overlap_weighted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subdivisions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/post_processing/smooth_tiled_predictions.html#predict_img_with_overlap_weighted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.post_processing.smooth_tiled_predictions.predict_img_with_overlap_weighted" title="Permalink to this definition">¶</a></dt>
-<dd><p>Based on predict_img_with_smooth_windowing but works just with the
-original image (adding a weight map) instead of creating 8 new ones.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="data.post_processing.smooth_tiled_predictions.cheap_tiling_prediction">
-<span class="sig-prename descclassname"><span class="pre">data.post_processing.smooth_tiled_predictions.</span></span><span class="sig-name descname"><span class="pre">cheap_tiling_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/post_processing/smooth_tiled_predictions.html#cheap_tiling_prediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.post_processing.smooth_tiled_predictions.cheap_tiling_prediction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Does predictions on an image without tiling.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="data.post_processing.smooth_tiled_predictions.get_dummy_img">
-<span class="sig-prename descclassname"><span class="pre">data.post_processing.smooth_tiled_predictions.</span></span><span class="sig-name descname"><span class="pre">get_dummy_img</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xy_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/post_processing/smooth_tiled_predictions.html#get_dummy_img"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.post_processing.smooth_tiled_predictions.get_dummy_img" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a random image with different luminosity in the corners.</p>
-<p>Returns an array of shape (xy_size, xy_size, nb_channels).</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="data.post_processing.smooth_tiled_predictions.round_predictions">
-<span class="sig-prename descclassname"><span class="pre">data.post_processing.smooth_tiled_predictions.</span></span><span class="sig-name descname"><span class="pre">round_predictions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_channels_out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/post_processing/smooth_tiled_predictions.html#round_predictions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.post_processing.smooth_tiled_predictions.round_predictions" title="Permalink to this definition">¶</a></dt>
-<dd><p>From a threshold list <cite>thresholds</cite> containing one threshold per output
-channel for comparison, the predictions are converted to a binary mask.</p>
-</dd></dl>
-
+  <div class="section" id="smooth-tiled-predictions">
+<h1>Smooth tiled predictions<a class="headerlink" href="#smooth-tiled-predictions" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

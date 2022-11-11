@@ -107,10 +107,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/cysto.html">3D Cysto Instance Segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitochondria.html">2D Mitochondria segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitoem.html">MitoEM dataset: large-scale 3d mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/nucleus.html">NucMM dataset: 3d neuronal nuclei instance segmentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -209,63 +209,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-models.se_unet_2d">
-<span id="d-se-u-net"></span><h1>2D SE U-Net<a class="headerlink" href="#module-models.se_unet_2d" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="models.se_unet_2d.SE_U_Net_2D">
-<span class="sig-prename descclassname"><span class="pre">models.se_unet_2d.</span></span><span class="sig-name descname"><span class="pre">SE_U_Net_2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'elu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_maps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[16,</span> <span class="pre">32,</span> <span class="pre">64,</span> <span class="pre">128,</span> <span class="pre">256]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.1,</span> <span class="pre">0.1,</span> <span class="pre">0.2,</span> <span class="pre">0.2,</span> <span class="pre">0.3]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'he_normal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upsample_layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'convtranspose'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_act</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sigmoid'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/se_unet_2d.html#SE_U_Net_2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.se_unet_2d.SE_U_Net_2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create 2D U-Net with squeeze-excite blocks.</p>
-<p>Reference <a class="reference external" href="https://arxiv.org/abs/1709.01507">Squeeze and Excitation Networks</a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>image_shape</strong> (<em>2D tuple</em>) – Dimensions of the input image.</p></li>
-<li><p><strong>activation</strong> (<em>str, optional</em>) – Keras available activation type.</p></li>
-<li><p><strong>feature_maps</strong> (<em>array of ints, optional</em>) – Feature maps to use on each level.</p></li>
-<li><p><strong>drop_values</strong> (<em>float, optional</em>) – Dropout value to be fixed. If no value is provided the default behaviour will be to select a piramidal value
-starting from <code class="docutils literal notranslate"><span class="pre">0.1</span></code> and reaching <code class="docutils literal notranslate"><span class="pre">0.3</span></code> value.</p></li>
-<li><p><strong>spatial_dropout</strong> (<em>bool, optional</em>) – Use spatial dropout instead of the <cite>normal</cite> dropout.</p></li>
-<li><p><strong>batch_norm</strong> (<em>bool, optional</em>) – Make batch normalization.</p></li>
-<li><p><strong>k_init</strong> (<em>string, optional</em>) – Kernel initialization for convolutional layers.</p></li>
-<li><p><strong>k_size</strong> (<em>int, optional</em>) – Kernel size.</p></li>
-<li><p><strong>upsample_layer</strong> (<em>str, optional</em>) – Type of layer to use to make upsampling. Two options: “convtranspose” or “upsampling”.</p></li>
-<li><p><strong>n_classes</strong> (<em>int, optional</em>) – Number of classes.</p></li>
-<li><p><strong>last_act</strong> (<em>str, optional</em>) – Name of the last activation layer.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>model</strong> – Model containing the U-Net.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Keras model</p>
-</dd>
-</dl>
-<p>Calling this function with its default parameters returns the following network:</p>
-<a class="reference internal image-reference" href="../_images/unet.png"><img alt="../_images/unet.png" class="align-center" src="../_images/unet.png" style="width: 100%;" /></a>
-<p>Image created with <a class="reference external" href="https://github.com/HarisIqbal88/PlotNeuralNet">PlotNeuralNet</a>.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="models.se_unet_2d.squeeze_excite_block">
-<span class="sig-prename descclassname"><span class="pre">models.se_unet_2d.</span></span><span class="sig-name descname"><span class="pre">squeeze_excite_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/se_unet_2d.html#squeeze_excite_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.se_unet_2d.squeeze_excite_block" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a channel-wise squeeze-excite block.</p>
-<p>Code fully extracted from <a class="reference external" href="https://github.com/titu1994/keras-squeeze-excite-network">keras-squeeze-excite-network</a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input</strong> (<em>Keras layer</em>) – Input Keras layer</p></li>
-<li><p><strong>ratio</strong> (<em>int</em>) – Reduction fatio. See the paper for more info.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>x</strong> – The last layer after applayng the SE block</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Keras tensor</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <div class="section" id="d-se-u-net">
+<h1>2D SE U-Net<a class="headerlink" href="#d-se-u-net" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

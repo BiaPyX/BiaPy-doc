@@ -108,9 +108,9 @@
 <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitoem.html">MitoEM dataset: large-scale 3d mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/nucleus.html">NucMM dataset: 3d neuronal nuclei instance segmentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -195,42 +195,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-config.config">
-<span id="config"></span><h1>Config<a class="headerlink" href="#module-config.config" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="config.config.Config">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">config.config.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_identifier</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/config/config.html#Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#config.config.Config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#config.config.Config.get_cfg_defaults" title="config.config.Config.get_cfg_defaults"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cfg_defaults</span></code></a>()</p></td>
-<td><p>Get a yacs CfgNode object with default values for my_project.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#config.config.Config.update_dependencies" title="config.config.Config.update_dependencies"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_dependencies</span></code></a>()</p></td>
-<td><p>Update some variables that depend of changes made after merge the .cfg file provide by the user.</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py method">
-<dt class="sig sig-object py" id="config.config.Config.get_cfg_defaults">
-<span class="sig-name descname"><span class="pre">get_cfg_defaults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/config/config.html#Config.get_cfg_defaults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#config.config.Config.get_cfg_defaults" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a yacs CfgNode object with default values for my_project.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="config.config.Config.update_dependencies">
-<span class="sig-name descname"><span class="pre">update_dependencies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/config/config.html#Config.update_dependencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#config.config.Config.update_dependencies" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update some variables that depend of changes made after merge the .cfg file provide by the user. That is,
-this function should be called after YACS’s merge_from_file().</p>
-</dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="config">
+<h1>Config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

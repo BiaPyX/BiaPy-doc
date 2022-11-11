@@ -233,7 +233,7 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
         * ``per_image``:
 
-            * ``.tif files``: predicted patches are combined again to recover the original test image. This folder contains these images. 
+            * ``.tif files``: reconstructed images from patches.   
 
         * ``per_image_binarized``: 
 

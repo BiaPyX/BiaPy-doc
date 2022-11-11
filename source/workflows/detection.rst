@@ -3,33 +3,44 @@
 Detection
 ---------
 
-The goal of this workflow is assign an unique id, i.e. integer, to each object of the input image. 
+The goal of this workflow is to localize objects in the input image, not requiring a pixel-level class. Common strategies produce either bounding boxes containing the objects or individual points at their center of mass :cite:p:`zhou2019objects`, which is the one adopted by BiaPy. 
 
 * **Input:** 
     * Image. 
-    * ``.csv`` file containing the coordinates of each object to detect. 
+    * ``.csv`` file containing the list of points to detect. 
 * **Output:**
     * Image with the detected points as white dots.
     * ``.csv`` file with the list of detected points in napari format.
     * A ``_prob.csv`` file with the same list of points as above but now with their detection probability (also in napary format). 
 
 
-In the figure below an example of this workflow's **input** is depicted. Each color in the mask corresponds to a unique object.
+In the figure below an example of this workflow's **input** is depicted:
 
 .. list-table::
 
-  * - .. figure:: ../img/mitoem_crop.png
+  * - .. figure:: ../img/detection_image_input.png
          :align: center
 
          Input image.  
 
-    - .. figure:: ../img/mitoem_crop_mask.png
+    - .. figure:: ../img/detection_csv_input.svg
          :align: center
 
-         Input instance mask (ground truth).
+         Input ``.csv`` file. 
 
+Description of the ``.csv`` file:
+  
+  * Each row represents the middle point of the object to be detected. Each column is a coordinate in the image dimension space. 
 
-.. _instance_segmentation_data_prep:
+  * The first column name does not matter but it needs to be there. No matter also the enumeration and order for that column.
+  
+  * If the images are ``3D``, three columns need to be present and their names must be ``[axis-0, axis-1, axis-2]``, which represent ``(z,y,x)`` axes. If the images are ``2D``, only two columns are required ``[axis-0, axis-1]``, which represent ``(y,x)`` axes. 
+
+  * For multi-class detection problem, i.e. ``MODEL.N_CLASSES > 1``, add an additional ``class`` column to the file. The classes need to start from ``1`` and consecutive, i.e. ``1,2,3,4...`` and not like ``1,4,8,6...``. 
+
+  * Coordinates can be float or int but they will be converted into ints so they can be translated to pixels. 
+
+.. _detection_data_prep:
 
 Data preparation
 ~~~~~~~~~~~~~~~~
@@ -44,10 +55,10 @@ To ensure the proper operation of the library the data directory tree should be 
     │   │   ├── . . .
     │   │   ├── training-9999.tif
     │   └── y
-    │       ├── training_groundtruth-0001.tif
-    │       ├── training_groundtruth-0002.tif
+    │       ├── training_groundtruth-0001.csv
+    │       ├── training_groundtruth-0002.csv
     │       ├── . . .
-    │       ├── training_groundtruth-9999.tif
+    │       ├── training_groundtruth-9999.csv
     └── test
         ├── x
         │   ├── testing-0001.tif
@@ -55,71 +66,45 @@ To ensure the proper operation of the library the data directory tree should be 
         │   ├── . . .
         │   ├── testing-9999.tif
         └── y
-            ├── testing_groundtruth-0001.tif
-            ├── testing_groundtruth-0002.tif
+            ├── testing_groundtruth-0001.csv
+            ├── testing_groundtruth-0002.csv
             ├── . . .
-            ├── testing_groundtruth-9999.tif
+            ├── testing_groundtruth-9999.csv
 
 .. warning:: Ensure that images and their corresponding masks are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example). 
+
+.. _detection_problem_resolution:
 
 Problem resolution
 ~~~~~~~~~~~~~~~~~~
 
-Firstly, a **pre-processing** step is done where the new data representation is created from the input instance masks. The new data is a multi-channel mask with up to three channels (controlled by ``PROBLEM.INSTANCE_SEG.DATA_CHANNELS``). This way, the model is trained with the input images and these new multi-channel masks. Available channels to choose are the following: 
+Firstly, a **pre-processing** step is done where the list of points of the ``.csv`` file is transformed into point mask images. During this process some checks are made to ensure there is not repeated point in the ``.csv``. This option is enabled by default with ``PROBLEM.DETECTION.CHECK_POINTS_CREATED`` so if any problem is found the point mask of that ``.csv`` will not be created until the problem is solve. 
 
-  * Binary mask (referred as ``B`` in the code), contains each instance region without the contour. This mask is binary, i.e. pixels in the instance region are ``1`` and the rest are ``0``.
+After the train phase, the model output will be an image where each pixel of each channel will have the probability (in ``[0-1]`` range) of being of the class that represents that channel. The image would be something similar to the left picture below:
 
-  * Contour (``C``), contains each instance contour. This mask is binary, i.e. pixels in the contour are ``1`` and the rest are ``0``.
+.. list-table::
 
-  * Distances (``D``), each pixel containing the euclidean distance of it to the instance contour. This mask is a float, not binary. 
+  * - .. figure:: ../img/detection_probs.png
+         :align: center
 
-  * Mask (``M``), contains the ``B`` and the ``C`` channels, i.e. the foreground mask. Is simply achieved by binarizing input instance masks. This mask is also binary. 
+         Model output.   
 
-  * Updated version of distances (``Dv2``), that extends ``D`` channel by calculating the background distances as well. This mask is a float, not binary. The piecewise function is as follows:
+    - .. figure:: ../img/detected_points.png
+         :align: center
 
-.. figure:: ../img/Dv2_equation.svg
-  :width: 300px
-  :alt: Dv2 channel equation
-  :align: center
-
-  where A, B and C denote the binary mask, background and contour, respectively. ``dist`` refers to euclidean distance formula.
-
-``PROBLEM.INSTANCE_SEG.DATA_CHANNELS`` is in charge of selecting the channels to be created. It can be set to one of the following configurations ``BC``, ``BCM``, ``BCD``, ``BCDv2``, ``Dv2`` and ``BDv2``. For instance, ``BC`` will create a 2-channel mask: the first channel will be ``B`` and the second  ``C``. In the image below the creation of 3-channel mask based on ``BCD`` is depicted:
-
-.. figure:: ../img/cysto_instance_bcd_scheme.svg
-  :width: 300px
-  :alt: multi-channel mask creation
-  :align: center
-
-  Process of the new multi-channel mask creation based on ``BCD`` configuration. From instance segmentation labels (left) to contour, binary mask and distances (right). Here a small patch is presented just for the sake of visualization but the process is done for each full resolution image.
-
-This new data representation is stored in ``DATA.TRAIN.INSTANCE_CHANNELS_DIR`` and ``DATA.TRAIN.INSTANCE_CHANNELS_MASK_DIR`` for train data, ``DATA.VAL.INSTANCE_CHANNELS_DIR`` and ``DATA.VAL.INSTANCE_CHANNELS_MASK_DIR`` for validation, and ``DATA.TEST.INSTANCE_CHANNELS_DIR``, ``DATA.TEST.INSTANCE_CHANNELS_MASK_DIR`` for test. 
-
-.. seealso::
-
-  You can modify ``PROBLEM.INSTANCE_SEG.DATA_CHANNEL_WEIGHTS`` to control which channels the model will learn the most. For instance, in ``BCD`` setting you can set it to ``(1,1,0.5)`` for distance channel (``D``) to have half the impact during the learning process.
+         Final points considered. 
 
 
-After the train phase, the model output will have the same channels as the ones used to train. In the case of binary channels, i.e. ``B``, ``C`` and ``M``, each pixel of each channel will have the probability (in ``[0-1]`` range) of being of the class that represents that channel. Whereas for the ``D`` and ``Dv2`` channel each pixel will have a float that represents the distance.
+So those probability images, as the left picture above, can be converted into the final points, as the rigth picture above, we use `peak_local_max <https://scikit-image.org/docs/stable/api/skimage.feature.html#peak-local-max>`__ function to find peaks in those probability clouds. For that, you need to define a threshold, ``TEST.DET_MIN_TH_TO_BE_PEAK`` variable in our case, for the minimum probability to be considered as a point. You can set different thresholds for each class in ``TEST.DET_MIN_TH_TO_BE_PEAK``, e.g. ``[0.7,0.9]``. 
 
-In a **post-processing** step the multi-channel data information will be used to create the final instance segmentation labels using a marker-controlled watershed. The process is as follows:
+After this process you can apply a **post-processing** to remove possible close points with ``TEST.POST_PROCESSING.REMOVE_CLOSE_POINTS``. For that you need to define a radius to remove the point around each one with ``TEST.POST_PROCESSING.REMOVE_CLOSE_POINTS_RADIUS`` variable. You can set different radius for each class, e.g. ``[0.7,0.9]``. In this post-processing is important to set ``DATA.TEST.RESOLUTION``, specially for ``3D`` data where the resolution in ``z`` dimension is usually less than in other axes. That resolution will be taken into account when removing points. 
 
-* First, instance seeds are created based on ``B``, ``C``, ``D`` and ``Dv2`` (notice that depending on the configuration selected not all of them will be present). For that, each channel is binarized using different thresholds: ``PROBLEM.INSTANCE_SEG.DATA_MW_TH1`` for ``B`` channel, ``PROBLEM.INSTANCE_SEG.DATA_MW_TH2`` for ``C`` and ``PROBLEM.INSTANCE_SEG.DATA_MW_TH4`` for ``D`` or ``Dv2``. These thresholds will decide wheter a point is labeled as a class or not. This way, the seeds are created following this formula: :: 
-
-    seeds = (B > DATA_MW_TH1) * (D > DATA_MW_TH4) * (C < DATA_MW_TH2)  
-
-  Translated to words seeds will be: all pixels part of the binary mask (``B`` channel), which will be those higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH1``; and also in the center of each instances, i.e. higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH4`` ; but not labeled as contour, i.e. less than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH2``. 
-
-* After that, each instance is labeled with a unique integer, e.g. using `connected component <https://en.wikipedia.org/wiki/Connected-component_labeling>`_. Then a foreground mask is created to delimit the area in which the seeds may grow. This foreground mask is defined based on ``B`` channel using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH3`` and ``D`` or ``Dv2`` using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH5``. The formula is as follows: :: 
-
-    foreground mask = (B > DATA_MW_TH3) * (D > DATA_MW_TH5) 
-
-* Afterwards, tiny instances are removed using ``PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ`` value. Finally, the seeds are grown using marker-controlled watershed.
+Finally, the output files are generated from the remaining final points.
 
 Configuration file
 ~~~~~~~~~~~~~~~~~~
 
-Find in `templates/instance_segmentation <https://github.com/danifranco/BiaPy/tree/master/templates/instance_segmentation>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
+Find in `templates/detection <https://github.com/danifranco/BiaPy/tree/master/templates/detection>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
 
 
 Special workflow configuration
@@ -127,40 +112,33 @@ Special workflow configuration
 
 Here some special configuration options that can be selected in this workflow are described:
 
-* **Metrics**: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is enabled. In the case of instance segmentation the **Intersection over Union** (IoU), **mAP** and **matching metrics** are calculated:
+* **Metrics**: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is enabled. In the case of detection the **Intersection over Union** (IoU), precision, recall and F1 are calculated:
 
   * **IoU** metric, also referred as the Jaccard index, is essentially a method to quantify the percent of overlap between the target mask and the prediction output. Depending on the configuration different values are calculated (as explained in :ref:`config_test`). 
 
-  * **mAP**, which is the mean average precision score adapted for 3D images (but can be used in BiaPy for 2D also). It was introduced in :cite:p:`wei2020mitoem` and can be enabled with ``TEST.MAP``. This metric is used with a external code that need to be installed as follows: 
+  * **Precision**, is the fraction of relevant instances among the retrieved instances. More info `here <https://en.wikipedia.org/wiki/Precision_and_recall>`__.
 
-    .. code-block:: bash
-      
-      # Download the repo
-      git clone https://github.com/danifranco/mAP_3Dvolume.Git
-      # Change the branch
-      git checkout grand-challenge
+  * **Recall**, is the fraction of relevant instances that were retrieved. More info `here <https://en.wikipedia.org/wiki/Precision_and_recall>`__.
 
-    You need to also set the variable ``PATHS.MAP_CODE_DIR`` to the path where ``mAP_3Dvolume`` project resides.
+  * **F1**, is the harmonic mean of the precision and recall. More info `here <https://en.wikipedia.org/wiki/F-score>`__.
 
-  * **Matching metrics**, that was adapted from Stardist (:cite:p:`weigert2020star`) evaluation `code <https://github.com/stardist/stardist>`_. It is enabled with ``TEST.MATCHING_STATS``. It calculates precision, recall, accuracy, F1 and panoptic quality based on a defined threshold to decide wheter an instance is a true positive. That threshold measures the overlap between predicted instance and its ground truth. More than one threshold can be set and it is done with ``TEST.MATCHING_STATS_THS``. For instance, if ``TEST.MATCHING_STATS_THS`` is ``[0.5, 0.75]`` this means that these metrics will be calculated two times, one for ``0.5`` threshold and another for ``0.75``. In the first case, all instances that have more than ``0.5``, i.e. ``50%``, of overlap with their respective ground truth are considered true positives. 
+  The last three metrics, i.e. precision, recall and F1, use ``TEST.DET_TOLERANCE`` to determine when a point is considered as a true positive. In this process the test resolution is also taken into account. You can set different tolerances for each class, e.g. ``[10,15]``.
 
-* **Post-processing**: after all instances have been grown with the marker-controlled watershed you can use ``TEST.POST_PROCESSING.VORONOI_ON_MASK`` to apply `Voronoi tesellation <https://en.wikipedia.org/wiki/Voronoi_diagram>`_ and grow them even more until they touch each other. This grown is restricted by a predefined area from ``PROBLEM.INSTANCE_SEG.DATA_CHANNEL_WEIGHTS``. For that reason, that last variable need to be set as one between ``BC``, ``BCM``, ``BCD`` and ``BCDv2``. This way, the area will be the foreground mask, so ``M`` will be used ``BCM`` and the sum of ``B`` and ``C`` channels in the rest of the options.
-
-.. _instance_segmentation_run:
+* **Post-processing**: you an use ``TEST.POST_PROCESSING.REMOVE_CLOSE_POINTS`` to remove redundant close points to each other as described previously in :ref:`detection_problem_resolution`.
 
 Run
 ~~~
 
-**Command line**: Open a terminal as described in :ref:`installation`. For instance, using `resunet_3d_instances_bcd_instances.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/resunet_3d_instances_bcd_instances.yaml>`__ template file, the code can be run as follows:
+**Command line**: Open a terminal as described in :ref:`installation`. For instance, using `unet_3d_detection.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/detection/unet_3d_detection.yaml>`__ template file, the code can be run as follows:
 
 .. code-block:: bash
     
     # Configuration file
-    job_cfg_file=/home/user/resunet_3d_instances_bcd_instances.yaml       
+    job_cfg_file=/home/user/unet_3d_detection.yaml       
     # Where the experiment output directory should be created
     result_dir=/home/user/exp_results  
     # Just a name for the job
-    job_name=resunet_instances_3d      
+    job_name=unet_detection_3d      
     # Number that should be increased when one need to run the same job multiple times (reproducibility)
     job_counter=1
     # Number of the GPU to run the job in (according to 'nvidia-smi' command)
@@ -180,16 +158,16 @@ Run
            --gpu $gpu_number  
 
 
-**Docker**: Open a terminal as described in :ref:`installation`. For instance, using `resunet_3d_instances_bcd_instances.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/semantic_segmentation/resunet_3d_instances_bcd_instances.yaml>`__ template file, the code can be run as follows:
+**Docker**: Open a terminal as described in :ref:`installation`. For instance, using `unet_3d_detection.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/detection/unet_3d_detection.yaml>`__ template file, the code can be run as follows:
 
 .. code-block:: bash                                                                                                    
 
     # Configuration file
-    job_cfg_file=/home/user/resunet_3d_instances_bcd_instances.yaml
+    job_cfg_file=/home/user/unet_3d_detection.yaml
     # Where the experiment output directory should be created
     result_dir=/home/user/exp_results
     # Just a name for the job
-    job_name=resunet_instances_3d
+    job_name=unet_detection_3d
     # Number that should be increased when one need to run the same job multiple times (reproducibility)
     job_counter=1
     # Number of the GPU to run the job in (according to 'nvidia-smi' command)
@@ -207,87 +185,71 @@ Run
             -rid $job_counter \
             -gpu $gpu_number
 
-.. _instance_segmentation_results:
+.. _detection_results:
 
 Results                                                                                                                 
 ~~~~~~~  
 
 The results are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. 
 
-Following the example, you should see that the directory ``/home/user/exp_results/resunet_instances_3d`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
+Following the example, you should see that the directory ``/home/user/exp_results/unet_detection_3d`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
 
-    resunet_instances_3d/
+    unet_detection_3d/
     ├── config_files/
-    │   └── resunet_3d_instances_bcd_instances.yaml                                                                                                           
+    │   └── unet_3d_detection.yaml                                                                                                           
     ├── checkpoints
-    │   └── model_weights_resunet_instances_3d_1.h5
+    │   └── model_weights_unet_detection_3d_1.h5
     └── results
-        ├── resunet_instances_3d_1
+        ├── unet_detection_3d_1
         ├── . . .
-        └── resunet_instances_3d_5
+        └── unet_detection_3d_5
+            ├── cell_counter.csv
             ├── aug
             │   └── .tif files
             ├── charts
-            │   ├── resunet_instances_3d_1_jaccard_index.png
-            │   ├── resunet_instances_3d_1_loss.png
-            │   └── model_plot_resunet_instances_3d_1.png
+            │   ├── unet_detection_3d_1_jaccard_index.png
+            │   ├── unet_detection_3d_1_loss.png
+            │   └── model_plot_unet_detection_3d_1.png
             ├── per_image
             │   └── .tif files
-            ├── per_image_instances
-            │   └── .tif files  
-            ├── per_image_instances_voronoi
-            │   └── .tif files                          
-            └── watershed
-                ├── seed_map.tif
-                ├── foreground.tif                
-                └── watershed.tif
-
+            └── per_image_local_max_check
+                └── .tif files  
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 
-    * ``resunet_3d_instances_bcd_instances.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
+    * ``unet_3d_detection.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
 
 * ``checkpoints``: directory where model's weights are stored.
 
-    * ``model_weights_resunet_instances_3d_1.h5``: model's weights file.
+    * ``model_weights_unet_detection_3d_1.h5``: model's weights file.
 
 * ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
 
-    * ``resunet_instances_3d_1``: run 1 experiment folder. 
+    * ``unet_detection_3d_1``: run 1 experiment folder. 
+
+        * ``cell_counter.csv``: file with a counter of detected objects for each test sample.
 
         * ``aug``: image augmentation samples.
 
         * ``charts``:  
 
-             * ``resunet_instances_3d_1_jaccard_index.png``: IoU (jaccard_index) over epochs plot (when training is done).
+             * ``unet_detection_3d_1_jaccard_index.png``: IoU (jaccard_index) over epochs plot (when training is done).
 
-             * ``resunet_instances_3d_1_loss.png``: Loss over epochs plot (when training is done). 
+             * ``unet_detection_3d_1_loss.png``: Loss over epochs plot (when training is done). 
 
-             * ``model_plot_resunet_instances_3d_1.png``: plot of the model.
+             * ``model_plot_unet_detection_3d_1.png``: plot of the model.
 
         * ``per_image``:
 
-            * ``.tif files``: predicted patches are combined again to recover the original test image. This folder contains these images. 
+            * ``.tif files``: reconstructed images from patches.  
 
-        * ``per_image_instances``: 
+        * ``per_image_local_max_check``: 
 
-            * ``.tif files``: Same as ``per_image`` but with the instances.
+            * ``.tif files``: Same as ``per_image`` but with the final detected points.
 
-        * ``per_image_instances_voronoi`` (optional): 
-
-            * ``.tif files``: Same as ``per_image_instances`` but applied Voronoi. Created when ``TEST.POST_PROCESSING.VORONOI_ON_MASK`` is enabled.
-
-        * ``watershed`` (optional): 
-
-            * Created when ``PROBLEM.INSTANCE_SEG.DATA_CHECK_MW`` is enabled. Inside a folder for each test image will be created containing:
-                
-                * ``seed_map.tif``: initial seeds created before growing. 
-                
-                * ``foreground.tif``: foreground mask area that delimits the grown of the seeds.
-                
-                * ``watershed.tif``: result of watershed.
 .. note:: 
-   Here, for visualization purposes, only ``resunet_instances_3d_1`` has been described but ``resunet_instances_3d_2``, ``resunet_instances_3d_3``, ``resunet_instances_3d_4`` and ``resunet_instances_3d_5`` will follow the same structure.
+
+  Here, for visualization purposes, only ``unet_detection_3d_1`` has been described but ``unet_detection_3d_2``, ``unet_detection_3d_3``, ``unet_detection_3d_4`` and ``unet_detection_3d_5`` will follow the same structure.
 
 
 

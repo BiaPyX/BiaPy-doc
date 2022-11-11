@@ -107,10 +107,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/cysto.html">3D Cysto Instance Segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitochondria.html">2D Mitochondria segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitoem.html">MitoEM dataset: large-scale 3d mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/nucleus.html">NucMM dataset: 3d neuronal nuclei instance segmentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -208,60 +208,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-data.generators.simple_data_generators">
-<span id="simple-generator"></span><h1>Simple generator<a class="headerlink" href="#module-data.generators.simple_data_generators" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="data.generators.simple_data_generators.simple_data_generator">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">data.generators.simple_data_generators.</span></span><span class="sig-name descname"><span class="pre">simple_data_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">provide_Y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dm_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2D'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">42</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle_each_epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance_problem</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_custom_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_custom_std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators/simple_data_generators.html#simple_data_generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.simple_data_generators.simple_data_generator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.utils.data_utils.Sequence</span></code></p>
-<p>Image data generator without data augmentation. Used only for test data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>Numpy 5D/4D array, optional</em>) – Data. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">channels)</span></code> or <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">channels)</span></code>.</p></li>
-<li><p><strong>d_path</strong> (<em>Str, optional</em>) – Path to load the data from.</p></li>
-<li><p><strong>provide_Y</strong> (<em>bool, optional</em>) – Wheter to return ground truth, using <code class="docutils literal notranslate"><span class="pre">Y</span></code> or loading from <code class="docutils literal notranslate"><span class="pre">dm_path</span></code>.</p></li>
-<li><p><strong>Y</strong> (<em>Numpy 5D/4D array, optional</em>) – Data mask. E.g. <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">channels)</span></code> or <code class="docutils literal notranslate"><span class="pre">(num_of_images,</span> <span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">channels)</span></code>.</p></li>
-<li><p><strong>dm_path</strong> (<em>Str, optional</em>) – Path to load themask  data mask from.</p></li>
-<li><p><strong>dims</strong> (<em>str, optional</em>) – Dimension of the data. Possible options: <code class="docutils literal notranslate"><span class="pre">2D</span></code> or <code class="docutils literal notranslate"><span class="pre">3D</span></code>.</p></li>
-<li><p><strong>batch_size</strong> (<em>int, optional</em>) – Size of the batches.</p></li>
-<li><p><strong>seed</strong> (<em>int, optional</em>) – Seed for random functions.</p></li>
-<li><p><strong>shuffle_each_epoch</strong> (<em>bool, optional</em>) – To shuffle data after each epoch.</p></li>
-<li><p><strong>instance_problem</strong> (<em>bool, optional</em>) – To not divide the labels if being in an instance segmenation problem.</p></li>
-<li><p><strong>norm_custom_mean</strong> (<em>float, optional</em>) – Mean of the data used to normalize.</p></li>
-<li><p><strong>norm_custom_std</strong> (<em>float, optional</em>) – Std of the data used to normalize.</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#data.generators.simple_data_generators.simple_data_generator.load_sample" title="data.generators.simple_data_generators.simple_data_generator.load_sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_sample</span></code></a>(idx)</p></td>
-<td><p>Load one data sample given its corresponding index.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#data.generators.simple_data_generators.simple_data_generator.on_epoch_end" title="data.generators.simple_data_generators.simple_data_generator.on_epoch_end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_epoch_end</span></code></a>()</p></td>
-<td><p>Updates indexes after each epoch.</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py method">
-<dt class="sig sig-object py" id="data.generators.simple_data_generators.simple_data_generator.load_sample">
-<span class="sig-name descname"><span class="pre">load_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators/simple_data_generators.html#simple_data_generator.load_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.simple_data_generators.simple_data_generator.load_sample" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load one data sample given its corresponding index.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="data.generators.simple_data_generators.simple_data_generator.on_epoch_end">
-<span class="sig-name descname"><span class="pre">on_epoch_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators/simple_data_generators.html#simple_data_generator.on_epoch_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.simple_data_generators.simple_data_generator.on_epoch_end" title="Permalink to this definition">¶</a></dt>
-<dd><p>Updates indexes after each epoch.</p>
-</dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="simple-generator">
+<h1>Simple generator<a class="headerlink" href="#simple-generator" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

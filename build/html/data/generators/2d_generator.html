@@ -108,9 +108,9 @@
 <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/mitoem.html">MitoEM dataset: large-scale 3d mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/nucleus.html">NucMM dataset: 3d neuronal nuclei instance segmentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -208,120 +208,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-data.generators.data_2D_generator">
-<span id="d-generator"></span><h1>2D generator<a class="headerlink" href="#module-data.generators.data_2D_generator" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="data.generators.data_2D_generator.ImageDataGenerator">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">data.generators.data_2D_generator.</span></span><span class="sig-name descname"><span class="pre">ImageDataGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators/data_2D_generator.html#ImageDataGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.data_2D_generator.ImageDataGenerator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">data.generators.base_data_generator.BaseDataGenerator</span></code></p>
-<p>Custom 2D data generator based on <a class="reference external" href="https://github.com/aleju/imgaug-doc">imgaug</a>
-and our own <a class="reference external" href="https://github.com/danifranco/BiaPy/blob/master/generators/augmentors.py">augmentors.py</a>
-transformations. This generator will yield an image and its corresponding mask.</p>
-<p>Based on <a class="reference external" href="https://github.com/czbiohub/microDL">microDL</a> and
-<a class="reference external" href="https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly">Shervine’s blog</a>.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># EXAMPLE 1</span>
-<span class="c1"># Define train and val generators to make random rotations between 0 and</span>
-<span class="c1"># 180 degrees. Notice that DA is disabled in val data</span>
-
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1776</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1776</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">X_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">204</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">Y_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">204</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-
-<span class="n">data_gen_args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">shuffle_each_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rand_rot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vflip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                     <span class="n">hflip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">data_gen_val_args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_val</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="n">Y_val</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">shuffle_each_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">da</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">train_generator</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="o">**</span><span class="n">data_gen_args</span><span class="p">)</span>
-<span class="n">val_generator</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="o">**</span><span class="n">data_gen_val_args</span><span class="p">)</span>
-
-<span class="c1"># EXAMPLE 2</span>
-<span class="c1"># Generate random crops on DA-time. To allow that notice that the</span>
-<span class="c1"># data in this case is bigger in width and height than example 1, to</span>
-<span class="c1"># allow a (256, 256) random crop extraction</span>
-
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">148</span><span class="p">,</span> <span class="mi">768</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">148</span><span class="p">,</span> <span class="mi">768</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">X_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">17</span><span class="p">,</span> <span class="mi">768</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">Y_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">17</span><span class="p">,</span> <span class="mi">768</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-
-<span class="c1"># Create a prbobability map for each image. Here we define foreground</span>
-<span class="c1"># probability much higher than the background simulating a class inbalance</span>
-<span class="c1"># With this, the probability of take the center pixel of the random crop</span>
-<span class="c1"># that corresponds to the foreground class will be so high</span>
-<span class="n">prob_map</span> <span class="o">=</span> <span class="n">calculate_2D_volume_prob_map</span><span class="p">(</span>
-     <span class="n">Y_train</span><span class="p">,</span> <span class="mf">0.94</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="n">save_file</span><span class="o">=</span><span class="s1">&#39;prob_map.npy&#39;</span><span class="p">)</span>
-
-<span class="n">data_gen_args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">shuffle_each_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rand_rot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vflip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                     <span class="n">hflip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_crops_in_DA</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">prob_map</span><span class="o">=</span><span class="n">prob_map</span><span class="p">)</span>
-
-<span class="n">data_gen_val_args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_val</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="n">Y_val</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">random_crops_in_DA</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-                         <span class="n">shuffle_each_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">da</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">train_generator</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="o">**</span><span class="n">data_gen_args</span><span class="p">)</span>
-<span class="n">val_generator</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="o">**</span><span class="n">data_gen_val_args</span><span class="p">)</span>
-</pre></div>
-</div>
-<p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_transform</span></code>(image, mask[, e_im, e_mask])</p></td>
-<td><p>Transform the input image and its mask at the same time with one of the selected choices based on a probability.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_grid</span></code>(im[, grid_width])</p></td>
-<td><p>Draw grid of the specified size on an image.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_transformed_samples</span></code>(num_examples[, …])</p></td>
-<td><p>Apply selected transformations to a defined number of images from the dataset.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_sample</span></code>(idx)</p></td>
-<td><p>Load one data sample given its corresponding index.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">on_epoch_end</span></code>()</p></td>
-<td><p>Updates indexes after each epoch.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 67%" />
-<col style="width: 33%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>apply_imgaug</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><strong>ensure_shape</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><strong>prepare_n2v</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><strong>save_aug_samples</strong></p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<dl class="py method">
-<dt class="sig sig-object py" id="data.generators.data_2D_generator.ImageDataGenerator.ensure_shape">
-<span class="sig-name descname"><span class="pre">ensure_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators/data_2D_generator.html#ImageDataGenerator.ensure_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.data_2D_generator.ImageDataGenerator.ensure_shape" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="data.generators.data_2D_generator.ImageDataGenerator.apply_imgaug">
-<span class="sig-name descname"><span class="pre">apply_imgaug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators/data_2D_generator.html#ImageDataGenerator.apply_imgaug"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.data_2D_generator.ImageDataGenerator.apply_imgaug" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="data.generators.data_2D_generator.ImageDataGenerator.save_aug_samples">
-<span class="sig-name descname"><span class="pre">save_aug_samples</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orig_images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data/generators/data_2D_generator.html#ImageDataGenerator.save_aug_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data.generators.data_2D_generator.ImageDataGenerator.save_aug_samples" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="d-generator">
+<h1>2D generator<a class="headerlink" href="#d-generator" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

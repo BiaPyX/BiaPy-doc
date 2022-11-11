@@ -179,7 +179,7 @@ Run
            --gpu $gpu_number  
 
 
-**Docker**: Open a terminal as described in :ref:`installation`. For instance, using `resunet_3d_instances_bcd_instances.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/semantic_segmentation/resunet_3d_instances_bcd_instances.yaml>`__ template file, the code can be run as follows:
+**Docker**: Open a terminal as described in :ref:`installation`. For instance, using `resunet_3d_instances_bcd_instances.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/resunet_3d_instances_bcd_instances.yaml>`__ template file, the code can be run as follows:
 
 .. code-block:: bash                                                                                                    
 
@@ -266,7 +266,7 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
         * ``per_image``:
 
-            * ``.tif files``: predicted patches are combined again to recover the original test image. This folder contains these images. 
+            * ``.tif files``: reconstructed images from patches.   
 
         * ``per_image_instances``: 
 
@@ -285,6 +285,9 @@ Following the example, you should see that the directory ``/home/user/exp_result
                 * ``foreground.tif``: foreground mask area that delimits the grown of the seeds.
                 
                 * ``watershed.tif``: result of watershed.
+
+
 .. note:: 
-   Here, for visualization purposes, only ``resunet_instances_3d_1`` has been described but ``resunet_instances_3d_2``, ``resunet_instances_3d_3``, ``resunet_instances_3d_4`` and ``resunet_instances_3d_5`` will follow the same structure.
+
+  Here, for visualization purposes, only ``resunet_instances_3d_1`` has been described but ``resunet_instances_3d_2``, ``resunet_instances_3d_3``, ``resunet_instances_3d_4`` and ``resunet_instances_3d_5`` will follow the same structure.
 

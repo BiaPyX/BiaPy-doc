@@ -198,12 +198,12 @@
             
   <div class="section" id="detection">
 <span id="id1"></span><h1>Detection<a class="headerlink" href="#detection" title="Permalink to this headline">¶</a></h1>
-<p>The goal of this workflow is assign an unique id, i.e. integer, to each object of the input image.</p>
+<p>The goal of this workflow is to localize objects in the input image, not requiring a pixel-level class. Common strategies produce either bounding boxes containing the objects or individual points at their center of mass <span id="id2">[<a class="reference internal" href="../bibliography.html#id7" title="X. Zhou, D. Wang, and P. Krähenbühl. Objects as points. arXiv preprint arXiv:1904.07850, 2019.">ZWKrahenbuhl19</a>]</span>, which is the one adopted by BiaPy.</p>
 <ul class="simple">
 <li><dl class="simple">
 <dt><strong>Input:</strong></dt><dd><ul>
 <li><p>Image.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">.csv</span></code> file containing the coordinates of each object to detect.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.csv</span></code> file containing the list of points to detect.</p></li>
 </ul>
 </dd>
 </dl>
@@ -218,28 +218,37 @@
 </dl>
 </li>
 </ul>
-<p>In the figure below an example of this workflow’s <strong>input</strong> is depicted. Each color in the mask corresponds to a unique object.</p>
+<p>In the figure below an example of this workflow’s <strong>input</strong> is depicted:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><div class="figure align-center" id="id4">
-<img alt="../_images/mitoem_crop.png" src="../_images/mitoem_crop.png" />
-<p class="caption"><span class="caption-text">Input image.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<tr class="row-odd"><td><div class="figure align-center" id="id3">
+<img alt="../_images/detection_image_input.png" src="../_images/detection_image_input.png" />
+<p class="caption"><span class="caption-text">Input image.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </td>
-<td><div class="figure align-center" id="id5">
-<img alt="../_images/mitoem_crop_mask.png" src="../_images/mitoem_crop_mask.png" />
-<p class="caption"><span class="caption-text">Input instance mask (ground truth).</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<td><div class="figure align-center" id="id4">
+<img alt="../_images/detection_csv_input.svg" src="../_images/detection_csv_input.svg" /><p class="caption"><span class="caption-text">Input <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Description of the <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Each row represents the middle point of the object to be detected. Each column is a coordinate in the image dimension space.</p></li>
+<li><p>The first column name does not matter but it needs to be there. No matter also the enumeration and order for that column.</p></li>
+<li><p>If the images are <code class="docutils literal notranslate"><span class="pre">3D</span></code>, three columns need to be present and their names must be <code class="docutils literal notranslate"><span class="pre">[axis-0,</span> <span class="pre">axis-1,</span> <span class="pre">axis-2]</span></code>, which represent <code class="docutils literal notranslate"><span class="pre">(z,y,x)</span></code> axes. If the images are <code class="docutils literal notranslate"><span class="pre">2D</span></code>, only two columns are required <code class="docutils literal notranslate"><span class="pre">[axis-0,</span> <span class="pre">axis-1]</span></code>, which represent <code class="docutils literal notranslate"><span class="pre">(y,x)</span></code> axes.</p></li>
+<li><p>For multi-class detection problem, i.e. <code class="docutils literal notranslate"><span class="pre">MODEL.N_CLASSES</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>, add an additional <code class="docutils literal notranslate"><span class="pre">class</span></code> column to the file. The classes need to start from <code class="docutils literal notranslate"><span class="pre">1</span></code> and consecutive, i.e. <code class="docutils literal notranslate"><span class="pre">1,2,3,4...</span></code> and not like <code class="docutils literal notranslate"><span class="pre">1,4,8,6...</span></code>.</p></li>
+<li><p>Coordinates can be float or int but they will be converted into ints so they can be translated to pixels.</p></li>
+</ul>
+</div></blockquote>
 <div class="section" id="data-preparation">
-<span id="instance-segmentation-data-prep"></span><h2>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">¶</a></h2>
+<span id="detection-data-prep"></span><h2>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">¶</a></h2>
 <p>To ensure the proper operation of the library the data directory tree should be something like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>dataset/
 ├── train
@@ -249,10 +258,10 @@
 │   │   ├── . . .
 │   │   ├── training-9999.tif
 │   └── y
-│       ├── training_groundtruth-0001.tif
-│       ├── training_groundtruth-0002.tif
+│       ├── training_groundtruth-0001.csv
+│       ├── training_groundtruth-0002.csv
 │       ├── . . .
-│       ├── training_groundtruth-9999.tif
+│       ├── training_groundtruth-9999.csv
 └── test
     ├── x
     │   ├── testing-0001.tif
@@ -260,10 +269,10 @@
     │   ├── . . .
     │   ├── testing-9999.tif
     └── y
-        ├── testing_groundtruth-0001.tif
-        ├── testing_groundtruth-0002.tif
+        ├── testing_groundtruth-0001.csv
+        ├── testing_groundtruth-0002.csv
         ├── . . .
-        ├── testing_groundtruth-9999.tif
+        ├── testing_groundtruth-9999.csv
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -272,83 +281,61 @@
 </div>
 </div>
 <div class="section" id="problem-resolution">
-<h2>Problem resolution<a class="headerlink" href="#problem-resolution" title="Permalink to this headline">¶</a></h2>
-<p>Firstly, a <strong>pre-processing</strong> step is done where the new data representation is created from the input instance masks. The new data is a multi-channel mask with up to three channels (controlled by <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_CHANNELS</span></code>). This way, the model is trained with the input images and these new multi-channel masks. Available channels to choose are the following:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Binary mask (referred as <code class="docutils literal notranslate"><span class="pre">B</span></code> in the code), contains each instance region without the contour. This mask is binary, i.e. pixels in the instance region are <code class="docutils literal notranslate"><span class="pre">1</span></code> and the rest are <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
-<li><p>Contour (<code class="docutils literal notranslate"><span class="pre">C</span></code>), contains each instance contour. This mask is binary, i.e. pixels in the contour are <code class="docutils literal notranslate"><span class="pre">1</span></code> and the rest are <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
-<li><p>Distances (<code class="docutils literal notranslate"><span class="pre">D</span></code>), each pixel containing the euclidean distance of it to the instance contour. This mask is a float, not binary.</p></li>
-<li><p>Mask (<code class="docutils literal notranslate"><span class="pre">M</span></code>), contains the <code class="docutils literal notranslate"><span class="pre">B</span></code> and the <code class="docutils literal notranslate"><span class="pre">C</span></code> channels, i.e. the foreground mask. Is simply achieved by binarizing input instance masks. This mask is also binary.</p></li>
-<li><p>Updated version of distances (<code class="docutils literal notranslate"><span class="pre">Dv2</span></code>), that extends <code class="docutils literal notranslate"><span class="pre">D</span></code> channel by calculating the background distances as well. This mask is a float, not binary. The piecewise function is as follows:</p></li>
-</ul>
-</div></blockquote>
-<div class="figure align-center" id="id6">
-<a class="reference internal image-reference" href="../_images/Dv2_equation.svg"><img alt="Dv2 channel equation" src="../_images/Dv2_equation.svg" width="300px" /></a>
-<p class="caption"><span class="caption-text">where A, B and C denote the binary mask, background and contour, respectively. <code class="docutils literal notranslate"><span class="pre">dist</span></code> refers to euclidean distance formula.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<span id="detection-problem-resolution"></span><h2>Problem resolution<a class="headerlink" href="#problem-resolution" title="Permalink to this headline">¶</a></h2>
+<p>Firstly, a <strong>pre-processing</strong> step is done where the list of points of the <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file is transformed into point mask images. During this process some checks are made to ensure there is not repeated point in the <code class="docutils literal notranslate"><span class="pre">.csv</span></code>. This option is enabled by default with <code class="docutils literal notranslate"><span class="pre">PROBLEM.DETECTION.CHECK_POINTS_CREATED</span></code> so if any problem is found the point mask of that <code class="docutils literal notranslate"><span class="pre">.csv</span></code> will not be created until the problem is solve.</p>
+<p>After the train phase, the model output will be an image where each pixel of each channel will have the probability (in <code class="docutils literal notranslate"><span class="pre">[0-1]</span></code> range) of being of the class that represents that channel. The image would be something similar to the left picture below:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><div class="figure align-center" id="id5">
+<img alt="../_images/detection_probs.png" src="../_images/detection_probs.png" />
+<p class="caption"><span class="caption-text">Model output.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_CHANNELS</span></code> is in charge of selecting the channels to be created. It can be set to one of the following configurations <code class="docutils literal notranslate"><span class="pre">BC</span></code>, <code class="docutils literal notranslate"><span class="pre">BCM</span></code>, <code class="docutils literal notranslate"><span class="pre">BCD</span></code>, <code class="docutils literal notranslate"><span class="pre">BCDv2</span></code>, <code class="docutils literal notranslate"><span class="pre">Dv2</span></code> and <code class="docutils literal notranslate"><span class="pre">BDv2</span></code>. For instance, <code class="docutils literal notranslate"><span class="pre">BC</span></code> will create a 2-channel mask: the first channel will be <code class="docutils literal notranslate"><span class="pre">B</span></code> and the second  <code class="docutils literal notranslate"><span class="pre">C</span></code>. In the image below the creation of 3-channel mask based on <code class="docutils literal notranslate"><span class="pre">BCD</span></code> is depicted:</p>
-<div class="figure align-center" id="id7">
-<a class="reference internal image-reference" href="../_images/cysto_instance_bcd_scheme.svg"><img alt="multi-channel mask creation" src="../_images/cysto_instance_bcd_scheme.svg" width="300px" /></a>
-<p class="caption"><span class="caption-text">Process of the new multi-channel mask creation based on <code class="docutils literal notranslate"><span class="pre">BCD</span></code> configuration. From instance segmentation labels (left) to contour, binary mask and distances (right). Here a small patch is presented just for the sake of visualization but the process is done for each full resolution image.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</td>
+<td><div class="figure align-center" id="id6">
+<img alt="../_images/detected_points.png" src="../_images/detected_points.png" />
+<p class="caption"><span class="caption-text">Final points considered.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
-<p>This new data representation is stored in <code class="docutils literal notranslate"><span class="pre">DATA.TRAIN.INSTANCE_CHANNELS_DIR</span></code> and <code class="docutils literal notranslate"><span class="pre">DATA.TRAIN.INSTANCE_CHANNELS_MASK_DIR</span></code> for train data, <code class="docutils literal notranslate"><span class="pre">DATA.VAL.INSTANCE_CHANNELS_DIR</span></code> and <code class="docutils literal notranslate"><span class="pre">DATA.VAL.INSTANCE_CHANNELS_MASK_DIR</span></code> for validation, and <code class="docutils literal notranslate"><span class="pre">DATA.TEST.INSTANCE_CHANNELS_DIR</span></code>, <code class="docutils literal notranslate"><span class="pre">DATA.TEST.INSTANCE_CHANNELS_MASK_DIR</span></code> for test.</p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>You can modify <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_CHANNEL_WEIGHTS</span></code> to control which channels the model will learn the most. For instance, in <code class="docutils literal notranslate"><span class="pre">BCD</span></code> setting you can set it to <code class="docutils literal notranslate"><span class="pre">(1,1,0.5)</span></code> for distance channel (<code class="docutils literal notranslate"><span class="pre">D</span></code>) to have half the impact during the learning process.</p>
-</div>
-<p>After the train phase, the model output will have the same channels as the ones used to train. In the case of binary channels, i.e. <code class="docutils literal notranslate"><span class="pre">B</span></code>, <code class="docutils literal notranslate"><span class="pre">C</span></code> and <code class="docutils literal notranslate"><span class="pre">M</span></code>, each pixel of each channel will have the probability (in <code class="docutils literal notranslate"><span class="pre">[0-1]</span></code> range) of being of the class that represents that channel. Whereas for the <code class="docutils literal notranslate"><span class="pre">D</span></code> and <code class="docutils literal notranslate"><span class="pre">Dv2</span></code> channel each pixel will have a float that represents the distance.</p>
-<p>In a <strong>post-processing</strong> step the multi-channel data information will be used to create the final instance segmentation labels using a marker-controlled watershed. The process is as follows:</p>
-<ul>
-<li><p>First, instance seeds are created based on <code class="docutils literal notranslate"><span class="pre">B</span></code>, <code class="docutils literal notranslate"><span class="pre">C</span></code>, <code class="docutils literal notranslate"><span class="pre">D</span></code> and <code class="docutils literal notranslate"><span class="pre">Dv2</span></code> (notice that depending on the configuration selected not all of them will be present). For that, each channel is binarized using different thresholds: <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH1</span></code> for <code class="docutils literal notranslate"><span class="pre">B</span></code> channel, <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH2</span></code> for <code class="docutils literal notranslate"><span class="pre">C</span></code> and <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH4</span></code> for <code class="docutils literal notranslate"><span class="pre">D</span></code> or <code class="docutils literal notranslate"><span class="pre">Dv2</span></code>. These thresholds will decide wheter a point is labeled as a class or not. This way, the seeds are created following this formula:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">seeds</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span> <span class="o">&gt;</span> <span class="n">DATA_MW_TH1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">D</span> <span class="o">&gt;</span> <span class="n">DATA_MW_TH4</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">C</span> <span class="o">&lt;</span> <span class="n">DATA_MW_TH2</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Translated to words seeds will be: all pixels part of the binary mask (<code class="docutils literal notranslate"><span class="pre">B</span></code> channel), which will be those higher than <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH1</span></code>; and also in the center of each instances, i.e. higher than <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH4</span></code> ; but not labeled as contour, i.e. less than <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH2</span></code>.</p>
-</li>
-<li><p>After that, each instance is labeled with a unique integer, e.g. using <a class="reference external" href="https://en.wikipedia.org/wiki/Connected-component_labeling">connected component</a>. Then a foreground mask is created to delimit the area in which the seeds may grow. This foreground mask is defined based on <code class="docutils literal notranslate"><span class="pre">B</span></code> channel using <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH3</span></code> and <code class="docutils literal notranslate"><span class="pre">D</span></code> or <code class="docutils literal notranslate"><span class="pre">Dv2</span></code> using <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_MW_TH5</span></code>. The formula is as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">foreground</span> <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span> <span class="o">&gt;</span> <span class="n">DATA_MW_TH3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">D</span> <span class="o">&gt;</span> <span class="n">DATA_MW_TH5</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Afterwards, tiny instances are removed using <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ</span></code> value. Finally, the seeds are grown using marker-controlled watershed.</p></li>
-</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>So those probability images, as the left picture above, can be converted into the final points, as the rigth picture above, we use <a class="reference external" href="https://scikit-image.org/docs/stable/api/skimage.feature.html#peak-local-max">peak_local_max</a> function to find peaks in those probability clouds. For that, you need to define a threshold, <code class="docutils literal notranslate"><span class="pre">TEST.DET_MIN_TH_TO_BE_PEAK</span></code> variable in our case, for the minimum probability to be considered as a point. You can set different thresholds for each class in <code class="docutils literal notranslate"><span class="pre">TEST.DET_MIN_TH_TO_BE_PEAK</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">[0.7,0.9]</span></code>.</p>
+<p>After this process you can apply a <strong>post-processing</strong> to remove possible close points with <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.REMOVE_CLOSE_POINTS</span></code>. For that you need to define a radius to remove the point around each one with <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.REMOVE_CLOSE_POINTS_RADIUS</span></code> variable. You can set different radius for each class, e.g. <code class="docutils literal notranslate"><span class="pre">[0.7,0.9]</span></code>. In this post-processing is important to set <code class="docutils literal notranslate"><span class="pre">DATA.TEST.RESOLUTION</span></code>, specially for <code class="docutils literal notranslate"><span class="pre">3D</span></code> data where the resolution in <code class="docutils literal notranslate"><span class="pre">z</span></code> dimension is usually less than in other axes. That resolution will be taken into account when removing points.</p>
+<p>Finally, the output files are generated from the remaining final points.</p>
 </div>
 <div class="section" id="configuration-file">
 <h2>Configuration file<a class="headerlink" href="#configuration-file" title="Permalink to this headline">¶</a></h2>
-<p>Find in <a class="reference external" href="https://github.com/danifranco/BiaPy/tree/master/templates/instance_segmentation">templates/instance_segmentation</a> folder of BiaPy a few YAML configuration templates for this workflow.</p>
+<p>Find in <a class="reference external" href="https://github.com/danifranco/BiaPy/tree/master/templates/detection">templates/detection</a> folder of BiaPy a few YAML configuration templates for this workflow.</p>
 </div>
 <div class="section" id="special-workflow-configuration">
 <h2>Special workflow configuration<a class="headerlink" href="#special-workflow-configuration" title="Permalink to this headline">¶</a></h2>
 <p>Here some special configuration options that can be selected in this workflow are described:</p>
 <ul>
-<li><p><strong>Metrics</strong>: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, <code class="docutils literal notranslate"><span class="pre">DATA.TEST.LOAD_GT</span></code> is enabled. In the case of instance segmentation the <strong>Intersection over Union</strong> (IoU), <strong>mAP</strong> and <strong>matching metrics</strong> are calculated:</p>
-<ul>
+<li><p><strong>Metrics</strong>: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, <code class="docutils literal notranslate"><span class="pre">DATA.TEST.LOAD_GT</span></code> is enabled. In the case of detection the <strong>Intersection over Union</strong> (IoU), precision, recall and F1 are calculated:</p>
+<ul class="simple">
 <li><p><strong>IoU</strong> metric, also referred as the Jaccard index, is essentially a method to quantify the percent of overlap between the target mask and the prediction output. Depending on the configuration different values are calculated (as explained in <a class="reference internal" href="../get_started/configuration.html#config-test"><span class="std std-ref">Test phase</span></a>).</p></li>
-<li><p><strong>mAP</strong>, which is the mean average precision score adapted for 3D images (but can be used in BiaPy for 2D also). It was introduced in <span id="id2">[<a class="reference internal" href="../bibliography.html#id3" title="Donglai Wei, Zudi Lin, Daniel Franco-Barranco, Nils Wendt, Xingyu Liu, Wenjie Yin, Xin Huang, Aarush Gupta, Won-Dong Jang, Xueying Wang, and others. Mitoem dataset: large-scale 3d mitochondria instance segmentation from em images. In International Conference on Medical Image Computing and Computer-Assisted Intervention, 66–76. Springer, 2020.">WLFB+20</a>]</span> and can be enabled with <code class="docutils literal notranslate"><span class="pre">TEST.MAP</span></code>. This metric is used with a external code that need to be installed as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download the repo</span>
-git clone https://github.com/danifranco/mAP_3Dvolume.Git
-<span class="c1"># Change the branch</span>
-git checkout grand-challenge
-</pre></div>
-</div>
-<p>You need to also set the variable <code class="docutils literal notranslate"><span class="pre">PATHS.MAP_CODE_DIR</span></code> to the path where <code class="docutils literal notranslate"><span class="pre">mAP_3Dvolume</span></code> project resides.</p>
-</li>
-<li><p><strong>Matching metrics</strong>, that was adapted from Stardist (<span id="id3">[<a class="reference internal" href="../bibliography.html#id5" title="Martin Weigert, Uwe Schmidt, Robert Haase, Ko Sugawara, and Gene Myers. Star-convex polyhedra for 3d object detection and segmentation in microscopy. In Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision, 3666–3673. 2020.">WSH+20</a>]</span>) evaluation <a class="reference external" href="https://github.com/stardist/stardist">code</a>. It is enabled with <code class="docutils literal notranslate"><span class="pre">TEST.MATCHING_STATS</span></code>. It calculates precision, recall, accuracy, F1 and panoptic quality based on a defined threshold to decide wheter an instance is a true positive. That threshold measures the overlap between predicted instance and its ground truth. More than one threshold can be set and it is done with <code class="docutils literal notranslate"><span class="pre">TEST.MATCHING_STATS_THS</span></code>. For instance, if <code class="docutils literal notranslate"><span class="pre">TEST.MATCHING_STATS_THS</span></code> is <code class="docutils literal notranslate"><span class="pre">[0.5,</span> <span class="pre">0.75]</span></code> this means that these metrics will be calculated two times, one for <code class="docutils literal notranslate"><span class="pre">0.5</span></code> threshold and another for <code class="docutils literal notranslate"><span class="pre">0.75</span></code>. In the first case, all instances that have more than <code class="docutils literal notranslate"><span class="pre">0.5</span></code>, i.e. <code class="docutils literal notranslate"><span class="pre">50%</span></code>, of overlap with their respective ground truth are considered true positives.</p></li>
+<li><p><strong>Precision</strong>, is the fraction of relevant instances among the retrieved instances. More info <a class="reference external" href="https://en.wikipedia.org/wiki/Precision_and_recall">here</a>.</p></li>
+<li><p><strong>Recall</strong>, is the fraction of relevant instances that were retrieved. More info <a class="reference external" href="https://en.wikipedia.org/wiki/Precision_and_recall">here</a>.</p></li>
+<li><p><strong>F1</strong>, is the harmonic mean of the precision and recall. More info <a class="reference external" href="https://en.wikipedia.org/wiki/F-score">here</a>.</p></li>
 </ul>
+<p>The last three metrics, i.e. precision, recall and F1, use <code class="docutils literal notranslate"><span class="pre">TEST.DET_TOLERANCE</span></code> to determine when a point is considered as a true positive. In this process the test resolution is also taken into account. You can set different tolerances for each class, e.g. <code class="docutils literal notranslate"><span class="pre">[10,15]</span></code>.</p>
 </li>
-<li><p><strong>Post-processing</strong>: after all instances have been grown with the marker-controlled watershed you can use <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.VORONOI_ON_MASK</span></code> to apply <a class="reference external" href="https://en.wikipedia.org/wiki/Voronoi_diagram">Voronoi tesellation</a> and grow them even more until they touch each other. This grown is restricted by a predefined area from <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_CHANNEL_WEIGHTS</span></code>. For that reason, that last variable need to be set as one between <code class="docutils literal notranslate"><span class="pre">BC</span></code>, <code class="docutils literal notranslate"><span class="pre">BCM</span></code>, <code class="docutils literal notranslate"><span class="pre">BCD</span></code> and <code class="docutils literal notranslate"><span class="pre">BCDv2</span></code>. This way, the area will be the foreground mask, so <code class="docutils literal notranslate"><span class="pre">M</span></code> will be used <code class="docutils literal notranslate"><span class="pre">BCM</span></code> and the sum of <code class="docutils literal notranslate"><span class="pre">B</span></code> and <code class="docutils literal notranslate"><span class="pre">C</span></code> channels in the rest of the options.</p></li>
+<li><p><strong>Post-processing</strong>: you an use <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.REMOVE_CLOSE_POINTS</span></code> to remove redundant close points to each other as described previously in <a class="reference internal" href="#detection-problem-resolution"><span class="std std-ref">Problem resolution</span></a>.</p></li>
 </ul>
 </div>
 <div class="section" id="run">
-<span id="instance-segmentation-run"></span><h2>Run<a class="headerlink" href="#run" title="Permalink to this headline">¶</a></h2>
-<p><strong>Command line</strong>: Open a terminal as described in <a class="reference internal" href="../get_started/installation.html#installation"><span class="std std-ref">Installation</span></a>. For instance, using <a class="reference external" href="https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/resunet_3d_instances_bcd_instances.yaml">resunet_3d_instances_bcd_instances.yaml</a> template file, the code can be run as follows:</p>
+<h2>Run<a class="headerlink" href="#run" title="Permalink to this headline">¶</a></h2>
+<p><strong>Command line</strong>: Open a terminal as described in <a class="reference internal" href="../get_started/installation.html#installation"><span class="std std-ref">Installation</span></a>. For instance, using <a class="reference external" href="https://github.com/danifranco/BiaPy/blob/master/templates/detection/unet_3d_detection.yaml">unet_3d_detection.yaml</a> template file, the code can be run as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuration file</span>
-<span class="nv">job_cfg_file</span><span class="o">=</span>/home/user/resunet_3d_instances_bcd_instances.yaml
+<span class="nv">job_cfg_file</span><span class="o">=</span>/home/user/unet_3d_detection.yaml
 <span class="c1"># Where the experiment output directory should be created</span>
 <span class="nv">result_dir</span><span class="o">=</span>/home/user/exp_results
 <span class="c1"># Just a name for the job</span>
-<span class="nv">job_name</span><span class="o">=</span>resunet_instances_3d
+<span class="nv">job_name</span><span class="o">=</span>unet_detection_3d
 <span class="c1"># Number that should be increased when one need to run the same job multiple times (reproducibility)</span>
 <span class="nv">job_counter</span><span class="o">=</span><span class="m">1</span>
 <span class="c1"># Number of the GPU to run the job in (according to &#39;nvidia-smi&#39; command)</span>
@@ -368,13 +355,13 @@ python -u main.py <span class="se">\</span>
        --gpu <span class="nv">$gpu_number</span>
 </pre></div>
 </div>
-<p><strong>Docker</strong>: Open a terminal as described in <a class="reference internal" href="../get_started/installation.html#installation"><span class="std std-ref">Installation</span></a>. For instance, using <a class="reference external" href="https://github.com/danifranco/BiaPy/blob/master/templates/semantic_segmentation/resunet_3d_instances_bcd_instances.yaml">resunet_3d_instances_bcd_instances.yaml</a> template file, the code can be run as follows:</p>
+<p><strong>Docker</strong>: Open a terminal as described in <a class="reference internal" href="../get_started/installation.html#installation"><span class="std std-ref">Installation</span></a>. For instance, using <a class="reference external" href="https://github.com/danifranco/BiaPy/blob/master/templates/detection/unet_3d_detection.yaml">unet_3d_detection.yaml</a> template file, the code can be run as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuration file</span>
-<span class="nv">job_cfg_file</span><span class="o">=</span>/home/user/resunet_3d_instances_bcd_instances.yaml
+<span class="nv">job_cfg_file</span><span class="o">=</span>/home/user/unet_3d_detection.yaml
 <span class="c1"># Where the experiment output directory should be created</span>
 <span class="nv">result_dir</span><span class="o">=</span>/home/user/exp_results
 <span class="c1"># Just a name for the job</span>
-<span class="nv">job_name</span><span class="o">=</span>resunet_instances_3d
+<span class="nv">job_name</span><span class="o">=</span>unet_detection_3d
 <span class="c1"># Number that should be increased when one need to run the same job multiple times (reproducibility)</span>
 <span class="nv">job_counter</span><span class="o">=</span><span class="m">1</span>
 <span class="c1"># Number of the GPU to run the job in (according to &#39;nvidia-smi&#39; command)</span>
@@ -395,100 +382,74 @@ docker run --rm <span class="se">\</span>
 </div>
 </div>
 <div class="section" id="results">
-<span id="instance-segmentation-results"></span><h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
+<span id="detection-results"></span><h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
 <p>The results are placed in <code class="docutils literal notranslate"><span class="pre">results</span></code> folder under <code class="docutils literal notranslate"><span class="pre">--result_dir</span></code> directory with the <code class="docutils literal notranslate"><span class="pre">--name</span></code> given.</p>
-<p>Following the example, you should see that the directory <code class="docutils literal notranslate"><span class="pre">/home/user/exp_results/resunet_instances_3d</span></code> has been created. If the same experiment is run 5 times, varying <code class="docutils literal notranslate"><span class="pre">--run_id</span></code> argument only, you should find the following directory tree:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>resunet_instances_3d/
+<p>Following the example, you should see that the directory <code class="docutils literal notranslate"><span class="pre">/home/user/exp_results/unet_detection_3d</span></code> has been created. If the same experiment is run 5 times, varying <code class="docutils literal notranslate"><span class="pre">--run_id</span></code> argument only, you should find the following directory tree:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>unet_detection_3d/
 ├── config_files/
-│   └── resunet_3d_instances_bcd_instances.yaml
+│   └── unet_3d_detection.yaml
 ├── checkpoints
-│   └── model_weights_resunet_instances_3d_1.h5
+│   └── model_weights_unet_detection_3d_1.h5
 └── results
-    ├── resunet_instances_3d_1
+    ├── unet_detection_3d_1
     ├── . . .
-    └── resunet_instances_3d_5
+    └── unet_detection_3d_5
+        ├── cell_counter.csv
         ├── aug
         │   └── .tif files
         ├── charts
-        │   ├── resunet_instances_3d_1_jaccard_index.png
-        │   ├── resunet_instances_3d_1_loss.png
-        │   └── model_plot_resunet_instances_3d_1.png
+        │   ├── unet_detection_3d_1_jaccard_index.png
+        │   ├── unet_detection_3d_1_loss.png
+        │   └── model_plot_unet_detection_3d_1.png
         ├── per_image
         │   └── .tif files
-        ├── per_image_instances
-        │   └── .tif files
-        ├── per_image_instances_voronoi
-        │   └── .tif files
-        └── watershed
-            ├── seed_map.tif
-            ├── foreground.tif
-            └── watershed.tif
+        └── per_image_local_max_check
+            └── .tif files
 </pre></div>
 </div>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">config_files</span></code>: directory where the .yaml filed used in the experiment is stored.</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">resunet_3d_instances_bcd_instances.yaml</span></code>: YAML configuration file used (it will be overwrited every time the code is run).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unet_3d_detection.yaml</span></code>: YAML configuration file used (it will be overwrited every time the code is run).</p></li>
 </ul>
 </div></blockquote>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">checkpoints</span></code>: directory where model’s weights are stored.</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">model_weights_resunet_instances_3d_1.h5</span></code>: model’s weights file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model_weights_unet_detection_3d_1.h5</span></code>: model’s weights file.</p></li>
 </ul>
 </div></blockquote>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">results</span></code>: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.</p>
 <blockquote>
 <div><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_1</span></code>: run 1 experiment folder.</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">unet_detection_3d_1</span></code>: run 1 experiment folder.</p>
 <blockquote>
 <div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell_counter.csv</span></code>: file with a counter of detected objects for each test sample.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">aug</span></code>: image augmentation samples.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">charts</span></code>:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_1_jaccard_index.png</span></code>: IoU (jaccard_index) over epochs plot (when training is done).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_1_loss.png</span></code>: Loss over epochs plot (when training is done).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">model_plot_resunet_instances_3d_1.png</span></code>: plot of the model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unet_detection_3d_1_jaccard_index.png</span></code>: IoU (jaccard_index) over epochs plot (when training is done).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unet_detection_3d_1_loss.png</span></code>: Loss over epochs plot (when training is done).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model_plot_unet_detection_3d_1.png</span></code>: plot of the model.</p></li>
 </ul>
 </div></blockquote>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">per_image</span></code>:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">.tif</span> <span class="pre">files</span></code>: predicted patches are combined again to recover the original test image. This folder contains these images.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.tif</span> <span class="pre">files</span></code>: reconstructed images from patches.</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">per_image_instances</span></code>:</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">per_image_local_max_check</span></code>:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">.tif</span> <span class="pre">files</span></code>: Same as <code class="docutils literal notranslate"><span class="pre">per_image</span></code> but with the instances.</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">per_image_instances_voronoi</span></code> (optional):</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">.tif</span> <span class="pre">files</span></code>: Same as <code class="docutils literal notranslate"><span class="pre">per_image_instances</span></code> but applied Voronoi. Created when <code class="docutils literal notranslate"><span class="pre">TEST.POST_PROCESSING.VORONOI_ON_MASK</span></code> is enabled.</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">watershed</span></code> (optional):</p>
-<blockquote>
-<div><ul>
-<li><p>Created when <code class="docutils literal notranslate"><span class="pre">PROBLEM.INSTANCE_SEG.DATA_CHECK_MW</span></code> is enabled. Inside a folder for each test image will be created containing:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">seed_map.tif</span></code>: initial seeds created before growing.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">foreground.tif</span></code>: foreground mask area that delimits the grown of the seeds.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">watershed.tif</span></code>: result of watershed.</p></li>
-</ul>
-</div></blockquote>
-</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.tif</span> <span class="pre">files</span></code>: Same as <code class="docutils literal notranslate"><span class="pre">per_image</span></code> but with the final detected points.</p></li>
 </ul>
 </div></blockquote>
 </li>
@@ -501,7 +462,7 @@ docker run --rm <span class="se">\</span>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Here, for visualization purposes, only <code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_1</span></code> has been described but <code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_2</span></code>, <code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_3</span></code>, <code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_4</span></code> and <code class="docutils literal notranslate"><span class="pre">resunet_instances_3d_5</span></code> will follow the same structure.</p>
+<p>Here, for visualization purposes, only <code class="docutils literal notranslate"><span class="pre">unet_detection_3d_1</span></code> has been described but <code class="docutils literal notranslate"><span class="pre">unet_detection_3d_2</span></code>, <code class="docutils literal notranslate"><span class="pre">unet_detection_3d_3</span></code>, <code class="docutils literal notranslate"><span class="pre">unet_detection_3d_4</span></code> and <code class="docutils literal notranslate"><span class="pre">unet_detection_3d_5</span></code> will follow the same structure.</p>
 </div>
 </div>
 </div>

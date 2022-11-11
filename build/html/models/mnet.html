@@ -107,10 +107,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/cysto.html">3D Cysto Instance Segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitochondria.html">2D Mitochondria segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitoem.html">MitoEM dataset: large-scale 3d mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/nucleus.html">NucMM dataset: 3d neuronal nuclei instance segmentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -201,30 +201,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-models.mnet">
-<span id="mnet"></span><h1>MNet<a class="headerlink" href="#module-models.mnet" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="models.mnet.MNet">
-<span class="sig-prename descclassname"><span class="pre">models.mnet.</span></span><span class="sig-name descname"><span class="pre">MNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/mnet.html#MNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.mnet.MNet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Code copied from <a class="reference external" href="https://github.com/HzFu/MNet_DeepCDR/blob/master/mnet_deep_cdr/Model_MNet.py">Model_MNet</a>.
-Made some minor changes to adapt the network to our specific case.</p>
-<p>Based on <a class="reference external" href="https://arxiv.org/abs/1801.00926">Joint Optic Disc and Cup Segmentation Based on Multi-label Deep
-Network and Polar Transformation</a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>input_shape</strong> (<em>3 int tuple</em>) – Shape of input images.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>model</strong> – MNet network model.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Keras model</p>
-</dd>
-</dl>
-<p>Here is a picture of the network extracted from the original paper:</p>
-<a class="reference internal image-reference" href="../_images/MNet.jpg"><img alt="../_images/MNet.jpg" class="align-center" src="../_images/MNet.jpg" style="width: 100%;" /></a>
-</dd></dl>
-
+  <div class="section" id="mnet">
+<h1>MNet<a class="headerlink" href="#mnet" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

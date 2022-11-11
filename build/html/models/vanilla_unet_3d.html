@@ -107,10 +107,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/cysto.html">3D Cysto Instance Segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitochondria.html">2D Mitochondria segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitochondria_instance.html">2D Mitochondria instance segmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/nucleus.html">3D Nuclei Instance Segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/stable.html">Stable DNN architectures for mitochondria segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/cartocell.html">CartoCell, a high-throughput pipeline for accurate 3D image analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/mitoem.html">MitoEM dataset: large-scale 3d mitochondria instance segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/nucleus.html">NucMM dataset: 3d neuronal nuclei instance segmentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -210,35 +210,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-models.vanilla_unet_3d">
-<span id="d-vanilla-u-net"></span><h1>3D Vanilla U-Net<a class="headerlink" href="#module-models.vanilla_unet_3d" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="models.vanilla_unet_3d.Vanilla_U_Net_3D">
-<span class="sig-prename descclassname"><span class="pre">models.vanilla_unet_3d.</span></span><span class="sig-name descname"><span class="pre">Vanilla_U_Net_3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'relu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_maps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[32,</span> <span class="pre">64,</span> <span class="pre">128,</span> <span class="pre">256,</span> <span class="pre">512]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'he_normal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/vanilla_unet_3d.html#Vanilla_U_Net_3D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.vanilla_unet_3d.Vanilla_U_Net_3D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create Vanilla 3D U-Net.</p>
-<p>Based on <a class="reference external" href="https://arxiv.org/abs/1606.06650">U-Net 3D</a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>image_shape</strong> (<em>3D tuple</em>) – Dimensions of the input image.</p></li>
-<li><p><strong>activation</strong> (<em>str, optional</em>) – Keras available activation type.</p></li>
-<li><p><strong>feature_maps</strong> (<em>array of ints, optional</em>) – Feature maps to use on each level.</p></li>
-<li><p><strong>k_init</strong> (<em>string, optional</em>) – Kernel initialization for convolutional layers.</p></li>
-<li><p><strong>n_classes</strong> (<em>int, optional</em>) – Number of classes.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>model</strong> – Model containing the U-Net.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Keras model</p>
-</dd>
-</dl>
-<p>Calling this function with its default parameters returns the following network:</p>
-<a class="reference internal image-reference" href="../_images/vanilla_unet_3d.png"><img alt="../_images/vanilla_unet_3d.png" class="align-center" src="../_images/vanilla_unet_3d.png" style="width: 100%;" /></a>
-<p>Image created with <a class="reference external" href="https://github.com/HarisIqbal88/PlotNeuralNet">PlotNeuralNet</a>.</p>
-</dd></dl>
-
+  <div class="section" id="d-vanilla-u-net">
+<h1>3D Vanilla U-Net<a class="headerlink" href="#d-vanilla-u-net" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
