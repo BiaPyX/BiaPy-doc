@@ -14,14 +14,22 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-
 import sys
 import os
 import datetime
-base_path = os.path.abspath(os.path.join("..", ".."))
+
+# Clone 
+from git import Repo
+dir_path = os.path.abspath(os.path.dirname(__file__))
+biapy_dir = os.path.join(dir_path, "..","..", "BiaPy")
+if not os.path.exists(biapy_dir):
+    os.makedirs(biapy_dir, exist_ok=True)
+    print("Cloning BiaPy repo . . .")
+    Repo.clone_from("https://github.com/danifranco/BiaPy", biapy_dir)
+
+base_path = os.path.abspath(biapy_dir)
 sys.path.insert(0, base_path)
 print("PATH: {}".format(sys.path))
-
 
 
 # -- Project information -----------------------------------------------------

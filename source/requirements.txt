@@ -11,6 +11,8 @@ docutils==0.16
 flatbuffers==1.12
 future==0.18.2
 gast==0.4.0
+gitdb==4.0.9
+GitPython==3.1.29
 google-auth==1.35.0
 google-auth-oauthlib==0.4.5
 google-pasta==0.2.0
@@ -39,6 +41,7 @@ oauthlib==3.1.1
 opencv-python==4.5.3.56
 opt-einsum==3.3.0
 packaging==21.0
+pandas==1.4.3
 Pillow==8.3.1
 protobuf==3.17.3
 pyasn1==0.4.8
@@ -59,6 +62,7 @@ scikit-learn==0.24.2
 scipy==1.7.1
 Shapely==1.7.1
 six==1.15.0
+smmap==5.0.0
 snowballstemmer==2.1.0
 Sphinx==4.1.2
 sphinx-rtd-theme==0.5.2
