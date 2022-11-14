@@ -41,7 +41,7 @@ All the options can be find in `config.py <https://github.com/danifranco/BiaPy/b
 System
 ~~~~~~
 
-Use ``SYSTEM.NUM_GPUS`` and ``SYSTEM.NUM_CPUS`` to set how many **GPUs** and **CPUs** you want to use. 
+Use ``SYSTEM.NUM_CPUS`` to limit the **CPUs** the program can use.  
 
 Problem specification
 ~~~~~~~~~~~~~~~~~~~~~
