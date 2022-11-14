@@ -2,6 +2,7 @@ absl-py==0.13.0
 alabaster==0.7.12
 astunparse==1.6.3
 Babel==2.9.1
+cached-property==1.5.2
 cachetools==4.2.2
 certifi==2021.5.30
 charset-normalizer==2.0.4
@@ -22,6 +23,7 @@ idna==3.2
 imageio==2.9.0
 imagesize==1.2.0
 imgaug==0.4.0
+importlib-metadata==5.0.0
 Jinja2==3.0.1
 joblib==1.0.1
 keras==2.6.0
@@ -40,8 +42,7 @@ numpydoc==1.1.0
 oauthlib==3.1.1
 opencv-python==4.5.3.56
 opt-einsum==3.3.0
-packaging==21.0
-pandas==1.4.3
+packaging==21.3
 Pillow==8.3.1
 protobuf==3.17.3
 pyasn1==0.4.8
@@ -49,7 +50,7 @@ pyasn1-modules==0.2.8
 pybtex==0.24.0
 pybtex-docutils==1.0.1
 Pygments==2.10.0
-pyparsing==2.4.7
+pyparsing==3.0.9
 python-dateutil==2.8.2
 pytz==2021.1
 PyWavelets==1.1.1
@@ -87,3 +88,4 @@ urllib3==1.26.6
 Werkzeug==2.0.1
 wrapt==1.12.1
 yacs==0.1.8
+zipp==3.10.0
