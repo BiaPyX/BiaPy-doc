@@ -59,18 +59,18 @@ How to train your model
 
   For the validation data, for both **model M1** and **model M2**, you will need to modify ``VAL.PATH`` and ``VAL.MASK_PATH`` with `validation_dataset_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-83538c77-61d8-4770-85d1-1bac988c5e43>`__ and `validation_dataset_ground_truth <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-5195c7ac-eacd-491e-9d69-8115b36b6c43>`__. 
 
-* **Option 2**: another alternative is to use a Google Colab `notebook <https://colab.research.google.com/github/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/CartoCell - training workflow (Phase 2).ipynb>`__. Noteworthy, Google Colab standard account do not allow you to run a long number of epochs due to time limitations. Because of this, we set ``100`` epochs to train and patience to ``20`` while the original configuration they are set to ``1300`` and ``100`` respectively. In this case you do not need to donwload any data, as the notebook will do it for you. 
+* **Option 2**: another alternative is to use a Google Colab `notebook <https://colab.research.google.com/github/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Training%20workflow%20(Phase%202).ipynb>`__. Noteworthy, Google Colab standard account do not allow you to run a long number of epochs due to time limitations. Because of this, we set ``100`` epochs to train and patience to ``20`` while the original configuration they are set to ``1300`` and ``100`` respectively. In this case you do not need to donwload any data, as the notebook will do it for you. 
 
 How to run the inference
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Option 1**: to reproduce the exact results of our manuscript you need to use `cartocell_inference.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/cartocell_training.yaml>`__ configuration file that allows to predict new images using `command line section <https://biapy.readthedocs.io/en/latest/workflows/instance_segmentation.html#run>`__. 
+* **Option 1**: to reproduce the exact results of our manuscript you need to use `cartocell_inference.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/cartocell_inference.yaml>`__ configuration file that allows to predict new images using `command line section <https://biapy.readthedocs.io/en/latest/workflows/instance_segmentation.html#run>`__. 
 
  In this case, you will need to set ``TEST.PATH`` and ``TEST.MASK_PATH`` with `test_dataset_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-ba6774bd-7858-4bfb-aca9-9ac307e72120>`__ and `test_dataset_ground_truth <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-efddb305-dec1-46e3-b235-00d7cd670e66>`__ data. 
 
  In case you want to reproduce our **model M2, Phase 5**, you can download our pretained model file `model_weights_cartocell.h5 <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/model_weights_cartocell.h5>`__ and set its path in ``PATHS.CHECKPOINT_FILE``. You can also use your own pretained model in case you followed the training explanation above. 
 
-* **Option 2**: to perform an inference using a pretrained model, you can run a Google Colab `notebook <https://colab.research.google.com/github/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/CartoCell - inference workflow (Phase 5).ipynb>`__. 
+* **Option 2**: to perform an inference using a pretrained model, you can run a Google Colab `notebook <https://colab.research.google.com/github/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Inference%20workflow%20(Phase%205).ipynb>`__. 
 
 Results
 ~~~~~~~
