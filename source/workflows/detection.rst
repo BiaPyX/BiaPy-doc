@@ -55,10 +55,10 @@ To ensure the proper operation of the library the data directory tree should be 
     │   │   ├── . . .
     │   │   ├── training-9999.tif
     │   └── y
-    │       ├── training_groundtruth-0001.csv
-    │       ├── training_groundtruth-0002.csv
+    │       ├── training-0001.csv
+    │       ├── training-0002.csv
     │       ├── . . .
-    │       ├── training_groundtruth-9999.csv
+    │       ├── training-9999.csv
     └── test
         ├── x
         │   ├── testing-0001.tif
@@ -66,12 +66,12 @@ To ensure the proper operation of the library the data directory tree should be 
         │   ├── . . .
         │   ├── testing-9999.tif
         └── y
-            ├── testing_groundtruth-0001.csv
-            ├── testing_groundtruth-0002.csv
+            ├── testing-0001.csv
+            ├── testing-0002.csv
             ├── . . .
-            ├── testing_groundtruth-9999.csv
+            ├── testing-9999.csv
 
-.. warning:: Ensure that images and their corresponding masks are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example). 
+.. warning:: In this workflow the name of each ``.tif`` file and its corresponding ``.csv`` file must be the same. 
 
 .. _detection_problem_resolution:
 
@@ -164,26 +164,32 @@ Run
 
     # Configuration file
     job_cfg_file=/home/user/unet_3d_detection.yaml
+    # Path to the data directory
+    data_dir=/home/user/data
     # Where the experiment output directory should be created
     result_dir=/home/user/exp_results
     # Just a name for the job
-    job_name=unet_detection_3d
+    job_name=resunet_instances_3d
     # Number that should be increased when one need to run the same job multiple times (reproducibility)
     job_counter=1
     # Number of the GPU to run the job in (according to 'nvidia-smi' command)
     gpu_number=0
 
     docker run --rm \
-        --gpus $gpu_number \
+        --gpus "device=$gpu_number" \
         --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
         --mount type=bind,source=$result_dir,target=$result_dir \
         --mount type=bind,source=$data_dir,target=$data_dir \
-        danifranco/em_image_segmentation \
+        danifranco/biapy \
             -cfg $job_cfg_file \
             -rdir $result_dir \
             -name $job_name \
             -rid $job_counter \
             -gpu $gpu_number
+
+.. note:: 
+    Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.MASK_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.MASK_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
+
 
 .. _detection_results:
 

@@ -129,6 +129,8 @@ Run
 
     # Configuration file
     job_cfg_file=/home/user/resunet_2d_semantic_segmentation.yaml
+    # Path to the data directory
+    data_dir=/home/user/data
     # Where the experiment output directory should be created
     result_dir=/home/user/exp_results
     # Just a name for the job
@@ -138,17 +140,20 @@ Run
     # Number of the GPU to run the job in (according to 'nvidia-smi' command)
     gpu_number=0
 
-    docker run --rm \
-        --gpus $gpu_number \
+    sudo docker run --rm \
+        --gpus "device=$gpu_number" \
         --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
         --mount type=bind,source=$result_dir,target=$result_dir \
         --mount type=bind,source=$data_dir,target=$data_dir \
-        danifranco/em_image_segmentation \
+        danifranco/biapy \
             -cfg $job_cfg_file \
             -rdir $result_dir \
             -name $job_name \
             -rid $job_counter \
             -gpu $gpu_number
+
+.. note:: 
+    Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.MASK_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.MASK_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
 
 **Colab**: The fastest and easiest way to run it is via Google Colab |colablink|
 

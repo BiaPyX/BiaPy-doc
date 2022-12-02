@@ -140,6 +140,7 @@ Here some special configuration options that can be selected in this workflow ar
       git checkout grand-challenge
 
     You need to also set the variable ``PATHS.MAP_CODE_DIR`` to the path where ``mAP_3Dvolume`` project resides.
+    Also, test images and its corresponding ground truth labels must have the same name to run mAP calculation. E.g. ``testing_groundtruth-0001.tif`` example described in :ref:`instance_segmentation_data_prep` need to be ``testing-0001.tif`` instead. 
 
   * **Matching metrics**, that was adapted from Stardist (:cite:p:`weigert2020star`) evaluation `code <https://github.com/stardist/stardist>`_. It is enabled with ``TEST.MATCHING_STATS``. It calculates precision, recall, accuracy, F1 and panoptic quality based on a defined threshold to decide wheter an instance is a true positive. That threshold measures the overlap between predicted instance and its ground truth. More than one threshold can be set and it is done with ``TEST.MATCHING_STATS_THS``. For instance, if ``TEST.MATCHING_STATS_THS`` is ``[0.5, 0.75]`` this means that these metrics will be calculated two times, one for ``0.5`` threshold and another for ``0.75``. In the first case, all instances that have more than ``0.5``, i.e. ``50%``, of overlap with their respective ground truth are considered true positives. 
 
@@ -185,6 +186,8 @@ Run
 
     # Configuration file
     job_cfg_file=/home/user/resunet_3d_instances_bcd_instances.yaml
+    # Path to the data directory
+    data_dir=/home/user/data
     # Where the experiment output directory should be created
     result_dir=/home/user/exp_results
     # Just a name for the job
@@ -195,16 +198,20 @@ Run
     gpu_number=0
 
     docker run --rm \
-        --gpus $gpu_number \
+        --gpus "device=$gpu_number" \
         --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
         --mount type=bind,source=$result_dir,target=$result_dir \
         --mount type=bind,source=$data_dir,target=$data_dir \
-        danifranco/em_image_segmentation \
+        danifranco/biapy \
             -cfg $job_cfg_file \
             -rdir $result_dir \
             -name $job_name \
             -rid $job_counter \
             -gpu $gpu_number
+
+.. note:: 
+    Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.MASK_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.MASK_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
+
 
 .. _instance_segmentation_results:
 
