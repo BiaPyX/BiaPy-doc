@@ -105,7 +105,7 @@ Run
     # Where the experiment output directory should be created
     result_dir=/home/user/exp_results
     # Just a name for the job
-    job_name=resunet_instances_3d
+    job_name=n2v_2d_denoising
     # Number that should be increased when one need to run the same job multiple times (reproducibility)
     job_counter=1
     # Number of the GPU to run the job in (according to 'nvidia-smi' command)
@@ -156,7 +156,7 @@ Following the example, you should see that the directory ``/home/user/exp_result
             ├── aug
             │   └── .tif files
             ├── charts
-            │   ├── n2v_2d_denoising_1_jaccard_index.png
+            │   ├── n2v_2d_denoising_1_n2v_mse.png
             │   ├── n2v_2d_denoising_1_loss.png
             │   └── model_plot_n2v_2d_denoising_1.png
             └── per_image
@@ -185,7 +185,7 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
         * ``charts``:  
 
-             * ``n2v_2d_denoising_1_jaccard_index.png``: IoU (jaccard_index) over epochs plot (when training is done).
+             * ``n2v_2d_denoising_1_n2v_mse.png``: Noise2Void MSE over epochs plot (when training is done).
 
              * ``n2v_2d_denoising_1_loss.png``: Loss over epochs plot (when training is done). 
 

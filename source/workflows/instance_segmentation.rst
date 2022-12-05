@@ -101,19 +101,50 @@ This new data representation is stored in ``DATA.TRAIN.INSTANCE_CHANNELS_DIR`` a
 
 After the train phase, the model output will have the same channels as the ones used to train. In the case of binary channels, i.e. ``B``, ``C`` and ``M``, each pixel of each channel will have the probability (in ``[0-1]`` range) of being of the class that represents that channel. Whereas for the ``D`` and ``Dv2`` channel each pixel will have a float that represents the distance.
 
-In a **post-processing** step the multi-channel data information will be used to create the final instance segmentation labels using a marker-controlled watershed. The process is as follows:
+In a **post-processing** step the multi-channel data information will be used to create the final instance segmentation labels using a marker-controlled watershed. The process vary depending on the configuration:
 
-* First, instance seeds are created based on ``B``, ``C``, ``D`` and ``Dv2`` (notice that depending on the configuration selected not all of them will be present). For that, each channel is binarized using different thresholds: ``PROBLEM.INSTANCE_SEG.DATA_MW_TH1`` for ``B`` channel, ``PROBLEM.INSTANCE_SEG.DATA_MW_TH2`` for ``C`` and ``PROBLEM.INSTANCE_SEG.DATA_MW_TH4`` for ``D`` or ``Dv2``. These thresholds will decide wheter a point is labeled as a class or not. This way, the seeds are created following this formula: :: 
+* In ``BC``, ``BCM`` and ``BCD`` configurations are as follows:
 
-    seeds = (B > DATA_MW_TH1) * (D > DATA_MW_TH4) * (C < DATA_MW_TH2)  
+  * First, seeds are created based on ``B``, ``C`` and ``D`` (notice that depending on the configuration selected not all of them will be present). For that, each channel is binarized using different thresholds: ``PROBLEM.INSTANCE_SEG.DATA_MW_TH1`` for ``B`` channel, ``PROBLEM.INSTANCE_SEG.DATA_MW_TH2`` for ``C`` and ``PROBLEM.INSTANCE_SEG.DATA_MW_TH4`` for ``D``. These thresholds will decide wheter a point is labeled as a class or not. This way, the seeds are created following this formula: :: 
 
-  Translated to words seeds will be: all pixels part of the binary mask (``B`` channel), which will be those higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH1``; and also in the center of each instances, i.e. higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH4`` ; but not labeled as contour, i.e. less than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH2``. 
+      seed_mask = (B > DATA_MW_TH1) * (D > DATA_MW_TH4) * (C < DATA_MW_TH2)  
 
-* After that, each instance is labeled with a unique integer, e.g. using `connected component <https://en.wikipedia.org/wiki/Connected-component_labeling>`_. Then a foreground mask is created to delimit the area in which the seeds may grow. This foreground mask is defined based on ``B`` channel using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH3`` and ``D`` or ``Dv2`` using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH5``. The formula is as follows: :: 
+    Translated to words seeds will be: all pixels part of the binary mask (``B`` channel), which will be those higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH1``; and also in the center of each instances, i.e. higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH4`` ; but not labeled as contour, i.e. less than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH2``. 
 
-    foreground mask = (B > DATA_MW_TH3) * (D > DATA_MW_TH5) 
 
-* Afterwards, tiny instances are removed using ``PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ`` value. Finally, the seeds are grown using marker-controlled watershed.
+  * After that, each instance is labeled with a unique integer, e.g. using `connected component <https://en.wikipedia.org/wiki/Connected-component_labeling>`_. Then a foreground mask is created to delimit the area in which the seeds can grow. This foreground mask is defined based on ``B`` channel using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH3`` and ``D`` using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH5``. The formula is as follows: :: 
+
+      foreground_mask = (B > DATA_MW_TH3) * (D > DATA_MW_TH5) 
+
+  * Afterwards, tiny instances are removed using ``PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ`` value. Finally, the seeds are grown using marker-controlled watershed over the ``B`` channel.
+
+* In ``BDv2``, ``BCDv2`` and ``Dv2`` configurations are as follows:
+
+  * First, seeds are created based on ``B``, ``C`` and ``Dv2`` (notice that depending on the configuration selected not all of them will be present). For that, each channel is binarized using different thresholds: ``PROBLEM.INSTANCE_SEG.DATA_MW_TH1`` for ``B`` channel, ``PROBLEM.INSTANCE_SEG.DATA_MW_TH2`` for ``C`` and ``PROBLEM.INSTANCE_SEG.DATA_MW_TH4`` for ``Dv2``. These thresholds will decide wheter a point is labeled as a class or not. This way, the seeds are created following this formula: :: 
+
+      seed_mask = (B > DATA_MW_TH1) * (Dv2 < DATA_MW_TH4) * (C < DATA_MW_TH2)
+
+    Translated to words seeds will be: all pixels part of the binary mask (``B`` channel), which will be those higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH1``; and also in the center of each instances, i.e. less than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH4`` ; but not labeled as contour, i.e. less than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH2``. 
+
+  * After that different steps are applied depending on the configuration but the key thing here is that we are not going to set a foreground mask to delimit the area in which the seeds can grow as is done in ``BC``, ``BCM`` and ``BCD`` configurations. Instead, we are going to define a background seed in ``BDv2`` and ``BCDv2`` configurations so it can grow at the same time as the rest of the seeds.
+
+    * For ``BCDv2`` the background seed will be: ::
+
+        background_seed = invert( dilate( (B > DATA_MW_TH1) + (C > DATA_MW_TH2) ) )
+
+      Translated to words seeds will be: all pixels part of the binary mask (``B`` channel), which will be those higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH1`` and also part of the contours, i.e. greater than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH4`` will constitute the foreground (or all the cell). Then, the rest of the pixels of the image will be considerer as background so we can now 1) dilate that mask so it can go beyond cell region, i.e. background, and afterwards 2) invert it to obtain the background seed. 
+
+    * For ``BDv2`` the background seed will be: ::
+
+        background_seed = (Dv2 < DATA_MW_TH4) * (do not overlap with seed_mask)
+
+      Translated to words seeds will be: all pixels part of the distance mask (``Dv2`` channel) and that dot not overlap with any of the seeds created in ``seed_mask``. 
+   
+    * For ``Dv2`` there is no way to know where the background seed is. This configuration will require the user to inspect the result so they can remove the unnecesary background instances. 
+
+  * Afterwards, tiny instances are removed using ``PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ`` value. Finally, the seeds are grown using marker-controlled watershed over the ``Dv2`` channel.
+
+In general, each configuration has its own advantages and drawbacks. The best thing to do is to inspect the results generated by the model so you can adjust each threshold for your particular case and run again the inference (i.e. not training again the network and loading model's weights). 
 
 Configuration file
 ~~~~~~~~~~~~~~~~~~
@@ -234,7 +265,7 @@ Following the example, you should see that the directory ``/home/user/exp_result
             ├── aug
             │   └── .tif files
             ├── charts
-            │   ├── resunet_instances_3d_1_jaccard_index.png
+            │   ├── resunet_instances_3d_1_*.png
             │   ├── resunet_instances_3d_1_loss.png
             │   └── model_plot_resunet_instances_3d_1.png
             ├── per_image
@@ -265,7 +296,7 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
         * ``charts``:  
 
-             * ``resunet_instances_3d_1_jaccard_index.png``: IoU (jaccard_index) over epochs plot (when training is done).
+             * ``resunet_instances_3d_1_*.png``: Plot of each metric used during training. Depends on the configuration ``jaccard_index``, ``jaccard_index_instances`` or ``mae`` can be created. ``jaccard_index_instances`` and ``jaccard_index`` are the same (both names used due to implementation reasons).
 
              * ``resunet_instances_3d_1_loss.png``: Loss over epochs plot (when training is done). 
 
@@ -292,7 +323,6 @@ Following the example, you should see that the directory ``/home/user/exp_result
                 * ``foreground.tif``: foreground mask area that delimits the grown of the seeds.
                 
                 * ``watershed.tif``: result of watershed.
-
 
 .. note:: 
 

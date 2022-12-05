@@ -15,12 +15,12 @@ In the figure below an example of this workflow's **input** is depicted. There, 
 
 .. list-table:: 
 
-  * - .. figure:: ../img/FIBSEM_test_0.png
+  * - .. figure:: ../img/lucchi_test_0.png
          :align: center
 
          Input image.
 
-    - .. figure:: ../img/FIBSEM_test_0_gt.png
+    - .. figure:: ../img/lucchi_test_0_gt.png
          :align: center
 
          Input class mask (ground truth).

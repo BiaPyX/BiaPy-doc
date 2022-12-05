@@ -27,12 +27,12 @@ The goal is to segment automatically mitochondria in EM images as described in :
 
 .. list-table:: 
 
-  * - .. figure:: ../img/FIBSEM_test_0.png
+  * - .. figure:: ../img/lucchi_test_0.png
          :align: center
 
          EM tissue image
 
-    - .. figure:: ../img/FIBSEM_test_0_gt.png
+    - .. figure:: ../img/lucchi_test_0_gt.png
          :align: center
 
          Corresponding mask 

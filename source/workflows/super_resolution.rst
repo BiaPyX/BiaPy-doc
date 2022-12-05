@@ -72,7 +72,7 @@ Here some special configuration options that can be selected in this workflow ar
 
 * **Upsampling** is the most important variable to be set via ``PROBLEM.SUPER_RESOLUTION.UPSCALING``. In the example above, its value is ``2``. 
 
-* **Metrics**: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is enabled. In the case of super-resolution the **Peak signal-to-noise ratio** (PSNR) metrics is calculated when the HR image is reconstructed from individual patches.
+* **Metrics**: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is enabled. In the case of super-resolution the **Peak signal-to-noise ratio** (`PSNR <https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio>`__) metrics is calculated when the HR image is reconstructed from individual patches.
 
 .. _super_resolution_data_run:
 
@@ -176,7 +176,7 @@ Following the example, you should see that the directory ``/home/user/exp_result
             ├── aug
             │   └── .tif files
             ├── charts
-            │   ├── edsr_2d_1_jaccard_index.png
+            │   ├── edsr_2d_1_PSNR.png
             │   ├── edsr_2d_1_loss.png
             │   └── model_plot_edsr_2d_1.png
             └── per_image
@@ -198,7 +198,7 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
         * ``charts``:  
 
-             * ``edsr_2d_1_jaccard_index.png``: IoU (jaccard_index) over epochs plot (when training is done).
+             * ``edsr_2d_1_PSNR.png``: PNSR over epochs plot (when training is done).
 
              * ``edsr_2d_1_loss.png``: Loss over epochs plot (when training is done). 
 

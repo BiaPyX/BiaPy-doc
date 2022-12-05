@@ -169,7 +169,7 @@ Run
     # Where the experiment output directory should be created
     result_dir=/home/user/exp_results
     # Just a name for the job
-    job_name=resunet_instances_3d
+    job_name=unet_3d_detection
     # Number that should be increased when one need to run the same job multiple times (reproducibility)
     job_counter=1
     # Number of the GPU to run the job in (according to 'nvidia-smi' command)
