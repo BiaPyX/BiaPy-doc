@@ -17,7 +17,7 @@ In the figure below an example of this workflow's **input** is depicted. There, 
 
   * - .. figure:: ../img/lucchi_test_0.png
          :align: center
-
+        
          Input image.
 
     - .. figure:: ../img/lucchi_test_0_gt.png
