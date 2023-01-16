@@ -7,5 +7,5 @@
   unet
   resunet
   att_unet_2d
-  se_unet_2d
+  seunet
 

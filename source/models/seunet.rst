@@ -1,7 +1,7 @@
 2D SE U-Net 
 ~~~~~~~~~~~
                                                                                 
-.. automodule:: models.se_unet_2d
+.. automodule:: models.seunet
     :members:                                                                   
     :undoc-members:                                                             
     :show-inheritance:         

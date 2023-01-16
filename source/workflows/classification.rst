@@ -26,6 +26,10 @@ In the figure below a few examples of this workflow's **input** are depicted:
          :align: center
          :width: 50
 
+    - .. figure:: ../img/MedMNIST_DermaMNIST_test1030_3.png
+         :align: center
+         :width: 50
+
     - .. figure:: ../img/MedMNIST_DermaMNIST_test1003_4.png
          :align: center
          :width: 50
