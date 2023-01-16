@@ -9,6 +9,8 @@ charset-normalizer==2.0.4
 clang==5.0
 cycler==0.10.0
 docutils==0.16
+fastremap==1.13.3
+fill-voids==2.0.3
 flatbuffers==1.12
 future==0.18.2
 gast==0.4.0
