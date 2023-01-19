@@ -14,31 +14,31 @@ In the figure below a few examples of this workflow's **input** are depicted:
 
 .. list-table::
 
-  * - .. figure:: ../img/MedMNIST_DermaMNIST_test1008_0.png
+  * - .. figure:: ../img/classification/MedMNIST_DermaMNIST_test1008_0.png
          :align: center
          :width: 50
 
-    - .. figure:: ../img/MedMNIST_DermaMNIST_test10_1.png
+    - .. figure:: ../img/classification/MedMNIST_DermaMNIST_test10_1.png
          :align: center
          :width: 50
          
-    - .. figure:: ../img/MedMNIST_DermaMNIST_test1002_2.png
+    - .. figure:: ../img/classification/MedMNIST_DermaMNIST_test1002_2.png
          :align: center
          :width: 50
 
-    - .. figure:: ../img/MedMNIST_DermaMNIST_test1030_3.png
+    - .. figure:: ../img/classification/MedMNIST_DermaMNIST_test1030_3.png
          :align: center
          :width: 50
 
-    - .. figure:: ../img/MedMNIST_DermaMNIST_test1003_4.png
+    - .. figure:: ../img/classification/MedMNIST_DermaMNIST_test1003_4.png
          :align: center
          :width: 50
 
-    - .. figure:: ../img/MedMNIST_DermaMNIST_test0_5.png
+    - .. figure:: ../img/classification/MedMNIST_DermaMNIST_test0_5.png
          :align: center
          :width: 50
 
-    - .. figure:: ../img/MedMNIST_DermaMNIST_test1021_6.png
+    - .. figure:: ../img/classification/MedMNIST_DermaMNIST_test1021_6.png
          :align: center
          :width: 50
 
@@ -89,7 +89,7 @@ Each image label is obtained from the directory name in which that image resides
             ├── . . .
             └── test806_6.png
 
-Here each directory is a number but it can be any string. Notice that they will be considered the classnames. Regarding the test, if you have no labels it doesn't matter if the images are separated in several folders or are all in one folder. 
+Here each directory is a number but it can be any string. Notice that they will be considered the class names. Regarding the test, if you have no classes it doesn't matter if the images are separated in several folders or are all in one folder. But, if ``DATA.TEST.LOAD_GT`` is enabled, each folder in test path (i.e. ``DATA.TEST.PATH``) will be considered as a class (as done for training and validation). 
 
 .. _classification_problem_resolution:
 
@@ -178,7 +178,7 @@ Results
 
 The main output of this workflow will be a file named ``predictions.csv`` that will contain the predicted image class:
 
-.. figure:: ../img/classification_csv_output.svg
+.. figure:: ../img/classification/classification_csv_output.svg
     :align: center
     :width: 150
 
@@ -230,7 +230,7 @@ All files are placed in ``results`` folder under ``--result_dir`` directory with
 
 .. note:: 
 
-  Here, for visualization purposes, only ``classification_1`` has been described but ``classification_2``, ``classification_3``, ``classification_4`` and ``classification_5`` will follow the same structure.
+  Here, for visualization purposes, only ``classification_1`` has been described but ``classification_2``, ``classification_3``, ``classification_4`` and ``classification_5`` directories will follow the same structure.
 
 
 
