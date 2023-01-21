@@ -182,7 +182,17 @@ Here some special configuration options that can be selected in this workflow ar
 Run
 ~~~
 
-**Command line**: Open a terminal as described in :ref:`installation`. For instance, using `resunet_3d_instances_bcd_instances.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/resunet_3d_instances_bcd_instances.yaml>`__ template file, the code can be run as follows:
+**Jupyter notebooks**: run via Google Colab 
+
+.. |inst_seg_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_2D_Instance_Segmentation.ipynb
+
+.. |inst_seg_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_3D_Instance_Segmentation.ipynb
+
+* 2D: |inst_seg_2D_colablink|
+
+* 3D: |inst_seg_3D_colablink|
 
 .. code-block:: bash
     

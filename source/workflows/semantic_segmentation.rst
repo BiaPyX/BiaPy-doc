@@ -93,6 +93,12 @@ Furthermore, when this is enabled, in ``PATHS.DA_SAMPLES`` path, i.e. ``aug`` fo
 
 Run
 ~~~
+**Jupyter notebooks**: run via Google Colab 
+
+.. |sem_seg_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/semantic_segmentation/BiaPy_2D_Semantic_Segmentation.ipynb
+
+* 2D: |sem_seg_2D_colablink|
 
 **Command line**: Open a terminal as described in :ref:`installation`. For instance, using `resunet_2d_semantic_segmentation.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/semantic_segmentation/resunet_2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
 
@@ -155,10 +161,6 @@ Run
 .. note:: 
     Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.MASK_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.MASK_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
 
-**Colab**: The fastest and easiest way to run it is via Google Colab |colablink|
-
-.. |colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/templates/notebooks/semantic_segmentation_workflow.ipynb
 
 .. _semantic_segmentation_results:
 
