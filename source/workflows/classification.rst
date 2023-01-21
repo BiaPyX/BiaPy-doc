@@ -109,6 +109,18 @@ Here some special configuration options that can be selected in this workflow ar
 Run
 ~~~
 
+**Jupyter notebooks**: run via Google Colab 
+
+.. |class_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/classification/BiaPy_2D_Classification.ipynb
+
+.. |class_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/classification/BiaPy_3D_Classification.ipynb
+
+* 2D: |class_2D_colablink|
+
+* 3D: |class_3D_colablink|
+
 **Command line**: Open a terminal as described in :ref:`installation`. For instance, using `classification.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/classification/classification.yaml>`__ template file, the code can be run as follows:
 
 .. code-block:: bash
