@@ -3,6 +3,7 @@
 
 .. toctree::
    :maxdepth: 2
+   :glob:
 
    unet_3d
    resunet_3d

@@ -3,7 +3,7 @@
 Installation
 ------------
 
-BiaPy can be installed and run locally on any Linux, Windows, or Mac OS platform using `Docker <docker.html>`__ or via the command line with Anaconda/Miniconda and Git.  Alternatively, BiaPy can also be used on `Google Colab <colab.html>`__.
+BiaPy can be installed and run locally on any Linux, Windows, or Mac OS platform using `Docker <https://www.docker.com/>`__ or via the command line with Anaconda/Miniconda and Git.  Alternatively, BiaPy can also be used on `Google Colab <https://colab.research.google.com/>`__.
 
 
 .. _installation_command_line:
@@ -34,20 +34,6 @@ Docker installation
 ~~~~~~~~~~~~~~~~~~~
 
 To run BiaPy using Docker, you need to install it first `here <https://docs.docker.com/get-docker/>`__.
-
-.. Firstly check that the code will be able to use a GPU by running: ::
-
-..     docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
-
-.. Build the container or pull ours: ::
-
-..     # Option A)
-..     docker pull danifranco/em_image_segmentation
-
-..     # Option B)
-..     cd BiaPy
-..     docker build -f utils/env/Dockerfile -t em_image_segmentation .
-
 
 Google Colab
 ~~~~~~~~~~~~

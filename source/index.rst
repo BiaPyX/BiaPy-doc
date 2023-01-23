@@ -45,12 +45,24 @@ The library provides an easy way to create image processing pipelines that are c
    tutorials/mitoem.rst
    tutorials/nucleus.rst
 
-   
+.. toctree::                                                                    
+   :maxdepth: 1
+   :caption: How to contribute
+   :glob:
+
+   contribute/workflow
+
 .. toctree::                                                                    
    :maxdepth: 1
    :caption: API
+   :glob:
 
-   API
+   API/config/config
+   API/data/data
+   API/engine/engine
+   API/models/models
+   API/utils/utils
+
 
 .. toctree::
    :maxdepth: 1
