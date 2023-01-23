@@ -70,6 +70,14 @@ Here some special configuration options that can be selected in this workflow ar
 Run
 ~~~
 
+**Jupyter notebooks**: run via Google Colab 
+
+.. |class_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/self-supervised/BiaPy_2D_Self_Supervision.ipynb
+
+* 2D: |class_2D_colablink|
+
+
 **Command line**: Open a terminal as described in :ref:`installation`. For instance, using `unet_self-supervised.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/self-supervised/unet_self-supervised.yaml>`__ template file, the code can be run as follows:
 
 .. code-block:: bash
