@@ -16,7 +16,7 @@ In this section, the structure of BiaPy and the various steps involved in execut
     ####################
 
 
-  `This link <https://github.com/danifranco/BiaPy/blob/ca6351bd73b9c952cba3b4d97b88116f58432af7/engine/engine.py#L38>`__ points to the specific line in the library's code where this part of the documentation was written. However, it should be noted that the library is under continuous development, so the link may not always point to the current version of the code. For more information on pre-processing, refer to the ``pre-processing and post-processing`` section of the documentation.
+  `This link <https://github.com/danifranco/BiaPy/blob/ca6351bd73b9c952cba3b4d97b88116f58432af7/engine/engine.py#L38>`__ points to the specific line in the library's code where this part of the documentation was written. However, it should be noted that the library is under continuous development, so the link may not always point to the current version of the code. For more information on pre-processing, refer to the :ref:`pre_post_contrib` section of the documentation.
 
 4. The next step in the workflow is to load the data. If the ``DATA.TRAIN.IN_MEMORY`` variable is enabled, the training, validation, and test data are loaded into memory. If this variable is disabled, the data generators (which is the next step) will load each image from the disk on-the-fly. Assuming that ``DATA.TRAIN.IN_MEMORY`` is enabled, there are two options for creating the training and validation data:
 
