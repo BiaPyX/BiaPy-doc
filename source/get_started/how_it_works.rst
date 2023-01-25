@@ -1,3 +1,6 @@
+.. _how_works_biapy:
+
+
 How it works
 ------------
 
@@ -14,23 +17,37 @@ All BiaPy pipelines are composed of three main steps: data pre-processing, deep 
 Pre-processing
 ~~~~~~~~~~~~~~
 
-Before the training or inference stage, BiaPy prepares the input data usually by creating 2D/3D image patches and normalizing the pixel/voxel intensities. Furthermore, some workflows require adapting the input data into a representation that can be fed to the DL model. This is the case of the instance segmentation pipelines, where the label images are transformed into binary masks, contours and distance maps ; and also the object detection pipelines, where the point detection lists are transformed into point mask images.
+In order to effectively train or perform inference with deep learning (DL) models, it is crucial to properly prepare the input data. BiaPy addresses this need by implementing various pre-processing steps.
+
+An important aspect of pre-processing in BiaPy is the adaptation of input data into a representation that can be fed to a DL model. This is particularly relevant in the case of instance segmentation pipelines, where label images are transformed into binary masks, contours, and distance maps. Similarly, in object detection pipelines, point detection lists are transformed into point mask images. These transformations allow for a more effective training and inference process, as the DL model is presented with data in a format that it can more easily understand and process.
+
+The normalization of the pixel/voxel intensities is performed to ensure that the data falls within a specific range, allowing the model to more effectively learn from the data. This process is currently done inside the generators. 
 
 Training
 ~~~~~~~~
 
-After pre-processing stage the training of the model is performed. The DL model is trained by example where an input and a target output need to be specified. The purpose of the DL model is to generate an output as closest as possible to the provided target data, also called ground truth. 
+The training stage of deep learning (DL) models is a crucial step in achieving accurate and reliable results. During this stage, the DL model is presented with examples of input data and corresponding target outputs, also known as ground truth. The goal of the model is to generate outputs as close as possible to the provided target data.
 
-To create more training data a data augmentation (DA) is applied. DA converts the input image applying some transformation to it, e.g. random rotation or flips, so the model is feed with a different version of the original image. Furthermore, this technique alleviates the problem of overfitting, that happens when a model learns the detail and noise in the training data to the extent that it negatively impacts the performance of the model on new data.
+One way to increase the amount of training data available is through the use of data augmentation (DA). This technique involves applying various transformations to the input image, such as random rotations or flips, to create different versions of the original image. By feeding the model with a diverse set of data, DA can help prevent overfitting, which occurs when a model becomes too specialized to the training data and performs poorly on new data.
 
-Apart for the DA, in the training stage is also common to define a validation set to prevent model overfitting. This way, the training process can be monitorized so it is stopped when no improvement is seeing in the validation data after some defined epochs (this is called patience). An epoch refers to see all the images in the training data. This process is repeated again and again. This way, epoch by epoch, the model can learn to map input images to their respective target. 
+Another technique to prevent overfitting is to use a validation set in the training process. A validation set is a separate set of data that is not used in the training of the model, but is used to monitor the model's performance during training. By comparing the model's performance on the validation set to its performance on the training set, it is possible to detect when the model is no longer improving and to stop the training process before overfitting occurs. 
 
 Inference
 ~~~~~~~~~
 
-After the training process is done the inference, or prediction, phase comes. The idea is pass through the model images of the same type used to train so it can produce its corresponding target. If the ground truth exists it can be compared with the model's output to measure its performance. Different metrics are used depending on the workflow. 
+Once the training process has been completed, the next step is the inference or prediction phase. During this phase, the trained model is presented with images of the same type as those used during training, and the model generates its corresponding target output. If ground truth data is available, the model's output can be compared to this data to measure its performance.
+
+Different metrics are used to evaluate the performance of the model, depending on the specific workflow. For example, in the case of image classification, metrics such as accuracy, precision, and recall may be used to evaluate the model's performance. In object detection workflows, metrics such as average precision (AP) or mean average precision (MAP) are commonly used. In the case of instance segmentation, metrics such as intersection over union (IoU) is used to evaluate the model's performance.
+
+It is important to note that the selection of appropriate metrics is essential for the accurate evaluation of the model's performance and the identification of areas where improvement is needed.
 
 Post-processing
 ~~~~~~~~~~~~~~~
 
-Most frequently, the output of the DL models needs to be post-processed to achieve the desired results. The post-processing methods implemented in BiaPy include simple binarization (for semantic segmentation), z-filtering (for 3D data), marker-controlled watershed and Voronoi tessellation (for instance segmentation), and close point suppression (for object detection), among others. 
+Once a deep learning (DL) model has been trained and the inference phase has been completed, it is often necessary to perform post-processing on the model's output to achieve the desired results. BiaPy, a Python library for bioimage analysis, provides a variety of post-processing methods to aid in this process.
+
+For semantic segmentation tasks, simple binarization is often used to convert the model's output into a binary image, where each pixel is classified as belonging to a specific class or not. For 3D data, z-filtering is often used to remove noise and improve the overall quality of the output.
+
+In instance segmentation tasks, marker-controlled watershed and Voronoi tessellation are commonly used post-processing methods. These methods help to separate individual objects within the image and create precise boundaries between them. For object detection tasks, close point suppression is often used to eliminate multiple detections of the same object.
+
+It is worth noting that the selection of post-processing methods is dependent on the specific task and the desired output, as well as the characteristics of the data.

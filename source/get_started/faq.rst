@@ -17,7 +17,9 @@ Test/Inference questions
 
 * Test image output is totally black or very bad. No sign of learning seems to be performed. What can I do?
 
-    First thing to do is to try knowing if the model training was correct. For that, you should check the output of the training, the loss and metric should be improving. If so, you can predict the training data and check it to ensure that at least the model learnt it. After that, check the test input image and try to check how different it is from the training samples. Remember that the test image values should be in the same range, more or less, of the images used for training. 
+    In order to determine if the model's poor output is a result of incorrect training, it is crucial to first evaluate the training process. One way to do this is to examine the output of the training, specifically the loss and metric values. These values should be decreasing over time, which suggests that the model is learning and improving. Additionally, it is helpful to use the trained model to make predictions on the training data and compare the results to the actual output. This can provide further confirmation that the model has learned from the training data.
+
+    Assuming that the training process appears to be correct, the next step is to investigate the test input image and compare it to the images used during training. The test image should be similar in terms of values and range to the images used during training. If there is a significant discrepancy between the test image and the training images in terms of values or range, it could be a contributing factor to the poor output of the model.
 
 * In the output a kind of grid or squares are appreciated. What can I do to improve the result? 
 
