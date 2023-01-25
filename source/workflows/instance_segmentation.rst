@@ -67,14 +67,11 @@ Problem resolution
 Firstly, a **pre-processing** step is done where the new data representation is created from the input instance masks. The new data is a multi-channel mask with up to three channels (controlled by ``PROBLEM.INSTANCE_SEG.DATA_CHANNELS``). This way, the model is trained with the input images and these new multi-channel masks. Available channels to choose are the following: 
 
   * Binary mask (referred as ``B`` in the code), contains each instance region without the contour. This mask is binary, i.e. pixels in the instance region are ``1`` and the rest are ``0``.
-
   * Contour (``C``), contains each instance contour. This mask is binary, i.e. pixels in the contour are ``1`` and the rest are ``0``.
-
   * Distances (``D``), each pixel containing the euclidean distance of it to the instance contour. This mask is a float, not binary. 
-
   * Mask (``M``), contains the ``B`` and the ``C`` channels, i.e. the foreground mask. Is simply achieved by binarizing input instance masks. This mask is also binary. 
-
-  * Updated version of distances (``Dv2``), that extends ``D`` channel by calculating the background distances as well. This mask is a float, not binary. The piecewise function is as follows:
+  * Points (``P``), contains the central point of the instances. This mask is binary, i.e. pixels in the contour are ``1`` and the rest are ``0``. 
+  * Experimental version: Updated version of distances (``Dv2``), that extends ``D`` channel by calculating the background distances as well. This mask is a float, not binary. The piecewise function is as follows:
 
 .. figure:: ../img/Dv2_equation.svg
   :width: 300px
@@ -83,7 +80,7 @@ Firstly, a **pre-processing** step is done where the new data representation is 
 
   where A, B and C denote the binary mask, background and contour, respectively. ``dist`` refers to euclidean distance formula.
 
-``PROBLEM.INSTANCE_SEG.DATA_CHANNELS`` is in charge of selecting the channels to be created. It can be set to one of the following configurations ``BC``, ``BCM``, ``BCD``, ``BCDv2``, ``Dv2`` and ``BDv2``. For instance, ``BC`` will create a 2-channel mask: the first channel will be ``B`` and the second  ``C``. In the image below the creation of 3-channel mask based on ``BCD`` is depicted:
+``PROBLEM.INSTANCE_SEG.DATA_CHANNELS`` is in charge of selecting the channels to be created. It can be set to one of the following configurations ``BC``, ``BP``, ``BCM``, ``BCD``, ``BCDv2``, ``Dv2`` and ``BDv2``. For instance, ``BC`` will create a 2-channel mask: the first channel will be ``B`` and the second  ``C``. In the image below the creation of 3-channel mask based on ``BCD`` is depicted:
 
 .. figure:: ../img/cysto_instance_bcd_scheme.svg
   :width: 300px
@@ -98,10 +95,9 @@ This new data representation is stored in ``DATA.TRAIN.INSTANCE_CHANNELS_DIR`` a
 
   You can modify ``PROBLEM.INSTANCE_SEG.DATA_CHANNEL_WEIGHTS`` to control which channels the model will learn the most. For instance, in ``BCD`` setting you can set it to ``(1,1,0.5)`` for distance channel (``D``) to have half the impact during the learning process.
 
-
 After the train phase, the model output will have the same channels as the ones used to train. In the case of binary channels, i.e. ``B``, ``C`` and ``M``, each pixel of each channel will have the probability (in ``[0-1]`` range) of being of the class that represents that channel. Whereas for the ``D`` and ``Dv2`` channel each pixel will have a float that represents the distance.
 
-In a **post-processing** step the multi-channel data information will be used to create the final instance segmentation labels using a marker-controlled watershed. The process vary depending on the configuration:
+In a further step the multi-channel data information will be used to create the final instance segmentation labels using a marker-controlled watershed. The process vary depending on the configuration:
 
 * In ``BC``, ``BCM`` and ``BCD`` configurations are as follows:
 
@@ -111,14 +107,25 @@ In a **post-processing** step the multi-channel data information will be used to
 
     Translated to words seeds will be: all pixels part of the binary mask (``B`` channel), which will be those higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH1``; and also in the center of each instances, i.e. higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH4`` ; but not labeled as contour, i.e. less than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH2``. 
 
-
   * After that, each instance is labeled with a unique integer, e.g. using `connected component <https://en.wikipedia.org/wiki/Connected-component_labeling>`_. Then a foreground mask is created to delimit the area in which the seeds can grow. This foreground mask is defined based on ``B`` channel using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH3`` and ``D`` using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH5``. The formula is as follows: :: 
 
       foreground_mask = (B > DATA_MW_TH3) * (D > DATA_MW_TH5) 
 
   * Afterwards, tiny instances are removed using ``PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ`` value. Finally, the seeds are grown using marker-controlled watershed over the ``B`` channel.
 
-* In ``BDv2``, ``BCDv2`` and ``Dv2`` configurations are as follows:
+* In ``BP`` the configuration is as follows:
+
+  * First, seeds are created based on ``P``. For that, each channel is binarized using a threshold: ``PROBLEM.INSTANCE_SEG.TH_POINTS``. This way, the seeds are created following this formula: :: 
+
+      seed_mask = (P > TH_POINTS)  
+
+  * After that, each instance is labeled with a unique integer, e.g. using `connected component <https://en.wikipedia.org/wiki/Connected-component_labeling>`_. Then a foreground mask is created to delimit the area in which the seeds can grow. This foreground mask is defined based on ``B`` channel using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH3``. The formula is as follows: :: 
+
+      foreground_mask = (B > DATA_MW_TH3)
+
+  * Afterwards, tiny instances are removed using ``PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ`` value. Finally, the seeds are grown using marker-controlled watershed over the ``B`` channel.
+
+* In ``BDv2``, ``BCDv2`` and ``Dv2``, which are experimental, configurations are as follows:
 
   * First, seeds are created based on ``B``, ``C`` and ``Dv2`` (notice that depending on the configuration selected not all of them will be present). For that, each channel is binarized using different thresholds: ``PROBLEM.INSTANCE_SEG.DATA_MW_TH1`` for ``B`` channel, ``PROBLEM.INSTANCE_SEG.DATA_MW_TH2`` for ``C`` and ``PROBLEM.INSTANCE_SEG.DATA_MW_TH4`` for ``Dv2``. These thresholds will decide wheter a point is labeled as a class or not. This way, the seeds are created following this formula: :: 
 
@@ -133,18 +140,28 @@ In a **post-processing** step the multi-channel data information will be used to
         background_seed = invert( dilate( (B > DATA_MW_TH1) + (C > DATA_MW_TH2) ) )
 
       Translated to words seeds will be: all pixels part of the binary mask (``B`` channel), which will be those higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH1`` and also part of the contours, i.e. greater than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH4`` will constitute the foreground (or all the cell). Then, the rest of the pixels of the image will be considerer as background so we can now 1) dilate that mask so it can go beyond cell region, i.e. background, and afterwards 2) invert it to obtain the background seed. 
-
     * For ``BDv2`` the background seed will be: ::
 
         background_seed = (Dv2 < DATA_MW_TH4) * (do not overlap with seed_mask)
 
       Translated to words seeds will be: all pixels part of the distance mask (``Dv2`` channel) and that dot not overlap with any of the seeds created in ``seed_mask``. 
-   
     * For ``Dv2`` there is no way to know where the background seed is. This configuration will require the user to inspect the result so they can remove the unnecesary background instances. 
-
   * Afterwards, tiny instances are removed using ``PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ`` value. Finally, the seeds are grown using marker-controlled watershed over the ``Dv2`` channel.
 
 In general, each configuration has its own advantages and drawbacks. The best thing to do is to inspect the results generated by the model so you can adjust each threshold for your particular case and run again the inference (i.e. not training again the network and loading model's weights). 
+
+After the instances have been created a **post-processing** step begins. In this workflow this methods are available:
+
+* Big instance repair: In order to repair large instances, the variable ``TEST.POST_PROCESSING.REPARE_LARGE_BLOBS_SIZE`` can be set to a value other than ``-1``. This process attempts to merge the large instances with their neighboring instances and remove any central holes. The value of the variable determines which instances will be repaired based on their size (number of pixels that compose the instance). This option is particularly useful when the ``PROBLEM.INSTANCE_SEG.DATA_CHANNELS`` is set to ``BP``, as multiple central seeds may be created in big instances.
+    
+    .. figure:: ../img/repair_large_blobs_postproc.png
+        :width: 400px
+        :align: center
+        
+        For left to right: raw image, instances created after the watershed and the resulting instance after the post-proccessing. Note how the two instances of the middle image (two colors) have been merged just in one in the last image, as it should be. 
+        
+* Filter instances by circularity: To filter instances based on their circularity, the variable ``TEST.POST_PROCESSING.WATERSHED_CIRCULARITY`` can be set to a value other than ``-1``. The specified circularity value will be used to filter the instances.
+* Voronoi tessellation: The variable ``TEST.POST_PROCESSING.VORONOI_ON_MASK`` can be used after the instances have been created to ensure that all instances are touching each other. 
 
 Configuration file
 ~~~~~~~~~~~~~~~~~~
@@ -157,21 +174,9 @@ Special workflow configuration
 
 Here some special configuration options that can be selected in this workflow are described:
 
-* **Metrics**: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is enabled. In the case of instance segmentation the **Intersection over Union** (IoU), **mAP** and **matching metrics** are calculated:
+* **Metrics**: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is enabled. In the case of instance segmentation the **Intersection over Union** (IoU) and **matching metrics** are calculated:
 
   * **IoU** metric, also referred as the Jaccard index, is essentially a method to quantify the percent of overlap between the target mask and the prediction output. Depending on the configuration different values are calculated (as explained in :ref:`config_test`). 
-
-  * **mAP**, which is the mean average precision score adapted for 3D images (but can be used in BiaPy for 2D also). It was introduced in :cite:p:`wei2020mitoem` and can be enabled with ``TEST.MAP``. This metric is used with a external code that need to be installed as follows: 
-
-    .. code-block:: bash
-      
-      # Download the repo
-      git clone https://github.com/danifranco/mAP_3Dvolume.Git
-      # Change the branch
-      git checkout grand-challenge
-
-    You need to also set the variable ``PATHS.MAP_CODE_DIR`` to the path where ``mAP_3Dvolume`` project resides.
-    Also, test images and its corresponding ground truth labels must have the same name to run mAP calculation. E.g. ``testing_groundtruth-0001.tif`` example described in :ref:`instance_segmentation_data_prep` need to be ``testing-0001.tif`` instead. 
 
   * **Matching metrics**, that was adapted from Stardist (:cite:p:`weigert2020star`) evaluation `code <https://github.com/stardist/stardist>`_. It is enabled with ``TEST.MATCHING_STATS``. It calculates precision, recall, accuracy, F1 and panoptic quality based on a defined threshold to decide wheter an instance is a true positive. That threshold measures the overlap between predicted instance and its ground truth. More than one threshold can be set and it is done with ``TEST.MATCHING_STATS_THS``. For instance, if ``TEST.MATCHING_STATS_THS`` is ``[0.5, 0.75]`` this means that these metrics will be calculated two times, one for ``0.5`` threshold and another for ``0.75``. In the first case, all instances that have more than ``0.5``, i.e. ``50%``, of overlap with their respective ground truth are considered true positives. 
 
