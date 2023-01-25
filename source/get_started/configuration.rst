@@ -47,7 +47,7 @@ Problem specification
 
 To specify the type of workflow, use the ``PROBLEM.TYPE`` option and select one of the following options: ``SEMANTIC_SEG``, ``INSTANCE_SEG``, ``DETECTION``, ``DENOISING``, ``SUPER_RESOLUTION``, ``SELF_SUPERVISED``, or ``CLASSIFICATION``.
 
-To specify whether the data is 2D or 3D, use the PROBLEM.NDIM option and select either ``2D`` or ``3D``.
+To specify whether the data is 2D or 3D, use the ``PROBLEM.NDIM`` option and select either ``2D`` or ``3D``.
 
 .. _data_management:
 
@@ -149,13 +149,18 @@ Post-processing
 BiaPy is equipped with several post-processing methods that are primarily applied in two distinct stages: 1) following the network's prediction and 2) after each primary process in the workflow is completed. The following is an explanation of these stages:
 
 1.  After the network's prediction, the post-processing methods applied aim to improve the resulting probabilities. This step is performed when the complete image is reconstructed by merging patches (``TEST.STATS.PER_PATCH`` and ``TEST.STATS.MERGE_PATCHES``) or when the full image is used (``TEST.STATS.FULL_IMG``).
+
     * A binary mask is applied to remove anything not contained within the mask. For this, the ``DATA.TEST.BINARY_MASKS`` path needs to be set.
-    * Z-axis filtering is applied using the ``TEST.POST_PROCESSING.Z_FILTERING`` variable for 3D data when the TEST.STATS.PER_PATCH option is set. Additionally, YZ-axes filtering is implemented using the ``TEST.POST_PROCESSING.YZ_FILTERING`` variable.
+    * Z-axis filtering is applied using the ``TEST.POST_PROCESSING.Z_FILTERING`` variable for 3D data when the ``TEST.STATS.PER_PATCH`` option is set. Additionally, YZ-axes filtering is implemented using the ``TEST.POST_PROCESSING.YZ_FILTERING`` variable.
 
 2.  After each workflow main process is done there is another post-processing step on some of the workflows. Find a full description of each method inside the workflow description:
+
     * Instance segmentation:
+
         * Big instance repair
         * Filter instances by circularity
+
     * Detection:
+
         * Remove close points
         * Create instances from points

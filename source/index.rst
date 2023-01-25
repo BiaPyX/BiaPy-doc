@@ -50,7 +50,9 @@ The library provides an easy way to create image processing pipelines that are c
    :caption: How to contribute
    :glob:
 
+   contribute/general
    contribute/workflow
+   contribute/pre_post_proc
 
 .. toctree::                                                                    
    :maxdepth: 1

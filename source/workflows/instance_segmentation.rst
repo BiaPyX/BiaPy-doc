@@ -71,7 +71,7 @@ Firstly, a **pre-processing** step is done where the new data representation is 
   * Distances (``D``), each pixel containing the euclidean distance of it to the instance contour. This mask is a float, not binary. 
   * Mask (``M``), contains the ``B`` and the ``C`` channels, i.e. the foreground mask. Is simply achieved by binarizing input instance masks. This mask is also binary. 
   * Points (``P``), contains the central point of the instances. This mask is binary, i.e. pixels in the contour are ``1`` and the rest are ``0``. 
-  * Experimental version: Updated version of distances (``Dv2``), that extends ``D`` channel by calculating the background distances as well. This mask is a float, not binary. The piecewise function is as follows:
+  * [Experimental]: updated version of distances (``Dv2``), that extends ``D`` channel by calculating the background distances as well. This mask is a float, not binary. The piecewise function is as follows:
 
 .. figure:: ../img/Dv2_equation.svg
   :width: 300px
@@ -198,6 +198,8 @@ Run
 * 2D: |inst_seg_2D_colablink|
 
 * 3D: |inst_seg_3D_colablink|
+
+**Command line**: Open a terminal as described in :ref:`installation`. For instance, using `resunet_3d_instances_bcd_instances.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/resunet_3d_instances_bcd_instances.yaml>`__ template file, the code can be run as follows:
 
 .. code-block:: bash
     
