@@ -133,7 +133,7 @@ Results
 
 The results are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. An example of this workflow is depicted below:
 
-.. figure:: ../img/denoising_prediction.png
+.. figure:: ../img/denosing_overview.svg
    :align: center                  
 
    Example of denoising model prediction. 
