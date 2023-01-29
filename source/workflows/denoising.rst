@@ -64,6 +64,17 @@ Please refer to `Noise2Void <https://arxiv.org/abs/1811.10980>`__  to understand
 
 Run
 ~~~
+**Jupyter notebooks**: run via Google Colab 
+
+.. |denoising_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/denoising/BiaPy_2D_Denoising.ipynb
+
+.. |denoising_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/denoising/BiaPy_3D_Denoising.ipynb
+
+* 2D: |denoising_2D_colablink|
+
+* 3D: |denoising_3D_colablink|
 
 **Command line**: Open a terminal as described in :ref:`installation`. For instance, using `n2v_2d_denoising.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/denoising/n2v_2d_denoising.yaml>`__ template file, the code can be run as follows:
 
