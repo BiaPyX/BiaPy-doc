@@ -136,6 +136,18 @@ Here some special configuration options that can be selected in this workflow ar
 Run
 ~~~
 
+**Jupyter notebooks**: run via Google Colab 
+
+.. |detection_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/detection/BiaPy_2D_Detection.ipynb
+
+.. |detection_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/detection/BiaPy_3D_Detection.ipynb
+
+* 2D: |detection_2D_colablink|
+
+* 3D: |detection_3D_colablink|
+
 **Command line**: Open a terminal as described in :ref:`installation`. For instance, using `unet_3d_detection.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/detection/unet_3d_detection.yaml>`__ template file, the code can be run as follows:
 
 .. code-block:: bash
