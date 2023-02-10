@@ -195,9 +195,9 @@ Following the example, the results should be placed in ``/home/user/exp_results/
 
             * ``.tif files``: same as ``per_image`` but with the instances.
 
-        * ``per_image_instances_voronoi``: 
+        * ``per_image_post_processing``: 
 
-            * ``.tif files``: same as ``per_image_instances`` but applied Voronoi. 
+            * ``.tif files``: same as ``per_image_instances`` but applied Voronoi, which has been the unique post-proccessing applied here. 
 
         * ``watershed``: 
                 
