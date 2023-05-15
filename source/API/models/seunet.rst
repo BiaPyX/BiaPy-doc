@@ -1,5 +1,5 @@
-2D SE U-Net 
-~~~~~~~~~~~
+SE U-Net 
+~~~~~~~~
                                                                                 
 .. automodule:: models.seunet
     :members:                                                                   

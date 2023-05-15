@@ -1,5 +1,5 @@
-2D U-Net 
-~~~~~~~~
+U-Net 
+~~~~~
                                                                                 
 .. automodule:: models.unet
     :members:                                                                   

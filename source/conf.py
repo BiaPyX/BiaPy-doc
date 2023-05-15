@@ -30,6 +30,7 @@ if not os.path.exists(biapy_dir):
 base_path = os.path.abspath(biapy_dir)
 sys.path.insert(0, base_path)
 print("PATH: {}".format(sys.path))
+numpydoc_show_class_members = False 
 
 
 # -- Project information -----------------------------------------------------

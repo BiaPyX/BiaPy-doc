@@ -1,5 +1,5 @@
-2D U-Net
---------
+U-Net like models
+-----------------
 
 .. toctree::
   :maxdepth: 2
@@ -7,6 +7,6 @@
 
   unet
   resunet
-  att_unet_2d
+  att_unet
   seunet
-
+  vanilla_unet_3d

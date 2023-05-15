@@ -1,7 +1,7 @@
-3D Attention U-Net
-~~~~~~~~~~~~~~~~~~
+Attention U-Net 
+~~~~~~~~~~~~~~~
                                                                                 
-.. automodule:: models.attention_unet_3d
+.. automodule:: models.attention_unet
     :members:                                                                   
     :undoc-members:                                                             
     :show-inheritance:         

@@ -6,8 +6,7 @@ models
    :glob:
    
    init
-   unet2d
-   unet3d
+   unet_index
    fcn
    multiresunet
    tiramisu

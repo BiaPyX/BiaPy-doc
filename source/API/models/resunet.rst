@@ -1,5 +1,5 @@
-2D Residual U-Net
-~~~~~~~~~~~~~~~~~
+Residual U-Net
+~~~~~~~~~~~~~~
                                                                                 
 .. automodule:: models.resunet
     :members:                                                                   
