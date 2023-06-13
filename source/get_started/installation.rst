@@ -33,10 +33,10 @@ This will create a folder called ``BiaPy`` that contains all the files of the `l
 Docker installation
 ~~~~~~~~~~~~~~~~~~~
 
-To run BiaPy using Docker, you need to install it first `here <https://docs.docker.com/get-docker/>`__.
+To run BiaPy using Docker, you need to install it first `here <https://docs.docker.com/get-docker/>`__. Once you have docker installed there is no need to do nothing else and you can just go straight to run any of the avaialable workflows in BiaPy. You can find all workflows in the left menu. 
 
 Google Colab
 ~~~~~~~~~~~~
 
-Nothing special is needed except a browser on your PC.
+Nothing special is needed except a browser on your PC. You can run any of the avaialable workflows in BiaPy through Jupyter notebook using Google Colab by clicking in the "Open in colab" button in each workflow page's "Run" section. You can find all workflows in the left menu. 
 
