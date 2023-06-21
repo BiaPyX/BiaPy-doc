@@ -67,7 +67,7 @@ Configuration file
 
 To reproduce the exact results of our manuscript you need to use `mitoem.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/MitoEM_paper/mitoem.yaml>`__ configuration file.  
 
-Then you need to modify ``TRAIN.PATH`` and ``TRAIN.MASK_PATH`` with your training data path of EM images and labels respectively. In the same way, do it for the validation data with ``VAL.PATH`` and ``VAL.MASK_PATH`` and for the test setting ``TEST.PATH``. 
+Then you need to modify ``TRAIN.PATH`` and ``TRAIN.GT_PATH`` with your training data path of EM images and labels respectively. In the same way, do it for the validation data with ``VAL.PATH`` and ``VAL.GT_PATH`` and for the test setting ``TEST.PATH``. 
 
 Run
 ~~~

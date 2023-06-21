@@ -207,7 +207,7 @@ Run
             -gpu $gpu_number
 
 .. note:: 
-    Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.MASK_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.MASK_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
+    Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
 
 
 .. _detection_results:

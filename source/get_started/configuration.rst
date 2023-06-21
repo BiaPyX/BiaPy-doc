@@ -13,7 +13,7 @@ As an example, a full pipeline for semantic segmentation can be created using th
          PATCH_SIZE: (256, 256, 1)
          TRAIN:
              PATH: /TRAIN_PATH
-             MASK_PATH: /TRAIN_MASK_PATH
+             GT_PATH: /TRAIN_GT_PATH
          VAL:
             SPLIT_TRAIN: 0.1
         TEST:
@@ -56,7 +56,7 @@ Data management
 
 The ``DATA.PATCH_SIZE`` variable is used to specify the shape of the images that will be used in the workflow. The order of the dimensions for 2D images is ``(y,x,c)`` and for 3D images it is ``(z,y,x,c)``.
 
-The paths for the training data are set using the ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.MASK_PATH`` variables (if necessary, depending on the specific workflow). Similarly, the paths for the validation data can be set using ``DATA.VAL.PATH`` and ``DATA.VAL.MASK_PATH`` unless ``DATA.VAL.FROM_TRAIN`` is set, in which case these variables do not need to be defined. For test data, the ``DATA.TEST.PATH`` variable should be set if ``TEST.ENABLE`` is enabled. However, ``DATA.TEST.MASK_PATH`` is not used when ``DATA.TEST.LOAD_GT`` is disabled, as there is usually no ground truth for test data.
+The paths for the training data are set using the ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` variables (if necessary, depending on the specific workflow). Similarly, the paths for the validation data can be set using ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH`` unless ``DATA.VAL.FROM_TRAIN`` is set, in which case these variables do not need to be defined. For test data, the ``DATA.TEST.PATH`` variable should be set if ``TEST.ENABLE`` is enabled. However, ``DATA.TEST.GT_PATH`` is not used when ``DATA.TEST.LOAD_GT`` is disabled, as there is usually no ground truth for test data.
 
 There are two ways to handle the data during the workflow: 1) loading all images into memory at once, or 2) loading each image individually as it is needed. This behavior can be set for the training, validation, and test data using the ``DATA.TRAIN.IN_MEMORY``, ``DATA.VAL.IN_MEMORY``, and ``DATA.TEST.IN_MEMORY`` variables, respectively.
 
