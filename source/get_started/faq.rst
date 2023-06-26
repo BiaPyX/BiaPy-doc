@@ -1,6 +1,8 @@
 FAQ
 ---
 
+The `Image.sc Forum <https://forum.image.sc/>`_ is the main discussion channel for BiaPy, hence we recommend to use it for any question or curisity related to it. Use a tag such as "biapy" so we can go through your questions.
+
 Train questions
 ~~~~~~~~~~~~~~~
 
