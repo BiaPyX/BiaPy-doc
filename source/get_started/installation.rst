@@ -25,11 +25,42 @@ Then, you are prepared to download `BiaPy <https://github.com/danifranco/BiaPy>`
 
     git clone https://github.com/danifranco/BiaPy.git
 
-This will create a folder called ``BiaPy`` that contains all the files of the `library's official repository <https://github.com/danifranco/BiaPy>`__. Then you need to create a ``conda`` environment and install the dependencies using the file located in `BiaPy/utils/env/requirements.txt <https://github.com/danifranco/BiaPy/blob/master/utils/env/requirements.txt>`__ ::
+This will create a folder called ``BiaPy`` that contains all the files of the `library's official repository <https://github.com/danifranco/BiaPy>`__. Then you need to create a ``conda`` environment and install the dependencies ::
     
-    conda create -n BiaPy_env python=3.10.10
+    # Create and activate the environment
+    conda create -n BiaPy_env python=3.10.10 numpy
     conda activate BiaPy_env
-    pip install -r BiaPy/utils/env/requirements.txt
+        
+    # Install Tensorflow and GPU dependencies    
+    conda install -c conda-forge cudatoolkit=11.8.0
+    pip install --editable . 
+
+    # Set up needed variables 
+    mkdir -p $CONDA_PREFIX/etc/conda/activate.d
+    echo 'CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)"))' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+    echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+    source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+    
+    # Verify install
+    python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+
+As stated in Tensorflow's official documentation, in Ubuntu 22.04, you may encounter the following error: ::
+
+    InternalError: libdevice not found at ./libdevice.10.bc
+    
+To fix this error, you will need to run the following commands: ::
+
+    conda activate BiaPy_env
+    conda install -c nvidia cuda-nvcc=11.3.58
+    printf 'export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CONDA_PREFIX/lib/\n' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+    source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+    mkdir -p $CONDA_PREFIX/lib/nvvm/libdevice
+    cp $CONDA_PREFIX/lib/libdevice.10.bc $CONDA_PREFIX/lib/nvvm/libdevice/
+
+From now on, to run BiaPy you will need these two commands: ::
+
+    conda activate BiaPy_env
+    source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 
 
 Docker installation

@@ -99,7 +99,8 @@ Run
 
     # Load the environment
     conda activate BiaPy_env
-    
+    source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+
     python -u main.py \
            --config $job_cfg_file \
            --result_dir $result_dir  \ 
