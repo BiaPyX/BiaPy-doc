@@ -25,9 +25,11 @@ Then, you are prepared to download `BiaPy <https://github.com/danifranco/BiaPy>`
 
     git clone https://github.com/danifranco/BiaPy.git
 
-This will create a folder called ``BiaPy`` that contains all the files of the `library's official repository <https://github.com/danifranco/BiaPy>`__. Then you need to create a ``conda`` environment using the file located in `BiaPy/utils/env/environment.yml <https://github.com/danifranco/BiaPy/blob/master/utils/env/environment.yml>`__ ::
+This will create a folder called ``BiaPy`` that contains all the files of the `library's official repository <https://github.com/danifranco/BiaPy>`__. Then you need to create a ``conda`` environment and install the dependencies using the file located in `BiaPy/utils/env/requirements.txt <https://github.com/danifranco/BiaPy/blob/master/utils/env/requirements.txt>`__ ::
     
-    conda env create -f BiaPy/utils/env/environment.yml
+    conda create -n BiaPy_env python=3.10.10
+    conda activate BiaPy_env
+    pip install -r BiaPy/utils/env/requirements.txt
 
 
 Docker installation
