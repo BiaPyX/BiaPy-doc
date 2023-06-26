@@ -44,6 +44,11 @@ This will create a folder called ``BiaPy`` that contains all the files of the `l
     # Verify install
     python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
 
+From now on, to run BiaPy you will need these two commands: ::
+
+    conda activate BiaPy_env
+    source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+
 As stated in Tensorflow's official documentation, in Ubuntu 22.04, you may encounter the following error: ::
 
     InternalError: libdevice not found at ./libdevice.10.bc
@@ -56,11 +61,6 @@ To fix this error, you will need to run the following commands: ::
     source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
     mkdir -p $CONDA_PREFIX/lib/nvvm/libdevice
     cp $CONDA_PREFIX/lib/libdevice.10.bc $CONDA_PREFIX/lib/nvvm/libdevice/
-
-From now on, to run BiaPy you will need these two commands: ::
-
-    conda activate BiaPy_env
-    source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 
 
 Docker installation
