@@ -1,7 +1,7 @@
-3D Vanilla U-Net                                                                        
-~~~~~~~~~~~~~~~~
+WDSR
+~~~~
                                                                                 
-.. automodule:: models.vanilla_unet_3d
+.. automodule:: models.wdsr
     :members:                                                                   
     :undoc-members:                                                             
-    :show-inheritance:   
+    :show-inheritance:         

@@ -1,7 +1,7 @@
-One Cycle
----------
-
-.. automodule:: engine.schedulers.one_cycle
+RCAN
+~~~~
+                                                                                
+.. automodule:: models.rcan
     :members:                                                                   
     :undoc-members:                                                             
-    :show-inheritance:
+    :show-inheritance:         

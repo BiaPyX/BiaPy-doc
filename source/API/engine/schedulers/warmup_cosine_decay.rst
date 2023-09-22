@@ -1,7 +1,7 @@
-FCN
-~~~
-                                                                                
-.. automodule:: models.fcn_vgg
+Warmup Cosine Decay
+-------------------
+
+.. automodule:: engine.schedulers.warmup_cosine_decay
     :members:                                                                   
     :undoc-members:                                                             
-    :show-inheritance:         
+    :show-inheritance:

@@ -7,8 +7,10 @@ models
    
    init
    unet_index
-   fcn
-   multiresunet
-   tiramisu
-   mnet
-
+   transformers
+   edsr
+   wdsr
+   rcan 
+   dfcan 
+   efficientnet
+   simple_cnn

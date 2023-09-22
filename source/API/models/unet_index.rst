@@ -9,4 +9,4 @@ U-Net like models
   resunet
   att_unet
   seunet
-  vanilla_unet_3d
+  multiresunet

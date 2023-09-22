@@ -1,7 +1,7 @@
-Tiramisu (FC-DenseNet103)
-~~~~~~~~~~~~~~~~~~~~~~~~~
+EfficientNet
+~~~~~~~~~~~~
                                                                                 
-.. automodule:: models.tiramisu
+.. automodule:: models.efficientnet
     :members:                                                                   
     :undoc-members:                                                             
-    :show-inheritance:   
+    :show-inheritance:         

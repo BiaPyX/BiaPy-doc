@@ -1,7 +1,7 @@
-Engine
-------
-
-.. automodule:: engine.engine
+EDSR
+~~~~
+                                                                                
+.. automodule:: models.edsr
     :members:                                                                   
     :undoc-members:                                                             
-    :show-inheritance:
+    :show-inheritance:         

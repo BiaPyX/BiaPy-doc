@@ -28,45 +28,66 @@ Then, you are prepared to download `BiaPy <https://github.com/danifranco/BiaPy>`
 This will create a folder called ``BiaPy`` that contains all the files of the `library's official repository <https://github.com/danifranco/BiaPy>`__. Then you need to create a ``conda`` environment and install the dependencies ::
     
     # Create and activate the environment
-    conda create -n BiaPy_env python=3.10.10 numpy
+    conda create -n BiaPy_env python=3.8
     conda activate BiaPy_env
         
-    # Install Tensorflow and GPU dependencies    
-    conda install -c conda-forge cudatoolkit=11.8.0
+    # Install Pytorch and GPU dependencies    
+    pip install torch==1.12.1+cu102 torchvision==0.13.1+cu102 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu102
     pip install --editable . 
-
-    # Set up needed variables 
-    mkdir -p $CONDA_PREFIX/etc/conda/activate.d
-    echo 'CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)"))' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-    echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-    source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
     
-    # Verify install
-    python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
 
-From now on, to run BiaPy you will need these two commands: ::
+Verify installation: ::
+
+    python -c 'import torch; print(torch.__version__)'
+    >>> 1.12.1+cu102
+    python -c 'import torch; print(torch.cuda.is_available())'
+    >>> True
+    
+From now on, to run BiaPy you will need to just activate the environment: ::
 
     conda activate BiaPy_env
-    source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 
-As stated in Tensorflow's official documentation, in Ubuntu 22.04, you may encounter the following error: ::
-
-    InternalError: libdevice not found at ./libdevice.10.bc
-    
-To fix this error, you will need to run the following commands: ::
-
-    conda activate BiaPy_env
-    conda install -c nvidia cuda-nvcc=11.3.58
-    printf 'export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CONDA_PREFIX/lib/\n' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-    source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-    mkdir -p $CONDA_PREFIX/lib/nvvm/libdevice
-    cp $CONDA_PREFIX/lib/libdevice.10.bc $CONDA_PREFIX/lib/nvvm/libdevice/
-
+.. note:: 
+    In this installation CUDA 10.2 is installed but if your machine does not support this version, check how you can see it with ``nvidia-smi`` command in the next section, you can find older versions `here <https://pytorch.org/get-started/previous-versions/>`__. 
 
 Docker installation
 ~~~~~~~~~~~~~~~~~~~
 
-To run BiaPy using Docker, you need to install it first `here <https://docs.docker.com/get-docker/>`__. Once you have docker installed there is no need to do nothing else and you can just go straight to run any of the avaialable workflows in BiaPy. You can find all workflows in the left menu. 
+Currently the docker image support only CUDA version drivers above ``10.2.0``. To check your actual driver version you can type the following command in the terminal (note ``CUDA Version: 11.8`` in this example in the top right corner): ::
+
+    $ nvidia-smi
+    +-----------------------------------------------------------------------------+
+    | NVIDIA-SMI 520.61.05    Driver Version: 520.61.05    CUDA Version: 11.8     |
+    |-------------------------------+----------------------+----------------------+
+    | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+    | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+    |                               |                      |               MIG M. |
+    |===============================+======================+======================|
+    |   0  NVIDIA GeForce ...  On   | 00000000:1C:00.0 Off |                  N/A |
+    | 30%   39C    P8    24W / 350W |      5MiB / 24576MiB |      0%      Default |
+    |                               |                      |                  N/A |
+    +-------------------------------+----------------------+----------------------+
+
+    +-----------------------------------------------------------------------------+
+    | Processes:                                                                  |
+    |  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+    |        ID   ID                                                   Usage      |
+    |=============================================================================|
+    |    0   N/A  N/A      2104      G   /usr/lib/xorg/Xorg                  4MiB |
+    +-----------------------------------------------------------------------------+
+
+To install `Docker <https://docs.docker.com/>`__ in your operating system, you can follow these steps:
+
+* In **Windows**: You can install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__. Whenever you wan to run BiaPy though Docker you need to start Docker Desktop. 
+
+* In **Linux**: You will need to follow the steps described `here <https://docs.docker.com/desktop/install/linux-install/>`__. 
+
+If you follow the steps and still have problems maybe you need to add your user to docker group: ::
+    
+    sudo usermod -aG docker $USER
+    newgrp docker
+
+* In **macOS**: You can install `Docker Desktop <https://docs.docker.com/desktop/install/mac-install/>`__. Whenever you wan to run BiaPy though Docker you need to start Docker Desktop. 
 
 Google Colab
 ~~~~~~~~~~~~

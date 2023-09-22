@@ -1,7 +1,7 @@
-Cosine Decay
-------------
+Base Workflow
+-------------
 
-.. automodule:: engine.schedulers.cosine_decay
+.. automodule:: engine.base_workflow
     :members:                                                                   
     :undoc-members:                                                             
     :show-inheritance:

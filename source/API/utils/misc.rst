@@ -1,7 +1,7 @@
-Grad-CAM
---------
+Misc
+----
 
-.. automodule:: utils.grad_cam
+.. automodule:: utils.misc
     :members:
     :undoc-members:
     :show-inheritance:
