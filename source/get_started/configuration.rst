@@ -82,7 +82,7 @@ Data normalization
 Two options are available for normalizing the data:
 
 * Adjusting it to the ``[0-1]`` range, which is the default option. This can be done by setting ``DATA.NORMALIZATION.TYPE`` to ``div``.
-* Custom normalization using a specified mean (``DATA.NORMALIZATION.CUSTOM_MEAN``) and standard deviation (``DATA.NORMALIZATION.CUSTOM_STD``). This can be done by setting ``DATA.NORMALIZATION.TYPE`` to ``custom``. If the mean and standard deviation are both set to ``-1``, which is the default, they will be calculated based on the training data. These values will be stored in the job's folder to be used at the inference phase, so that the test images are normalized using the same values. If specific values for mean and standard deviation are provided, those values will be used for normalization.
+* Custom normalization using a specified mean (``DATA.NORMALIZATION.CUSTOM_MEAN``) and standard deviation (``DATA.NORMALIZATION.CUSTOM_STD``). This can be done by setting ``DATA.NORMALIZATION.TYPE`` to ``custom``. If the mean and standard deviation are both set to ``-1``, which is the default, they will be calculated based on the training data. These values will be stored in the job``s folder to be used at the inference phase, so that the test images are normalized using the same values. If specific values for mean and standard deviation are provided, those values will be used for normalization.
 
 Data augmentation
 ~~~~~~~~~~~~~~~~~
@@ -95,34 +95,34 @@ Model definition
 ~~~~~~~~~~~~~~~~
 Use ``MODEL.ARCHITECTURE`` to select the model. Different **models for each workflow** are implemented in BiaPy:
 
-* Semantic segmentation: ``unet``, ``resunet``, ``attention_unet``, ``seunet``, ``fcn32``, ``fcn8``, ``nnunet``, ``tiramisu``, ``mnet``, ``multiresunet``, ``seunet`` and ``unetr``.  
+* Semantic segmentation: ``unet``, ``resunet``, ``resunet++``,  ``attention_unet``, ``seunet``, ``multiresunet``` and ``unetr``.  
 
-* Instance segmentation: ``unet``, ``resunet``, ``attention_unet`` and ``seunet``.
+* Instance segmentation: ``unet``, ``resunet``, ``resunet++``,  ``attention_unet``` and ``seunet``.
 
-* Detection: ``unet``, ``resunet``, ``attention_unet`` and ``seunet``.
+* Detection: ``unet``, ``resunet``, ``resunet++``,  ``attention_unet``` and ``seunet``.
 
-* Denoising: ``unet``, ``resunet``, ``attention_unet`` and ``seunet``.
+* Denoising: ``unet``, ``resunet``, ``resunet++``,  ``attention_unet``` and ``seunet``.
 
-* Super-resolution: ``edsr``. 
+* Super-resolution: ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``,  ``attention_unet``, ``seunet``, ``multiresunet```. 
 
-* Self-supervision: ``unet``, ``resunet``, ``attention_unet`` and ``seunet``.
+* Self-supervision: ``unet``, ``resunet``, ``resunet++``,  ``attention_unet``, ``seunet``, ``multiresunet```, ``unetr``, ``mae``.
 
-* Classification: ``simple_cnn`` and ``EfficientNetB0``. 
+* Classification: ``simple_cnn``, ``efficientnet_b0``, ``efficientnet_b1``, ``efficientnet_b2``, ``efficientnet_b3``, ``efficientnet_b4``, ``efficientnet_b5``, ``efficientnet_b6``, ``efficientnet_b7``, ``vit``. 
 
-For ``unet``, ``resunet``, ``attention_unet``, ``seunet`` and ``tiramisu`` architectures you can set ``MODEL.FEATURE_MAPS`` to determine the feature maps to use on each network level. In the same way, ``MODEL.DROPOUT_VALUES`` can be set for each level in those networks. For ``tiramisu`` network only the first value of those variables will be taken into account. ``MODEL.DROPOUT_VALUES`` also can be set for ``unetr`` transformer.
+For ``unet``, ``resunet``, ``resunet++``,  ``attention_unet`` and ``seunet`` architectures you can set ``MODEL.FEATURE_MAPS`` to determine the feature maps to use on each network level. In the same way, ``MODEL.DROPOUT_VALUES`` can be set for each level in those networks. For ``unetr`` and ``vit`` networks only the first value of those variables will be taken into account.
 
-The ``MODEL.BATCH_NORMALIZATION`` variable can be used to enable batch normalization on the ``unet``, ``resunet``, ``attention_unet``, ``seunet`` and ``unetr`` models. For the 3D versions of these networks (except for ``unetr``), the ``MODEL.Z_DOWN`` option can also be used to avoid downsampling in the z-axis, which is typically beneficial for anisotropic data.
+The ``MODEL.BATCH_NORMALIZATION`` variable can be used to enable batch normalization on the ``unet``, ``resunet``, ``resunet++``,  ``attention_unet``, ``seunet`` and ``unetr`` models. For the 3D versions of these networks (except for ``unetr``), the ``MODEL.Z_DOWN`` option can also be used to avoid downsampling in the z-axis, which is typically beneficial for anisotropic data.
 
-The ``MODEL.N_CLASSES`` variable can be used to specify the number of classes for the classification problem, excluding the background class (labeled as 0). If the number of classes is set to ``1`` or ``2``, the problem is considered binary, and the behavior is the same. For more than 2 classes, the problem is considered multi-class, and the output of the models will have the corresponding number of channels.
+The ``MODEL.N_CLASSES`` variable can be used to specify the number of classes for the classification problem, excluding the background class (labeled as ``0``). If the number of classes is set to ``1`` or ``2``, the problem is considered binary, and the behavior is the same. For more than ``2`` classes, the problem is considered multi-class, and the output of the models will have the corresponding number of channels.
 
-Finally, the ``MODEL.LOAD_CHECKPOINT`` variable can be used to load a pre-trained checkpoint of the network. For example, when you want to predict new data, you can enable this option and deactivate the training phase by disabling ``TRAIN.ENABLE``.
+Finally, the ``MODEL.LOAD_CHECKPOINT`` variable can be used to load a pre-trained checkpoint of the network (for finetunning). For inference, BiaPy automatically tries to load a checkpoint. 
 
 Training phase
 ~~~~~~~~~~~~~~
 
 To activate the training phase, set the ``TRAIN.ENABLE`` variable to ``True``. The ``TRAIN.OPTIMIZER`` variable can be set to either ``SGD`` or ``ADAM``, and the learning rate can be set using the ``TRAIN.LR`` variable. If you do not have much expertise in choosing these settings, you can use ``ADAM`` and ``1.E-4`` as a starting point.
 
-Additionally, you need to specify how many images will be fed into the network at the same time using the ``TRAIN.BATCH_SIZE`` variable. For example, if you have 100 training samples and you select a batch size of 6, this means that 17 batches (100/6 = 16.6) are needed to input all the training data to the network, after which one epoch is completed.
+Additionally, you need to specify how many images will be fed into the network at the same time using the ``TRAIN.BATCH_SIZE`` variable. For example, if you have ``100`` training samples and you select a batch size of ``6``, this means that ``17`` batches (``100/6 = 16.6``) are needed to input all the training data to the network, after which one epoch is completed.
 
 To train the network, you need to specify the number of epochs using the ``TRAIN.EPOCHS`` variable. You can also set the patience using ``TRAIN.PATIENCE``, which will stop the training process if no improvement is made on the validation data for that number of epochs.
 
@@ -146,9 +146,9 @@ You can use also use ``DATA.REFLECT_TO_COMPLETE_SHAPE`` to ensure that the patch
 Post-processing
 ~~~~~~~~~~~~~~~
 
-BiaPy is equipped with several post-processing methods that are primarily applied in two distinct stages: 1) following the network's prediction and 2) after each primary process in the workflow is completed. The following is an explanation of these stages:
+BiaPy is equipped with several post-processing methods that are primarily applied in two distinct stages: 1) following the network``s prediction and 2) after each primary process in the workflow is completed. The following is an explanation of these stages:
 
-1.  After the network's prediction, the post-processing methods applied aim to improve the resulting probabilities. This step is performed when the complete image is reconstructed by merging patches (``TEST.STATS.PER_PATCH`` and ``TEST.STATS.MERGE_PATCHES``) or when the full image is used (``TEST.STATS.FULL_IMG``).
+1.  After the network``s prediction, the post-processing methods applied aim to improve the resulting probabilities. This step is performed when the complete image is reconstructed by merging patches (``TEST.STATS.PER_PATCH`` and ``TEST.STATS.MERGE_PATCHES``) or when the full image is used (``TEST.STATS.FULL_IMG``).
 
     * A binary mask is applied to remove anything not contained within the mask. For this, the ``DATA.TEST.BINARY_MASKS`` path needs to be set.
     * Z-axis filtering is applied using the ``TEST.POST_PROCESSING.Z_FILTERING`` variable for 3D data when the ``TEST.STATS.PER_PATCH`` option is set. Additionally, YZ-axes filtering is implemented using the ``TEST.POST_PROCESSING.YZ_FILTERING`` variable.
