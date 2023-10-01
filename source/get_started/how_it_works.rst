@@ -1,6 +1,5 @@
 .. _how_works_biapy:
 
-
 How it works
 ------------
 

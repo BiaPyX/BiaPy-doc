@@ -50,6 +50,8 @@ From now on, to run BiaPy you will need to just activate the environment: ::
 .. note:: 
     In this installation CUDA 10.2 is installed but if your machine does not support this version, check how you can see it with ``nvidia-smi`` command in the next section, you can find older versions `here <https://pytorch.org/get-started/previous-versions/>`__. 
 
+The next step consist in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
+
 Docker installation
 ~~~~~~~~~~~~~~~~~~~
 
@@ -89,8 +91,11 @@ If you follow the steps and still have problems maybe you need to add your user 
 
 * In **macOS**: You can install `Docker Desktop <https://docs.docker.com/desktop/install/mac-install/>`__. Whenever you wan to run BiaPy though Docker you need to start Docker Desktop. 
 
+The next step consist in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
+
 Google Colab
 ~~~~~~~~~~~~
 
 Nothing special is needed except a browser on your PC. You can run any of the avaialable workflows in BiaPy through Jupyter notebook using Google Colab by clicking in the "Open in colab" button in each workflow page's "Run" section. You can find all workflows in the left menu. 
 
+The next step consist in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.

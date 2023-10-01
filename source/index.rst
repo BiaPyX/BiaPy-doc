@@ -1,21 +1,20 @@
 BiaPy: Bioimage analysis pipelines in Python
 ============================================
 
-`BiaPy <https://github.com/danifranco/BiaPy>`_ is an open source Python library for building bioimage analysis pipelines, also called workflows. This repository is actively under development by the Biomedical Computer Vision group at the `University of the Basque Country <https://www.ehu.eus/en/en-home>`_ and the `Donostia International Physics Center <http://dipc.ehu.es/>`_. 
-
-The library provides an easy way to create image processing pipelines that are commonly used in the analysis of biology microscopy images in 2D and 3D. Specifically, BiaPy contains ready-to-use solutions for tasks such as `semantic segmentation <workflows/semantic_segmentation.html>`_, `instance segmentation <workflows/instance_segmentation.html>`_, `object detection <workflows/detection.html>`_, `image denoising <workflows/denoising.html>`_, `single image super-resolution <workflows/super_resolution.html>`_, `self-supervised learning <workflows/self_supervision.html>`_ and `image classification <workflows/classification.html>`_. The source code is based on Pytorch as the backend. As BiaPy's core is based on deep learning, it is recommended to use a machine with a graphics processing unit (GPU) for faster training and execution.
-
-                                                                                
-.. image:: img/BiaPy-workflow-examples.svg
-   :width: 70%
+.. image:: img/biapy_logo.svg
+   :width: 50%
    :align: center 
 
+`BiaPy <https://github.com/danifranco/BiaPy>`_ is an open source Python library for building bioimage analysis pipelines, also called workflows. This repository is actively under development by the Biomedical Computer Vision group at the `University of the Basque Country <https://www.ehu.eus/en/en-home>`_ and the `Donostia International Physics Center <http://dipc.ehu.es/>`_. 
+
+The library provides an easy way to create image processing pipelines that are commonly used in the analysis of biology microscopy images in 2D and 3D. Specifically, BiaPy contains ready-to-use solutions for tasks such as `semantic segmentation <workflows/semantic_segmentation.html>`_, `instance segmentation <workflows/instance_segmentation.html>`_, `object detection <workflows/detection.html>`_, `image denoising <workflows/denoising.html>`_, `single image super-resolution <workflows/super_resolution.html>`_, `self-supervised learning <workflows/self_supervision.html>`_ and `image classification <workflows/classification.html>`_. The source code is based on Pytorch as the backend. As BiaPy's core is based on deep learning, it is recommended to use a machine with a graphics processing unit (GPU) for faster training and execution.                                                                        
    
 .. toctree::
    :maxdepth: 1
    :caption: Get started
    :glob:
    
+   get_started/quick_start.rst
    get_started/installation.rst
    get_started/how_it_works.rst
    get_started/configuration.rst
