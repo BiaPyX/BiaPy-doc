@@ -92,38 +92,44 @@ Run
 
 The procedure to run the library is slightly different as it is now for the last version of BiaPy. In this version, the library name was ``EM_Image_Segmentation`` and there were no YAML based configuration files to run it. 
 
-**Command line**: Open a terminal as described in :ref:`installation`. For instance, using `resunet_2d_semantic_segmentation.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/semantic_segmentation/resunet_2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
+.. tabs::
 
-.. code-block:: bash
-    
-    # Path to the code 
-    code_dir="/home/user/BiaPy"  
-    # Path to the dataset
-    data_dir="/home/user/dataset" 
-    # Path where the output data will be generated
-    job_dir="/home/user/out_dir"  
-    # Just a name for the job
-    job_id="400"
-    # Number that should be increased when one need to run the same job multiple times (reproducibility)
-    job_counter=1
-    # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-    gpu_number="0"                   
+   .. tab:: Command line
+            
+        Open a terminal as described in :ref:`installation`. For instance, using `2d_semantic_segmentation.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
 
-    # Load the environment
-    conda activate DL_EM_base_env
-    
-    python -u template.py \
-           $code_dir \
-           $data_dir \
-           $job_dir \
-           --id $job_id \
-           --rid $job_counter \
-           --gpu $gpu_number 
+        .. code-block:: bash
+            
+            # Path to the code 
+            code_dir="/home/user/BiaPy"  
+            # Path to the dataset
+            data_dir="/home/user/dataset" 
+            # Path where the output data will be generated
+            job_dir="/home/user/out_dir"  
+            # Just a name for the job
+            job_id="400"
+            # Number that should be increased when one need to run the same job multiple times (reproducibility)
+            job_counter=1
+            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+            gpu_number="0"                   
 
-**Colab**: |colablink|
+            # Load the environment
+            conda activate DL_EM_base_env
+            
+            python -u template.py \
+                $code_dir \
+                $data_dir \
+                $job_dir \
+                --id $job_id \
+                --rid $job_counter \
+                --gpu $gpu_number 
 
-.. |colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/templates/notebooks/old_notebooks/v1.0_semantic_segmentation_workflow.ipynb
+   .. tab:: Google colab
+
+        You can use the following notebook: |colablink|
+
+        .. |colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/templates/notebooks/old_notebooks/v1.0_semantic_segmentation_workflow.ipynb
 
 Results
 ~~~~~~~

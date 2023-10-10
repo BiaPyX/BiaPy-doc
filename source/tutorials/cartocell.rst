@@ -38,15 +38,27 @@ Paper citation: ::
 CartoCell phases
 ~~~~~~~~~~~~~~~~
 
-* In **Phase 1**, a small dataset of 21 cysts, stained with cell outlines markers, was acquired at high-resolution in a confocal microscope. Next, the individual cell instances were segmented. The high-resolution images from Phase 1 provides the accurate and realistic set of data necessary for the following steps.
+.. tabs::
 
-* In **Phase 2**, both high-resolution raw and label images were down-sampled to create our initial training dataset. Specifically, image volumes were reduced to match the resolution of the images acquired in Phase 3. Using that dataset, a first DNN was trained. We will refer to this first model as `model M1`.
+   .. tab:: Phase 1
 
-* In **Phase 3**, a large number of low-resolution stacks of multiple epithelial cysts was acquired. This was a key step to allow the high-throughput analysis of samples since it greatly reduces acquisition time. Here, we extracted the single-layer and single-lumen cysts by cropping them from the complete stack. This way, we obtained a set of 293 low-resolution images, composed of 84 cysts at 4 days, 113 cysts at 7 days and 96 cysts at 10 days. Next, we applied our trained `model M1` to those images and post-processed their output to produce (i) a prediction of individual cell instances (obtained by marker-controlled watershed), and (ii) a prediction of the mask of the full cellular regions. At this stage, the output cell instances were generally not touching each other, which is a problem to study cell connectivity in epithelia. Therefore, we applied a 3D Voronoi algorithm to correctly mimic the epithelial packing. More specifically, each prediction of cell instances was used as a Voronoi seed, while the prediction of the mask of the cellular region defined the bounding territory that each cell could occupy. The result of this phase was a large dataset of low-resolution images and their corresponding accurate labels.
+        A small dataset of 21 cysts, stained with cell outlines markers, was acquired at high-resolution in a confocal microscope. Next, the individual cell instances were segmented. The high-resolution images from Phase 1 provides the accurate and realistic set of data necessary for the following steps.
 
-* In **Phase 4**, a new 3D ResU-Net model (`model M2`, from now on) was trained on the newly produced large dataset of low-resolution images and its paired label images. This was a crucial step, since the performance of deep learning models is highly dependent on the amount of training samples.
+   .. tab:: Phase 2
 
-* In **Phase 5**, `model M2` was applied to new low-resolution cysts and their output was post-processed as in Phase 3, thus achieving high-throughput segmentation of the desired cysts. 
+        Both high-resolution raw and label images were down-sampled to create our initial training dataset. Specifically, image volumes were reduced to match the resolution of the images acquired in Phase 3. Using that dataset, a first DNN was trained. We will refer to this first model as `model M1`.
+
+   .. tab:: Phase 3
+
+        A large number of low-resolution stacks of multiple epithelial cysts was acquired. This was a key step to allow the high-throughput analysis of samples since it greatly reduces acquisition time. Here, we extracted the single-layer and single-lumen cysts by cropping them from the complete stack. This way, we obtained a set of 293 low-resolution images, composed of 84 cysts at 4 days, 113 cysts at 7 days and 96 cysts at 10 days. Next, we applied our trained `model M1` to those images and post-processed their output to produce (i) a prediction of individual cell instances (obtained by marker-controlled watershed), and (ii) a prediction of the mask of the full cellular regions. At this stage, the output cell instances were generally not touching each other, which is a problem to study cell connectivity in epithelia. Therefore, we applied a 3D Voronoi algorithm to correctly mimic the epithelial packing. More specifically, each prediction of cell instances was used as a Voronoi seed, while the prediction of the mask of the cellular region defined the bounding territory that each cell could occupy. The result of this phase was a large dataset of low-resolution images and their corresponding accurate labels.
+
+   .. tab:: Phase 4
+
+        A new 3D ResU-Net model (`model M2`, from now on) was trained on the newly produced large dataset of low-resolution images and its paired label images. This was a crucial step, since the performance of deep learning models is highly dependent on the amount of training samples.
+
+   .. tab:: Phase 5
+
+        `model M2` was applied to new low-resolution cysts and their output was post-processed as in Phase 3, thus achieving high-throughput segmentation of the desired cysts. 
 
 
 Data preparation
@@ -67,71 +79,72 @@ How to train your model
 
 You have two options to train your model: via **command line** or using **Google Colab**. 
 
-Command line
-============
+.. tabs::
 
-You can reproduce the exact results of our manuscript via **command line** using `cartocell_training.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/cartocell_training.yaml>`__ configuration file.
+   .. tab:: Command line
 
-* In case you want to reproduce our **model M1, Phase 2**, you will need to modify the ``TRAIN.PATH`` and ``TRAIN.GT_PATH`` with the paths of `training_down-sampled_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-dd7044fc-dda2-43a2-9951-cbe6c1851030>`__ and `training_down-sampled_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-3e5dded7-24c6-41e3-ab6d-9ca3587c0fbe>`__ respectively.
+        You can reproduce the exact results of our manuscript via **command line** using `cartocell_training.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/cartocell_training.yaml>`__ configuration file.
 
-* In case you want to reproduce our **model M2, Phase 4**, you need to merge `training_down-sampled_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-dd7044fc-dda2-43a2-9951-cbe6c1851030>`__ and Phase 3 (`model M1`) output in a folder and set its path in ``TRAIN.PATH``. In the same way you need to merge `training_down-sampled_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-3e5dded7-24c6-41e3-ab6d-9ca3587c0fbe>`__ and `low-resolution_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-fa0564a8-1e55-4c97-b031-843de45b3771>`__ images in a folder and set its path in ``TRAIN.GT_PATH``. 
+        * In case you want to reproduce our **model M1, Phase 2**, you will need to modify the ``TRAIN.PATH`` and ``TRAIN.GT_PATH`` with the paths of `training_down-sampled_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-dd7044fc-dda2-43a2-9951-cbe6c1851030>`__ and `training_down-sampled_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-3e5dded7-24c6-41e3-ab6d-9ca3587c0fbe>`__ respectively.
 
-For the validation data, for both **model M1** and **model M2**, you will need to modify ``VAL.PATH`` and ``VAL.GT_PATH`` with `validation_dataset_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-83538c77-61d8-4770-85d1-1bac988c5e43>`__ and `validation_dataset_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-5195c7ac-eacd-491e-9d69-8115b36b6c43>`__. 
+        * In case you want to reproduce our **model M2, Phase 4**, you need to merge `training_down-sampled_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-dd7044fc-dda2-43a2-9951-cbe6c1851030>`__ and Phase 3 (`model M1`) output in a folder and set its path in ``TRAIN.PATH``. In the same way you need to merge `training_down-sampled_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-3e5dded7-24c6-41e3-ab6d-9ca3587c0fbe>`__ and `low-resolution_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-fa0564a8-1e55-4c97-b031-843de45b3771>`__ images in a folder and set its path in ``TRAIN.GT_PATH``. 
 
-The next step is to open a terminal (see :ref:`installation` section if you need help) and run the code as follows:
+        For the validation data, for both **model M1** and **model M2**, you will need to modify ``VAL.PATH`` and ``VAL.GT_PATH`` with `validation_dataset_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-83538c77-61d8-4770-85d1-1bac988c5e43>`__ and `validation_dataset_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-5195c7ac-eacd-491e-9d69-8115b36b6c43>`__. 
 
-.. code-block:: bash
-    
-    # Configuration file
-    job_cfg_file=/home/user/cartocell_training.yaml       
-    # Where the experiment output directory should be created
-    result_dir=/home/user/exp_results  
-    # Just a name for the job
-    job_name=cartocell_training      
-    # Number that should be increased when one need to run the same job multiple times (reproducibility)
-    job_counter=1
-    # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-    gpu_number=0                   
+        The next step is to open a terminal (see :ref:`installation` section if you need help) and run the code as follows:
 
-    # Move where BiaPy installation resides
-    cd BiaPy
+        .. code-block:: bash
+            
+            # Configuration file
+            job_cfg_file=/home/user/cartocell_training.yaml       
+            # Where the experiment output directory should be created
+            result_dir=/home/user/exp_results  
+            # Just a name for the job
+            job_name=cartocell_training      
+            # Number that should be increased when one need to run the same job multiple times (reproducibility)
+            job_counter=1
+            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+            gpu_number=0                   
 
-    # Load the environment
-    conda activate BiaPy_env
-    source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+            # Move where BiaPy installation resides
+            cd BiaPy
 
-    python -u main.py \
-          --config $job_cfg_file \
-          --result_dir $result_dir  \ 
-          --name $job_name    \
-          --run_id $job_counter  \
-          --gpu $gpu_number  
+            # Load the environment
+            conda activate BiaPy_env
+            source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 
-Google Colab
-============
+            python -u main.py \
+                --config $job_cfg_file \
+                --result_dir $result_dir  \ 
+                --name $job_name    \
+                --run_id $job_counter  \
+                --gpu $gpu_number  
 
-Another alternative is to use a **Google Colab** |colablink_train|. Noteworthy, Google Colab standard account do not allow you to run a long number of epochs due to time limitations. Because of this, we set ``50`` epochs to train and patience to ``10`` while the original configuration they are set to ``1300`` and ``100`` respectively. In this case you do not need to donwload any data, as the notebook will do it for you. 
+   .. tab:: Google Colab
 
-.. |colablink_train| image:: https://colab.research.google.com/assets/colab-badge.svg
-    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Training%20workflow%20(Phase%202).ipynb
+        Another alternative is to use a **Google Colab** |colablink_train|. Noteworthy, Google Colab standard account do not allow you to run a long number of epochs due to time limitations. Because of this, we set ``50`` epochs to train and patience to ``10`` while the original configuration they are set to ``1300`` and ``100`` respectively. In this case you do not need to donwload any data, as the notebook will do it for you. 
+
+        .. |colablink_train| image:: https://colab.research.google.com/assets/colab-badge.svg
+            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Training%20workflow%20(Phase%202).ipynb
 
 How to run the inference
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Command line
-============
+.. tabs::
 
-You can reproduce the exact results of our **model M2, Phase 5**, of the manuscript via **command line** using `cartocell_inference.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/cartocell_inference.yaml>`__ configuration file.
+   .. tab:: Command line
 
-You will need to set ``TEST.PATH`` and ``TEST.GT_PATH`` with `test_dataset_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-ba6774bd-7858-4bfb-aca9-9ac307e72120>`__ and `test_dataset_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-efddb305-dec1-46e3-b235-00d7cd670e66>`__ data. You will need to download `model_weights_cartocell.h5 <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/model_weights_cartocell.h5>`__ file, which is the pretained model, and set its path in ``PATHS.CHECKPOINT_FILE``. 
+        You can reproduce the exact results of our **model M2, Phase 5**, of the manuscript via **command line** using `cartocell_inference.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/cartocell_inference.yaml>`__ configuration file.
 
-Google Colab
-============
+        You will need to set ``TEST.PATH`` and ``TEST.GT_PATH`` with `test_dataset_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-ba6774bd-7858-4bfb-aca9-9ac307e72120>`__ and `test_dataset_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-efddb305-dec1-46e3-b235-00d7cd670e66>`__ data. You will need to download `model_weights_cartocell.h5 <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/model_weights_cartocell.h5>`__ file, which is the pretained model, and set its path in ``PATHS.CHECKPOINT_FILE``. 
 
-To perform an inference using a pretrained model, you can run a Google Colab |colablink_inference|. 
 
-.. |colablink_inference| image:: https://colab.research.google.com/assets/colab-badge.svg
-    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Inference%20workflow%20(Phase%205).ipynb
+   .. tab:: Google Colab
+    
+        To perform an inference using a pretrained model, you can run a Google Colab |colablink_inference|. 
+
+        .. |colablink_inference| image:: https://colab.research.google.com/assets/colab-badge.svg
+            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Inference%20workflow%20(Phase%205).ipynb
 
 Results
 ~~~~~~~

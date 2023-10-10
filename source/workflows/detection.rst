@@ -136,80 +136,103 @@ Here some special configuration options that can be selected in this workflow ar
 Run
 ~~~
 
-**Jupyter notebooks**: run via Google Colab 
+.. tabs::
 
-.. |detection_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/detection/BiaPy_2D_Detection.ipynb
+   .. tab:: Command line
 
-.. |detection_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/detection/BiaPy_3D_Detection.ipynb
+        Open a terminal as described in :ref:`installation`. For instance, using `2d_detection.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/detection/2d_detection.yaml>`__ template file, the code can be run as follows:
 
-* 2D: |detection_2D_colablink|
+        .. code-block:: bash
+            
+            # Configuration file
+            job_cfg_file=/home/user/2d_detection.yaml       
+            # Where the experiment output directory should be created
+            result_dir=/home/user/exp_results  
+            # Just a name for the job
+            job_name=my_2d_detection      
+            # Number that should be increased when one need to run the same job multiple times (reproducibility)
+            job_counter=1
+            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+            gpu_number=0                   
 
-* 3D: |detection_3D_colablink|
+            # Move where BiaPy installation resides
+            cd BiaPy
 
-**Command line**: Open a terminal as described in :ref:`installation`. For instance, using `unet_3d_detection.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/detection/unet_3d_detection.yaml>`__ template file, the code can be run as follows:
-
-.. code-block:: bash
-    
-    # Configuration file
-    job_cfg_file=/home/user/unet_3d_detection.yaml       
-    # Where the experiment output directory should be created
-    result_dir=/home/user/exp_results  
-    # Just a name for the job
-    job_name=unet_detection_3d      
-    # Number that should be increased when one need to run the same job multiple times (reproducibility)
-    job_counter=1
-    # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-    gpu_number=0                   
-
-    # Move where BiaPy installation resides
-    cd BiaPy
-
-    # Load the environment
-    conda activate BiaPy_env
-    source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-    
-    python -u main.py \
-           --config $job_cfg_file \
-           --result_dir $result_dir  \ 
-           --name $job_name    \
-           --run_id $job_counter  \
-           --gpu $gpu_number  
+            # Load the environment
+            conda activate BiaPy_env
+            source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+            
+            python -u main.py \
+                --config $job_cfg_file \
+                --result_dir $result_dir  \ 
+                --name $job_name    \
+                --run_id $job_counter  \
+                --gpu $gpu_number  
 
 
-**Docker**: Open a terminal as described in :ref:`installation`. For instance, using `unet_3d_detection.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/detection/unet_3d_detection.yaml>`__ template file, the code can be run as follows:
+        For multi-GPU training you can call BiaPy as follows:
 
-.. code-block:: bash                                                                                                    
+        .. code-block:: bash
+            
+            gpu_number="0, 1, 2"
+            python -u -m torch.distributed.run \
+                --nproc_per_node=3 \
+                main.py \
+                --config $job_cfg_file \
+                --result_dir $result_dir  \ 
+                --name $job_name    \
+                --run_id $job_counter  \
+                --gpu $gpu_number  
 
-    # Configuration file
-    job_cfg_file=/home/user/unet_3d_detection.yaml
-    # Path to the data directory
-    data_dir=/home/user/data
-    # Where the experiment output directory should be created
-    result_dir=/home/user/exp_results
-    # Just a name for the job
-    job_name=unet_3d_detection
-    # Number that should be increased when one need to run the same job multiple times (reproducibility)
-    job_counter=1
-    # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-    gpu_number=0
+        ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
 
-    docker run --rm \
-        --gpus "device=$gpu_number" \
-        --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
-        --mount type=bind,source=$result_dir,target=$result_dir \
-        --mount type=bind,source=$data_dir,target=$data_dir \
-        danifranco/biapy \
-            -cfg $job_cfg_file \
-            -rdir $result_dir \
-            -name $job_name \
-            -rid $job_counter \
-            -gpu $gpu_number
+   .. tab:: Docker 
 
-.. note:: 
-    Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
+        Open a terminal as described in :ref:`installation`. For instance, using `2d_detection.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/detection/2d_detection.yaml>`__ template file, the code can be run as follows:
 
+        .. code-block:: bash                                                                                                    
+
+            # Configuration file
+            job_cfg_file=/home/user/2d_detection.yaml
+            # Path to the data directory
+            data_dir=/home/user/data
+            # Where the experiment output directory should be created
+            result_dir=/home/user/exp_results
+            # Just a name for the job
+            job_name=my_2d_detection
+            # Number that should be increased when one need to run the same job multiple times (reproducibility)
+            job_counter=1
+            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+            gpu_number=0
+
+            docker run --rm \
+                --gpus "device=$gpu_number" \
+                --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
+                --mount type=bind,source=$result_dir,target=$result_dir \
+                --mount type=bind,source=$data_dir,target=$data_dir \
+                danifranco/biapy \
+                    -cfg $job_cfg_file \
+                    -rdir $result_dir \
+                    -name $job_name \
+                    -rid $job_counter \
+                    -gpu $gpu_number
+
+        .. note:: 
+            Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
+
+
+   .. tab:: Google Colab
+        Two different options depending on the image dimension: 
+
+        .. |detection_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/detection/BiaPy_2D_Detection.ipynb
+
+        .. |detection_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/detection/BiaPy_3D_Detection.ipynb
+
+        * 2D: |detection_2D_colablink|
+
+        * 3D: |detection_3D_colablink|
 
 .. _detection_results:
 
@@ -218,40 +241,49 @@ Results
 
 The results are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. 
 
-Following the example, you should see that the directory ``/home/user/exp_results/unet_detection_3d`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
+Following the example, you should see that the directory ``/home/user/exp_results/my_2d_detection`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
 
-    unet_detection_3d/
+    my_2d_detection/
     ├── config_files/
-    │   └── unet_3d_detection.yaml                                                                                                           
+    │   └── my_2d_detection.yaml                                                                                                           
     ├── checkpoints
-    │   └── model_weights_unet_detection_3d_1.h5
+    │   └── my_2d_detection_1-checkpoint-best.pth
     └── results
-        ├── unet_detection_3d_1
+        ├── my_2d_detection_1
         ├── . . .
-        └── unet_detection_3d_5
+        └── my_2d_detection_5
             ├── cell_counter.csv
             ├── aug
             │   └── .tif files
             ├── charts
-            │   ├── unet_detection_3d_1_jaccard_index.png
-            │   ├── unet_detection_3d_1_loss.png
-            │   └── model_plot_unet_detection_3d_1.png
+            │   ├── my_2d_detection_1_*.png
+            │   ├── my_2d_detection_1_loss.png
+            │   └── model_plot_my_2d_detection_1.png
             ├── per_image
             │   └── .tif files
-            └── per_image_local_max_check
-                └── .tif files  
+            ├── per_image_local_max_check
+            │   └── .tif files
+            ├── point_associations
+            │   ├── .tif files
+            │   └── .csv files  
+            ├── train_logs
+            └── tensorboard
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 
-    * ``unet_3d_detection.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
+    * ``my_2d_detection.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
 
 * ``checkpoints``: directory where model's weights are stored.
 
-    * ``model_weights_unet_detection_3d_1.h5``: model's weights file.
+    * ``my_2d_detection_1-checkpoint-best.pth``: checkpoint file (best in validation) where the model's weights are stored among other information.
 
+    * ``normalization_mean_value.npy``: normalization mean value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference.  
+    
+    * ``normalization_std_value.npy``: normalization std value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference. 
+    
 * ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
 
-    * ``unet_detection_3d_1``: run 1 experiment folder. 
+    * ``my_2d_detection_1``: run 1 experiment folder. 
 
         * ``cell_counter.csv``: file with a counter of detected objects for each test sample.
 
@@ -259,11 +291,11 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
         * ``charts``:  
 
-             * ``unet_detection_3d_1_jaccard_index.png``: IoU (jaccard_index) over epochs plot (when training is done).
+             * ``my_2d_detection_1_*.png``: Plot of each metric used during training.
 
-             * ``unet_detection_3d_1_loss.png``: Loss over epochs plot (when training is done). 
+             * ``my_2d_detection_1_loss.png``: Loss over epochs plot (when training is done). 
 
-             * ``model_plot_unet_detection_3d_1.png``: plot of the model.
+             * ``model_plot_my_2d_detection_1.png``: plot of the model.
 
         * ``per_image``:
 
@@ -273,9 +305,19 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
             * ``.tif files``: Same as ``per_image`` but with the final detected points.
 
+        * ``point_associations``: optional. Only if ground truth was provided.
+
+            * ``.tif files``: prediction (``_pred_ids``) and ground truth (``_gt_ids``) ids. 
+
+            * ``.csv files``: false positives (``_fp``) and ground truth associations (``_gt_assoc``). 
+
+        * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
+        
+        * ``tensorboard``: Tensorboard logs.
+
 .. note:: 
 
-  Here, for visualization purposes, only ``unet_detection_3d_1`` has been described but ``unet_detection_3d_2``, ``unet_detection_3d_3``, ``unet_detection_3d_4`` and ``unet_detection_3d_5`` will follow the same structure.
+  Here, for visualization purposes, only ``my_2d_detection_1`` has been described but ``my_2d_detection_2``, ``my_2d_detection_3``, ``my_2d_detection_4`` and ``my_2d_detection_5`` will follow the same structure.
 
 
 

@@ -52,8 +52,11 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
     'sphinxcontrib.bibtex',
+    'sphinx_tabs.tabs',
     'numpydoc'
 ]
+
+sphinx_tabs_disable_tab_closing = True
 
 napoleon_google_docstring = False
 napoleon_use_param = False

@@ -93,75 +93,104 @@ Furthermore, when this is enabled, in ``PATHS.DA_SAMPLES`` path, i.e. ``aug`` fo
 
 Run
 ~~~
-**Jupyter notebooks**: run via Google Colab 
 
-.. |sem_seg_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/semantic_segmentation/BiaPy_2D_Semantic_Segmentation.ipynb
+.. tabs::
 
-* 2D: |sem_seg_2D_colablink|
+   .. tab:: Command line
 
-**Command line**: Open a terminal as described in :ref:`installation`. For instance, using `resunet_2d_semantic_segmentation.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/semantic_segmentation/resunet_2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
+        Open a terminal as described in :ref:`installation`. For instance, using `2d_semantic_segmentation.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
 
-.. code-block:: bash
-    
-    # Configuration file
-    job_cfg_file=/home/user/resunet_2d_semantic_segmentation.yaml       
-    # Where the experiment output directory should be created
-    result_dir=/home/user/exp_results  
-    # Just a name for the job
-    job_name=resunet_2d      
-    # Number that should be increased when one need to run the same job multiple times (reproducibility)
-    job_counter=1
-    # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-    gpu_number=0                   
+        .. code-block:: bash
+            
+            # Configuration file
+            job_cfg_file=/home/user/2d_semantic_segmentation.yaml       
+            # Where the experiment output directory should be created
+            result_dir=/home/user/exp_results  
+            # Just a name for the job
+            job_name=my_2d_semantic_segmentation      
+            # Number that should be increased when one need to run the same job multiple times (reproducibility)
+            job_counter=1
+            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+            gpu_number=0                   
 
-    # Move where BiaPy installation resides
-    cd BiaPy
+            # Move where BiaPy installation resides
+            cd BiaPy
 
-    # Load the environment
-    conda activate BiaPy_env
-    source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-    
-    python -u main.py \
-           --config $job_cfg_file \
-           --result_dir $result_dir  \ 
-           --name $job_name    \
-           --run_id $job_counter  \
-           --gpu $gpu_number  
+            # Load the environment
+            conda activate BiaPy_env
+            source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+            
+            python -u main.py \
+                --config $job_cfg_file \
+                --result_dir $result_dir  \ 
+                --name $job_name    \
+                --run_id $job_counter  \
+                --gpu $gpu_number  
 
+        For multi-GPU training you can call BiaPy as follows:
 
-**Docker**: Open a terminal as described in :ref:`installation`. For instance, using `resunet_2d_semantic_segmentation.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/semantic_segmentation/resunet_2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
+        .. code-block:: bash
 
-.. code-block:: bash                                                                                                    
+            gpu_number="0, 1, 2"
+            python -u -m torch.distributed.run \
+                --nproc_per_node=3 \
+                main.py \
+                --config $job_cfg_file \
+                --result_dir $result_dir  \ 
+                --name $job_name    \
+                --run_id $job_counter  \
+                --gpu $gpu_number  
 
-    # Configuration file
-    job_cfg_file=/home/user/resunet_2d_semantic_segmentation.yaml
-    # Path to the data directory
-    data_dir=/home/user/data
-    # Where the experiment output directory should be created
-    result_dir=/home/user/exp_results
-    # Just a name for the job
-    job_name=resunet_2d
-    # Number that should be increased when one need to run the same job multiple times (reproducibility)
-    job_counter=1
-    # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-    gpu_number=0
+        ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
 
-    sudo docker run --rm \
-        --gpus "device=$gpu_number" \
-        --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
-        --mount type=bind,source=$result_dir,target=$result_dir \
-        --mount type=bind,source=$data_dir,target=$data_dir \
-        danifranco/biapy \
-            -cfg $job_cfg_file \
-            -rdir $result_dir \
-            -name $job_name \
-            -rid $job_counter \
-            -gpu $gpu_number
+   .. tab:: Docker
+            
+        Open a terminal as described in :ref:`installation`. For instance, using `2d_semantic_segmentation.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
 
-.. note:: 
-    Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
+        .. code-block:: bash                                                                                                    
 
+            # Configuration file
+            job_cfg_file=/home/user/2d_semantic_segmentation.yaml
+            # Path to the data directory
+            data_dir=/home/user/data
+            # Where the experiment output directory should be created
+            result_dir=/home/user/exp_results
+            # Just a name for the job
+            job_name=my_2d_semantic_segmentation
+            # Number that should be increased when one need to run the same job multiple times (reproducibility)
+            job_counter=1
+            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+            gpu_number=0
+
+            sudo docker run --rm \
+                --gpus "device=$gpu_number" \
+                --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
+                --mount type=bind,source=$result_dir,target=$result_dir \
+                --mount type=bind,source=$data_dir,target=$data_dir \
+                danifranco/biapy \
+                    -cfg $job_cfg_file \
+                    -rdir $result_dir \
+                    -name $job_name \
+                    -rid $job_counter \
+                    -gpu $gpu_number
+
+        .. note:: 
+
+            Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
+
+   .. tab:: Google Colab
+
+        Two different options depending on the image dimension: 
+
+        .. |sem_seg_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/semantic_segmentation/BiaPy_2D_Semantic_Segmentation.ipynb
+
+        * 2D: |sem_seg_2D_colablink|
+
+        .. |sem_seg_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/semantic_segmentation/BiaPy_3D_Semantic_Segmentation.ipynb
+
+        * 3D: |sem_seg_3D_colablink|
 
 .. _semantic_segmentation_results:
 
@@ -176,23 +205,23 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
    Example of semantic segmentation model predictions. From left to right: input image, its mask and the overlap between the mask and the model's output binarized. 
 
 
-Following the example, you should see that the directory ``/home/user/exp_results/resunet_2d`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
+Following the example, you should see that the directory ``/home/user/exp_results/my_2d_semantic_segmentation`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
 
-    resunet_2d/
+    my_2d_semantic_segmentation/
     ├── config_files/
-    │   └── resunet_2d_semantic_segmentation.yaml                                                                                                           
+    │   └── my_2d_semantic_segmentation_1.yaml                                                                                                           
     ├── checkpoints
-    │   └── model_weights_resunet_2d_1.h5
+    │   └── my_2d_semantic_segmentation_1-checkpoint-best.pth
     └── results
-        ├── resunet_2d_1
+        ├── my_2d_semantic_segmentation_1
         ├── . . .
-        └── resunet_2d_5
+        └── my_2d_semantic_segmentation_5
             ├── aug
             │   └── .tif files
             ├── charts
-            │   ├── resunet_2d_1_jaccard_index.png
-            │   ├── resunet_2d_1_loss.png
-            │   └── model_plot_resunet_2d_1.png
+            │   ├── my_2d_semantic_segmentation_1_*.png
+            │   ├── my_2d_semantic_segmentation_1_loss.png
+            │   └── model_plot_my_2d_semantic_segmentation_1.png
             ├── full_image
             │   └── .tif files
             ├── full_image_binarized
@@ -201,31 +230,32 @@ Following the example, you should see that the directory ``/home/user/exp_result
             │   └── .tif files
             ├── per_image
             │   └── .tif files
-            └── per_image_binarized
-                └── .tif files
-
+            ├── per_image_binarized
+            │   └── .tif files
+            ├── tensorboard
+            └── train_logs
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 
-    * ``resunet_2d_semantic_segmentation.yaml``: YAML configuration file used (it will be overwrited every time the code is run)
+    * ``my_2d_semantic_segmentation.yaml``: YAML configuration file used (it will be overwrited every time the code is run)
 
 * ``checkpoints``: directory where model's weights are stored.
 
-    * ``model_weights_resunet_2d_1.h5``: model's weights file.
+    * ``my_2d_semantic_segmentation_1-checkpoint-best.pth``: checkpoint file (best in validation) where the model's weights are stored among other information.
 
 * ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
 
-    * ``resunet_2d_1``: run 1 experiment folder. 
+    * ``my_2d_semantic_segmentation_1``: run 1 experiment folder. 
 
         * ``aug``: image augmentation samples.
 
         * ``charts``:  
 
-             * ``resunet_2d_1_jaccard_index.png``: IoU (jaccard_index) over epochs plot (when training is done).
+             * ``my_2d_semantic_segmentation_1_*.png``: Plot of each metric used during training.
 
-             * ``resunet_2d_1_loss.png``: Loss over epochs plot (when training is done). 
+             * ``my_2d_semantic_segmentation_1_loss.png``: Loss over epochs plot (when training is done). 
 
-             * ``model_plot_resunet_2d_1.png``: plot of the model.
+             * ``model_plot_my_2d_semantic_segmentation_1.png``: plot of the model.
         
         * ``full_image``: 
 
@@ -246,8 +276,11 @@ Following the example, you should see that the directory ``/home/user/exp_result
         * ``per_image_binarized``: 
 
             * ``.tif files``: Same as ``per_image`` but with the images binarized.
+        
+        * ``tensorboard``: Tensorboard logs.
 
+        * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
+        
 .. note:: 
-   Here, for visualization purposes, only ``resunet_2d_1`` has been described but ``resunet_2d_2``, ``resunet_2d_3``, ``resunet_2d_4``
-   and ``resunet_2d_5`` will follow the same structure.
+   Here, for visualization purposes, only ``my_2d_semantic_segmentation_1`` has been described but ``my_2d_semantic_segmentation_2``, ``my_2d_semantic_segmentation_3``, ``my_2d_semantic_segmentation_4`` and ``my_2d_semantic_segmentation_5`` will follow the same structure.
 

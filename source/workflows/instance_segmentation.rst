@@ -99,54 +99,57 @@ After the train phase, the model output will have the same channels as the ones 
 
 In a further step the multi-channel data information will be used to create the final instance segmentation labels using a marker-controlled watershed. The process vary depending on the configuration:
 
-* In ``BC``, ``BCM`` and ``BCD`` configurations are as follows:
+.. tabs::
 
-  * First, seeds are created based on ``B``, ``C`` and ``D`` (notice that depending on the configuration selected not all of them will be present). For that, each channel is binarized using different thresholds: ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_BINARY_MASK`` for ``B`` channel, ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_CONTOUR`` for ``C`` and ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_DISTANCE`` for ``D``. These thresholds will decide wheter a point is labeled as a class or not. This way, the seeds are created following this formula: :: 
+   .. tab:: ``BC``, ``BCM`` and ``BCD``
+        
+      * First, seeds are created based on ``B``, ``C`` and ``D`` (notice that depending on the configuration selected not all of them will be present). For that, each channel is binarized using different thresholds: ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_BINARY_MASK`` for ``B`` channel, ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_CONTOUR`` for ``C`` and ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_DISTANCE`` for ``D``. These thresholds will decide wheter a point is labeled as a class or not. This way, the seeds are created following this formula: :: 
 
-      seed_mask = (B > DATA_MW_TH_BINARY_MASK) * (D > DATA_MW_TH_DISTANCE) * (C < DATA_MW_TH_CONTOUR)  
+          seed_mask = (B > DATA_MW_TH_BINARY_MASK) * (D > DATA_MW_TH_DISTANCE) * (C < DATA_MW_TH_CONTOUR)  
 
-    Translated to words seeds will be: all pixels part of the binary mask (``B`` channel), which will be those higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_BINARY_MASK``; and also in the center of each instances, i.e. higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_DISTANCE`` ; but not labeled as contour, i.e. less than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_CONTOUR``. 
+        Translated to words seeds will be: all pixels part of the binary mask (``B`` channel), which will be those higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_BINARY_MASK``; and also in the center of each instances, i.e. higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_DISTANCE`` ; but not labeled as contour, i.e. less than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_CONTOUR``. 
 
-  * After that, each instance is labeled with a unique integer, e.g. using `connected component <https://en.wikipedia.org/wiki/Connected-component_labeling>`_. Then a foreground mask is created to delimit the area in which the seeds can grow. This foreground mask is defined based on ``B`` channel using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_FOREGROUND`` and ``D`` using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_DIST_FOREGROUND``. The formula is as follows: :: 
+      * After that, each instance is labeled with a unique integer, e.g. using `connected component <https://en.wikipedia.org/wiki/Connected-component_labeling>`_. Then a foreground mask is created to delimit the area in which the seeds can grow. This foreground mask is defined based on ``B`` channel using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_FOREGROUND`` and ``D`` using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_DIST_FOREGROUND``. The formula is as follows: :: 
 
-      foreground_mask = (B > DATA_MW_TH_FOREGROUND) * (D > DATA_MW_TH_DIST_FOREGROUND) 
+          foreground_mask = (B > DATA_MW_TH_FOREGROUND) * (D > DATA_MW_TH_DIST_FOREGROUND) 
 
-  * Afterwards, tiny instances are removed using ``PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ`` value. Finally, the seeds are grown using marker-controlled watershed over the ``B`` channel.
+      * Afterwards, tiny instances are removed using ``PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ`` value. Finally, the seeds are grown using marker-controlled watershed over the ``B`` channel.
 
-* In ``BP`` the configuration is as follows:
+   .. tab:: ``BP``
 
-  * First, seeds are created based on ``P``. For that, each channel is binarized using a threshold: ``PROBLEM.INSTANCE_SEG.TH_POINTS``. This way, the seeds are created following this formula: :: 
+      * First, seeds are created based on ``P``. For that, each channel is binarized using a threshold: ``PROBLEM.INSTANCE_SEG.TH_POINTS``. This way, the seeds are created following this formula: :: 
 
-      seed_mask = (P > TH_POINTS)  
+          seed_mask = (P > TH_POINTS)  
 
-  * After that, each instance is labeled with a unique integer, e.g. using `connected component <https://en.wikipedia.org/wiki/Connected-component_labeling>`_. Then a foreground mask is created to delimit the area in which the seeds can grow. This foreground mask is defined based on ``B`` channel using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_FOREGROUND``. The formula is as follows: :: 
+      * After that, each instance is labeled with a unique integer, e.g. using `connected component <https://en.wikipedia.org/wiki/Connected-component_labeling>`_. Then a foreground mask is created to delimit the area in which the seeds can grow. This foreground mask is defined based on ``B`` channel using ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_FOREGROUND``. The formula is as follows: :: 
 
-      foreground_mask = (B > DATA_MW_TH_FOREGROUND)
+          foreground_mask = (B > DATA_MW_TH_FOREGROUND)
 
-  * Afterwards, tiny instances are removed using ``PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ`` value. Finally, the seeds are grown using marker-controlled watershed over the ``B`` channel.
+      * Afterwards, tiny instances are removed using ``PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ`` value. Finally, the seeds are grown using marker-controlled watershed over the ``B`` channel.
 
-* In ``BDv2``, ``BCDv2`` and ``Dv2``, which are experimental, configurations are as follows:
+   .. tab:: ````BDv2``, ``BCDv2`` and ``Dv2````
+      * These options are experimental. Configurations are as follows:
 
-  * First, seeds are created based on ``B``, ``C`` and ``Dv2`` (notice that depending on the configuration selected not all of them will be present). For that, each channel is binarized using different thresholds: ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_BINARY_MASK`` for ``B`` channel, ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_CONTOUR`` for ``C`` and ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_DISTANCE`` for ``Dv2``. These thresholds will decide wheter a point is labeled as a class or not. This way, the seeds are created following this formula: :: 
+        * First, seeds are created based on ``B``, ``C`` and ``Dv2`` (notice that depending on the configuration selected not all of them will be present). For that, each channel is binarized using different thresholds: ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_BINARY_MASK`` for ``B`` channel, ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_CONTOUR`` for ``C`` and ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_DISTANCE`` for ``Dv2``. These thresholds will decide wheter a point is labeled as a class or not. This way, the seeds are created following this formula: :: 
 
-      seed_mask = (B > DATA_MW_TH_BINARY_MASK) * (Dv2 < DATA_MW_TH_DISTANCE) * (C < DATA_MW_TH_CONTOUR)
+            seed_mask = (B > DATA_MW_TH_BINARY_MASK) * (Dv2 < DATA_MW_TH_DISTANCE) * (C < DATA_MW_TH_CONTOUR)
 
-    Translated to words seeds will be: all pixels part of the binary mask (``B`` channel), which will be those higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_BINARY_MASK``; and also in the center of each instances, i.e. less than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_DISTANCE`` ; but not labeled as contour, i.e. less than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_CONTOUR``. 
+          Translated to words seeds will be: all pixels part of the binary mask (``B`` channel), which will be those higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_BINARY_MASK``; and also in the center of each instances, i.e. less than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_DISTANCE`` ; but not labeled as contour, i.e. less than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_CONTOUR``. 
 
-  * After that different steps are applied depending on the configuration but the key thing here is that we are not going to set a foreground mask to delimit the area in which the seeds can grow as is done in ``BC``, ``BCM`` and ``BCD`` configurations. Instead, we are going to define a background seed in ``BDv2`` and ``BCDv2`` configurations so it can grow at the same time as the rest of the seeds.
+        * After that different steps are applied depending on the configuration but the key thing here is that we are not going to set a foreground mask to delimit the area in which the seeds can grow as is done in ``BC``, ``BCM`` and ``BCD`` configurations. Instead, we are going to define a background seed in ``BDv2`` and ``BCDv2`` configurations so it can grow at the same time as the rest of the seeds.
 
-    * For ``BCDv2`` the background seed will be: ::
+          * For ``BCDv2`` the background seed will be: ::
 
-        background_seed = invert( dilate( (B > DATA_MW_TH_BINARY_MASK) + (C > DATA_MW_TH_CONTOUR) ) )
+              background_seed = invert( dilate( (B > DATA_MW_TH_BINARY_MASK) + (C > DATA_MW_TH_CONTOUR) ) )
 
-      Translated to words seeds will be: all pixels part of the binary mask (``B`` channel), which will be those higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_BINARY_MASK`` and also part of the contours, i.e. greater than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_DISTANCE`` will constitute the foreground (or all the cell). Then, the rest of the pixels of the image will be considerer as background so we can now 1) dilate that mask so it can go beyond cell region, i.e. background, and afterwards 2) invert it to obtain the background seed. 
-    * For ``BDv2`` the background seed will be: ::
+            Translated to words seeds will be: all pixels part of the binary mask (``B`` channel), which will be those higher than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_BINARY_MASK`` and also part of the contours, i.e. greater than ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_DISTANCE`` will constitute the foreground (or all the cell). Then, the rest of the pixels of the image will be considerer as background so we can now 1) dilate that mask so it can go beyond cell region, i.e. background, and afterwards 2) invert it to obtain the background seed. 
+          * For ``BDv2`` the background seed will be: ::
 
-        background_seed = (Dv2 < DATA_MW_TH_DISTANCE) * (do not overlap with seed_mask)
+              background_seed = (Dv2 < DATA_MW_TH_DISTANCE) * (do not overlap with seed_mask)
 
-      Translated to words seeds will be: all pixels part of the distance mask (``Dv2`` channel) and that dot not overlap with any of the seeds created in ``seed_mask``. 
-    * For ``Dv2`` there is no way to know where the background seed is. This configuration will require the user to inspect the result so they can remove the unnecesary background instances. 
-  * Afterwards, tiny instances are removed using ``PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ`` value. Finally, the seeds are grown using marker-controlled watershed over the ``Dv2`` channel.
+            Translated to words seeds will be: all pixels part of the distance mask (``Dv2`` channel) and that dot not overlap with any of the seeds created in ``seed_mask``. 
+          * For ``Dv2`` there is no way to know where the background seed is. This configuration will require the user to inspect the result so they can remove the unnecesary background instances. 
+        * Afterwards, tiny instances are removed using ``PROBLEM.INSTANCE_SEG.DATA_REMOVE_SMALL_OBJ`` value. Finally, the seeds are grown using marker-controlled watershed over the ``Dv2`` channel.
 
 In general, each configuration has its own advantages and drawbacks. The best thing to do is to inspect the results generated by the model so you can adjust each threshold for your particular case and run again the inference (i.e. not training again the network and loading model's weights). 
 
@@ -187,80 +190,102 @@ Here some special configuration options that can be selected in this workflow ar
 Run
 ~~~
 
-**Jupyter notebooks**: run via Google Colab 
+.. tabs::
 
-.. |inst_seg_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_2D_Instance_Segmentation.ipynb
+   .. tab:: Command line
 
-.. |inst_seg_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-    :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_3D_Instance_Segmentation.ipynb
+      Open a terminal as described in :ref:`installation`. For instance, using `3d_instance_segmentation.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file, the code can be run as follows:
 
-* 2D: |inst_seg_2D_colablink|
+      .. code-block:: bash
+          
+          # Configuration file
+          job_cfg_file=/home/user/3d_instance_segmentation.yaml       
+          # Where the experiment output directory should be created
+          result_dir=/home/user/exp_results  
+          # Just a name for the job
+          job_name=my_3d_instance_segmentation      
+          # Number that should be increased when one need to run the same job multiple times (reproducibility)
+          job_counter=1
+          # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+          gpu_number=0                   
 
-* 3D: |inst_seg_3D_colablink|
+          # Move where BiaPy installation resides
+          cd BiaPy
 
-**Command line**: Open a terminal as described in :ref:`installation`. For instance, using `resunet_3d_instances_bcd_instances.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/resunet_3d_instances_bcd_instances.yaml>`__ template file, the code can be run as follows:
+          # Load the environment
+          conda activate BiaPy_env
+          source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+          
+          python -u main.py \
+                --config $job_cfg_file \
+                --result_dir $result_dir  \ 
+                --name $job_name    \
+                --run_id $job_counter  \
+                --gpu $gpu_number  
 
-.. code-block:: bash
+      For multi-GPU training you can call BiaPy as follows:
+
+      .. code-block:: bash
+          
+          gpu_number="0, 1, 2"
+          python -u -m torch.distributed.run \
+              --nproc_per_node=3 \
+              main.py \
+              --config $job_cfg_file \
+              --result_dir $result_dir  \ 
+              --name $job_name    \
+              --run_id $job_counter  \
+              --gpu $gpu_number  
+
+      ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+      
+   .. tab:: Docker 
+
+      Open a terminal as described in :ref:`installation`. For instance, using `3d_instance_segmentation.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file, the code can be run as follows:
+
+      .. code-block:: bash                                                                                                    
+
+          # Configuration file
+          job_cfg_file=/home/user/3d_instance_segmentation.yaml
+          # Path to the data directory
+          data_dir=/home/user/data
+          # Where the experiment output directory should be created
+          result_dir=/home/user/exp_results
+          # Just a name for the job
+          job_name=my_3d_instance_segmentation
+          # Number that should be increased when one need to run the same job multiple times (reproducibility)
+          job_counter=1
+          # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+          gpu_number=0
+
+          docker run --rm \
+              --gpus "device=$gpu_number" \
+              --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
+              --mount type=bind,source=$result_dir,target=$result_dir \
+              --mount type=bind,source=$data_dir,target=$data_dir \
+              danifranco/biapy \
+                  -cfg $job_cfg_file \
+                  -rdir $result_dir \
+                  -name $job_name \
+                  -rid $job_counter \
+                  -gpu $gpu_number
+
+      .. note:: 
+          Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
+
+   .. tab:: Google Colab 
     
-    # Configuration file
-    job_cfg_file=/home/user/resunet_3d_instances_bcd_instances.yaml       
-    # Where the experiment output directory should be created
-    result_dir=/home/user/exp_results  
-    # Just a name for the job
-    job_name=resunet_instances_3d      
-    # Number that should be increased when one need to run the same job multiple times (reproducibility)
-    job_counter=1
-    # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-    gpu_number=0                   
+      Two different options depending on the image dimension: 
 
-    # Move where BiaPy installation resides
-    cd BiaPy
+      .. |inst_seg_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+          :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_2D_Instance_Segmentation.ipynb
 
-    # Load the environment
-    conda activate BiaPy_env
-    source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-    
-    python -u main.py \
-           --config $job_cfg_file \
-           --result_dir $result_dir  \ 
-           --name $job_name    \
-           --run_id $job_counter  \
-           --gpu $gpu_number  
+      .. |inst_seg_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+          :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_3D_Instance_Segmentation.ipynb
 
+      * 2D: |inst_seg_2D_colablink|
 
-**Docker**: Open a terminal as described in :ref:`installation`. For instance, using `resunet_3d_instances_bcd_instances.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/resunet_3d_instances_bcd_instances.yaml>`__ template file, the code can be run as follows:
-
-.. code-block:: bash                                                                                                    
-
-    # Configuration file
-    job_cfg_file=/home/user/resunet_3d_instances_bcd_instances.yaml
-    # Path to the data directory
-    data_dir=/home/user/data
-    # Where the experiment output directory should be created
-    result_dir=/home/user/exp_results
-    # Just a name for the job
-    job_name=resunet_instances_3d
-    # Number that should be increased when one need to run the same job multiple times (reproducibility)
-    job_counter=1
-    # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-    gpu_number=0
-
-    docker run --rm \
-        --gpus "device=$gpu_number" \
-        --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
-        --mount type=bind,source=$result_dir,target=$result_dir \
-        --mount type=bind,source=$data_dir,target=$data_dir \
-        danifranco/biapy \
-            -cfg $job_cfg_file \
-            -rdir $result_dir \
-            -name $job_name \
-            -rid $job_counter \
-            -gpu $gpu_number
-
-.. note:: 
-    Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
-
+      * 3D: |inst_seg_3D_colablink|
 
 .. _instance_segmentation_results:
 
@@ -269,56 +294,64 @@ Results
 
 The results are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. 
 
-Following the example, you should see that the directory ``/home/user/exp_results/resunet_instances_3d`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
+Following the example, you should see that the directory ``/home/user/exp_results/my_3d_instance_segmentation`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
 
-    resunet_instances_3d/
+    my_3d_instance_segmentation/
     ├── config_files/
-    │   └── resunet_3d_instances_bcd_instances.yaml                                                                                                           
+    │   └── 3d_instance_segmentation.yaml                                                                                                           
     ├── checkpoints
-    │   └── model_weights_resunet_instances_3d_1.h5
+    │   └── my_3d_instance_segmentation_1-checkpoint-best.pth
     └── results
-        ├── resunet_instances_3d_1
+        ├── my_3d_instance_segmentation_1
         ├── . . .
-        └── resunet_instances_3d_5
+        └── my_3d_instance_segmentation_5
             ├── aug
             │   └── .tif files
             ├── charts
-            │   ├── resunet_instances_3d_1_*.png
-            │   ├── resunet_instances_3d_1_loss.png
-            │   └── model_plot_resunet_instances_3d_1.png
+            │   ├── my_3d_instance_segmentation_1_*.png
+            │   ├── my_3d_instance_segmentation_1_loss.png
+            │   └── model_plot_my_3d_instance_segmentation_1.png
             ├── per_image
             │   └── .tif files
             ├── per_image_instances
             │   └── .tif files  
-            ├── per_image_instances_voronoi
-            │   └── .tif files                          
-            └── watershed
-                ├── seed_map.tif
-                ├── foreground.tif                
-                └── watershed.tif
-
+            ├── per_image_instances_post_processing
+            │   └── .tif files 
+            ├── instance_associations
+            │   ├── .tif files
+            │   └── .csv files                        
+            ├── watershed
+            │   ├── seed_map.tif
+            │   ├── foreground.tif                
+            │   └── watershed.tif
+            ├── train_logs
+            └── tensorboard
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 
-    * ``resunet_3d_instances_bcd_instances.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
+    * ``3d_instance_segmentation.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
 
 * ``checkpoints``: directory where model's weights are stored.
 
-    * ``model_weights_resunet_instances_3d_1.h5``: model's weights file.
+    * ``model_weights_my_3d_instance_segmentation_1.h5``: checkpoint file (best in validation) where the model's weights are stored among other information.
 
+    * ``normalization_mean_value.npy``: normalization mean value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference.  
+    
+    * ``normalization_std_value.npy``: normalization std value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference. 
+    
 * ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
 
-    * ``resunet_instances_3d_1``: run 1 experiment folder. 
+    * ``my_3d_instance_segmentation_1``: run 1 experiment folder. 
 
         * ``aug``: image augmentation samples.
 
         * ``charts``:  
 
-             * ``resunet_instances_3d_1_*.png``: Plot of each metric used during training. Depends on the configuration ``jaccard_index``, ``jaccard_index_instances`` or ``mae`` can be created. ``jaccard_index_instances`` and ``jaccard_index`` are the same (both names used due to implementation reasons).
+             * ``my_3d_instance_segmentation_1_*.png``: Plot of each metric used during training.
 
-             * ``resunet_instances_3d_1_loss.png``: Loss over epochs plot (when training is done). 
+             * ``my_3d_instance_segmentation_1_loss.png``: Loss over epochs plot (when training is done). 
 
-             * ``model_plot_resunet_instances_3d_1.png``: plot of the model.
+             * ``model_plot_my_3d_instance_segmentation_1.png``: plot of the model.
 
         * ``per_image``:
 
@@ -328,21 +361,31 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
             * ``.tif files``: Same as ``per_image`` but with the instances.
 
-        * ``per_image_instances_voronoi`` (optional): 
+        * ``per_image_instances_post_processing`` (optional): 
 
-            * ``.tif files``: Same as ``per_image_instances`` but applied Voronoi. Created when ``TEST.POST_PROCESSING.VORONOI_ON_MASK`` is enabled.
+            * ``.tif files``: Same as ``per_image_instances`` but applied post processing (e.g. Voronoi). 
+
+        * ``point_associations``: optional. Only if ground truth was provided.
+
+            * ``.tif files``: coloured associations per each matching threshold selected to be analised (controlled by ``TEST.MATCHING_STATS_THS_COLORED_IMG``). Green is a true positive, red is a false negative and blue is a false positive. 
+
+            * ``.csv files``: false positives (``_fp``) and ground truth associations (``_gt_assoc``). There is a file per each matching threshold selected (controlled by ``TEST.MATCHING_STATS_THS``).  
 
         * ``watershed`` (optional): 
 
             * Created when ``PROBLEM.INSTANCE_SEG.DATA_CHECK_MW`` is enabled. Inside a folder for each test image will be created containing:
                 
                 * ``seed_map.tif``: initial seeds created before growing. 
-                
+            
+                * ``semantic.tif``: region where the watershed will run.
+
                 * ``foreground.tif``: foreground mask area that delimits the grown of the seeds.
-                
-                * ``watershed.tif``: result of watershed.
+
+        * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
+
+        * ``tensorboard``: Tensorboard logs.
 
 .. note:: 
 
-  Here, for visualization purposes, only ``resunet_instances_3d_1`` has been described but ``resunet_instances_3d_2``, ``resunet_instances_3d_3``, ``resunet_instances_3d_4`` and ``resunet_instances_3d_5`` will follow the same structure.
+  Here, for visualization purposes, only ``my_3d_instance_segmentation_1`` has been described but ``my_3d_instance_segmentation_2``, ``my_3d_instance_segmentation_3``, ``my_3d_instance_segmentation_4`` and ``my_3d_instance_segmentation_5`` will follow the same structure.
 
