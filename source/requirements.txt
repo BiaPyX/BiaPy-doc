@@ -69,11 +69,11 @@ tensorboardX==2.6.2.2
 threadpoolctl==3.2.0
 tifffile==2023.7.10
 timm==0.9.7
-torch==1.12.1+cu102
-torchaudio==0.12.1+cu102
+torch==1.12.1
+torchaudio==0.12.1
 torchinfo==1.8.0
 torchmetrics==1.1.2
-torchvision==0.13.1+cu102
+torchvision==0.13.1
 tqdm==4.66.1
 typing_extensions==4.8.0
 tzdata==2023.3
