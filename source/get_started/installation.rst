@@ -38,14 +38,16 @@ BiaPy can be installed and run locally on any Linux, Windows, or Mac OS platform
             conda activate BiaPy_env
                 
             # Install Pytorch and GPU dependencies    
-            pip install torch==1.12.1+cu102 torchvision==0.13.1+cu102 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu102
+            conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+
+            # Move to BiaPy folder and install the rest of dependecies
+            cd BiaPy
             pip install --editable . 
-            
 
         Verify installation: ::
 
             python -c 'import torch; print(torch.__version__)'
-            >>> 1.12.1+cu102
+            >>> 2.1.0
             python -c 'import torch; print(torch.cuda.is_available())'
             >>> True
             
@@ -54,14 +56,14 @@ BiaPy can be installed and run locally on any Linux, Windows, or Mac OS platform
             conda activate BiaPy_env
 
         .. note:: 
-            In this installation CUDA 10.2 is installed but if your machine does not support this version, check how you can see it with ``nvidia-smi`` command in the next section, you can find older versions `here <https://pytorch.org/get-started/previous-versions/>`__. 
+            In this installation CUDA 11.8 is installed but if your machine does not support this version, check how you can see it with ``nvidia-smi`` command in the next section, you can find older versions `here <https://pytorch.org/get-started/previous-versions/>`__. 
 
         The next step consist in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
 
 
    .. tab:: Docker
 
-        Currently the docker image support only CUDA version drivers above ``10.2.0``. To check your actual driver version you can type the following command in the terminal (note ``CUDA Version: 11.8`` in this example in the top right corner): ::
+        Currently the docker image supports only CUDA version drivers above ``11.8``. To check your actual driver version you can type the following command in the terminal (note ``CUDA Version: 11.8`` in this example in the top right corner): ::
 
             $ nvidia-smi
             +-----------------------------------------------------------------------------+
