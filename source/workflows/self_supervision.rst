@@ -3,14 +3,17 @@
 Self-supervision
 ----------------
 
-The idea of this workflow is to pretrain the backbone model by solving a so-called pretext task without labels. This way, the model learns a representation that can be later transferred to solve a downstream task in a labeled (but smaller) dataset. In BiaPy we adopt the pretext task of recover a worstened version of the input image as in :cite:p:`franco2022deep`.
+The idea of this workflow is to pretrain the backbone model by solving a so-called pretext task without labels. This way, the model learns a representation that can be later transferred to solve a downstream task in a labeled (but smaller) dataset. In BiaPy we adopt two pretext tasks that you will need to choose with **pretext_task** variable below (controlled with ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK``). The pretext tasks implemented in BiaPy are these:
+
+* ``crappify``: To recover a worstened version of the input image as in (:cite:p:`franco2022deep`).
+* ``masking``: Random patches of the input image are masked and the network needs to reconstruct the missing pixels (:cite:p:`he2022masked`).
 
 * **Input:** 
     * Image. 
 * **Output:**
     * Pretrained model. 
 
-Each input image is used to create a worstened version of it and the model's task is to recover the input image from its worstened version. In the figure below an example of the two pair images used in this workflow is depicted:
+In the figure below an example of ``crappify`` pretext task input images are depicted:
 
 .. list-table::
 
@@ -50,7 +53,14 @@ To ensure the proper operation of the library the data directory tree should be 
 Problem resolution
 ~~~~~~~~~~~~~~~~~~
 
-Firstly, a **pre-processing** step is done where the input images are worstened by adding Gaussian noise and downsampling and upsampling them so the resolution gets worsen. This way, the images are stored in ``DATA.TRAIN.SSL_SOURCE_DIR``, ``DATA.VAL.SSL_SOURCE_DIR`` and ``DATA.TEST.SSL_SOURCE_DIR`` for train, validation and test data respectively. This way, the model will be input with the worstened version of images and will be trained to map it to its good version.  
+.. tabs::
+
+   .. tab:: Crappify
+        Firstly, a **pre-processing** step is done where the input images are worstened by adding Gaussian noise and downsampling and upsampling them so the resolution gets worsen. This way, the images are stored in ``DATA.TRAIN.SSL_SOURCE_DIR``, ``DATA.VAL.SSL_SOURCE_DIR`` and ``DATA.TEST.SSL_SOURCE_DIR`` for train, validation and test data respectively. This way, the model will be input with the worstened version of images and will be trained to map it to its good version.  
+
+   .. tab:: Masking
+
+        The model undergoes training by acquiring the skill to restore a concealed input image. This occurs in real-time during training, where random portions of the images are automatically obscured.
 
 After this training, the model should have learned some features of the images, which will be a good starting point in another training process. This way, if you re-train the model loading those learned model's weigths, which can be done enabling ``MODEL.LOAD_CHECKPOINT`` if you call BiaPy with the same ``--name`` option or setting ``PATHS.CHECKPOINT_FILE`` variable to point the file directly otherwise, the training process will be easier and faster than training from scratch. 
 
@@ -205,6 +215,8 @@ Following the example, you should see that the directory ``/home/user/exp_result
             │   ├── my_2d_self-supervised_1_*.png
             │   ├── my_2d_self-supervised_1_loss.png
             │   └── model_plot_my_2d_self-supervised_1.png
+            ├── MAE_checks
+            │   └── .tif files            
             ├── per_image
             │   └── .tif files
             ├── tensorboard
@@ -235,6 +247,16 @@ Following the example, you should see that the directory ``/home/user/exp_result
              * ``my_2d_self-supervised_1_loss.png``: Loss over epochs plot (when training is done). 
 
              * ``model_plot_my_2d_self-supervised_1.png``: plot of the model.
+
+        * ``MAE_checks``: MAE predictions. Only available if ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK`` is ``masking``.
+        
+            * ``*_original.tif``: Original image. 
+
+            * ``*_masked.tif``: Masked image inputed to the model. 
+
+            * ``*_reconstruction.tif``: Reconstructed image. 
+
+            * ``*_reconstruction_and_visible.tif``: Reconstructed image with the visible parts copied. 
 
         * ``per_image``:
 
