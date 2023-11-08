@@ -88,7 +88,7 @@ BiaPy can be installed and run locally on any Linux, Windows, or Mac OS platform
 
         To install `Docker <https://docs.docker.com/>`__ in your operating system, you can follow these steps:
 
-        * In **Windows**: You can install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__. Whenever you wan to run BiaPy though Docker you need to start Docker Desktop. 
+        * In **Windows**: You can install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__. Whenever you wan to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
 
         * In **Linux**: You will need to follow the steps described `here <https://docs.docker.com/desktop/install/linux-install/>`__. 
 
@@ -97,7 +97,7 @@ BiaPy can be installed and run locally on any Linux, Windows, or Mac OS platform
             sudo usermod -aG docker $USER
             newgrp docker
 
-        * In **macOS**: You can install `Docker Desktop <https://docs.docker.com/desktop/install/mac-install/>`__. Whenever you wan to run BiaPy though Docker you need to start Docker Desktop. 
+        * In **macOS**: You can install `Docker Desktop <https://docs.docker.com/desktop/install/mac-install/>`__. Whenever you wan to run BiaPy through Docker you need to start Docker Desktop. 
 
         The next step consist in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
 
