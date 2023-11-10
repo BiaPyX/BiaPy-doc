@@ -53,11 +53,12 @@ Choose your installation method
                     # Create and activate the environment
                     conda create -n BiaPy_env python=3.8
                     conda activate BiaPy_env
-                        
-                    # Install Pytorch and GPU dependencies    
-                    conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
 
-                    # Move to BiaPy folder and install the rest of dependecies
+                    # Option 1: Install the dependecies directly via pip
+                    pip install biapy
+
+                    # Option 2: Install Pytorch and GPU dependencies    
+                    conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
                     cd BiaPy
                     pip install --editable .
 
