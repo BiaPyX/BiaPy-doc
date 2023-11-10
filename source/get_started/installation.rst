@@ -3,13 +3,22 @@
 Installation
 ------------
 
-BiaPy can be installed and run locally on any Linux, Windows, or Mac OS platform using `Docker <https://www.docker.com/>`__ or via the command line with Anaconda/Miniconda and Git. Alternatively, BiaPy can also be used on `Google Colab <https://colab.research.google.com/>`__. Each of these approaches is designed for different types of experiences and users (select the installation based on your level of expertise).
+BiaPy can be installed and run locally on any Linux, Windows, or macOS platform using `Docker <https://www.docker.com/>`__ or via the command line with Anaconda/Miniconda and Git. Alternatively, BiaPy can also be used on `Google Colab <https://colab.research.google.com/>`__. Each of these approaches is designed for different types of experiences and users (select the installation based on your level of expertise).
 
 .. image:: ../img/how_to_run.svg
    :width: 80%
    :align: center 
 
 |
+
+Prerequisites 
+~~~~~~~~~~~~~
+
+* Update your `NVIDIA drivers <https://www.nvidia.com/download/index.aspx>`__ for you GPUs in your system. 
+* For Docker and graphical user interface (GUI) installations only: you will need to enable Virtualization Technology on your BIOS. Find here a useful `link <https://support.bluestacks.com/hc/en-us/articles/4409279876621-How-to-enable-Virtualization-VT-on-Windows-11-for-BlueStacks-5#%E2%80%9CA%E2%80%9D>`__ to do it. 
+
+Choose your installation method 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tabs::
 
@@ -31,18 +40,41 @@ BiaPy can be installed and run locally on any Linux, Windows, or Mac OS platform
 
             git clone https://github.com/danifranco/BiaPy.git
 
-        This will create a folder called ``BiaPy`` that contains all the files of the `library's official repository <https://github.com/danifranco/BiaPy>`__. Then you need to create a ``conda`` environment and install the dependencies ::
-            
-            # Create and activate the environment
-            conda create -n BiaPy_env python=3.8
-            conda activate BiaPy_env
-                
-            # Install Pytorch and GPU dependencies    
-            conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+        This will create a folder called ``BiaPy`` that contains all the files of the `library's official repository <https://github.com/danifranco/BiaPy>`__. Then you need to create a ``conda`` environment and install the dependencies.
 
-            # Move to BiaPy folder and install the rest of dependecies
-            cd BiaPy
-            pip install --editable . 
+        You need to check the CUDA version that you NVIDIA driver can handle. You can do that with ``nvidia-smi`` command in Linux/macOS or by running ``NVIDIA Control Panel`` in Windows. The driver information will tell you the maximum CUDA version it can handle. We here provide two stable installations, one based in CUDA ``11.8`` and another one with an older version of Pytorch and with CUDA ``10.2`` (BiaPy will work anyway). Once you have checked it, proceed with the installation depending on the CUDA version: 
+
+        .. tabs::
+
+           .. tab:: CUDA 11.8
+
+                ::
+
+                    # Create and activate the environment
+                    conda create -n BiaPy_env python=3.8
+                    conda activate BiaPy_env
+                        
+                    # Install Pytorch and GPU dependencies    
+                    conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+
+                    # Move to BiaPy folder and install the rest of dependecies
+                    cd BiaPy
+                    pip install --editable .
+
+           .. tab:: CUDA 10.2
+
+                ::
+
+                    # Create and activate the environment
+                    conda create -n BiaPy_env python=3.8
+                    conda activate BiaPy_env
+                        
+                    # Install Pytorch and GPU dependencies    
+                    conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=10.2 -c pytorch
+
+                    # Move to BiaPy folder and install the rest of dependecies
+                    cd BiaPy
+                    pip install --editable .
 
         Verify installation: ::
 
@@ -55,49 +87,64 @@ BiaPy can be installed and run locally on any Linux, Windows, or Mac OS platform
 
             conda activate BiaPy_env
 
-        .. note:: 
-            In this installation CUDA 11.8 is installed but if your machine does not support this version, check how you can see it with ``nvidia-smi`` command in the next section, you can find older versions `here <https://pytorch.org/get-started/previous-versions/>`__. 
-
         The next step consist in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
 
 
    .. tab:: Docker
 
-        Currently the docker image supports only CUDA version drivers above ``11.8``. To check your actual driver version you can type the following command in the terminal (note ``CUDA Version: 11.8`` in this example in the top right corner): ::
+        We have two container prepared to run BiaPy, one for the actual NVIDIA driver versions and another container for old drivers: 
 
-            $ nvidia-smi
-            +-----------------------------------------------------------------------------+
-            | NVIDIA-SMI 520.61.05    Driver Version: 520.61.05    CUDA Version: 11.8     |
-            |-------------------------------+----------------------+----------------------+
-            | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-            | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-            |                               |                      |               MIG M. |
-            |===============================+======================+======================|
-            |   0  NVIDIA GeForce ...  On   | 00000000:1C:00.0 Off |                  N/A |
-            | 30%   39C    P8    24W / 350W |      5MiB / 24576MiB |      0%      Default |
-            |                               |                      |                  N/A |
-            +-------------------------------+----------------------+----------------------+
+            * ``danifranco/biapy:latest-11.8``: Ubuntu ``22.04`` SO with Pytorch ``2.1`` installed supporting CUDA ``11.8``.
+            * ``danifranco/biapy:latest-10.2``: Ubuntu ``20.04`` SO with Pytorch ``1.12.1`` installed supporting CUDA ``10.2``.
 
-            +-----------------------------------------------------------------------------+
-            | Processes:                                                                  |
-            |  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
-            |        ID   ID                                                   Usage      |
-            |=============================================================================|
-            |    0   N/A  N/A      2104      G   /usr/lib/xorg/Xorg                  4MiB |
-            +-----------------------------------------------------------------------------+
-
+        You need to check the CUDA version that you NVIDIA driver can handle. You can do that with ``nvidia-smi`` command in Linux/macOS or by running ``NVIDIA Control Panel`` in Windows. The driver information will tell you the maximum CUDA version it can handle. Select one of the above containers depending on your GPU driver. For instance, if the CUDA version it can handle is ``12.0`` you can use ``danifranco/biapy:latest-11.8`` container. 
+        
         To install `Docker <https://docs.docker.com/>`__ in your operating system, you can follow these steps:
 
-        * In **Windows**: You can install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__. Whenever you wan to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
+        .. tabs::
 
-        * In **Linux**: You will need to follow the steps described `here <https://docs.docker.com/desktop/install/linux-install/>`__. 
+           .. tab:: Windows 
 
-        If you follow the steps and still have problems maybe you need to add your user to docker group: ::
-            
-            sudo usermod -aG docker $USER
-            newgrp docker
+                In Windows you will need to install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__ with Windows Subsystem for Linux (WSL) activated. There is a good video `here <https://www.youtube.com/watch?v=PB7zM3JrgkI>`__. Let's start the installation:
 
-        * In **macOS**: You can install `Docker Desktop <https://docs.docker.com/desktop/install/mac-install/>`__. Whenever you wan to run BiaPy through Docker you need to start Docker Desktop. 
+                * Install Ubuntu inside WSL. For that open PowerShell or Windows Command Prompt in administrator mode by right-clicking and selecting `Run as administrator` and type the following: :: 
+                    
+                        wsl --install
+
+                  This command will enable the features necessary to run WSL and install the Ubuntu distribution of Linux. Then restart your machine and you can do it again so you can check that it is already installed. 
+
+                  Once the installation ends it will ask for a username and a password. This is not necessary, exit the installation by using **Ctrl+C** or by closing the window.
+
+                  Then you need to make Ubuntu the default Linux distribution. List installed Linux distributions typing: ::
+
+                        wsl --list -verbose
+
+                  The one with * is the default configuration. So, if it is not Ubuntu, it can be changed by using the command: ::
+
+                        wsl --set-default Ubuntu
+
+                * Install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__. 
+
+                  Check that everything is correct by opening `Docker Desktop` application, going to `Configuration` (wheel icon in the right top corner), in `General` tab the option `WSL 2` should be checked. 
+                  
+                .. note::  
+                  Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
+
+           .. tab:: Linux  
+
+                You will need to follow the steps described `here <https://docs.docker.com/desktop/install/linux-install/>`__. 
+           
+                If you follow the steps and still have problems maybe you need to add your user to docker group: ::
+                    
+                    sudo usermod -aG docker $USER
+                    newgrp docker
+
+           .. tab:: macOS 
+
+                You need to install `Docker Desktop <https://docs.docker.com/desktop/install/mac-install/>`__. 
+
+                .. note::  
+                  Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
 
         The next step consist in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
 
@@ -107,3 +154,58 @@ BiaPy can be installed and run locally on any Linux, Windows, or Mac OS platform
         Nothing special is needed except a browser on your PC. You can run any of the avaialable workflows in BiaPy through Jupyter notebook using Google Colab by clicking in the "Open in colab" button in each workflow page's "Run" section. You can find all workflows in the left menu. 
 
         The next step consist in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
+
+   .. tab:: GUI
+
+        Download BiaPy GUI for you OS:
+
+        - `Windows 64-bit <https://github.com/danifranco/BiaPy-GUI/raw/main/dist-win/BiaPy.exe>`__ 
+        - `Linux 64-bit <https://github.com/danifranco/BiaPy-GUI/raw/main/dist-linux/BiaPy>`__ 
+        - `macOS 64-bit <https://github.com/danifranco/BiaPy-GUI/raw/main/dist-macOS/BiaPy-macOS.zip>`__
+        
+        Then, to use the GUI you will need to install `Docker <https://docs.docker.com/>`__ in your operating system. You can follow these steps:
+
+        .. tabs::
+
+           .. tab:: Windows 
+
+                In Windows you will need to install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__ with Windows Subsystem for Linux (WSL) activated. There is a good video on how you can do it `here <https://www.youtube.com/watch?v=PB7zM3JrgkI>`__. Manually, the steps are these:
+
+                * Install Ubuntu inside WSL. For that open PowerShell or Windows Command Prompt in administrator mode by right-clicking and selecting `Run as administrator` and type the following: :: 
+                    
+                        wsl --install
+
+                  This command will enable the features necessary to run WSL and install the Ubuntu distribution of Linux. Then restart your machine and you can do it again so you can check that it is already installed. 
+
+                  Once the installation ends it will ask for a username and a password. This is not necessary, exit the installation by using **Ctrl+C** or by closing the window.
+
+                  Then you need to make Ubuntu the default Linux distribution. List installed Linux distributions typing: ::
+
+                        wsl --list -verbose
+
+                  The one with * is the default configuration. So, if it is not Ubuntu, it can be changed by using the command: ::
+
+                        wsl --set-default Ubuntu
+
+                * Install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__. 
+
+                  Check that everything is correct by opening `Docker Desktop` application, going to `Configuration` (wheel icon in the right top corner), in `General` tab the option `WSL 2` should be checked. 
+                  
+                .. note::  
+                  Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
+
+           .. tab:: Linux  
+
+                You will need to follow the steps described `here <https://docs.docker.com/desktop/install/linux-install/>`__. 
+           
+                If you follow the steps and still have problems maybe you need to add your user to docker group: ::
+                    
+                    sudo usermod -aG docker $USER
+                    newgrp docker
+
+           .. tab:: macOS 
+
+                You need to install `Docker Desktop <https://docs.docker.com/desktop/install/mac-install/>`__. 
+
+                .. note::  
+                  Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
