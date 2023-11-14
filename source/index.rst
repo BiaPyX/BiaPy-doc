@@ -9,6 +9,8 @@ BiaPy: Bioimage analysis pipelines in Python
 
 The library provides an easy way to create image processing pipelines that are commonly used in the analysis of biology microscopy images in 2D and 3D. Specifically, BiaPy contains ready-to-use solutions for tasks such as `semantic segmentation <workflows/semantic_segmentation.html>`_, `instance segmentation <workflows/instance_segmentation.html>`_, `object detection <workflows/detection.html>`_, `image denoising <workflows/denoising.html>`_, `single image super-resolution <workflows/super_resolution.html>`_, `self-supervised learning <workflows/self_supervision.html>`_ and `image classification <workflows/classification.html>`_. The source code is based on Pytorch as the backend. As BiaPy's core is based on deep learning, it is recommended to use a machine with a graphics processing unit (GPU) for faster training and execution.                                                                        
    
+Find a gentle introduction to BiaPy `in this video <https://www.youtube.com/watch?v=t5cqpjWQS9Q>`_ presented by Ignacio Arganda-Carreras in `the Virtual Pub of Euro-BioImaging <https://www.eurobioimaging.eu/about-us/virtual-pub>`_ .
+
 .. toctree::
    :maxdepth: 1
    :caption: Get started
