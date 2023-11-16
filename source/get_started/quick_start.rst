@@ -5,7 +5,7 @@ Quick start
 
 There are several options available for executing BiaPy, namely GUI mode, utilizing Jupyter notebooks, deploying it via Docker, or employing the command-line interface (each of which demands varying levels of expertise). Once you have determined the **execution method** that aligns best with your proficiency, proceed by following the subsequent steps:
 
-* If you have opted for GUI mode, you may either `install <installation.html>`_ BiaPy or simply download it.
+* Follow the `installation steps <installation.html>`_ to use BiaPy.
 
 * `Select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
 

@@ -1,7 +1,23 @@
-FAQ
----
+Frequently Asked Questions (FAQ)
+--------------------------------
 
-The `Image.sc Forum <https://forum.image.sc/>`_ is the main discussion channel for BiaPy, hence we recommend to use it for any question or curisity related to it. Use a tag such as "biapy" so we can go through your questions.
+The `Image.sc Forum <https://forum.image.sc/>`_ is the main discussion channel for BiaPy, hence we recommend to use it for any question or curisity related to it. Use a tag such as ``biapy`` so we can go through your questions. Try to find out if the issue you are having has already been discussed or solved by other people. If not, feel free to create a new topic (please provide a clear and concise description to understand and ideally reproduce the issue you're having). 
+
+
+Installation
+~~~~~~~~~~~~
+
+* If double-clicking the BiaPy binary doesn't initiate the program, attempt starting it via the terminal to display any potential errors. For Linux users encountering a glibc error (something like ``version `GLIBC_2.34' not found``), particularly on Ubuntu ``20.04``, you can try the following: ::
+
+    sudo apt update
+    sudo apt install libc6 
+
+  If updating the glibc library to the necessary version (``2.33``) for starting the GUI is unsuccessful, you should consider upgrading to Ubuntu ``22.04``. This upgrade requires a limited number of commands, and there are numerous tutorials available on how to accomplish it. We recommend `this tutorial <https://www.cyberciti.biz/faq/upgrade-ubuntu-20-04-lts-to-22-04-lts/>`_. 
+
+General usage
+~~~~~~~~~~~~~
+
+* When using Docker or GUI on Windows, issues can arise with containers accessing network-mounted paths. If you encounter problems where certain paths are not detected, despite being accessible on your machine, consider using local paths instead.
 
 Train questions
 ~~~~~~~~~~~~~~~

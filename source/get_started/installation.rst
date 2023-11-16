@@ -204,9 +204,15 @@ Choose your installation method
                     sudo usermod -aG docker $USER
                     newgrp docker
 
+                To grant execution permission to the binary, enter the following command in a terminal: ::
+
+                    chmod +x BiaPy
+
            .. tab:: macOS 
 
                 You need to install `Docker Desktop <https://docs.docker.com/desktop/install/mac-install/>`__. 
 
                 .. note::  
                   Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
+
+        Then the only thing you need to do is double-click in BiaPy binary you downloaded. 
