@@ -1,7 +1,7 @@
 Init
 ----
 
-.. automodule:: engine
+.. automodule:: biapy.engine
     :members:
     :undoc-members:
     :show-inheritance:

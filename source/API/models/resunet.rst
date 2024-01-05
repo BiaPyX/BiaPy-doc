@@ -1,7 +1,7 @@
 Residual U-Net
 ~~~~~~~~~~~~~~
                                                                                 
-.. automodule:: models.resunet
+.. automodule:: biapy.models.resunet
     :members:                                                                   
     :undoc-members:                                                             
     :show-inheritance:   

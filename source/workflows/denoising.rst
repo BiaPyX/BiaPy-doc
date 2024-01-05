@@ -59,7 +59,7 @@ Please refer to `Noise2Void <https://arxiv.org/abs/1811.10980>`__  to understand
 
     * ``PROBLEM.DENOISING.N2V_NEIGHBORHOOD_RADIUS`` controls the radius of the neighborhood. This is the ``n2v_neighborhood_radius`` in their code. 
 
-    * ``PROBLEM.DENOISING.N2V_STRUCTMASK`` wheter to use `Struct Noise2Void <https://github.com/juglab/n2v/blob/main/examples/2D/structN2V_2D_convallaria/>`__. 
+    * ``PROBLEM.DENOISING.N2V_STRUCTMASK`` whether to use `Struct Noise2Void <https://github.com/juglab/n2v/blob/main/examples/2D/structN2V_2D_convallaria/>`__. 
 
 
 Run

@@ -88,7 +88,7 @@ Choose your installation method
 
             conda activate BiaPy_env
 
-        The next step consist in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
+        The next step consists in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
 
 
    .. tab:: Docker
@@ -147,14 +147,14 @@ Choose your installation method
                 .. note::  
                   Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
 
-        The next step consist in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
+        The next step consists in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
 
 
    .. tab:: Google Colab
 
         Nothing special is needed except a browser on your PC. You can run any of the avaialable workflows in BiaPy through Jupyter notebook using Google Colab by clicking in the "Open in colab" button in each workflow page's "Run" section. You can find all workflows in the left menu. 
 
-        The next step consist in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
+        The next step consists in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
 
    .. tab:: GUI
 

@@ -1,7 +1,7 @@
 UNETR
 ~~~~~
                                                                                 
-.. automodule:: models.unetr
+.. automodule:: biapy.models.unetr
     :members:                                                                   
     :undoc-members:                                                             
     :show-inheritance:         

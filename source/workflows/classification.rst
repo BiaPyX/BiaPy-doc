@@ -3,7 +3,7 @@
 Classification
 --------------
 
-The goal of this workflow is to assing a label to the input image. 
+The goal of this workflow is to assign a label to the input image. 
 
 * **Input:** 
     * Image. 

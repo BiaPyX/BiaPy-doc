@@ -1,7 +1,7 @@
 SE U-Net 
 ~~~~~~~~
                                                                                 
-.. automodule:: models.seunet
+.. automodule:: biapy.models.seunet
     :members:                                                                   
     :undoc-members:                                                             
     :show-inheritance:         
