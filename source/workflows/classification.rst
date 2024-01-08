@@ -51,7 +51,7 @@ pigmented skin lesions.
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-Each image label is obtained from the directory name in which that image resides. That is why is so important to follow the directory tree as described below. If you have a .csv file with each image label, as is provided by `MedMNIST v2 <https://medmnist.com/>`__, you can use our script `from_class_csv_to_folders.py <https://github.com/danifranco/BiaPy/blob/master/utils/scripts/from_class_csv_to_folders.py>`__ to create the directory tree as below: ::
+Each image label is obtained from the directory name in which that image resides. That is why is so important to follow the directory tree as described below. If you have a .csv file with each image label, as is provided by `MedMNIST v2 <https://medmnist.com/>`__, you can use our script `from_class_csv_to_folders.py <https://github.com/danifranco/BiaPy/blob/master/biapy/utils/scripts/from_class_csv_to_folders.py>`__ to create the directory tree as below: ::
     
     dataset/
     ├── train
