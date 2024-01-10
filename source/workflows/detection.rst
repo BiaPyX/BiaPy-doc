@@ -111,7 +111,7 @@ After the points have been created a **post-processing** step begins. In this wo
 Configuration file
 ~~~~~~~~~~~~~~~~~~
 
-Find in `templates/detection <https://github.com/danifranco/BiaPy/tree/master/templates/detection>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
+Find in `templates/detection <https://github.com/BiaPyX/BiaPy/tree/master/templates/detection>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
 
 
 Special workflow configuration
@@ -140,7 +140,7 @@ Run
 
    .. tab:: Command line
 
-        Open a terminal as described in :ref:`installation`. For instance, using `2d_detection.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/detection/2d_detection.yaml>`__ template file, the code can be run as follows:
+        Open a terminal as described in :ref:`installation`. For instance, using `2d_detection.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/detection/2d_detection.yaml>`__ template file, the code can be run as follows:
 
         .. code-block:: bash
             
@@ -188,7 +188,7 @@ Run
 
    .. tab:: Docker 
 
-        Open a terminal as described in :ref:`installation`. For instance, using `2d_detection.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/detection/2d_detection.yaml>`__ template file, the code can be run as follows:
+        Open a terminal as described in :ref:`installation`. For instance, using `2d_detection.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/detection/2d_detection.yaml>`__ template file, the code can be run as follows:
 
         .. code-block:: bash                                                                                                    
 
@@ -210,7 +210,7 @@ Run
                 --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
                 --mount type=bind,source=$result_dir,target=$result_dir \
                 --mount type=bind,source=$data_dir,target=$data_dir \
-                danifranco/biapy \
+                BiaPyX/biapy \
                     -cfg $job_cfg_file \
                     -rdir $result_dir \
                     -name $job_name \
@@ -225,10 +225,10 @@ Run
         Two different options depending on the image dimension: 
 
         .. |detection_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/detection/BiaPy_2D_Detection.ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/detection/BiaPy_2D_Detection.ipynb
 
         .. |detection_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/detection/BiaPy_3D_Detection.ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/detection/BiaPy_3D_Detection.ipynb
 
         * 2D: |detection_2D_colablink|
 

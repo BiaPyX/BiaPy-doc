@@ -28,7 +28,7 @@ Train questions
 
 * I have no enough memory in my computer to set ``DATA.TRAIN.IN_MEMORY``, so I've been using ``DATA.EXTRACT_RANDOM_PATCH``. However, the training process is slow. Also, I need to ensure the entire training image is visited every epoch, not just a random patch extracted from it. What should I do?
 
-    You can previously crop the data into patches of ``DATA.PATCH_SIZE`` you want to work with and disable ``DATA.EXTRACT_RANDOM_PATCH`` because all the images will have same shape. You can use `crop_2D_dataset.py <https://github.com/danifranco/BiaPy/blob/master/biapy/utils/scripts/crop_2D_dataset.py>`_ or `crop_3D_dataset.py <https://github.com/danifranco/BiaPy/blob/master/biapy/utils/scripts/crop_3D_dataset.py>`_ to crop the data.
+    You can previously crop the data into patches of ``DATA.PATCH_SIZE`` you want to work with and disable ``DATA.EXTRACT_RANDOM_PATCH`` because all the images will have same shape. You can use `crop_2D_dataset.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/crop_2D_dataset.py>`_ or `crop_3D_dataset.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/crop_3D_dataset.py>`_ to crop the data.
 
 Test/Inference questions
 ~~~~~~~~~~~~~~~~~~~~~~~~

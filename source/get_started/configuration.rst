@@ -33,9 +33,9 @@ As an example, a full pipeline for semantic segmentation can be created using th
             YZ_FILTERING: True
             
 
-In order to run BiaPy, a YAML configuration file must be created. Examples for each workflow can be found in the `templates <https://github.com/danifranco/BiaPy/tree/master/templates>`__ folder on the BiaPy GitHub repository. If you are unsure about which workflow is most suitable for your data, you can refer to the `Select Workflow <select_workflow.html>`__ page for guidance.
+In order to run BiaPy, a YAML configuration file must be created. Examples for each workflow can be found in the `templates <https://github.com/BiaPyX/BiaPy/tree/master/templates>`__ folder on the BiaPy GitHub repository. If you are unsure about which workflow is most suitable for your data, you can refer to the `Select Workflow <select_workflow.html>`__ page for guidance.
 
-The options for the configuration file can be found in the `config.py <https://github.com/danifranco/BiaPy/blob/master/biapy/config/config.py>`_ file on the BiaPy GitHub repository. However, some of the most commonly used options are explained below:
+The options for the configuration file can be found in the `config.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/config.py>`_ file on the BiaPy GitHub repository. However, some of the most commonly used options are explained below:
 
 System
 ~~~~~~
@@ -87,7 +87,7 @@ Two options are available for normalizing the data:
 Data augmentation
 ~~~~~~~~~~~~~~~~~
 
-The ``AUGMENTOR.ENABLE`` variable must be set to ``True`` to enable data augmentation (DA). The probability of each transformation is set using the ``AUGMENTOR.DA_PROB`` variable. BiaPy offers a wide range of transformations, which can be found in the `config.py <https://github.com/danifranco/BiaPy/blob/master/biapy/config/config.py>`__ file in the BiaPy repository on GitHub.
+The ``AUGMENTOR.ENABLE`` variable must be set to ``True`` to enable data augmentation (DA). The probability of each transformation is set using the ``AUGMENTOR.DA_PROB`` variable. BiaPy offers a wide range of transformations, which can be found in the `config.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/config.py>`__ file in the BiaPy repository on GitHub.
 
 Images generated using data augmentation will be saved in the ``PATHS.DA_SAMPLES`` directory (which is ``aug`` by default). This allows you to check the data augmentation applied to the images. If you want a more exhaustive check, you can save all the augmented training data by enabling ``DATA.CHECK_GENERATORS``. The images will be saved in ``PATHS.GEN_CHECKS`` and ``PATHS.GEN_MASK_CHECKS``. Be aware that this option can consume a large amount of disk space as the training data will be entirely copied.
 

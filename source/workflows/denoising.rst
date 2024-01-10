@@ -45,7 +45,7 @@ To ensure the proper operation of the library the data directory tree should be 
 Configuration file
 ~~~~~~~~~~~~~~~~~~
 
-Find in `templates/denoising <https://github.com/danifranco/BiaPy/tree/master/templates/denoising>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
+Find in `templates/denoising <https://github.com/BiaPyX/BiaPy/tree/master/templates/denoising>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
 
 
 Special workflow configuration
@@ -69,7 +69,7 @@ Run
 
    .. tab:: Command line
 
-        Open a terminal as described in :ref:`installation`. For instance, using `2d_denoising.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/denoising/2d_denoising.yaml>`__ template file, the code can be run as follows:
+        Open a terminal as described in :ref:`installation`. For instance, using `2d_denoising.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/denoising/2d_denoising.yaml>`__ template file, the code can be run as follows:
 
         .. code-block:: bash
             
@@ -117,7 +117,7 @@ Run
 
    .. tab:: Docker
 
-        Open a terminal as described in :ref:`installation`. For instance, using `2d_denoising.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/denoising/2d_denoising.yaml>`__ template file, the code can be run as follows:
+        Open a terminal as described in :ref:`installation`. For instance, using `2d_denoising.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/denoising/2d_denoising.yaml>`__ template file, the code can be run as follows:
 
         .. code-block:: bash                                                                                                    
 
@@ -139,7 +139,7 @@ Run
                 --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
                 --mount type=bind,source=$result_dir,target=$result_dir \
                 --mount type=bind,source=$data_dir,target=$data_dir \
-                danifranco/biapy \
+                BiaPyX/biapy \
                     -cfg $job_cfg_file \
                     -rdir $result_dir \
                     -name $job_name \
@@ -154,10 +154,10 @@ Run
         Two different options depending on the image dimension: 
 
         .. |denoising_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/denoising/BiaPy_2D_Denoising.ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/denoising/BiaPy_2D_Denoising.ipynb
 
         .. |denoising_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/denoising/BiaPy_3D_Denoising.ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/denoising/BiaPy_3D_Denoising.ipynb
 
         * 2D: |denoising_2D_colablink|
 

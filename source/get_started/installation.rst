@@ -36,11 +36,11 @@ Choose your installation method
         * In **macOS**: You already have the Bash terminal installed on your system, so you can simply open it. If you have never used it before, you can find more information `here <https://support.apple.com/en-ie/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac>`__.
         * In **Linux**: You already have the Bash terminal installed on your system, so you can simply open it. If you have never used it before, you can find more information `here <https://www.geeksforgeeks.org/how-to-open-terminal-in-linux/>`__.
 
-        Then, you are prepared to download `BiaPy <https://github.com/danifranco/BiaPy>`__ repository by running this command in the terminal ::
+        Then, you are prepared to download `BiaPy <https://github.com/BiaPyX/BiaPy>`__ repository by running this command in the terminal ::
 
-            git clone https://github.com/danifranco/BiaPy.git
+            git clone https://github.com/BiaPyX/BiaPy.git
 
-        This will create a folder called ``BiaPy`` that contains all the files of the `library's official repository <https://github.com/danifranco/BiaPy>`__. Then you need to create a ``conda`` environment and install the dependencies.
+        This will create a folder called ``BiaPy`` that contains all the files of the `library's official repository <https://github.com/BiaPyX/BiaPy>`__. Then you need to create a ``conda`` environment and install the dependencies.
 
         You need to check the CUDA version that you NVIDIA driver can handle. You can do that with ``nvidia-smi`` command in Linux/macOS or by running ``NVIDIA Control Panel`` in Windows. The driver information will tell you the maximum CUDA version it can handle. We here provide two stable installations, one based in CUDA ``11.8`` and another one with an older version of Pytorch and with CUDA ``10.2`` (BiaPy will work anyway). Once you have checked it, proceed with the installation depending on the CUDA version: 
 
@@ -95,10 +95,10 @@ Choose your installation method
 
         We have two container prepared to run BiaPy, one for the actual NVIDIA driver versions and another container for old drivers: 
 
-            * ``danifranco/biapy:latest-11.8``: Ubuntu ``22.04`` SO with Pytorch ``2.1`` installed supporting CUDA ``11.8``.
-            * ``danifranco/biapy:latest-10.2``: Ubuntu ``20.04`` SO with Pytorch ``1.12.1`` installed supporting CUDA ``10.2``.
+            * ``BiaPyX/biapy:latest-11.8``: Ubuntu ``22.04`` SO with Pytorch ``2.1`` installed supporting CUDA ``11.8``.
+            * ``BiaPyX/biapy:latest-10.2``: Ubuntu ``20.04`` SO with Pytorch ``1.12.1`` installed supporting CUDA ``10.2``.
 
-        You need to check the CUDA version that you NVIDIA driver can handle. You can do that with ``nvidia-smi`` command in Linux/macOS or by running ``NVIDIA Control Panel`` in Windows. The driver information will tell you the maximum CUDA version it can handle. Select one of the above containers depending on your GPU driver. For instance, if the CUDA version it can handle is ``12.0`` you can use ``danifranco/biapy:latest-11.8`` container. 
+        You need to check the CUDA version that you NVIDIA driver can handle. You can do that with ``nvidia-smi`` command in Linux/macOS or by running ``NVIDIA Control Panel`` in Windows. The driver information will tell you the maximum CUDA version it can handle. Select one of the above containers depending on your GPU driver. For instance, if the CUDA version it can handle is ``12.0`` you can use ``BiaPyX/biapy:latest-11.8`` container. 
         
         To install `Docker <https://docs.docker.com/>`__ in your operating system, you can follow these steps:
 
@@ -160,9 +160,9 @@ Choose your installation method
 
         Download BiaPy GUI for you OS:
 
-        - `Windows 64-bit <https://github.com/danifranco/BiaPy-GUI/raw/main/dist-win/BiaPy.exe>`__ 
-        - `Linux 64-bit <https://github.com/danifranco/BiaPy-GUI/raw/main/dist-linux/BiaPy>`__ 
-        - `macOS 64-bit <https://github.com/danifranco/BiaPy-GUI/raw/main/dist-macOS/BiaPy-macOS.zip>`__
+        - `Windows 64-bit <https://github.com/BiaPyX/BiaPy-GUI/raw/main/dist-win/BiaPy.exe>`__ 
+        - `Linux 64-bit <https://github.com/BiaPyX/BiaPy-GUI/raw/main/dist-linux/BiaPy>`__ 
+        - `macOS 64-bit <https://github.com/BiaPyX/BiaPy-GUI/raw/main/dist-macOS/BiaPy-macOS.zip>`__
         
         Then, to use the GUI you will need to install `Docker <https://docs.docker.com/>`__ in your operating system. You can follow these steps:
 

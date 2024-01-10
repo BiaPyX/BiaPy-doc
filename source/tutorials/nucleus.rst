@@ -38,12 +38,12 @@ done over the whole Zebrafish volume. Here is a training sample and its ground t
 Data preparation
 ~~~~~~~~~~~~~~~~
       
-You need to download NucMM dataset first from these `link <https://drive.google.com/drive/folders/1_4CrlYvzx0ITnGlJOHdgcTRgeSkm9wT8>`__. Once you have donwloaded this data you need to create a directory tree as described in :ref:`instance_segmentation_data_prep`. To adapt the ``.h5`` file format provided by MitoEM authors into ``.tif`` files you can use the script `h5_to_tif.py <https://github.com/danifranco/BiaPy/blob/master/biapy/utils/scripts/h5_to_tif.py>`__.
+You need to download NucMM dataset first from these `link <https://drive.google.com/drive/folders/1_4CrlYvzx0ITnGlJOHdgcTRgeSkm9wT8>`__. Once you have donwloaded this data you need to create a directory tree as described in :ref:`instance_segmentation_data_prep`. To adapt the ``.h5`` file format provided by MitoEM authors into ``.tif`` files you can use the script `h5_to_tif.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/h5_to_tif.py>`__.
 
 Configuration file
 ~~~~~~~~~~~~~~~~~~
 
-To create the YAML file you can use the template `resunet_3d_instances.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/resunet_3d_instances.yaml>`_ which is prepared for this tutorial.
+To create the YAML file you can use the template `resunet_3d_instances.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/resunet_3d_instances.yaml>`_ which is prepared for this tutorial.
 
 Run
 ~~~

@@ -51,7 +51,7 @@ pigmented skin lesions.
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-Each image label is obtained from the directory name in which that image resides. That is why is so important to follow the directory tree as described below. If you have a .csv file with each image label, as is provided by `MedMNIST v2 <https://medmnist.com/>`__, you can use our script `from_class_csv_to_folders.py <https://github.com/danifranco/BiaPy/blob/master/biapy/utils/scripts/from_class_csv_to_folders.py>`__ to create the directory tree as below: ::
+Each image label is obtained from the directory name in which that image resides. That is why is so important to follow the directory tree as described below. If you have a .csv file with each image label, as is provided by `MedMNIST v2 <https://medmnist.com/>`__, you can use our script `from_class_csv_to_folders.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/from_class_csv_to_folders.py>`__ to create the directory tree as below: ::
     
     dataset/
     ├── train
@@ -96,7 +96,7 @@ Here each directory is a number but it can be any string. Notice that they will 
 Configuration file
 ~~~~~~~~~~~~~~~~~~
 
-Find in `templates/classification <https://github.com/danifranco/BiaPy/tree/master/templates/classification>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
+Find in `templates/classification <https://github.com/BiaPyX/BiaPy/tree/master/templates/classification>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
 
 
 Special workflow configuration
@@ -113,7 +113,7 @@ Run
 
    .. tab:: Command line 
 
-        Open a terminal as described in :ref:`installation`. For instance, using `2d_classification.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/classification/2d_classification.yaml>`__ template file, the code can be run as follows:
+        Open a terminal as described in :ref:`installation`. For instance, using `2d_classification.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/classification/2d_classification.yaml>`__ template file, the code can be run as follows:
 
         .. code-block:: bash
             
@@ -160,7 +160,7 @@ Run
 
    .. tab:: Docker
 
-        Open a terminal as described in :ref:`installation`. For instance, using `2d_classification.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/classification/2d_classification.yaml>`__ template file, the code can be run as follows:
+        Open a terminal as described in :ref:`installation`. For instance, using `2d_classification.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/classification/2d_classification.yaml>`__ template file, the code can be run as follows:
 
         .. code-block:: bash                                                                                                    
 
@@ -182,7 +182,7 @@ Run
                 --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
                 --mount type=bind,source=$result_dir,target=$result_dir \
                 --mount type=bind,source=$data_dir,target=$data_dir \
-                danifranco/biapy \
+                BiaPyX/biapy \
                     -cfg $job_cfg_file \
                     -rdir $result_dir \
                     -name $job_name \
@@ -197,10 +197,10 @@ Run
         Two different options depending on the image dimension:
 
         .. |class_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/classification/BiaPy_2D_Classification.ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/classification/BiaPy_2D_Classification.ipynb
 
         .. |class_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/classification/BiaPy_3D_Classification.ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/classification/BiaPy_3D_Classification.ipynb
 
         * 2D: |class_2D_colablink|
 

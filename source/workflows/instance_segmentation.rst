@@ -169,7 +169,7 @@ After the instances have been created a **post-processing** step begins. In this
 Configuration file
 ~~~~~~~~~~~~~~~~~~
 
-Find in `templates/instance_segmentation <https://github.com/danifranco/BiaPy/tree/master/templates/instance_segmentation>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
+Find in `templates/instance_segmentation <https://github.com/BiaPyX/BiaPy/tree/master/templates/instance_segmentation>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
 
 
 Special workflow configuration
@@ -194,7 +194,7 @@ Run
 
    .. tab:: Command line
 
-      Open a terminal as described in :ref:`installation`. For instance, using `3d_instance_segmentation.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file, the code can be run as follows:
+      Open a terminal as described in :ref:`installation`. For instance, using `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file, the code can be run as follows:
 
       .. code-block:: bash
           
@@ -241,7 +241,7 @@ Run
       
    .. tab:: Docker 
 
-      Open a terminal as described in :ref:`installation`. For instance, using `3d_instance_segmentation.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file, the code can be run as follows:
+      Open a terminal as described in :ref:`installation`. For instance, using `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file, the code can be run as follows:
 
       .. code-block:: bash                                                                                                    
 
@@ -263,7 +263,7 @@ Run
               --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
               --mount type=bind,source=$result_dir,target=$result_dir \
               --mount type=bind,source=$data_dir,target=$data_dir \
-              danifranco/biapy \
+              BiaPyX/biapy \
                   -cfg $job_cfg_file \
                   -rdir $result_dir \
                   -name $job_name \
@@ -278,10 +278,10 @@ Run
       Two different options depending on the image dimension: 
 
       .. |inst_seg_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-          :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_2D_Instance_Segmentation.ipynb
+          :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_2D_Instance_Segmentation.ipynb
 
       .. |inst_seg_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-          :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_3D_Instance_Segmentation.ipynb
+          :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_3D_Instance_Segmentation.ipynb
 
       * 2D: |inst_seg_2D_colablink|
 

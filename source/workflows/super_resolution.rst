@@ -62,7 +62,7 @@ To ensure the proper operation of the library the data directory tree should be 
 Configuration                                                                                                                 
 ~~~~~~~~~~~~~
 
-Find in `templates/super-resolution <https://github.com/danifranco/BiaPy/tree/master/templates/super-resolution>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
+Find in `templates/super-resolution <https://github.com/BiaPyX/BiaPy/tree/master/templates/super-resolution>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
 
 
 Special workflow configuration
@@ -83,7 +83,7 @@ Run
 
    .. tab:: Command line
 
-        Open a terminal as described in :ref:`installation`. For instance, using `2d_super-resolution.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/super_resolution/2d_super-resolution.yaml>`__ template file, the code can be run as follows:
+        Open a terminal as described in :ref:`installation`. For instance, using `2d_super-resolution.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/super_resolution/2d_super-resolution.yaml>`__ template file, the code can be run as follows:
 
         .. code-block:: bash
             
@@ -131,7 +131,7 @@ Run
 
    .. tab:: Docker
 
-        Open a terminal as described in :ref:`installation`. For instance, using `2d_super-resolution.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/super_resolution/2d_super-resolution.yaml>`__ template file, the code can be run as follows:
+        Open a terminal as described in :ref:`installation`. For instance, using `2d_super-resolution.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/super_resolution/2d_super-resolution.yaml>`__ template file, the code can be run as follows:
 
         .. code-block:: bash                                                                                                    
 
@@ -153,7 +153,7 @@ Run
                 --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
                 --mount type=bind,source=$result_dir,target=$result_dir \
                 --mount type=bind,source=$data_dir,target=$data_dir \
-                danifranco/biapy \
+                BiaPyX/biapy \
                     -cfg $job_cfg_file \
                     -rdir $result_dir \
                     -name $job_name \
@@ -168,10 +168,10 @@ Run
         Two different options depending on the image dimension: 
 
         .. |sr_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/super-resolution/BiaPy_2D_Super_Resolution.ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/super-resolution/BiaPy_2D_Super_Resolution.ipynb
 
         .. |sr_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/danifranco/BiaPy/blob/master/notebooks/super-resolution/BiaPy_3D_Super_Resolution.ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/super-resolution/BiaPy_3D_Super_Resolution.ipynb
 
         * 2D: |sr_2D_colablink|
 

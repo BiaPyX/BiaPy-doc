@@ -65,7 +65,7 @@ Once you have donwloaded this data you need to create a directory tree as descri
 Configuration file
 ~~~~~~~~~~~~~~~~~~
 
-To reproduce the exact results of our manuscript you need to use `mitoem.yaml <https://github.com/danifranco/BiaPy/blob/master/templates/instance_segmentation/MitoEM_paper/mitoem.yaml>`__ configuration file.  
+To reproduce the exact results of our manuscript you need to use `mitoem.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/MitoEM_paper/mitoem.yaml>`__ configuration file.  
 
 Then you need to modify ``TRAIN.PATH`` and ``TRAIN.GT_PATH`` with your training data path of EM images and labels respectively. In the same way, do it for the validation data with ``VAL.PATH`` and ``VAL.GT_PATH`` and for the test setting ``TEST.PATH``. 
 
@@ -96,6 +96,6 @@ MitoEM challenge submission
 
 There is a open challenge for MitoEM dataset: https://mitoem.grand-challenge.org/
 
-To prepare ``.h5`` files from resulting instance predictions in ``.tif`` format you can use the script `tif_to_h5.py <https://github.com/danifranco/BiaPy/blob/master/biapy/utils/scripts/tif_to_h5.py>`_. The instances of both Human and Rat tissue need to be provided 
+To prepare ``.h5`` files from resulting instance predictions in ``.tif`` format you can use the script `tif_to_h5.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/tif_to_h5.py>`_. The instances of both Human and Rat tissue need to be provided 
 (files must be named as ``0_human_instance_seg_pred.h5`` and ``1_rat_instance_seg_pred.h5`` respectively). Find the full
 details in the `challenge's evaluation page <https://mitoem.grand-challenge.org/Evaluation/>`__. 

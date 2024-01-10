@@ -25,7 +25,7 @@ biapy_dir = os.path.join(dir_path, "..","..", "BiaPy")
 if not os.path.exists(biapy_dir):
     os.makedirs(biapy_dir, exist_ok=True)
     print("Cloning BiaPy repo . . .")
-    Repo.clone_from("https://github.com/danifranco/BiaPy", biapy_dir)
+    Repo.clone_from("https://github.com/BiaPyX/BiaPy", biapy_dir)
 
 base_path = os.path.abspath(biapy_dir)
 sys.path.insert(0, base_path)
