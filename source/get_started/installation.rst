@@ -160,9 +160,9 @@ Choose your installation method
 
         Download BiaPy GUI for you OS:
 
-        - `Windows 64-bit <https://github.com/BiaPyX/BiaPy-GUI/raw/main/dist-win/BiaPy.exe>`__ 
-        - `Linux 64-bit <https://github.com/BiaPyX/BiaPy-GUI/raw/main/dist-linux/BiaPy>`__ 
-        - `macOS 64-bit <https://github.com/BiaPyX/BiaPy-GUI/raw/main/dist-macOS/BiaPy-macOS.zip>`__
+        - `Windows 64-bit <https://drive.google.com/file/d/1iV0wzdFhpCpBCBgsameGyT3iFyQ6av5o/view?usp=drive_link>`__ 
+        - `Linux 64-bit <https://drive.google.com/file/d/13jllkLTR6S3yVZLRdMwhWUu7lq3HyJsD/view?usp=drive_link>`__ 
+        - `macOS 64-bit <https://drive.google.com/file/d/1fIpj9A8SWIN1fABEUAS--DNhOHzqSL7f/view?usp=drive_link>`__
         
         Then, to use the GUI you will need to install `Docker <https://docs.docker.com/>`__ in your operating system. You can follow these steps:
 
