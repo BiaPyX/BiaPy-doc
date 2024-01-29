@@ -95,10 +95,10 @@ Choose your installation method
 
         We have two containers prepared to run BiaPy, one for the actual NVIDIA driver versions and another container for old drivers: 
 
-            * ``danifranco/biapy:latest-11.8``: Ubuntu ``22.04`` SO with Pytorch ``2.1`` installed supporting CUDA ``11.8``.
-            * ``danifranco/biapy:latest-10.2``: Ubuntu ``20.04`` SO with Pytorch ``1.12.1`` installed supporting CUDA ``10.2``.
+            * ``biapyx/biapy:latest-11.8``: Ubuntu ``22.04`` SO with Pytorch ``2.1`` installed supporting CUDA ``11.8``.
+            * ``biapyx/biapy:latest-10.2``: Ubuntu ``20.04`` SO with Pytorch ``1.12.1`` installed supporting CUDA ``10.2``.
 
-        You need to check the CUDA version that you NVIDIA driver can handle. You can do that with ``nvidia-smi`` command in Linux/macOS or by running ``NVIDIA Control Panel`` in Windows. The driver information will tell you the maximum CUDA version it can handle. Select one of the above containers depending on your GPU driver. For instance, if the CUDA version it can handle is ``12.0`` you can use ``danifranco/biapy:latest-11.8`` container. 
+        You need to check the CUDA version that you NVIDIA driver can handle. You can do that with ``nvidia-smi`` command in Linux/macOS or by running ``NVIDIA Control Panel`` in Windows. The driver information will tell you the maximum CUDA version it can handle. Select one of the above containers depending on your GPU driver. For instance, if the CUDA version it can handle is ``12.0`` you can use ``biapyx/biapy:latest-11.8`` container. 
         
         To install `Docker <https://docs.docker.com/>`__ in your operating system, you can follow these steps:
 
