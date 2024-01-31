@@ -82,60 +82,52 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
 Citation
 ========
 
-This repository is the base of the following works: ::
-
-   @inproceedings{franco2023biapy,
-      title={BiaPy: a ready-to-use library for Bioimage Analysis Pipelines},
-      author={Franco-Barranco, Daniel and Andr{\'e}s-San Rom{\'a}n, Jes{\'u}s A and G{\'o}mez-G{\'a}lvez, Pedro and Escudero, Luis M and Mu{\~n}oz-Barrutia, Arrate and Arganda-Carreras, Ignacio},
-      booktitle={2023 IEEE 20th International Symposium on Biomedical Imaging (ISBI)},
-      pages={1--5},
-      year={2023},
-      organization={IEEE}
-   }
+.. code-block:: text
+    
+   Franco-Barranco, Daniel, et al. "BiaPy: a ready-to-use library for Bioimage Analysis 
+   Pipelines." 2023 IEEE 20th International Symposium on Biomedical Imaging (ISBI). 
+   IEEE, 2023.
    
-   @article {Andr{\'e}s-San Rom{\'a}n2023.01.05.522724,
-      author = {Jes{\'u}s A. Andr{\'e}s-San Rom{\'a}n and Carmen Gordillo-V{\'a}zquez and Daniel Franco-Barranco and Laura Morato and Cecilia H. Fern{\'a}ndez-Espartero and Gabriel Baonza and Antonio Tagua and Pablo Vicente-Munuera and Ana M. Palacios and Mar{\'\i}a P. Gavil{\'a}n and Fernando Mart{\'\i}n-Belmonte and Valentina Annese and Pedro G{\'o}mez-G{\'a}lvez and Ignacio Arganda-Carreras and Luis M. Escudero},
-      title = {CartoCell, a high-content pipeline for 3D image analysis, unveils cell morphology patterns in epithelia},
-      elocation-id = {2023.01.05.522724},
-      year = {2023},
-      doi = {10.1101/2023.01.05.522724},
-      publisher = {Cold Spring Harbor Laboratory},
-      URL = {https://www.biorxiv.org/content/early/2023/08/31/2023.01.05.522724},
-      eprint = {https://www.biorxiv.org/content/early/2023/08/31/2023.01.05.522724.full.pdf},
-      journal = {bioRxiv}
-   }
 
-   @article{franco2022domain,
-      title = {Deep learning based domain adaptation for mitochondria segmentation on EM volumes},
-      journal = {Computer Methods and Programs in Biomedicine},
-      volume = {222},
-      pages = {106949},
-      year = {2022},
-      publisher={Elsevier}
-      issn = {0169-2607},
-      doi = {https://doi.org/10.1016/j.cmpb.2022.106949},
-      url = {https://www.sciencedirect.com/science/article/pii/S0169260722003315},
-      author={Franco-Barranco, Daniel and Pastor-Tronch, Julio and Gonz{\'a}lez-Marfil, Aitor and Mu{\~n}oz-Barrutia, Arrate and Arganda-Carreras, Ignacio},
-   }
+Applications using BiaPy
+========================
 
-   @Article{Franco-Barranco2021,                                                                                           
-      author={Franco-Barranco, Daniel and Muñoz-Barrutia, Arrate and Arganda-Carreras, Ignacio},                        
-      title={Stable Deep Neural Network Architectures for Mitochondria Segmentation on Electron Microscopy Volumes},          
-      journal={Neuroinformatics},                                                                                             
-      year={2021},                                                                                                            
-      month={Dec},                                                                                                            
-      day={02},                                                                                                               
-      issn={1559-0089},                                                                                                       
-      doi={10.1007/s12021-021-09556-1},                                                                                       
-      url={https://doi.org/10.1007/s12021-021-09556-1}                                                                        
-   }        
+.. code-block:: text
+    
+   López-Cano, Daniel, et al. "Characterizing structure formation through instance 
+   segmentation." arXiv preprint arXiv:2311.12110 (2023).
 
-  @inproceedings{wei2020mitoem,
-      title={MitoEM dataset: large-scale 3D mitochondria instance segmentation from EM images},
-      author={Wei, Donglai and Lin, Zudi and Franco-Barranco, Daniel and Wendt, Nils and Liu, Xingyu and Yin, Wenjie and Huang, Xin and Gupta, Aarush and Jang, Won-Dong and Wang, Xueying and others},
-      booktitle={International Conference on Medical Image Computing and Computer-Assisted Intervention},
-      pages={66--76},
-      year={2020},
-      organization={Springer}
-  }
+.. code-block:: text
+
+   Franco-Barranco, Daniel, et al. "Current Progress and Challenges in Large-scale 3D 
+   Mitochondria Instance Segmentation." IEEE transactions on medical imaging (2023).
+
+.. code-block:: text
+
+   Backová, Lenka, et al. "Modeling Wound Healing Using Vector Quantized Variational 
+   Autoencoders and Transformers." 2023 IEEE 20th International Symposium on Biomedical 
+   Imaging (ISBI). IEEE, 2023.
+
+.. code-block:: text
+
+   Andres-San Roman, Jesus A., et al. "CartoCell, a high-content pipeline for 3D image 
+   analysis, unveils cell morphology patterns in epithelia." Cell Reports Methods 3.10 (2023).
+
+.. code-block:: text
+
+   Franco-Barranco, Daniel, et al. "Deep learning based domain adaptation for mitochondria 
+   segmentation on EM volumes." Computer Methods and Programs in Biomedicine 222 (2022): 
+   106949.
+
+.. code-block:: text
+
+   Franco-Barranco, Daniel, Arrate Muñoz-Barrutia, and Ignacio Arganda-Carreras. "Stable 
+   deep neural network architectures for mitochondria segmentation on electron microscopy 
+   volumes." Neuroinformatics 20.2 (2022): 437-450.       
+
+.. code-block:: text
+
+   Wei, Donglai, et al. "Mitoem dataset: Large-scale 3d mitochondria instance segmentation 
+   from em images." International Conference on Medical Image Computing and Computer-Assisted 
+   Intervention. Cham: Springer International Publishing, 2020.
   

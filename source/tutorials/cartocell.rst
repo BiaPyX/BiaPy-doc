@@ -26,9 +26,13 @@ This tutorial describes how to train and infer using our custom ResU-Net 3D DNN 
         Cyst label image
 
 
-Paper citation: :: 
+Paper citation: 
 
-    Andres-San Roman, Jesus A., et al. "CartoCell, a high-content pipeline for 3D image analysis, unveils cell morphology patterns in epithelia." Cell Reports Methods 3.10 (2023).
+.. code-block:: text
+    
+    Andres-San Roman, Jesus A., et al. "CartoCell, a high-content pipeline for 3D image 
+    analysis, unveils cell morphology patterns in epithelia." Cell Reports Methods 
+    3.10 (2023).
 
 
 CartoCell phases

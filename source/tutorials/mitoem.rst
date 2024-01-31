@@ -4,17 +4,15 @@ MitoEM dataset: large-scale 3d mitochondria instance segmentation
 -----------------------------------------------------------------
 
 This tutorial describes how to reproduce the results reported in our paper, concretely 
-``U2D-BC`` to make instance segmentation of mitochondria in electron microscopy (EM) images: ::
+``U2D-BC`` to make instance segmentation of mitochondria in electron microscopy (EM) images: 
 
-  @inproceedings{wei2020mitoem,
-                title={MitoEM dataset: large-scale 3D mitochondria instance segmentation from EM images},
-                author={Wei, Donglai and Lin, Zudi and Franco-Barranco, Daniel and Wendt, Nils and Liu, Xingyu and Yin, Wenjie and Huang, Xin and Gupta, Aarush and Jang, Won-Dong and Wang, Xueying and others},
-                booktitle={International Conference on Medical Image Computing and Computer-Assisted Intervention},
-                pages={66--76},
-                year={2020},
-                organization={Springer}
-  }
-  
+.. code-block:: text
+
+  Wei, Donglai, et al. "Mitoem dataset: Large-scale 3d mitochondria instance segmentation 
+  from em images." International Conference on Medical Image Computing and Computer-Assisted 
+  Intervention. Cham: Springer International Publishing, 2020.
+
+
 Problem description
 ~~~~~~~~~~~~~~~~~~~
 

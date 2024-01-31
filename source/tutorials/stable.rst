@@ -5,19 +5,13 @@ Stable DNN architectures for mitochondria segmentation
 
 
 This tutorial describes how to reproduce the results reported in our paper to 
-make semantic segmentation of mitochondria in electron microscopy (EM) images: ::
+make semantic segmentation of mitochondria in electron microscopy (EM) images: 
 
-    @Article{Franco-Barranco2021,
-        author={Franco-Barranco, Daniel and Mu\~{n}oz-Barrutia, Arrate and Arganda-Carreras, Ignacio},
-        title={Stable Deep Neural Network Architectures for Mitochondria Segmentation on Electron Microscopy Volumes},
-        journal={Neuroinformatics},
-        year={2021},
-        month={Dec},
-        day={02},
-        issn={1559-0089},
-        doi={10.1007/s12021-021-09556-1},
-        url={https://doi.org/10.1007/s12021-021-09556-1}
-    }
+.. code-block:: text
+    
+    Franco-Barranco, Daniel, Arrate Muñoz-Barrutia, and Ignacio Arganda-Carreras. "Stable 
+    deep neural network architectures for mitochondria segmentation on electron microscopy 
+    volumes." Neuroinformatics 20.2 (2022): 437-450.
 
 
 Problem description
@@ -43,8 +37,6 @@ Installation
 Apart from the steps described in :ref:`installation`, to reproduce exact results of our paper you need to use the `V1.0 <https://github.com/BiaPyX/BiaPy/releases/tag/v1.0>`__ version of our library. For that, you simply need to run this command in the `terminal </get_started/faq.html#opening-a-terminal>`__ ::
 
     git checkout v1.0
-
-If you need help to `open a terminal </get_started/faq.html#opening-a-terminal>`__ find help in :ref:`installation_command_line`. 
 
 Data preparation
 ~~~~~~~~~~~~~~~~
