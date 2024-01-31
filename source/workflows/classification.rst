@@ -114,7 +114,7 @@ Run
 
         Select classification workflow during the creation of a new configuration file:
 
-        .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-GUI/main/images/gui/biapy_gui_classification.jpg
+        .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-doc/master/source/img/gui/biapy_gui_classification.jpg
             :align: center 
 
    .. tab:: Google Colab 

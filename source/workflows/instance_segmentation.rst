@@ -195,7 +195,7 @@ Run
 
         Select instance segmentation workflow during the creation of a new configuration file:
 
-        .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-GUI/main/images/gui/biapy_gui_instance_seg.jpg
+        .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-doc/master/source/img/gui/biapy_gui_instance_seg.jpg
             :align: center 
 
    .. tab:: Google Colab 
