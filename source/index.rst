@@ -5,55 +5,59 @@ BiaPy: Bioimage analysis pipelines in Python
    :width: 50%
    :align: center 
 
-`BiaPy <https://github.com/BiaPyX/BiaPy>`_ is an open source Python library for building bioimage analysis pipelines, also called workflows. This repository is actively under development by the Biomedical Computer Vision group at the `University of the Basque Country <https://www.ehu.eus/en/en-home>`_ and the `Donostia International Physics Center <http://dipc.ehu.es/>`_. 
+`BiaPy <https://biapyx.github.io/>`__ is an open source ready-to-use all-in-one library that provides deep-learning workflows for a large variety of bioimage analysis tasks, including 2D and 3D `semantic segmentation <workflows/semantic_segmentation.html>`__, `instance segmentation <workflows/instance_segmentation.html>`__, `object detection <workflows/detection.html>`__, `image denoising <workflows/denoising.html>`__, `single image super-resolution <workflows/super_resolution.html>`__, `self-supervised learning <workflows/self_supervision.html>`__ and `image classification <workflows/classification.html>`__.
 
-The library provides an easy way to create image processing pipelines that are commonly used in the analysis of biology microscopy images in 2D and 3D. Specifically, BiaPy contains ready-to-use solutions for tasks such as `semantic segmentation <workflows/semantic_segmentation.html>`_, `instance segmentation <workflows/instance_segmentation.html>`_, `object detection <workflows/detection.html>`_, `image denoising <workflows/denoising.html>`_, `single image super-resolution <workflows/super_resolution.html>`_, `self-supervised learning <workflows/self_supervision.html>`_ and `image classification <workflows/classification.html>`_. The source code is based on Pytorch as the backend. As BiaPy's core is based on deep learning, it is recommended to use a machine with a graphics processing unit (GPU) for faster training and execution.                                                                        
+BiaPy is a versatile platform designed to accommodate both proficient computer scientists and users less experienced in programming. It offers diverse and user-friendly access points to our workflows.
+
+This repository is actively under development by the Biomedical Computer Vision group at the `University of the Basque Country <https://www.ehu.eus/en/en-home>`__ and the `Donostia International Physics Center <http://dipc.ehu.es/>`__.                                                                        
    
-Find a gentle introduction to BiaPy `in this video <https://www.youtube.com/watch?v=t5cqpjWQS9Q>`_ presented by Ignacio Arganda-Carreras in `the Virtual Pub of Euro-BioImaging <https://www.eurobioimaging.eu/about-us/virtual-pub>`_ .
+Find a comprehensive overview of BiaPy and its functionality in the following videos:
+
+.. list-table:: 
+
+  * - .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy/master/img/BiaPy_presentation_and_demo_at_RTmfm.jpg
+          :alt: BiaPy history and GUI demo
+          :target: https://www.youtube.com/watch?v=Gnm-VsZQ6Cc
+
+    - .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy/master/img/BiaPy-Euro-BioImaging-youtube.png
+          :alt: BiaPy presentation
+          :target: https://www.youtube.com/watch?v=6eYtX-ySpc0
 
 .. toctree::
    :maxdepth: 1
    :caption: Get started
    :glob:
    
-   get_started/quick_start.rst
-   get_started/installation.rst
-   get_started/how_it_works.rst
-   get_started/configuration.rst
-   get_started/select_workflow.rst
-   get_started/faq.rst
+   get_started/quick_start
+   get_started/installation
+   get_started/how_it_works
+   get_started/configuration
+   get_started/select_workflow
+   get_started/faq
+   get_started/contribute
 
 .. toctree::
    :maxdepth: 1
    :caption: Workflows
    :glob:
 
-   workflows/semantic_segmentation.rst
-   workflows/instance_segmentation.rst
-   workflows/detection.rst
-   workflows/denoising.rst
-   workflows/super_resolution.rst
-   workflows/self_supervision.rst
-   workflows/classification.rst
+   workflows/semantic_segmentation
+   workflows/instance_segmentation
+   workflows/detection
+   workflows/denoising
+   workflows/super_resolution
+   workflows/self_supervision
+   workflows/classification
    
 .. toctree::
    :maxdepth: 1
    :caption: Tutorials
    :glob:
 
-   tutorials/stable.rst
-   tutorials/cartocell.rst
-   tutorials/mitoem.rst
-   tutorials/nucleus.rst
-
-.. toctree::                                                                    
-   :maxdepth: 1
-   :caption: How to contribute
-   :glob:
-
-   contribute/general
-   contribute/workflow
-   contribute/pre_post_proc
+   tutorials/stable
+   tutorials/cartocell
+   tutorials/mitoem
+   tutorials/nucleus
 
 .. toctree::                                                                    
    :maxdepth: 1

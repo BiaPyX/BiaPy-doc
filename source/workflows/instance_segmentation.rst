@@ -194,7 +194,7 @@ Run
 
    .. tab:: Command line
 
-      Open a terminal as described in :ref:`installation`. For instance, using `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file, the code can be run as follows:
+      `Open a terminal </get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file, the code can be run as follows:
 
       .. code-block:: bash
           
@@ -241,7 +241,7 @@ Run
       
    .. tab:: Docker 
 
-      Open a terminal as described in :ref:`installation`. For instance, using `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file, the code can be run as follows:
+      `Open a terminal </get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file, the code can be run as follows:
 
       .. code-block:: bash                                                                                                    
 

@@ -40,11 +40,11 @@ The goal is to segment automatically mitochondria in EM images as described in :
 Installation
 ~~~~~~~~~~~~
 
-Apart from the steps described in :ref:`installation`, to reproduce exact results of our paper you need to use the `V1.0 <https://github.com/BiaPyX/BiaPy/releases/tag/v1.0>`__ version of our library. For that, you simply need to run this command in the terminal ::
+Apart from the steps described in :ref:`installation`, to reproduce exact results of our paper you need to use the `V1.0 <https://github.com/BiaPyX/BiaPy/releases/tag/v1.0>`__ version of our library. For that, you simply need to run this command in the `terminal </get_started/faq.html#opening-a-terminal>`__ ::
 
     git checkout v1.0
 
-If you need help to open a terminal find help in :ref:`installation_command_line`. 
+If you need help to `open a terminal </get_started/faq.html#opening-a-terminal>`__ find help in :ref:`installation_command_line`. 
 
 Data preparation
 ~~~~~~~~~~~~~~~~
@@ -96,7 +96,7 @@ The procedure to run the library is slightly different as it is now for the last
 
    .. tab:: Command line
             
-        Open a terminal as described in :ref:`installation`. For instance, using `2d_semantic_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
+        `Open a terminal </get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_semantic_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
 
         .. code-block:: bash
             

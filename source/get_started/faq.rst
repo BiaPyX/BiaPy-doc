@@ -1,18 +1,26 @@
-Frequently Asked Questions (FAQ)
---------------------------------
+FAQ & Troubleshooting
+---------------------
 
-The `Image.sc Forum <https://forum.image.sc/>`_ is the main discussion channel for BiaPy, hence we recommend to use it for any question or curisity related to it. Use a tag such as ``biapy`` so we can go through your questions. Try to find out if the issue you are having has already been discussed or solved by other people. If not, feel free to create a new topic (please provide a clear and concise description to understand and ideally reproduce the issue you're having). 
-
+The `Image.sc Forum <https://forum.image.sc/>`__ is the main discussion channel for BiaPy, hence we recommend to use it for any question or curisity related to it. Use a tag such as ``biapy`` so we can go through your questions. Try to find out if the issue you are having has already been discussed or solved by other people. If not, feel free to create a new topic (please provide a clear and concise description to understand and ideally reproduce the issue you're having). 
 
 Installation
 ~~~~~~~~~~~~
 
-* If double-clicking the BiaPy binary doesn't initiate the program, attempt starting it via the terminal to display any potential errors. For Linux users encountering a glibc error (something like ``version `GLIBC_2.34' not found``), particularly on Ubuntu ``20.04``, you can try the following: ::
+* If double-clicking the BiaPy binary doesn't initiate the program, attempt starting it via the `terminal <faq.html#opening-a-terminal>`__ to display any potential errors. For Linux users encountering a glibc error (something like ``version `GLIBC_2.34' not found``), particularly on Ubuntu ``20.04``, you can try the following: ::
 
     sudo apt update
     sudo apt install libc6 
 
-  If updating the glibc library to the necessary version (``2.33``) for starting the GUI is unsuccessful, you should consider upgrading to Ubuntu ``22.04``. This upgrade requires a limited number of commands, and there are numerous tutorials available on how to accomplish it. We recommend `this tutorial <https://www.cyberciti.biz/faq/upgrade-ubuntu-20-04-lts-to-22-04-lts/>`_. 
+  If updating the glibc library to the necessary version (``2.33``) for starting the GUI is unsuccessful, you should consider upgrading to Ubuntu ``22.04``. This upgrade requires a limited number of commands, and there are numerous tutorials available on how to accomplish it. We recommend `this tutorial <https://www.cyberciti.biz/faq/upgrade-ubuntu-20-04-lts-to-22-04-lts/>`__. 
+
+Opening a terminal
+~~~~~~~~~~~~~~~~~~
+
+To open a terminal on your operating system, you can follow these steps:
+
+* In **Windows**: Click Start, type PowerShell, and then click Windows PowerShell. Alternatively, if you followed the instructions to install git in BiaPy installation, you should have a terminal called ``Git Bash`` installed on your system. To open it, go to the Start menu and search for ``Git Bash``. Click on the application to open it.
+* In **macOS**: You already have the Bash terminal installed on your system, so you can simply open it. If you have never used it before, you can find more information `here <https://support.apple.com/en-ie/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac>`__.
+* In **Linux**: You already have the Bash terminal installed on your system, so you can simply open it. If you have never used it before, you can find more information `here <https://www.geeksforgeeks.org/how-to-open-terminal-in-linux/>`__.
 
 General usage
 ~~~~~~~~~~~~~
@@ -24,11 +32,24 @@ Train questions
 
 * My training is too slow. What should I do?  
 
-    There are a few things you can do: 1) ensure ``TRAIN.EPOCHS`` and ``TRAIN.PATIENCE`` are set as you want ; 2) increase ``TRAIN.BATCH_SIZE`` ; 3) If you are not loading all the training data in memory, i.e. ``DATA.TRAIN.IN_MEMORY`` is ``False``, try to setting it to speed up the training process.
+    There are a few things you can do: 1) ensure ``TRAIN.EPOCHS`` and ``TRAIN.PATIENCE`` are set as you want ; 2) increase ``TRAIN.BATCH_SIZE`` ; 3) If you are not loading all the training data in memory, i.e. ``DATA.TRAIN.IN_MEMORY`` is ``False``, try to setting it to speed up the training process. 
+
+    Furthermore, if you have more than one GPU you could do the training using a multi-GPU setting. For instance, to use GPU ``0`` and ``1`` you could call BiaPy like this:  ::
+
+        python -u -m torch.distributed.run \
+                --nproc_per_node=2 \
+                main.py \
+                --config XXX \
+                --result_dir XXX  \ 
+                --name XXX    \
+                --run_id XXX  \
+                --gpu "0,1"
+
+    ``nproc_per_node`` need to be equal to the number of GPUs you are using, 2 in this example.
 
 * I have no enough memory in my computer to set ``DATA.TRAIN.IN_MEMORY``, so I've been using ``DATA.EXTRACT_RANDOM_PATCH``. However, the training process is slow. Also, I need to ensure the entire training image is visited every epoch, not just a random patch extracted from it. What should I do?
 
-    You can previously crop the data into patches of ``DATA.PATCH_SIZE`` you want to work with and disable ``DATA.EXTRACT_RANDOM_PATCH`` because all the images will have same shape. You can use `crop_2D_dataset.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/crop_2D_dataset.py>`_ or `crop_3D_dataset.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/crop_3D_dataset.py>`_ to crop the data.
+    You can previously crop the data into patches of ``DATA.PATCH_SIZE`` you want to work with and disable ``DATA.EXTRACT_RANDOM_PATCH`` because all the images will have same shape. You can use `crop_2D_dataset.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/crop_2D_dataset.py>`__ or `crop_3D_dataset.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/crop_3D_dataset.py>`__ to crop the data.
 
 Test/Inference questions
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -47,6 +68,52 @@ Test/Inference questions
 
     You can disable ``TRAIN.ENABLE`` and enable ``MODEL.LOAD_CHECKPOINT``. Those variables will disable training phase and find and load the training checkpoint respectively. Ensure you use the same job name, i.e. ``--name`` option when calling BiaPy, so the library can find the checkpoint that was stored in the job's folder.
 
-* The test images and their labels (if exist) are large and I have no enough memory to make the inference. What can I do?
+* The test images, and their labels if exist, are large and I have no enough memory to make the inference. What can I do?
 
-    You can try setting ``TEST.REDUCE_MEMORY`` which will save as much memory as the library can at the price of slow down the inference process.
+    You can try setting ``TEST.REDUCE_MEMORY`` which will save as much memory as the library can at the price of slow down the inference process. 
+
+    Furthermore, we have an option to use ``TEST.BY_CHUNKS`` option, which will reconstruct each test image using Zarr/H5 files in order to avoid using a large amount of memory. Also, enablign this option Zarr/H5 files can be used as input, to reduce even more the amount of data loaded in memory, as only the patches being processed are loaded into memory one by one and not the entire image. If you have more that one GPU consider using multi-GPU setting to speed up the process. 
+
+    .. warning ::
+        Be aware of enabling ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` option as it will require to load the prediction entirely in order to save it.
+
+
+Graphical User interface (GUI)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In case you have troubles with GUI you can find instructions on how to use it in the following video (at 41min51s in the video):
+
+.. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy/master/img/BiaPy_presentation_and_demo_at_RTmfm.jpg
+    :alt: BiaPy history and GUI demo
+    :target: https://www.youtube.com/watch?v=Gnm-VsZQ6Cc&t=41m51s
+
+Windows 
+=======
+
+Once you donwload the Windows binary an error may arise when running it: ``Windows protected your PC``. This message occurs if an application is unrecognized by Microsoft. In this situation you can click in ``More info`` button and ``Run anyway``.
+
+Linux
+=====
+
+Once you donwload the Linux binary you need to grant execution permission to it by typing the following command in a `terminal <faq.html#opening-a-terminal>`__: ::
+
+    chmod +x BiaPy
+
+macOS
+=====
+
+macOS users might experience the following error when open the app for the first time:
+
+.. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-GUI/main/images/macOS_binary_error.png
+   :align: center 
+
+To sort it, remove the quarantine attribute through `terminal <faq.html#opening-a-terminal>`__: ::
+
+    xattr -d com.apple.quarantine BiaPy.app  
+
+
+Limitations
+===========
+
+Through the graphical user interface the multi-GPU is not supported. 
+

@@ -13,6 +13,18 @@ All BiaPy pipelines are composed of three main steps: data pre-processing, deep 
   General scheme of a BiaPy pipeline/workflow. Dash-lined elements are optional.
 
 
+Find a comprehensive overview of BiaPy and its functionality in the following videos:
+
+.. list-table:: 
+
+  * - .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy/master/img/BiaPy_presentation_and_demo_at_RTmfm.jpg
+          :alt: BiaPy history and GUI demo
+          :target: https://www.youtube.com/watch?v=Gnm-VsZQ6Cc
+
+    - .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy/master/img/BiaPy-Euro-BioImaging-youtube.png
+          :alt: BiaPy presentation
+          :target: https://www.youtube.com/watch?v=6eYtX-ySpc0
+
 Pre-processing
 ~~~~~~~~~~~~~~
 

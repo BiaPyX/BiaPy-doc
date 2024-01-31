@@ -28,11 +28,7 @@ This tutorial describes how to train and infer using our custom ResU-Net 3D DNN 
 
 Paper citation: :: 
 
-    CartoCell, a high-throughput pipeline for accurate 3D image analysis, unveils cell 
-    morphology patterns in epithelial cysts. Jesús Andrés-San Román, Carmen Gordillo-Vázquez,
-    Daniel Franco-Barranco, Laura Morato, Antonio Tagua, Pablo Vicente-Munuera, 
-    Ana M. Palacios, María P. Gavilán, Valentina Annese, Pedro Gómez-Gálvez, 
-    Ignacio Arganda-Carreras, Luis M. Escudero. [under revision]
+    Andres-San Roman, Jesus A., et al. "CartoCell, a high-content pipeline for 3D image analysis, unveils cell morphology patterns in epithelia." Cell Reports Methods 3.10 (2023).
 
 
 CartoCell phases
@@ -91,7 +87,7 @@ You have two options to train your model: via **command line** or using **Google
 
         For the validation data, for both **model M1** and **model M2**, you will need to modify ``VAL.PATH`` and ``VAL.GT_PATH`` with `validation_dataset_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-83538c77-61d8-4770-85d1-1bac988c5e43>`__ and `validation_dataset_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-5195c7ac-eacd-491e-9d69-8115b36b6c43>`__. 
 
-        The next step is to open a terminal (see :ref:`installation` section if you need help) and run the code as follows:
+        The next step is to `open a terminal </get_started/faq.html#opening-a-terminal>`__ and run the code as follows:
 
         .. code-block:: bash
             
