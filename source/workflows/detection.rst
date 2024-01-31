@@ -137,6 +137,59 @@ Run
 ~~~
 
 .. tabs::
+   .. tab:: GUI
+
+        Select detection workflow during the creation of a new configuration file:
+
+        .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-GUI/main/images/gui/biapy_gui_detection.jpg
+            :align: center 
+
+   .. tab:: Google Colab
+        Two different options depending on the image dimension: 
+
+        .. |detection_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/detection/BiaPy_2D_Detection.ipynb
+
+        * 2D: |detection_2D_colablink|
+
+        .. |detection_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/detection/BiaPy_3D_Detection.ipynb
+
+        * 3D: |detection_3D_colablink|
+
+   .. tab:: Docker 
+
+        `Open a terminal </get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_detection.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/detection/2d_detection.yaml>`__ template file, the code can be run as follows:
+
+        .. code-block:: bash                                                                                                    
+
+            # Configuration file
+            job_cfg_file=/home/user/2d_detection.yaml
+            # Path to the data directory
+            data_dir=/home/user/data
+            # Where the experiment output directory should be created
+            result_dir=/home/user/exp_results
+            # Just a name for the job
+            job_name=my_2d_detection
+            # Number that should be increased when one need to run the same job multiple times (reproducibility)
+            job_counter=1
+            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+            gpu_number=0
+
+            docker run --rm \
+                --gpus "device=$gpu_number" \
+                --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
+                --mount type=bind,source=$result_dir,target=$result_dir \
+                --mount type=bind,source=$data_dir,target=$data_dir \
+                BiaPyX/biapy \
+                    -cfg $job_cfg_file \
+                    -rdir $result_dir \
+                    -name $job_name \
+                    -rid $job_counter \
+                    -gpu $gpu_number
+
+        .. note:: 
+            Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
 
    .. tab:: Command line
 
@@ -186,54 +239,7 @@ Run
 
         ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
 
-   .. tab:: Docker 
-
-        `Open a terminal </get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_detection.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/detection/2d_detection.yaml>`__ template file, the code can be run as follows:
-
-        .. code-block:: bash                                                                                                    
-
-            # Configuration file
-            job_cfg_file=/home/user/2d_detection.yaml
-            # Path to the data directory
-            data_dir=/home/user/data
-            # Where the experiment output directory should be created
-            result_dir=/home/user/exp_results
-            # Just a name for the job
-            job_name=my_2d_detection
-            # Number that should be increased when one need to run the same job multiple times (reproducibility)
-            job_counter=1
-            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-            gpu_number=0
-
-            docker run --rm \
-                --gpus "device=$gpu_number" \
-                --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
-                --mount type=bind,source=$result_dir,target=$result_dir \
-                --mount type=bind,source=$data_dir,target=$data_dir \
-                BiaPyX/biapy \
-                    -cfg $job_cfg_file \
-                    -rdir $result_dir \
-                    -name $job_name \
-                    -rid $job_counter \
-                    -gpu $gpu_number
-
-        .. note:: 
-            Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
-
-
-   .. tab:: Google Colab
-        Two different options depending on the image dimension: 
-
-        .. |detection_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/detection/BiaPy_2D_Detection.ipynb
-
-        .. |detection_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/detection/BiaPy_3D_Detection.ipynb
-
-        * 2D: |detection_2D_colablink|
-
-        * 3D: |detection_3D_colablink|
-
+   
 .. _detection_results:
 
 Results                                                                                                                 

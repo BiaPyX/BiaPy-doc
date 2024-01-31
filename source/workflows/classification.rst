@@ -110,10 +110,64 @@ Run
 ~~~
 
 .. tabs::
+   .. tab:: GUI
+
+        Select classification workflow during the creation of a new configuration file:
+
+        .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-GUI/main/images/gui/biapy_gui_classification.jpg
+            :align: center 
+
+   .. tab:: Google Colab 
+
+        Two different options depending on the image dimension:
+
+        .. |class_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/classification/BiaPy_2D_Classification.ipynb
+
+        * 2D: |class_2D_colablink|
+
+        .. |class_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/classification/BiaPy_3D_Classification.ipynb
+
+        * 3D: |class_3D_colablink|
+
+   .. tab:: Docker
+
+        `Open a terminal </get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_classification.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/classification/2d_classification.yaml>`__ template file, the code can be run as follows:
+
+        .. code-block:: bash                                                                                                    
+
+            # Configuration file
+            job_cfg_file=/home/user/2d_classification.yaml
+            # Path to the data directory
+            data_dir=/home/user/data
+            # Where the experiment output directory should be created
+            result_dir=/home/user/exp_results
+            # Just a name for the job
+            job_name=classification
+            # Number that should be increased when one need to run the same job multiple times (reproducibility)
+            job_counter=1
+            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+            gpu_number=0
+
+            docker run --rm \
+                --gpus "device=$gpu_number" \
+                --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
+                --mount type=bind,source=$result_dir,target=$result_dir \
+                --mount type=bind,source=$data_dir,target=$data_dir \
+                BiaPyX/biapy \
+                    -cfg $job_cfg_file \
+                    -rdir $result_dir \
+                    -name $job_name \
+                    -rid $job_counter \
+                    -gpu $gpu_number
+
+        .. note:: 
+            Note that ``data_dir`` must contain the path ``DATA.*.PATH`` so the container can find it. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` could be ``/home/user/data/train/``. 
 
    .. tab:: Command line 
 
-         `Open a terminal </get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_classification.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/classification/2d_classification.yaml>`__ template file, the code can be run as follows:
+        `Open a terminal </get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_classification.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/classification/2d_classification.yaml>`__ template file, the code can be run as follows:
 
         .. code-block:: bash
             
@@ -157,54 +211,6 @@ Run
                 --gpu $gpu_number  
 
         ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
-
-   .. tab:: Docker
-
-        `Open a terminal </get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_classification.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/classification/2d_classification.yaml>`__ template file, the code can be run as follows:
-
-        .. code-block:: bash                                                                                                    
-
-            # Configuration file
-            job_cfg_file=/home/user/2d_classification.yaml
-            # Path to the data directory
-            data_dir=/home/user/data
-            # Where the experiment output directory should be created
-            result_dir=/home/user/exp_results
-            # Just a name for the job
-            job_name=classification
-            # Number that should be increased when one need to run the same job multiple times (reproducibility)
-            job_counter=1
-            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-            gpu_number=0
-
-            docker run --rm \
-                --gpus "device=$gpu_number" \
-                --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
-                --mount type=bind,source=$result_dir,target=$result_dir \
-                --mount type=bind,source=$data_dir,target=$data_dir \
-                BiaPyX/biapy \
-                    -cfg $job_cfg_file \
-                    -rdir $result_dir \
-                    -name $job_name \
-                    -rid $job_counter \
-                    -gpu $gpu_number
-
-        .. note:: 
-            Note that ``data_dir`` must contain the path ``DATA.*.PATH`` so the container can find it. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` could be ``/home/user/data/train/``. 
-
-   .. tab:: Google Colab 
-
-        Two different options depending on the image dimension:
-
-        .. |class_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/classification/BiaPy_2D_Classification.ipynb
-
-        .. |class_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/classification/BiaPy_3D_Classification.ipynb
-
-        * 2D: |class_2D_colablink|
-
-        * 3D: |class_3D_colablink|
 
 .. _classification_results:
 

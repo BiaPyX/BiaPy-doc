@@ -80,7 +80,7 @@ Choose your installation method
                 .. note::  
                   Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
 
-        Then the only thing you need to do is double-click in BiaPy binary you downloaded. 
+        Then, the only thing you need to do is double-click in BiaPy binary you downloaded. The next step consists in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
 
    .. tab:: Google Colab
 
