@@ -77,9 +77,18 @@ Test/Inference questions
     .. warning ::
         Be aware of enabling ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` option as it will require to load the prediction entirely in order to save it.
 
+Possible errors
+~~~~~~~~~~~~~~~
+
+- In Linux an error like the following may arise: ::
+
+    OSError: [Errno 24] Too many open files
+
+To sort it out increase the number of open files with the command ``ulimit -Sn 10000``. You can check the limits typing ``ulimit -a``. Add it to your ``~/.bashrc`` file to ensure the change it's permanent.
+
 
 Graphical User interface (GUI)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+******************************
 
 In case you have troubles with GUI you can find instructions on how to use it in the following video (at 41min51s in the video):
 
