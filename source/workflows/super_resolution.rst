@@ -13,7 +13,7 @@ The goal of this workflow aims at reconstructing high-resolution (HR) images fro
 
   * HR image. 
 
-In the figure below an example of this workflow's **input** is depicted to make a x2 upsampling. The images were obtained from `ZeroCostDL4Mic <https://github.com/HenriquesLab/ZeroCostDL4Mic>`__ project:
+In the figure below an example of this workflow's **input** is depicted to make a ``x2`` upsampling. The images were obtained from `ZeroCostDL4Mic <https://github.com/HenriquesLab/ZeroCostDL4Mic>`__ project:
 
 .. list-table:: 
 

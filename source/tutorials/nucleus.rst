@@ -22,7 +22,7 @@ The goal is to segment and identify automatically each cell nuclei in EM images.
          Its corresponding instance mask.
 
 
-In this dataset ``27`` 3D images of size ``(64, 64, 64)`` voxels, for ``(z,x,y)`` axes, are used for train while the test is
+In this dataset ``27`` ``3D`` images of size ``(64, 64, 64)`` voxels, for ``(z,x,y)`` axes, are used for train while the test is
 done over the whole Zebrafish volume. Here is a training sample and its ground truth:
 
 

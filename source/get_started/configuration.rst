@@ -47,14 +47,14 @@ Problem specification
 
 To specify the type of workflow, use the ``PROBLEM.TYPE`` option and select one of the following options: ``SEMANTIC_SEG``, ``INSTANCE_SEG``, ``DETECTION``, ``DENOISING``, ``SUPER_RESOLUTION``, ``SELF_SUPERVISED``, or ``CLASSIFICATION``.
 
-To specify whether the data is 2D or 3D, use the ``PROBLEM.NDIM`` option and select either ``2D`` or ``3D``.
+To specify whether the data is ``2D`` or ``3D``, use the ``PROBLEM.NDIM`` option and select either ``2D`` or ``3D``.
 
 .. _data_management:
 
 Data management
 ~~~~~~~~~~~~~~~
 
-The ``DATA.PATCH_SIZE`` variable is used to specify the shape of the images that will be used in the workflow. The order of the dimensions for 2D images is ``(y,x,c)`` and for 3D images it is ``(z,y,x,c)``.
+The ``DATA.PATCH_SIZE`` variable is used to specify the shape of the images that will be used in the workflow. The order of the dimensions for ``2D`` images is ``(y,x,c)`` and for ``3D`` images it is ``(z,y,x,c)``.
 
 The paths for the training data are set using the ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` variables (if necessary, depending on the specific workflow). Similarly, the paths for the validation data can be set using ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH`` unless ``DATA.VAL.FROM_TRAIN`` is set, in which case these variables do not need to be defined. For test data, the ``DATA.TEST.PATH`` variable should be set if ``TEST.ENABLE`` is ``True``. However, ``DATA.TEST.GT_PATH`` is not used when ``DATA.TEST.LOAD_GT`` is disabled, as there is usually no ground truth for test data.
 
@@ -83,6 +83,21 @@ Two options are available for normalizing the data:
 
 * Adjusting it to the ``[0-1]`` range, which is the default option. This can be done by setting ``DATA.NORMALIZATION.TYPE`` to ``div``.
 * Custom normalization using a specified mean (``DATA.NORMALIZATION.CUSTOM_MEAN``) and standard deviation (``DATA.NORMALIZATION.CUSTOM_STD``). This can be done by setting ``DATA.NORMALIZATION.TYPE`` to ``custom``. If the mean and standard deviation are both set to ``-1``, which is the default, they will be calculated based on the training data. These values will be stored in the job's folder to be used at the inference phase, so that the test images are normalized using the same values. If specific values for mean and standard deviation are provided, those values will be used for normalization.
+
+Pre-processing
+~~~~~~~~~~~~~~
+
+There are a few pre-processing functions  (controlled by ``DATA.PREPROCESS``) that can be applied to the train (``DATA.PREPROCESS.TRAIN``), validation (``DATA.PREPROCESS.VAL``) or test data (``DATA.PREPROCESS.TEST``). So they can be applied the images need to be loaded in memory (``DATA.*.IN_MEMORY`` to ``True``). The pre-processing is done right after loading the images, when no normalization has been done yet. These is the list of available functions:
+
+* **Resize** (controlled by ``DATA.PREPROCESS.RESIZE``): to resize images to the desired shape. 
+
+* **Gaussian blur** (controlled by ``DATA.PREPROCESS.GAUSSIAN_BLUR``): to add gaussian blur.
+
+* **Median blur** (controlled by ``DATA.PREPROCESS.MEDIAN_BLUR``): to add median blur.
+
+* **CLAHE** (controlled by ``DATA.PREPROCESS.CLAHE``): to apply a `contrast limited adaptive histogram equalization <https://en.wikipedia.org/wiki/Adaptive_histogram_equalization#Contrast_Limited_AHE>`__.
+
+* **Canny** (controlled by ``DATA.PREPROCESS.CANNY``): to apply `Canny <https://en.wikipedia.org/wiki/Canny_edge_detector>`__ or edge detection (only for ``2D`` images, grayscale or RGB).
 
 Data augmentation
 ~~~~~~~~~~~~~~~~~
@@ -114,7 +129,7 @@ BiaPy offers three different backends to be used to choose a model (controlled b
 
   For ``unet``, ``resunet``, ``resunet++``, ``attention_unet`` and ``seunet`` architectures you can set ``MODEL.FEATURE_MAPS`` to determine the feature maps to use on each network level. In the same way, ``MODEL.DROPOUT_VALUES`` can be set for each level in those networks. For ``unetr`` and ``vit`` networks only the first value of those variables will be taken into account.
 
-  The ``MODEL.BATCH_NORMALIZATION`` variable can be used to enable batch normalization on the ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet`` and ``unetr`` models. For the 3D versions of these networks (except for ``unetr``), the ``MODEL.Z_DOWN`` option can also be used to avoid downsampling in the z-axis, which is typically beneficial for anisotropic data.
+  The ``MODEL.BATCH_NORMALIZATION`` variable can be used to enable batch normalization on the ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet`` and ``unetr`` models. For the ``3D`` versions of these networks (except for ``unetr``), the ``MODEL.Z_DOWN`` option can also be used to avoid downsampling in the z-axis, which is typically beneficial for anisotropic data.
 
   The ``MODEL.N_CLASSES`` variable can be used to specify the number of classes for the classification problem, excluding the background class (labeled as ``0``). If the number of classes is set to ``1`` or ``2``, the problem is considered binary, and the behavior is the same. For more than ``2`` classes, the problem is considered multi-class, and the output of the models will have the corresponding number of channels.
 
@@ -158,9 +173,9 @@ To initiate the testing phase, also referred to as inference or prediction, one 
   
   - First option, and the default, is where each test image is divided into patches of size ``DATA.PATCH_SIZE`` and passed through the network individually. Then, the original image will be reconstructed. Apart from this, it will automatically calculate performance metrics per patch and per reconstructed image if the ground truth is available (enabled by ``DATA.TEST.LOAD_GT``).
 
-  - Second option is to enable ``TEST.FULL_IMG``, to pass entire images through the model without cropping them. This option requires enough GPU memory to fit the images into, so to prevent possible errors it is only available for 2D images.
+  - Second option is to enable ``TEST.FULL_IMG``, to pass entire images through the model without cropping them. This option requires enough GPU memory to fit the images into, so to prevent possible errors it is only available for ``2D`` images.
 
-  In both options described above you can also use test-time augmentation by setting ``TEST.AUGMENTATION`` to ``True``, which will create multiple augmented copies of each patch, or image if ``TEST.FULL_IMG`` selected, by all possible rotations (8 copies in 2D and 16 in 3D). This will slow down the inference process, but it will return more robust predictions.
+  In both options described above you can also use test-time augmentation by setting ``TEST.AUGMENTATION`` to ``True``, which will create multiple augmented copies of each patch, or image if ``TEST.FULL_IMG`` selected, by all possible rotations (``8`` copies in ``2D`` and ``16`` in ``3D``). This will slow down the inference process, but it will return more robust predictions.
 
   You can use also use ``DATA.REFLECT_TO_COMPLETE_SHAPE`` to ensure that the patches can be made as pointed out in :ref:`data_management`. 
 
@@ -199,10 +214,10 @@ Post-processing
 
 BiaPy is equipped with several post-processing methods that are primarily applied in two distinct stages:
 
-1. After the network's prediction. These post-processing methods are common among workflows that return probabilities from their models, e.g. semantic/instance segmentation and detection. These post-processing methods aim to improve the resulting probabilities. Currently, these post-processing methods are only avaialable for 3D images (e.g. ``PROBLEM.NDIM`` is ``2D`` or ``TEST.ANALIZE_2D_IMGS_AS_3D_STACK`` is ``True``):
+1. After the network's prediction. These post-processing methods are common among workflows that return probabilities from their models, e.g. semantic/instance segmentation and detection. These post-processing methods aim to improve the resulting probabilities. Currently, these post-processing methods are only avaialable for ``3D`` images (e.g. ``PROBLEM.NDIM`` is ``2D`` or ``TEST.ANALIZE_2D_IMGS_AS_3D_STACK`` is ``True``):
 
   * ``TEST.POST_PROCESSING.APPLY_MASK``: a binary mask is applied to remove anything not contained within the mask. For this, the ``DATA.TEST.BINARY_MASKS`` path needs to be set.
-  * ``TEST.POST_PROCESSING.Z_FILTERING``: Z-axis filtering is applied for 3D data. Additionally, you can apply a YZ-axes filtering using ``TEST.POST_PROCESSING.YZ_FILTERING`` variable.
+  * ``TEST.POST_PROCESSING.Z_FILTERING``: Z-axis filtering is applied for ``3D`` data. Additionally, you can apply a YZ-axes filtering using ``TEST.POST_PROCESSING.YZ_FILTERING`` variable.
 
 2.  After each workflow main process is done there is another post-processing step on some of the workflows to achieve the final results, i.e. workflow-specific post-processing methods. Find a full description of each method inside the workflow description:
 

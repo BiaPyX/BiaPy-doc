@@ -28,7 +28,7 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
 Pre-processing
 ~~~~~~~~~~~~~~
 
-In order to effectively train or perform inference with deep learning (DL) models, it is crucial to properly prepare the input data. BiaPy addresses this need by implementing various pre-processing steps.
+In order to effectively train or perform inference with deep learning models, it is crucial to properly prepare the input data. BiaPy addresses this need by implementing various pre-processing steps.
 
 An important aspect of pre-processing in BiaPy is the adaptation of input data into a representation that can be fed to a DL model. This is particularly relevant in the case of instance segmentation pipelines, where label images are transformed into binary masks, contours, and distance maps. Similarly, in object detection pipelines, point detection lists are transformed into point mask images. These transformations allow for a more effective training and inference process, as the DL model is presented with data in a format that it can more easily understand and process.
 
@@ -37,7 +37,7 @@ The normalization of the pixel/voxel intensities is performed to ensure that the
 Training
 ~~~~~~~~
 
-The training stage of deep learning (DL) models is a crucial step in achieving accurate and reliable results. During this stage, the DL model is presented with examples of input data and corresponding target outputs, also known as ground truth. The goal of the model is to generate outputs as close as possible to the provided target data.
+The training stage of deep learning models is a crucial step in achieving accurate and reliable results. During this stage, the DL model is presented with examples of input data and corresponding target outputs, also known as ground truth. The goal of the model is to generate outputs as close as possible to the provided target data.
 
 One way to increase the amount of training data available is through the use of data augmentation (DA). This technique involves applying various transformations to the input image, such as random rotations or flips, to create different versions of the original image. By feeding the model with a diverse set of data, DA can help prevent overfitting, which occurs when a model becomes too specialized to the training data and performs poorly on new data.
 
@@ -55,9 +55,9 @@ It is important to note that the selection of appropriate metrics is essential f
 Post-processing
 ~~~~~~~~~~~~~~~
 
-Once a deep learning (DL) model has been trained and the inference phase has been completed, it is often necessary to perform post-processing on the model's output to achieve the desired results. BiaPy, a Python library for bioimage analysis, provides a variety of post-processing methods to aid in this process.
+Once a deep learning model has been trained and the inference phase has been completed, it is often necessary to perform post-processing on the model's output to achieve the desired results. BiaPy, a Python library for bioimage analysis, provides a variety of post-processing methods to aid in this process.
 
-For semantic segmentation tasks, simple binarization is often used to convert the model's output into a binary image, where each pixel is classified as belonging to a specific class or not. For 3D data, z-filtering is often used to remove noise and improve the overall quality of the output.
+For semantic segmentation tasks, simple binarization is often used to convert the model's output into a binary image, where each pixel is classified as belonging to a specific class or not. For ``3D`` data, z-filtering is often used to remove noise and improve the overall quality of the output.
 
 In instance segmentation tasks, marker-controlled watershed and Voronoi tessellation are commonly used post-processing methods. These methods help to separate individual objects within the image and create precise boundaries between them. For object detection tasks, close point suppression is often used to eliminate multiple detections of the same object.
 

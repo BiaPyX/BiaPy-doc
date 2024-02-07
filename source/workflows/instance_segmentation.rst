@@ -195,34 +195,34 @@ Then, after creating the final instances from the predictions, **matching metric
 
 * **Morphological measurements** (controlled by ``TEST.POST_PROCESSING.MEASURE_PROPERTIES``): measure morphological features on each instances. The following are implemented:
 
-  * ``circularity``: defined as the ratio of area over the square of the perimeter, normalized such that the value for a disk equals one: ``(4 * PI * area) / (perimeter^2)``. Only measurable for 2D images (use sphericity for 3D images). While values of circularity range theoretically within the interval ``[0, 1]``, the measurements errors of the perimeter may produce circularity values above ``1`` (`Lehmann et al., 201211 <https://doi.org/10.1093/bioinformatics/btw413>`__). 
+  * ``circularity``: defined as the ratio of area over the square of the perimeter, normalized such that the value for a disk equals one: ``(4 * PI * area) / (perimeter^2)``. Only measurable for ``2D`` images (use sphericity for ``3D`` images). While values of circularity range theoretically within the interval ``[0, 1]``, the measurements errors of the perimeter may produce circularity values above ``1`` (`Lehmann et al., 201211 <https://doi.org/10.1093/bioinformatics/btw413>`__). 
   
   * ``elongation``: the inverse of the circularity. The values of elongation range from 1 for round particles and increase for 
-    elongated particles. Calculated as: ``(perimeter^2)/(4 * PI * area)``. Only measurable for 2D images.
+    elongated particles. Calculated as: ``(perimeter^2)/(4 * PI * area)``. Only measurable for ``2D`` images.
 
   * ``npixels``: corresponds to the sum of pixels that compose an instance. 
 
-  * ``area``: correspond to the number of pixels taking into account the image resolution (we call it ``area`` also even in a 3D 
+  * ``area``: correspond to the number of pixels taking into account the image resolution (we call it ``area`` also even in a ``3D`` 
     image for simplicity, but that will be the volume in that case). In the resulting statistics ``volume`` will appear in that 
     case too.
 
-  * ``diameter``: calculated with the bounding box and by taking the maximum value of the box in x and y axes. In 3D, z axis 
+  * ``diameter``: calculated with the bounding box and by taking the maximum value of the box in x and y axes. In ``3D``, z axis 
     is also taken into account. Does not take into account the image resolution.
 
-  * ``perimeter``: in 2D, approximates the contour as a line through the centers of border pixels using a 4-connectivity. In 3D, 
+  * ``perimeter``: in ``2D``, approximates the contour as a line through the centers of border pixels using a 4-connectivity. In ``3D``, 
     it is the surface area computed using `Lewiner et al. algorithm <https://www.tandfonline.com/doi/abs/10.1080/10867651.2003.10487582>`__ using `marching_cubes <https://scikit-image.org/docs/stable/api/skimage.measure.htmlskimage.measure.marching_cubes>`__ and `mesh_surface_area <https://scikit-image.org/docs/stable/api/skimage.measure.htmlskimage.measure.mesh_surface_area>`__ functions of scikit-image. 
 
-  * ``sphericity``: in 3D, it is the ratio of the squared volume over the cube of the surface area, normalized such that the value 
-    for a ball equals one: ``(36 * PI)*((volume^2)/(perimeter^3))``. Only measurable for 3D images (use circularity for 2D images).
+  * ``sphericity``: in ``3D``, it is the ratio of the squared volume over the cube of the surface area, normalized such that the value 
+    for a ball equals one: ``(36 * PI)*((volume^2)/(perimeter^3))``. Only measurable for ``3D`` images (use circularity for ``2D`` images).
   
 Post-processing
 ***************
 
-After network prediction and applied to 3D images (e.g. ``PROBLEM.NDIM`` is ``2D`` or ``TEST.ANALIZE_2D_IMGS_AS_3D_STACK`` is ``True``). There are the following options:
+After network prediction and applied to ``3D`` images (e.g. ``PROBLEM.NDIM`` is ``2D`` or ``TEST.ANALIZE_2D_IMGS_AS_3D_STACK`` is ``True``). There are the following options:
 
-* **Z-filtering**: to apply a median filtering in ``z`` axis. Useful to maintain class coherence across 3D volumes. Enable it with ``TEST.POST_PROCESSING.Z_FILTERING`` and use ``TEST.POST_PROCESSING.Z_FILTERING_SIZE`` for the size of the median filter. 
+* **Z-filtering**: to apply a median filtering in ``z`` axis. Useful to maintain class coherence across ``3D`` volumes. Enable it with ``TEST.POST_PROCESSING.Z_FILTERING`` and use ``TEST.POST_PROCESSING.Z_FILTERING_SIZE`` for the size of the median filter. 
 
-* **YZ-filtering**: to apply a median filtering in ``y`` and ``z`` axes. Useful to maintain class coherence across 3D volumes that can work slightly better than ``Z-filtering``. Enable it with ``TEST.POST_PROCESSING.YZ_FILTERING`` and use ``TEST.POST_PROCESSING.YZ_FILTERING_SIZE`` for the size of the median filter.  
+* **YZ-filtering**: to apply a median filtering in ``y`` and ``z`` axes. Useful to maintain class coherence across ``3D`` volumes that can work slightly better than ``Z-filtering``. Enable it with ``TEST.POST_PROCESSING.YZ_FILTERING`` and use ``TEST.POST_PROCESSING.YZ_FILTERING_SIZE`` for the size of the median filter.  
 
 \
 

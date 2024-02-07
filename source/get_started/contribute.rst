@@ -15,8 +15,8 @@ In this section, the structure of BiaPy and the various steps involved in execut
 
 5. There are two main classes of generators:
 
-    * ``PairBaseDataGenerator`` which is extended by ``Pair2DImageDataGenerator`` (for 2D data) or ``Pair3DImageDataGenerator`` (for 3D data). These generators yield the image and its mask, and all data augmentation (DA) techniques are done considering the mask as well. These generators are used for all workflows except classification.
-    * ``SingleBaseDataGenerator`` which is extended by ``Single2DImageDataGenerator`` (for 2D data) or ``Single3DImageDataGenerator`` (for 3D data). These generators yield the image and its class (integer). These generators are used for classification workflows. BiaPy uses the `imgaug <https://github.com/aleju/imgaug>`__ library, so when adding new DA methods, it's recommended to check if it has already been implemented by that library. Custom DA techniques can be placed in the ``data/generators/augmentors.py`` file.
+    * ``PairBaseDataGenerator`` which is extended by ``Pair2DImageDataGenerator`` (for 2D data) or ``Pair3DImageDataGenerator`` (for ``3D`` data). These generators yield the image and its mask, and all data augmentation (DA) techniques are done considering the mask as well. These generators are used for all workflows except classification.
+    * ``SingleBaseDataGenerator`` which is extended by ``Single2DImageDataGenerator`` (for 2D data) or ``Single3DImageDataGenerator`` (for ``3D`` data). These generators yield the image and its class (integer). These generators are used for classification workflows. BiaPy uses the `imgaug <https://github.com/aleju/imgaug>`__ library, so when adding new DA methods, it's recommended to check if it has already been implemented by that library. Custom DA techniques can be placed in the ``data/generators/augmentors.py`` file.
 
 6. The next step after the data and generator process is to define the model. A new model should be added to the ``biapy.models`` folder and constructed in the ``biapy.models/init.py`` file. Following this, the training process can begin.
 
