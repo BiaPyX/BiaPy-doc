@@ -6,9 +6,12 @@ Denoising
 The goal is to remove noise from an image. Our library includes Noise2Void :cite:p:`krull2019noise2void` using any of the U-Net versions provided. The main advantage of Noise2Void is neither relying on noise image pairs nor clean target images since frequently clean images are simply unavailable.
 
 * **Input:** 
-    * Noisy image. 
+
+  * Noisy image. 
+
 * **Output:**
-    * Image without noise. 
+
+  * Image without noise. 
 
 
 In the figure below an example of this workflow's **input** is depicted:
@@ -53,13 +56,13 @@ Special workflow configuration
 
 Please refer to `Noise2Void <https://arxiv.org/abs/1811.10980>`__  to understand the method functionality. These variables can be set:
 
-    * ``PROBLEM.DENOISING.N2V_PERC_PIX`` controls the percentage of pixels per input patch to be manipulated. This is the ``n2v_perc_pix`` in their code. 
+* ``PROBLEM.DENOISING.N2V_PERC_PIX`` controls the percentage of pixels per input patch to be manipulated. This is the ``n2v_perc_pix`` in their code. 
 
-    * ``PROBLEM.DENOISING.N2V_MANIPULATOR`` controls how the pixels will be replaced. This is the ``n2v_manipulator`` in their code. 
+* ``PROBLEM.DENOISING.N2V_MANIPULATOR`` controls how the pixels will be replaced. This is the ``n2v_manipulator`` in their code. 
 
-    * ``PROBLEM.DENOISING.N2V_NEIGHBORHOOD_RADIUS`` controls the radius of the neighborhood. This is the ``n2v_neighborhood_radius`` in their code. 
+* ``PROBLEM.DENOISING.N2V_NEIGHBORHOOD_RADIUS`` controls the radius of the neighborhood. This is the ``n2v_neighborhood_radius`` in their code. 
 
-    * ``PROBLEM.DENOISING.N2V_STRUCTMASK`` whether to use `Struct Noise2Void <https://github.com/juglab/n2v/blob/main/examples/2D/structN2V_2D_convallaria/>`__. 
+* ``PROBLEM.DENOISING.N2V_STRUCTMASK`` whether to use `Struct Noise2Void <https://github.com/juglab/n2v/blob/main/examples/2D/structN2V_2D_convallaria/>`__. 
 
 
 Run
@@ -211,39 +214,39 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 
-    * ``my_2d_denoising.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
+  * ``my_2d_denoising.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
 
 * ``checkpoints``: directory where model's weights are stored.
 
-    * ``my_2d_denoising_1-checkpoint-best.pth``: checkpoint file (best in validation) where the model's weights are stored among other information.
+  * ``my_2d_denoising_1-checkpoint-best.pth``: checkpoint file (best in validation) where the model's weights are stored among other information.
 
-    * ``normalization_mean_value.npy``: normalization mean value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference.  
-    
-    * ``normalization_std_value.npy``: normalization std value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference. 
+  * ``normalization_mean_value.npy``: normalization mean value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference.  
+  
+  * ``normalization_std_value.npy``: normalization std value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference. 
 
 * ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
 
-    * ``my_2d_denoising_1``: run 1 experiment folder. 
+  * ``my_2d_denoising_1``: run 1 experiment folder. 
 
-        * ``cell_counter.csv``: file with a counter of detected objects for each test sample.
+    * ``cell_counter.csv``: file with a counter of detected objects for each test sample.
 
-        * ``aug``: image augmentation samples.
+    * ``aug``: image augmentation samples.
 
-        * ``charts``:  
+    * ``charts``:  
 
-             * ``my_2d_denoising_1_*.png``: Plot of each metric used during training.
+      * ``my_2d_denoising_1_*.png``: Plot of each metric used during training.
 
-             * ``my_2d_denoising_1_loss.png``: Loss over epochs plot (when training is done). 
+      * ``my_2d_denoising_1_loss.png``: Loss over epochs plot (when training is done). 
 
-             * ``model_plot_my_2d_denoising_1.png``: plot of the model.
+      * ``model_plot_my_2d_denoising_1.png``: plot of the model.
 
-        * ``per_image``:
+    * ``per_image``:
 
-            * ``.tif files``: reconstructed images from patches.  
+      * ``.tif files``: reconstructed images from patches.  
 
-* ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
+    * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
 
-* ``tensorboard``: Tensorboard logs.
+    * ``tensorboard``: Tensorboard logs.
 
 .. note:: 
 

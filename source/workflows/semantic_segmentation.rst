@@ -6,10 +6,13 @@ Semantic segmentation
 The goal of this workflow is assign a class to each pixel of the input image. 
 
 * **Input:** 
-    * Image. 
-    * Class mask where each pixel is labeled with an integer representing a class.
+
+  * Image. 
+  * Class mask where each pixel is labeled with an integer representing a class.
+
 * **Output:**
-    * Image with the probability of being part of each class.  
+
+  * Image with the probability of being part of each class.  
 
 In the figure below an example of this workflow's **input** is depicted. There, only two labels are present in the mask: black pixels, with value 0, represent the background and white ones the mitochondria, labeled with 1. The number of classes is defined by ``MODEL.N_CLASSES`` variable.
 
@@ -67,28 +70,32 @@ Configuration
 
 Find in `templates/semantic_segmentation <https://github.com/BiaPyX/BiaPy/tree/master/templates/semantic_segmentation>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
 
-
 Special workflow configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Here some special configuration options that can be selected in this workflow are described:
+Data loading
+************
 
-* **Data loading**: if you want to select ``DATA.EXTRACT_RANDOM_PATCH`` you can also set ``DATA.PROBABILITY_MAP`` to create a probability map so the patches extracted will have a high probability of having an object in the middle of it. Useful to avoid extracting patches which no foreground class information. That map will be saved in ``PATHS.PROB_MAP_DIR``.
+If you want to select ``DATA.EXTRACT_RANDOM_PATCH`` you can also set ``DATA.PROBABILITY_MAP`` to create a probability map so the patches extracted will have a high probability of having an object in the middle of it. Useful to avoid extracting patches which no foreground class information. That map will be saved in ``PATHS.PROB_MAP_DIR``. Furthermore, in ``PATHS.DA_SAMPLES`` path, i.e. ``aug`` folder by default (see :ref:`semantic_segmentation_results`), two more images will be created so you can check how this probability map is working. These images will have painted a blue square and a red point in its middle, which correspond to the patch area extracted and the central point selected respectively. One image will be named as ``mark_x`` and the other one as ``mark_y``, which correspond to the input image and ground truth respectively.  
 
-Furthermore, when this is enabled, in ``PATHS.DA_SAMPLES`` path, i.e. ``aug`` folder by default (see :ref:`semantic_segmentation_results`), two more images will be created so you can check how this probability map is working. These images will have painted a blue square and a red point in its middle, which correspond to the patch area extracted and the central point selected respectively. One image will be named as ``mark_x`` and the other one as ``mark_y``, which correspond to the input image and ground truth respectively.  
+Metrics
+*******
 
-* **Metrics**: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is enabled. In the case of semantic segmentation the **Intersection over Union** (IoU) metrics is calculated. This metric, also referred as the Jaccard index, is essentially a method to quantify the percent of overlap between the target mask and the prediction output. Depending on the configuration different values are calculated (as explained in :ref:`config_test`). This values can vary a lot as stated in :cite:p:`Franco-Barranco2021`.
+During the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is ``True``. In the case of semantic segmentation the **Intersection over Union** (IoU) metrics is calculated after the network prediction. This metric, also referred as the Jaccard index, is essentially a method to quantify the percent of overlap between the target mask and the prediction output. Depending on the configuration different values are calculated (as explained in :ref:`config_test` and :ref:`config_metric`). This values can vary a lot as stated in :cite:p:`Franco-Barranco2021`.
 
-    * ``per patch`` values are calculated if ``TEST.STATS.PER_PATCH`` is enabled. IoU is calculated for each patch separately and then averaged. 
-    * ``merge patches`` values are calculated if ``TEST.STATS.MERGE_PATCHES`` is enabled. Notice that depending on the amount of overlap/padding selected the merged image can be different than just concatenating each patch. 
-    * ``full image`` values are calculated if ``TEST.STATS.FULL_IMG`` is enabled. This can be done if the model selected if fully convolutional. The results may be slightly different from ``merge patches`` as you may notice and probably no border effect will be seen. 
+* **Per patch**: IoU is calculated for each patch separately and then averaged. 
+* **Reconstructed image**: IoU is calculated for each reconstructed image separately and then averaged. Notice that depending on the amount of overlap/padding selected the merged image can be different than just concatenating each patch. 
+* **Full image**: IoU is calculated for each image separately and then averaged. The results may be slightly different from the reconstructed image.
 
-* **Post-processing**: When ``PROBLEM.NDIM`` is ``2D`` the post-processing will be enabled only if ``TEST.STATS.FULL_IMG`` is enabled. In that case the post-processing will process all 2D predicted images as a unique 3D stack. On the other hand, when ``PROBLEM.NDIM`` is ``3D`` the post-processing will be applied when ``TEST.STATS.PER_PATCH`` and ``TEST.STATS.MERGE_PATCHES`` is selected. In this case, each 3D predicted image will be processed individually.
+Post-processing
+***************
 
-    * **Z-filtering**: to apply a median filtering in ``z`` axis. Useful to maintain class coherence across 3D volumes. Enable it with ``TEST.POST_PROCESSING.Z_FILTERING`` and use ``TEST.POST_PROCESSING.Z_FILTERING_SIZE`` for the size of the median filter. 
+Only applied to 3D images (e.g. ``PROBLEM.NDIM`` is ``2D`` or ``TEST.ANALIZE_2D_IMGS_AS_3D_STACK`` is ``True``). There are the following options:
 
-    * **YZ-filtering**: to apply a median filtering in ``y`` and ``z`` axes. Useful to maintain class coherence across 3D volumes that can work slightly better than ``Z-filtering``. Enable it with ``TEST.POST_PROCESSING.YZ_FILTERING`` and use ``TEST.POST_PROCESSING.YZ_FILTERING_SIZE`` for the size of the median filter.  
-    
+* **Z-filtering**: to apply a median filtering in ``z`` axis. Useful to maintain class coherence across 3D volumes. Enable it with ``TEST.POST_PROCESSING.Z_FILTERING`` and use ``TEST.POST_PROCESSING.Z_FILTERING_SIZE`` for the size of the median filter. 
+
+* **YZ-filtering**: to apply a median filtering in ``y`` and ``z`` axes. Useful to maintain class coherence across 3D volumes that can work slightly better than ``Z-filtering``. Enable it with ``TEST.POST_PROCESSING.YZ_FILTERING`` and use ``TEST.POST_PROCESSING.YZ_FILTERING_SIZE`` for the size of the median filter.  
+
 .. _semantic_segmentation_data_run:
 
 Run
@@ -246,49 +253,49 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 
-    * ``my_2d_semantic_segmentation.yaml``: YAML configuration file used (it will be overwrited every time the code is run)
+  * ``my_2d_semantic_segmentation.yaml``: YAML configuration file used (it will be overwrited every time the code is run)
 
 * ``checkpoints``: directory where model's weights are stored.
 
-    * ``my_2d_semantic_segmentation_1-checkpoint-best.pth``: checkpoint file (best in validation) where the model's weights are stored among other information.
+  * ``my_2d_semantic_segmentation_1-checkpoint-best.pth``: checkpoint file (best in validation) where the model's weights are stored among other information.
 
 * ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
 
-    * ``my_2d_semantic_segmentation_1``: run 1 experiment folder. 
+  * ``my_2d_semantic_segmentation_1``: run 1 experiment folder. 
 
-        * ``aug``: image augmentation samples.
+    * ``aug``: image augmentation samples.
 
-        * ``charts``:  
+    * ``charts``:  
 
-             * ``my_2d_semantic_segmentation_1_*.png``: Plot of each metric used during training.
+      * ``my_2d_semantic_segmentation_1_*.png``: Plot of each metric used during training.
 
-             * ``my_2d_semantic_segmentation_1_loss.png``: Loss over epochs plot (when training is done). 
+      * ``my_2d_semantic_segmentation_1_loss.png``: Loss over epochs plot (when training is done). 
 
-             * ``model_plot_my_2d_semantic_segmentation_1.png``: plot of the model.
+      * ``model_plot_my_2d_semantic_segmentation_1.png``: plot of the model.
         
-        * ``full_image``: 
+    * ``full_image``: 
 
-            * ``.tif files``: output of the model when feeding entire images (without patching). 
+      * ``.tif files``: output of the model when feeding entire images (without patching). 
 
-        * ``full_image_binarized``: 
+    * ``full_image_binarized``: 
 
-            * ``.tif files``: Same as ``full_image`` but with the image binarized.
+      * ``.tif files``: Same as ``full_image`` but with the image binarized.
 
-        * ``full_post_processing`` (optional if any post-processing was selected):
+    * ``full_post_processing`` (optional if any post-processing was selected):
 
-            * ``.tif files``: output of the model when feeding entire images (without patching) and applying post-processing, which in this case only `y` and `z` axes filtering was selected.
+      * ``.tif files``: output of the model when feeding entire images (without patching) and applying post-processing, which in this case only `y` and `z` axes filtering was selected.
 
-        * ``per_image``:
+    * ``per_image``:
 
-            * ``.tif files``: reconstructed images from patches.   
+      * ``.tif files``: reconstructed images from patches.   
 
-        * ``per_image_binarized``: 
+    * ``per_image_binarized``: 
 
-            * ``.tif files``: Same as ``per_image`` but with the images binarized.
-        
-        * ``tensorboard``: Tensorboard logs.
+      * ``.tif files``: Same as ``per_image`` but with the images binarized.
+    
+    * ``tensorboard``: Tensorboard logs.
 
-        * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
+    * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
         
 .. note:: 
    Here, for visualization purposes, only ``my_2d_semantic_segmentation_1`` has been described but ``my_2d_semantic_segmentation_2``, ``my_2d_semantic_segmentation_3``, ``my_2d_semantic_segmentation_4`` and ``my_2d_semantic_segmentation_5`` will follow the same structure.

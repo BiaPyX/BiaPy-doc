@@ -6,9 +6,12 @@ Super-resolution
 The goal of this workflow aims at reconstructing high-resolution (HR) images from low-resolution (LR) ones. 
 
 * **Input:** 
-    * LR image. 
+    
+  * LR image. 
+
 * **Output:**
-    * HR image. 
+
+  * HR image. 
 
 In the figure below an example of this workflow's **input** is depicted to make a x2 upsampling. The images were obtained from `ZeroCostDL4Mic <https://github.com/HenriquesLab/ZeroCostDL4Mic>`__ project:
 
@@ -72,7 +75,7 @@ Here some special configuration options that can be selected in this workflow ar
 
 * **Upsampling** is the most important variable to be set via ``PROBLEM.SUPER_RESOLUTION.UPSCALING``. In the example above, its value is ``2``. 
 
-* **Metrics**: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is enabled. In the case of super-resolution the **Peak signal-to-noise ratio** (`PSNR <https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio>`__) metrics is calculated when the HR image is reconstructed from individual patches.
+* **Metrics**: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is ``True``. In the case of super-resolution the **Peak signal-to-noise ratio** (`PSNR <https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio>`__) metrics is calculated when the HR image is reconstructed from individual patches.
 
 .. _super_resolution_data_run:
 
@@ -229,37 +232,37 @@ Following the example, you should see that the directory ``/home/user/exp_result
             
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 
-    * ``2d_super-resolution.yaml``: YAML configuration file used (it will be overwrited every time the code is run)
+  * ``2d_super-resolution.yaml``: YAML configuration file used (it will be overwrited every time the code is run)
 
 * ``checkpoints``: directory where model's weights are stored.
 
-    * ``my_2d_super-resolution_1-checkpoint-best.pth``: checkpoint file (best in validation) where the model's weights are stored among other information.
+  * ``my_2d_super-resolution_1-checkpoint-best.pth``: checkpoint file (best in validation) where the model's weights are stored among other information.
 
-    * ``normalization_mean_value.npy``: normalization mean value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference.  
-    
-    * ``normalization_std_value.npy``: normalization std value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference. 
-    
+  * ``normalization_mean_value.npy``: normalization mean value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference.  
+  
+  * ``normalization_std_value.npy``: normalization std value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference. 
+  
 * ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
 
-    * ``my_2d_super_resolution_1``: run 1 experiment folder. 
+  * ``my_2d_super_resolution_1``: run 1 experiment folder. 
 
-        * ``aug``: image augmentation samples.
+    * ``aug``: image augmentation samples.
 
-        * ``charts``:  
+    * ``charts``:  
 
-             * ``my_2d_super_resolution_1_*.png``: Plot of each metric used during training.
+      * ``my_2d_super_resolution_1_*.png``: Plot of each metric used during training.
 
-             * ``my_2d_super_resolution_1_loss.png``: Loss over epochs plot (when training is done). 
+      * ``my_2d_super_resolution_1_loss.png``: Loss over epochs plot (when training is done). 
 
-             * ``model_plot_my_2d_super_resolution_1.png``: plot of the model.
+      * ``model_plot_my_2d_super_resolution_1.png``: plot of the model.
 
-        * ``per_image``:
+    * ``per_image``:
 
-            * ``.tif files``: reconstructed images from patches.   
+      * ``.tif files``: reconstructed images from patches.   
 
-* ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
+    * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
 
-* ``tensorboard``: Tensorboard logs.
+    * ``tensorboard``: Tensorboard logs.
 
 .. note:: 
    Here, for visualization purposes, only ``my_2d_super_resolution_1`` has been described but ``my_2d_super_resolution_2``, ``my_2d_super_resolution_3``, ``my_2d_super_resolution_4`` and ``my_2d_super_resolution_5`` will follow the same structure.

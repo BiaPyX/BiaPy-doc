@@ -179,45 +179,45 @@ Following the example, the results should be placed in ``/home/user/exp_results/
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 
-    * ``cartocell_training.yaml``: YAML configuration file used for training. 
+  * ``cartocell_training.yaml``: YAML configuration file used for training. 
 
-    * ``cartocell_inference.yaml``: YAML configuration file used for inference. 
+  * ``cartocell_inference.yaml``: YAML configuration file used for inference. 
 
 * ``checkpoints``: directory where model's weights are stored.
 
-    * ``model_weights_cartocell_1.h5``: model's weights file.
+  * ``model_weights_cartocell_1.h5``: model's weights file.
 
 * ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
 
-    * ``cartocell_1``: run 1 experiment folder. 
+  * ``cartocell_1``: run 1 experiment folder. 
 
-        * ``aug``: image augmentation samples.
+    * ``aug``: image augmentation samples.
 
-        * ``charts``:  
+    * ``charts``:  
 
-             * ``cartocell_1_jaccard_index.png``: IoU (jaccard_index) over epochs plot (when training is done).
+      * ``cartocell_1_jaccard_index.png``: IoU (jaccard_index) over epochs plot (when training is done).
 
-             * ``cartocell_1_loss.png``: loss over epochs plot (when training is done). 
+      * ``cartocell_1_loss.png``: loss over epochs plot (when training is done). 
 
-             * ``model_plot_cartocell_1.png``: plot of the model.
+      * ``model_plot_cartocell_1.png``: plot of the model.
 
-        * ``per_image``:
+    * ``per_image``:
 
-            * ``.tif files``: reconstructed images from patches.   
+      * ``.tif files``: reconstructed images from patches.   
 
-        * ``per_image_instances``: 
+    * ``per_image_instances``: 
+ 
+      * ``.tif files``: same as ``per_image`` but with the instances.
 
-            * ``.tif files``: same as ``per_image`` but with the instances.
+    * ``per_image_post_processing``: 
 
-        * ``per_image_post_processing``: 
+      * ``.tif files``: same as ``per_image_instances`` but applied Voronoi, which has been the unique post-proccessing applied here. 
 
-            * ``.tif files``: same as ``per_image_instances`` but applied Voronoi, which has been the unique post-proccessing applied here. 
-
-        * ``watershed``: 
-                
-                * ``seed_map.tif``: initial seeds created before growing. 
-                
-                * ``foreground.tif``: foreground mask area that delimits the grown of the seeds.
-                
-                * ``watershed.tif``: result of watershed.
+    * ``watershed``: 
+            
+      * ``seed_map.tif``: initial seeds created before growing. 
+    
+      * ``foreground.tif``: foreground mask area that delimits the grown of the seeds.
+    
+      * ``watershed.tif``: result of watershed.
 

@@ -6,9 +6,12 @@ Classification
 The goal of this workflow is to assign a label to the input image. 
 
 * **Input:** 
-    * Image. 
+
+  * Image. 
+
 * **Output:**
-    * ``.csv`` file with the assigned class to each image.
+
+  * ``.csv`` file with the assigned class to each image.
 
 In the figure below a few examples of this workflow's **input** are depicted:
 
@@ -89,7 +92,7 @@ Each image label is obtained from the directory name in which that image resides
             ├── . . .
             └── test806_6.png
 
-Here each directory is a number but it can be any string. Notice that they will be considered the class names. Regarding the test, if you have no classes it doesn't matter if the images are separated in several folders or are all in one folder. But, if ``DATA.TEST.LOAD_GT`` is enabled, each folder in test path (i.e. ``DATA.TEST.PATH``) will be considered as a class (as done for training and validation). 
+Here each directory is a number but it can be any string. Notice that they will be considered the class names. Regarding the test, if you have no classes it doesn't matter if the images are separated in several folders or are all in one folder. But, if ``DATA.TEST.LOAD_GT`` is ``True``, each folder in test path (i.e. ``DATA.TEST.PATH``) will be considered as a class (as done for training and validation). 
 
 .. _classification_problem_resolution:
 
@@ -102,9 +105,10 @@ Find in `templates/classification <https://github.com/BiaPyX/BiaPy/tree/master/t
 Special workflow configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Here some special configuration options that can be selected in this workflow are described:
+Metrics
+*******
 
-* **Metrics**: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is enabled. In the case of classification the **accuracy**, **precision**, **recall**, and **F1** are calculated. Apart from that, the `confusion matrix <https://en.wikipedia.org/wiki/Confusion_matrix>`__ is also printed.
+During the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is ``True``. In the case of classification the **accuracy**, **precision**, **recall**, and **F1** are calculated. Apart from that, the `confusion matrix <https://en.wikipedia.org/wiki/Confusion_matrix>`__ is also printed.
 
 Run
 ~~~
@@ -248,35 +252,35 @@ All files are placed in ``results`` folder under ``--result_dir`` directory with
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 
-    * ``2d_classification.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
+  * ``2d_classification.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
 
 * ``checkpoints``: directory where model's weights are stored.
 
-    * ``model_weights_my_2d_classification_1.h5``: checkpoint file (best in validation) where the model's weights are stored among other information.
-    
-    * ``normalization_mean_value.npy``: normalization mean value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference.  
-    
-    * ``normalization_std_value.npy``: normalization std value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference. 
+  * ``model_weights_my_2d_classification_1.h5``: checkpoint file (best in validation) where the model's weights are stored among other information.
+  
+  * ``normalization_mean_value.npy``: normalization mean value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference.  
+  
+  * ``normalization_std_value.npy``: normalization std value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference. 
 
 * ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
 
-    * ``my_2d_classification_1``: run 1 experiment folder. 
+  * ``my_2d_classification_1``: run 1 experiment folder. 
 
-        * ``predictions.csv``: list of assigned class per test image.
+    * ``predictions.csv``: list of assigned class per test image.
 
-        * ``aug``: image augmentation samples.
+    * ``aug``: image augmentation samples.
 
-        * ``charts``:  
+    * ``charts``:  
 
-             * ``my_2d_classification_1_*.png``: Plot of each metric used during training.
+      * ``my_2d_classification_1_*.png``: Plot of each metric used during training.
 
-             * ``my_2d_classification_1_loss.png``: Loss over epochs plot (when training is done). 
+      * ``my_2d_classification_1_loss.png``: Loss over epochs plot (when training is done). 
 
-             * ``model_plot_my_2d_classification_1.png``: plot of the model.
+      * ``model_plot_my_2d_classification_1.png``: plot of the model.
 
-* ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
+    * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
 
-* ``tensorboard``: Tensorboard logs.
+    * ``tensorboard``: Tensorboard logs.
 
 .. note:: 
 
