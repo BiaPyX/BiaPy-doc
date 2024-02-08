@@ -155,7 +155,7 @@ Choose your installation method
         To use BiaPy via the command line, you will need to set up a ``conda`` environment. To do this, you will first need to install `Anaconda/Miniconda <https://www.anaconda.com/>`__. For detailed installation instructions based on your operating system, please see the following links: `Windows <https://docs.anaconda.com/anaconda/install/windows/>`__, `macOS <https://docs.anaconda.com/anaconda/install/mac-os/>`__ and `Linux <https://docs.anaconda.com/anaconda/install/linux/>`__. Then you need to create a ``conda`` environment through a `terminal </get_started/faq.html#opening-a-terminal>`__: ::
 
           # Create and activate the environment
-          conda create -n BiaPy_env python=3.8
+          conda create -n BiaPy_env python=3.10
           conda activate BiaPy_env
      
         .. tabs::
