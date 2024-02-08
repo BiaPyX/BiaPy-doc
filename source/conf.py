@@ -18,10 +18,10 @@ import sys
 import os
 import datetime
 
-# Clone 
+# Clone
 from git import Repo
 dir_path = os.path.abspath(os.path.dirname(__file__))
-biapy_dir = os.path.join(dir_path, "..","..", "BiaPy")
+biapy_dir = os.path.join(dir_path, "..","..","..", "BiaPy")
 if not os.path.exists(biapy_dir):
     os.makedirs(biapy_dir, exist_ok=True)
     print("Cloning BiaPy repo . . .")
@@ -30,7 +30,7 @@ if not os.path.exists(biapy_dir):
 base_path = os.path.abspath(biapy_dir)
 sys.path.insert(0, base_path)
 print("PATH: {}".format(sys.path))
-numpydoc_show_class_members = False 
+numpydoc_show_class_members = False
 
 
 # -- Project information -----------------------------------------------------
