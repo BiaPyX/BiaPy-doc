@@ -166,6 +166,14 @@ Choose your installation method
 
                     pip install biapy
 
+                    # Then install Pytorch 2.2.0 + CUDA 11.8
+                    pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu118 
+                    pip install timm torchmetrics
+
+               .. note:: 
+
+                    The PyPI package does not install Pytorch because there is no option to build that package specifying exactly the CUDA version you want to use. There are a few solutions to set up ``pyproject.toml`` with poetry and specify the CUDA version, as discussed `here <https://github.com/python-poetry/poetry/issues/6409>`__, but then PyPI package can not be built (as stated `here <https://peps.python.org/pep-0440/#direct-references>`__).
+
            .. tab:: Option 2: Clone + install
 
                To clone the repository you will need to install `git <https://git-scm.com/>`__, a free and open source distributed version control system. Git will allow you to easily download the code with a single command. You can download and install it `here <https://git-scm.com/downloads>`__. For detailed installation instructions based on your operating system, please see the following links: `Windows <https://git-scm.com/download/win>`__, `macOS <https://git-scm.com/download/mac>`__ and `Linux <https://git-scm.com/download/linux>`__. 
