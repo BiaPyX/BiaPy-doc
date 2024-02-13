@@ -19,48 +19,57 @@ The goal of this workflow is assign an unique id, i.e. integer, to each object o
 In the figure below an example of this workflow's **input** is depicted. Each color in the mask corresponds to a unique object.
 
 .. list-table::
-
+  :width: 100%
+  :class: borderless
+  
   * - .. figure:: ../img/mitoem_crop.png
          :align: center
+         :width: 80.0%
 
          Input image.  
 
     - .. figure:: ../img/mitoem_crop_mask.png
          :align: center
+         :width: 80.0%
 
-         Input instance mask (ground truth).
-
+         Input mask.
 
 .. _instance_segmentation_data_prep:
 
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-To ensure the proper operation of the library the data directory tree should be something like this: ::
+To ensure the proper operation of the library the data directory tree should be something like this:
 
-    dataset/
-    ├── train
-    │   ├── x
-    │   │   ├── training-0001.tif
-    │   │   ├── training-0002.tif
-    │   │   ├── . . .
-    │   │   ├── training-9999.tif
-    │   └── y
-    │       ├── training_groundtruth-0001.tif
-    │       ├── training_groundtruth-0002.tif
-    │       ├── . . .
-    │       ├── training_groundtruth-9999.tif
-    └── test
-        ├── x
-        │   ├── testing-0001.tif
-        │   ├── testing-0002.tif
-        │   ├── . . .
-        │   ├── testing-9999.tif
-        └── y
-            ├── testing_groundtruth-0001.tif
-            ├── testing_groundtruth-0002.tif
-            ├── . . .
-            ├── testing_groundtruth-9999.tif
+.. collapse:: Expand directory tree 
+
+    .. code-block:: bash
+        
+      dataset/
+      ├── train
+      │   ├── x
+      │   │   ├── training-0001.tif
+      │   │   ├── training-0002.tif
+      │   │   ├── . . .
+      │   │   ├── training-9999.tif
+      │   └── y
+      │       ├── training_groundtruth-0001.tif
+      │       ├── training_groundtruth-0002.tif
+      │       ├── . . .
+      │       ├── training_groundtruth-9999.tif
+      └── test
+          ├── x
+          │   ├── testing-0001.tif
+          │   ├── testing-0002.tif
+          │   ├── . . .
+          │   ├── testing-9999.tif
+          └── y
+              ├── testing_groundtruth-0001.tif
+              ├── testing_groundtruth-0002.tif
+              ├── . . .
+              ├── testing_groundtruth-9999.tif
+
+\
 
 .. warning:: Ensure that images and their corresponding masks are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example). 
 
@@ -372,38 +381,44 @@ Results
 
 The results are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. 
 
-Following the example, you should see that the directory ``/home/user/exp_results/my_3d_instance_segmentation`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
+Following the example, you should see that the directory ``/home/user/exp_results/my_3d_instance_segmentation`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: 
 
-    my_3d_instance_segmentation/
-    ├── config_files/
-    │   └── 3d_instance_segmentation.yaml                                                                                                           
-    ├── checkpoints
-    │   └── my_3d_instance_segmentation_1-checkpoint-best.pth
-    └── results
-        ├── my_3d_instance_segmentation_1
-        ├── . . .
-        └── my_3d_instance_segmentation_5
-            ├── aug
-            │   └── .tif files
-            ├── charts
-            │   ├── my_3d_instance_segmentation_1_*.png
-            │   ├── my_3d_instance_segmentation_1_loss.png
-            │   └── model_plot_my_3d_instance_segmentation_1.png
-            ├── per_image
-            │   └── .tif files
-            ├── per_image_instances
-            │   └── .tif files  
-            ├── per_image_instances_post_processing
-            │   └── .tif files 
-            ├── instance_associations
-            │   ├── .tif files
-            │   └── .csv files                        
-            ├── watershed
-            │   ├── seed_map.tif
-            │   ├── foreground.tif                
-            │   └── watershed.tif
-            ├── train_logs
-            └── tensorboard
+.. collapse:: Expand directory tree 
+
+    .. code-block:: bash
+        
+      my_3d_instance_segmentation/
+      ├── config_files/
+      │   └── 3d_instance_segmentation.yaml                                                                                                           
+      ├── checkpoints
+      │   └── my_3d_instance_segmentation_1-checkpoint-best.pth
+      └── results
+         ├── my_3d_instance_segmentation_1
+          ├── . . .
+          └── my_3d_instance_segmentation_5
+              ├── aug
+              │   └── .tif files
+             ├── charts
+              │   ├── my_3d_instance_segmentation_1_*.png
+              │   ├── my_3d_instance_segmentation_1_loss.png
+              │   └── model_plot_my_3d_instance_segmentation_1.png
+             ├── per_image
+              │   └── .tif files
+             ├── per_image_instances
+              │   └── .tif files  
+             ├── per_image_instances_post_processing
+              │   └── .tif files 
+              ├── instance_associations
+              │   ├── .tif files
+              │   └── .csv files                        
+             ├── watershed
+              │   ├── seed_map.tif
+              │   ├── foreground.tif                
+              │   └── watershed.tif
+              ├── train_logs
+              └── tensorboard
+
+\
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 

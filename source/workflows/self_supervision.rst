@@ -17,36 +17,43 @@ In the figure below an example of ``crappify`` pretext task input images are dep
 
 .. list-table::
 
-  * - .. figure:: ../img/lucchi_train_0_crap.png
+  * - .. figure:: ../img/lucchi_train_0.png
          :align: center
+         :class: with-shadow
 
-         Input image's worstened version.  
+         Input image.
 
-    - .. figure:: ../img/lucchi_train_0.png
+    - .. figure:: ../img/lucchi_train_0_crap.png
          :align: center
-
-         Input image. 
+         
+         Worstened image.
 
 .. _self-supervision_data_prep:
 
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-To ensure the proper operation of the library the data directory tree should be something like this: ::
+To ensure the proper operation of the library the data directory tree should be something like this: 
 
-    dataset/
-    ├── train
-    │   └── x
-    │       ├── training-0001.tif
-    │       ├── training-0002.tif
-    │       ├── . . .
-    │       └── training-9999.tif
-    └── test
-        └── x
-            ├── testing-0001.tif
-            ├── testing-0002.tif
-            ├── . . .
-            └── testing-9999.tif
+.. collapse:: Expand directory tree 
+
+    .. code-block:: bash
+        
+      dataset/
+      ├── train
+      │   └── x
+      │       ├── training-0001.tif
+      │       ├── training-0002.tif
+      │       ├── . . .
+      │       └── training-9999.tif
+      └── test
+          └── x
+             ├── testing-0001.tif
+             ├── testing-0002.tif
+             ├── . . .
+             └── testing-9999.tif
+
+\
 
 .. _self-supervision_problem_resolution:
 
@@ -199,32 +206,38 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
     - .. figure:: ../img/lucchi_train_0.png
          :align: center
 
-         Original input image.
+         Original image.
 
 
-Following the example, you should see that the directory ``/home/user/exp_results/my_2d_self-supervised`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
+Following the example, you should see that the directory ``/home/user/exp_results/my_2d_self-supervised`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: 
 
-    my_2d_self-supervised/
-    ├── config_files/
-    │   └── my_2d_self-supervised.yaml                                                                                                           
-    ├── checkpoints
-    │   └── my_2d_self-supervised_1-checkpoint-best.pth
-    └── results
-        ├── my_2d_self-supervised_1
-        ├── . . .
-        └── my_2d_self-supervised_5
-            ├── aug
-            │   └── .tif files
-            ├── charts
-            │   ├── my_2d_self-supervised_1_*.png
-            │   ├── my_2d_self-supervised_1_loss.png
-            │   └── model_plot_my_2d_self-supervised_1.png
-            ├── MAE_checks
-            │   └── .tif files            
-            ├── per_image
-            │   └── .tif files
-            ├── tensorboard
-            └── train_logs
+.. collapse:: Expand directory tree 
+
+    .. code-block:: bash
+        
+      my_2d_self-supervised/
+      ├── config_files/
+      │   └── my_2d_self-supervised.yaml                                                                                                           
+      ├── checkpoints
+      │   └── my_2d_self-supervised_1-checkpoint-best.pth
+      └── results
+         ├── my_2d_self-supervised_1
+          ├── . . .
+          └── my_2d_self-supervised_5
+              ├── aug
+              │   └── .tif files
+             ├── charts
+              │   ├── my_2d_self-supervised_1_*.png
+              │   ├── my_2d_self-supervised_1_loss.png
+              │   └── model_plot_my_2d_self-supervised_1.png
+             ├── MAE_checks
+              │   └── .tif files            
+             ├── per_image
+              │   └── .tif files
+              ├── tensorboard
+              └── train_logs
+
+\
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 

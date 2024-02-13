@@ -6,31 +6,31 @@ As an example, a full pipeline for semantic segmentation can be created using th
 
 .. code-block:: yaml
 
-     PROBLEM:
-         TYPE: SEMANTIC SEG
-         NDIM: 2D
-     DATA:
-         PATCH_SIZE: (256, 256, 1)
-         TRAIN:
-             PATH: /TRAIN_PATH
-             GT_PATH: /TRAIN_GT_PATH
-         VAL:
-            SPLIT_TRAIN: 0.1
-        TEST:
-            PATH: /TEST_PATH
-    AUGMENTOR:
-        ENABLE: True
-        RANDOM_ROT: True
-    MODEL:
-        ARCHITECTURE: unet
+  PROBLEM:
+    TYPE: SEMANTIC SEG
+    NDIM: 2D
+  DATA:
+    PATCH_SIZE: (256, 256, 1)
     TRAIN:
-        OPTIMIZER: SGD 
-        LR: 1.E−3
-        BATCH_SIZE: 6
-        EPOCHS: 360
+      PATH: /TRAIN_PATH
+      GT_PATH: /TRAIN_GT_PATH
+    VAL:
+      SPLIT_TRAIN: 0.1
     TEST:
-        POST_PROCESSING:
-            YZ_FILTERING: True
+      PATH: /TEST_PATH
+  AUGMENTOR:
+    ENABLE: True
+    RANDOM_ROT: True
+  MODEL:
+    ARCHITECTURE: unet
+  TRAIN:
+    OPTIMIZER: ADAMW 
+    LR: 1.E−4
+    BATCH_SIZE: 6
+    EPOCHS: 360
+  TEST:
+    POST_PROCESSING:
+      YZ_FILTERING: True
             
 
 In order to run BiaPy, a YAML configuration file must be created. Examples for each workflow can be found in the `templates <https://github.com/BiaPyX/BiaPy/tree/master/templates>`__ folder on the BiaPy GitHub repository. If you are unsure about which workflow is most suitable for your data, you can refer to the `Select Workflow <select_workflow.html>`__ page for guidance.
@@ -40,7 +40,7 @@ The options for the configuration file can be found in the `config.py <https://g
 System
 ~~~~~~
 
-To limit the number of CPUs used by the program, use the ``SYSTEM.NUM_CPUS`` option. 
+To limit the number of CPUs used by the program, use the ``SYSTEM.NUM_WORKERS`` option. 
 
 Problem specification
 ~~~~~~~~~~~~~~~~~~~~~

@@ -54,43 +54,49 @@ pigmented skin lesions.
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-Each image label is obtained from the directory name in which that image resides. That is why is so important to follow the directory tree as described below. If you have a .csv file with each image label, as is provided by `MedMNIST v2 <https://medmnist.com/>`__, you can use our script `from_class_csv_to_folders.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/from_class_csv_to_folders.py>`__ to create the directory tree as below: ::
+Each image label is obtained from the directory name in which that image resides. That is why is so important to follow the directory tree as described below. If you have a .csv file with each image label, as is provided by `MedMNIST v2 <https://medmnist.com/>`__, you can use our script `from_class_csv_to_folders.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/from_class_csv_to_folders.py>`__ to create the directory tree as below: 
     
-    dataset/
-    ├── train
-    │   ├── 0
-    │   │   ├── train0_0.png
-    │   │   ├── train1013_0.png
-    │   │   ├── . . .
-    │   │   └── train932_0.png
-    │   ├── 1
-    │   │   ├── train104_1.png
-    │   │   ├── train1049_1.png
-    │   │   ├── . . .
-    │   │   └── train964_1.png
-    | . . .
-    │   └── 6
-    │       ├── train1105_6.png
-    │       ├── train1148_6.png
-    │       ├── . . .
-    │       └── train98_6.png
-    └── test
-        ├── 0
-        │   ├── test1008_0.png
-        │   ├── test1084_0.png
-        │   ├── . . .
-        │   └── test914_0.png
-        ├── 1
-        │   ├── test10_1.png
-        │   ├── test1034_1.png
-        │   ├── . . .
-        │   └── test984_1.png
-      . . .
-        └── 6
-            ├── test1021_6.png
-            ├── test1069_6.png
-            ├── . . .
-            └── test806_6.png
+.. collapse:: Expand directory tree 
+
+    .. code-block:: bash
+        
+      dataset/
+      ├── train
+      │   ├── 0
+      │   │   ├── train0_0.png
+      │   │   ├── train1013_0.png
+      │   │   ├── . . .
+      │   │   └── train932_0.png
+      │   ├── 1
+      │   │   ├── train104_1.png
+      │   │   ├── train1049_1.png
+      │   │   ├── . . .
+      │   │   └── train964_1.png
+      | . . .
+      │   └── 6
+      │       ├── train1105_6.png
+      │       ├── train1148_6.png
+      │       ├── . . .
+      │       └── train98_6.png
+      └── test
+          ├── 0
+          │   ├── test1008_0.png
+          │   ├── test1084_0.png
+          │   ├── . . .
+          │   └── test914_0.png
+          ├── 1
+          │   ├── test10_1.png
+          │   ├── test1034_1.png
+          │   ├── . . .
+          │   └── test984_1.png
+        . . .
+          └── 6
+              ├── test1021_6.png
+              ├── test1069_6.png
+              ├── . . .
+              └── test806_6.png
+
+\
 
 Here each directory is a number but it can be any string. Notice that they will be considered the class names. Regarding the test, if you have no classes it doesn't matter if the images are separated in several folders or are all in one folder. But, if ``DATA.TEST.LOAD_GT`` is ``True``, each folder in test path (i.e. ``DATA.TEST.PATH``) will be considered as a class (as done for training and validation). 
 
@@ -229,26 +235,32 @@ The main output of this workflow will be a file named ``predictions.csv`` that w
 
     Classification workflow output
 
-All files are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. Following the example, you should see that the directory ``/home/user/exp_results/classification`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
+All files are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. Following the example, you should see that the directory ``/home/user/exp_results/classification`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: 
 
-    my_2d_classification/
-    ├── config_files/
-    │   └── 2d_classification.yaml                                                                                                           
-    ├── checkpoints
-    │   └── model_weights_classification_1.h5
-    └── results
-        ├── my_2d_classification_1
-        ├── . . .
-        └── my_2d_classification_5
-            ├── predictions.csv
-            ├── aug
-            │   └── .tif files
-            ├── charts
-            │   ├── my_2d_classification_1_*.png
-            │   ├── my_2d_classification_1_loss.png
-            │   └── model_plot_my_2d_classification_1.png
-            ├── train_logs
-            └── tensorboard
+.. collapse:: Expand directory tree 
+
+    .. code-block:: bash
+        
+      my_2d_classification/
+      ├── config_files/
+      │   └── 2d_classification.yaml                                                                                                           
+      ├── checkpoints
+      │   └── model_weights_classification_1.h5
+      └── results
+         ├── my_2d_classification_1
+          ├── . . .
+          └── my_2d_classification_5
+              ├── predictions.csv
+              ├── aug
+              │   └── .tif files
+             ├── charts
+              │   ├── my_2d_classification_1_*.png
+              │   ├── my_2d_classification_1_loss.png
+              │   └── model_plot_my_2d_classification_1.png
+              ├── train_logs
+              └── tensorboard
+
+\
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 

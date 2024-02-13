@@ -48,31 +48,37 @@ Description of the ``.csv`` file:
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-To ensure the proper operation of the library the data directory tree should be something like this: ::
+To ensure the proper operation of the library the data directory tree should be something like this: 
 
-    dataset/
-    ├── train
-    │   ├── x
-    │   │   ├── training-0001.tif
-    │   │   ├── training-0002.tif
-    │   │   ├── . . .
-    │   │   ├── training-9999.tif
-    │   └── y
-    │       ├── training-0001.csv
-    │       ├── training-0002.csv
-    │       ├── . . .
-    │       ├── training-9999.csv
-    └── test
-        ├── x
-        │   ├── testing-0001.tif
-        │   ├── testing-0002.tif
-        │   ├── . . .
-        │   ├── testing-9999.tif
-        └── y
-            ├── testing-0001.csv
-            ├── testing-0002.csv
-            ├── . . .
-            ├── testing-9999.csv
+.. collapse:: Expand directory tree 
+
+    .. code-block:: bash
+        
+      dataset/
+      ├── train
+      │   ├── x
+      │   │   ├── training-0001.tif
+      │   │   ├── training-0002.tif
+      │   │   ├── . . .
+      │   │   ├── training-9999.tif
+      │   └── y
+      │       ├── training-0001.csv
+      │       ├── training-0002.csv
+      │       ├── . . .
+      │       ├── training-9999.csv
+      └── test
+          ├── x
+          │   ├── testing-0001.tif
+          │   ├── testing-0002.tif
+          │   ├── . . .
+          │   ├── testing-9999.tif
+          └── y
+              ├── testing-0001.csv
+              ├── testing-0002.csv
+              ├── . . .
+              ├── testing-9999.csv
+
+\
 
 .. warning:: In this workflow the name of each ``.tif`` file and its corresponding ``.csv`` file must be the same. 
 
@@ -264,33 +270,39 @@ Results
 
 The results are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. 
 
-Following the example, you should see that the directory ``/home/user/exp_results/my_2d_detection`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
+Following the example, you should see that the directory ``/home/user/exp_results/my_2d_detection`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: 
 
-    my_2d_detection/
-    ├── config_files/
-    │   └── my_2d_detection.yaml                                                                                                           
-    ├── checkpoints
-    │   └── my_2d_detection_1-checkpoint-best.pth
-    └── results
-        ├── my_2d_detection_1
-        ├── . . .
-        └── my_2d_detection_5
-            ├── cell_counter.csv
-            ├── aug
-            │   └── .tif files
-            ├── charts
-            │   ├── my_2d_detection_1_*.png
-            │   ├── my_2d_detection_1_loss.png
-            │   └── model_plot_my_2d_detection_1.png
-            ├── per_image
-            │   └── .tif files
-            ├── per_image_local_max_check
-            │   └── .tif files
-            ├── point_associations
-            │   ├── .tif files
-            │   └── .csv files  
-            ├── train_logs
-            └── tensorboard
+.. collapse:: Expand directory tree 
+
+    .. code-block:: bash
+
+      my_2d_detection/
+      ├── config_files/
+      │   └── my_2d_detection.yaml                                                                                                           
+      ├── checkpoints
+      │   └── my_2d_detection_1-checkpoint-best.pth
+      └── results
+         ├── my_2d_detection_1
+          ├── . . .
+          └── my_2d_detection_5
+              ├── cell_counter.csv
+              ├── aug
+              │   └── .tif files
+             ├── charts
+              │   ├── my_2d_detection_1_*.png
+              │   ├── my_2d_detection_1_loss.png
+              │   └── model_plot_my_2d_detection_1.png
+             ├── per_image
+              │   └── .tif files
+              ├── per_image_local_max_check
+              │   └── .tif files
+             ├── point_associations
+              │   ├── .tif files
+              │   └── .csv files  
+              ├── train_logs
+              └── tensorboard
+
+\
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 

@@ -26,7 +26,7 @@ In the figure below an example of this workflow's **input** is depicted. There, 
     - .. figure:: ../img/lucchi_test_0_gt.png
          :align: center
 
-         Input class mask (ground truth).
+         Input mask.
 
 The **output** in case that only two classes are present, as in this example, will be an image where each pixel will have the probability of being of class 1. 
 
@@ -37,31 +37,37 @@ If there are **3 or more classes**, the output will be a multi-channel image, wi
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-To ensure the proper operation of the library the data directory tree should be something like this: ::
+To ensure the proper operation of the library the data directory tree should be something like this: 
 
-    dataset/
-    ├── train
-    │   ├── x
-    │   │   ├── training-0001.tif
-    │   │   ├── training-0002.tif
-    │   │   ├── . . .
-    │   │   ├── training-9999.tif
-    │   └── y
-    │       ├── training_groundtruth-0001.tif
-    │       ├── training_groundtruth-0002.tif
-    │       ├── . . .
-    │       ├── training_groundtruth-9999.tif
-    └── test
-        ├── x
-        │   ├── testing-0001.tif
-        │   ├── testing-0002.tif
-        │   ├── . . .
-        │   ├── testing-9999.tif
-        └── y
-            ├── testing_groundtruth-0001.tif
-            ├── testing_groundtruth-0002.tif
-            ├── . . .
-            ├── testing_groundtruth-9999.tif
+.. collapse:: Expand directory tree 
+
+    .. code-block:: bash
+  
+      dataset/
+      ├── train
+      │   ├── x
+      │   │   ├── training-0001.tif
+      │   │   ├── training-0002.tif
+      │   │   ├── . . .
+      │   │   ├── training-9999.tif
+      │   └── y
+      │       ├── training_groundtruth-0001.tif
+      │       ├── training_groundtruth-0002.tif
+      │       ├── . . .
+      │       ├── training_groundtruth-9999.tif
+      └── test
+          ├── x
+          │   ├── testing-0001.tif
+          │   ├── testing-0002.tif
+          │   ├── . . .
+          │   ├── testing-9999.tif
+          └── y
+              ├── testing_groundtruth-0001.tif
+              ├── testing_groundtruth-0002.tif
+              ├── . . .
+              ├── testing_groundtruth-9999.tif
+
+\
 
 .. warning:: Ensure that images and their corresponding masks are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example). 
 
@@ -221,35 +227,41 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
    Example of semantic segmentation model predictions. From left to right: input image, its mask and the overlap between the mask and the model's output binarized. 
 
 
-Following the example, you should see that the directory ``/home/user/exp_results/my_2d_semantic_segmentation`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
+Following the example, you should see that the directory ``/home/user/exp_results/my_2d_semantic_segmentation`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: 
 
-    my_2d_semantic_segmentation/
-    ├── config_files/
-    │   └── my_2d_semantic_segmentation_1.yaml                                                                                                           
-    ├── checkpoints
-    │   └── my_2d_semantic_segmentation_1-checkpoint-best.pth
-    └── results
-        ├── my_2d_semantic_segmentation_1
-        ├── . . .
-        └── my_2d_semantic_segmentation_5
-            ├── aug
-            │   └── .tif files
-            ├── charts
-            │   ├── my_2d_semantic_segmentation_1_*.png
-            │   ├── my_2d_semantic_segmentation_1_loss.png
-            │   └── model_plot_my_2d_semantic_segmentation_1.png
-            ├── full_image
-            │   └── .tif files
-            ├── full_image_binarized
-            │   └── .tif files
-            ├── full_post_processing
-            │   └── .tif files
-            ├── per_image
-            │   └── .tif files
-            ├── per_image_binarized
-            │   └── .tif files
-            ├── tensorboard
-            └── train_logs
+.. collapse:: Expand directory tree 
+
+    .. code-block:: bash
+        
+      my_2d_semantic_segmentation/
+      ├── config_files/
+      │   └── my_2d_semantic_segmentation_1.yaml                                                                                                           
+      ├── checkpoints
+      │   └── my_2d_semantic_segmentation_1-checkpoint-best.pth
+      └── results
+         ├── my_2d_semantic_segmentation_1
+          ├── . . .
+          └── my_2d_semantic_segmentation_5
+              ├── aug
+              │   └── .tif files
+             ├── charts
+              │   ├── my_2d_semantic_segmentation_1_*.png
+              │   ├── my_2d_semantic_segmentation_1_loss.png
+              │   └── model_plot_my_2d_semantic_segmentation_1.png
+             ├── full_image
+              │   └── .tif files
+             ├── full_image_binarized
+              │   └── .tif files
+             ├── full_post_processing
+              │   └── .tif files
+             ├── per_image
+              │   └── .tif files
+             ├── per_image_binarized
+              │   └── .tif files
+              ├── tensorboard
+              └── train_logs
+
+\
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 

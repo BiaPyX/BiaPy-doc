@@ -53,6 +53,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinxcontrib.bibtex',
     'sphinx_tabs.tabs',
+    'sphinx_toolbox.collapse',
     'numpydoc'
 ]
 

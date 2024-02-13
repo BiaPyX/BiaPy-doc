@@ -34,31 +34,37 @@ Notice that the LR image has been resized but actually that is ``502x502`` where
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-To ensure the proper operation of the library the data directory tree should be something like this: ::
+To ensure the proper operation of the library the data directory tree should be something like this: 
 
-    dataset/
-    ├── train
-    │   ├── LR
-    │   │   ├── training-0001.tif
-    │   │   ├── training-0002.tif
-    │   │   ├── . . .
-    │   │   ├── training-9999.tif
-    │   └── HR
-    │       ├── training_0001.tif
-    │       ├── training_0002.tif
-    │       ├── . . .
-    │       ├── training_9999.tif
-    └── test
-        ├── LR
-        │   ├── testing-0001.tif
-        │   ├── testing-0002.tif
-        │   ├── . . .
-        │   ├── testing-9999.tif
-        └── HR
-            ├── testing_0001.tif
-            ├── testing_0002.tif
-            ├── . . .
-            ├── testing_9999.tif
+.. collapse:: Expand directory tree 
+
+    .. code-block:: bash
+        
+      dataset/
+      ├── train
+      │   ├── LR
+      │   │   ├── training-0001.tif
+      │   │   ├── training-0002.tif
+      │   │   ├── . . .
+      │   │   ├── training-9999.tif
+      │   └── HR
+      │       ├── training_0001.tif
+      │       ├── training_0002.tif
+      │       ├── . . .
+      │       ├── training_9999.tif
+      └── test
+          ├── LR
+          │   ├── testing-0001.tif
+          │   ├── testing-0002.tif
+          │   ├── . . .
+          │   ├── testing-9999.tif
+          └── HR
+              ├── testing_0001.tif
+              ├── testing_0002.tif
+              ├── . . .
+              ├── testing_9999.tif
+
+\
 
 .. warning:: Ensure that images and their corresponding masks are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example). 
 
@@ -208,28 +214,34 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
 Here both images are of size ``1004x1004``. 
 
 
-Following the example, you should see that the directory ``/home/user/exp_results/my_2d_super_resolution`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
+Following the example, you should see that the directory ``/home/user/exp_results/my_2d_super_resolution`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: 
 
-    my_2d_super_resolution/
-    ├── config_files/
-    │   └── 2d_super-resolution.yaml                                                                                                           
-    ├── checkpoints
-    │   └── my_2d_super-resolution_1-checkpoint-best.pth
-    └── results
-        ├── my_2d_super_resolution_1
-        ├── . . .
-        └── my_2d_super_resolution_5
-            ├── aug
-            │   └── .tif files
-            ├── charts
-            │   ├── my_2d_super_resolution_1_*.png
-            │   ├── my_2d_super_resolution_1_loss.png
-            │   └── model_plot_my_2d_super_resolution_1.png
-            ├── per_image
-            │   └── .tif files
-            ├── train_logs
-            └── tensorboard
-            
+.. collapse:: Expand directory tree 
+
+    .. code-block:: bash
+        
+      my_2d_super_resolution/
+      ├── config_files/
+      │   └── 2d_super-resolution.yaml                                                                                                           
+      ├── checkpoints
+      │   └── my_2d_super-resolution_1-checkpoint-best.pth
+      └── results
+         ├── my_2d_super_resolution_1
+          ├── . . .
+          └── my_2d_super_resolution_5
+              ├── aug
+              │   └── .tif files
+             ├── charts
+              │   ├── my_2d_super_resolution_1_*.png
+              │   ├── my_2d_super_resolution_1_loss.png
+              │   └── model_plot_my_2d_super_resolution_1.png
+             ├── per_image
+              │   └── .tif files
+              ├── train_logs
+              └── tensorboard
+
+\
+
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 
   * ``2d_super-resolution.yaml``: YAML configuration file used (it will be overwrited every time the code is run)

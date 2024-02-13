@@ -51,9 +51,58 @@ Train questions
 
     You can previously crop the data into patches of ``DATA.PATCH_SIZE`` you want to work with and disable ``DATA.EXTRACT_RANDOM_PATCH`` because all the images will have same shape. You can use `crop_2D_dataset.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/crop_2D_dataset.py>`__ or `crop_3D_dataset.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/crop_3D_dataset.py>`__ to crop the data.
 
-*  My training get stuck in the first epoch without no error. What should I do?  
+* My training get stuck in the first epoch without no error. What should I do?  
 
     Probably the problem is the GPU memory. We experienced, in Windows, that even if the GPU memory gets saturated the operating system doesn't report an out of memory error. Try to decrease the ``TRAIN.BATCH_SIZE`` to ``1`` (you can increase the value later progresively) and reduce the network parameters, e.g. by reducing ``MODEL.FEATURE_MAPS`` if you are using an U-Net like model. You can also reduce the number of levels, e.g. from ``[16, 32, 64, 128, 256]`` to ``[32, 64, 128]``.
+
+* There can be problems with parallel loads in Windows that throw an error as below. To solve that you can set ``SYSTEM.NUM_WORKERS`` to ``0``. In the GUI you can set it in "general options" window, under "advance options" in the field "Number of workers". 
+
+    .. collapse:: Expand error trace
+
+        .. code-block:: bash
+
+            [12:46:39.363853] #####################
+            [12:46:39.363884] #  TRAIN THE MODEL  #
+            [12:46:39.363893] #####################
+            [12:46:39.363905] Start training in epoch 1 - Total: 100
+            [12:46:39.363935] ~~~ Epoch 1/100 ~~~
+
+            Traceback (most recent call last):
+            File "/installations/miniconda3/envs/BiaPy_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1133, in _try_get_data
+                data = self._data_queue.get(timeout=timeout)
+            File "/installations/miniconda3/envs/BiaPy_env/lib/python3.10/queue.py", line 180, in get
+                self.not_empty.wait(remaining)
+            File "/installations/miniconda3/envs/BiaPy_env/lib/python3.10/threading.py", line 324, in wait
+                gotit = waiter.acquire(True, timeout)
+            File "/installations/miniconda3/envs/BiaPy_env/lib/python3.10/site-packages/torch/utils/data/_utils/signal_handling.py", line 66, in handler
+                _error_if_any_worker_fails()
+            RuntimeError: DataLoader worker (pid 1285) is killed by signal: Killed. 
+
+            The above exception was the direct cause of the following exception:
+
+            Traceback (most recent call last):
+            File "/installations/BiaPy/main.py", line 51, in <module>
+                _biapy.run_job()
+            File "/installations/BiaPy/biapy/_biapy.py", line 400, in run_job
+                self.train()
+            File "/installations/BiaPy/biapy/_biapy.py", line 151, in train
+                self.workflow.train()
+            File "/installations/BiaPy/biapy/engine/base_workflow.py", line 508, in train
+                train_stats = train_one_epoch(self.cfg, model=self.model, model_call_func=self.model_call_func, loss_function=self.loss, 
+            File "/installations/BiaPy/biapy/engine/train_engine.py", line 21, in train_one_epoch
+                for step, (batch, targets) in enumerate(metric_logger.log_every(data_loader, print_freq, header)):
+            File "/installations/BiaPy/biapy/utils/misc.py", line 413, in log_every
+                for obj in iterable:
+            File "/installations/miniconda3/envs/BiaPy_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 631, in __next__
+                data = self._next_data()
+            File "/installations/miniconda3/envs/BiaPy_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1329, in _next_data
+                idx, data = self._get_data()
+            File "/installations/miniconda3/envs/BiaPy_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1285, in _get_data
+                success, data = self._try_get_data()
+            File "/installations/miniconda3/envs/BiaPy_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1146, in _try_get_data
+                raise RuntimeError(f'DataLoader worker (pid(s) {pids_str}) exited unexpectedly') from e
+            RuntimeError: DataLoader worker (pid(s) 1285) exited unexpectedly
+            ERROR conda.cli.main_run:execute(124): `conda run python3 -u /installations/BiaPy/main.py --config /BiaPy_files/input.yaml --result_dir /C/Users/Pille/Desktop/training/BiaPy/U-Net_new --name u-net_test2_df --run_id 1 --dist_backend gloo --gpu 0` failed. (See above for error)
 
 Test/Inference questions
 ~~~~~~~~~~~~~~~~~~~~~~~~

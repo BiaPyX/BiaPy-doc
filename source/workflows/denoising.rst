@@ -27,21 +27,27 @@ In the figure below an example of this workflow's **input** is depicted:
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-To ensure the proper operation of the library the data directory tree should be something like this: ::
+To ensure the proper operation of the library the data directory tree should be something like this: 
 
-    dataset/
-    ├── train
-    │   └── x
-    │       ├── training-0001.tif
-    │       ├── training-0002.tif
-    │       ├── . . .
-    │       ├── training-9999.tif   
-    └── test
-        └── x
-            ├── testing-0001.tif
-            ├── testing-0002.tif
-            ├── . . .
-            ├── testing-9999.tif
+.. collapse:: Expand directory tree 
+
+    .. code-block:: bash
+        
+      dataset/
+      ├── train
+      │   └── x
+      │       ├── training-0001.tif
+      │       ├── training-0002.tif
+      │       ├── . . .
+      │       ├── training-9999.tif   
+      └── test
+          └── x
+             ├── testing-0001.tif
+             ├── testing-0002.tif
+             ├── . . .
+             ├── testing-9999.tif
+
+\
 
 .. _denoising_problem_resolution:
 
@@ -187,30 +193,36 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
    Example of denoising model prediction. 
 
 
-Following the example, you should see that the directory ``/home/user/exp_results/my_2d_denoising`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: ::
+Following the example, you should see that the directory ``/home/user/exp_results/my_2d_denoising`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: 
 
-    my_2d_denoising/
-    ├── config_files/
-    │   └── my_2d_denoising.yaml                                                                                                           
-    ├── checkpoints
-    |   ├── my_2d_denoising_1-checkpoint-best.pth
-    |   ├── normalization_mean_value.npy
-    │   └── normalization_std_value.npy
-    └── results
-        ├── my_2d_denoising
-        ├── . . .
-        └── my_2d_denoising
-            ├── cell_counter.csv
-            ├── aug
-            │   └── .tif files
-            ├── charts
-            │   ├── my_2d_denoising_1_n2v_mse.png
-            │   ├── my_2d_denoising_1_loss.png
-            │   └── model_plot_my_2d_denoising_1.png
-            ├── per_image
-            │   └── .tif files
-            ├── train_logs
-            └── tensorboard
+.. collapse:: Expand directory tree 
+
+    .. code-block:: bash
+
+      my_2d_denoising/
+      ├── config_files/
+      │   └── my_2d_denoising.yaml                                                                                                           
+      ├── checkpoints
+      |   ├── my_2d_denoising_1-checkpoint-best.pth
+      |   ├── normalization_mean_value.npy
+      │   └── normalization_std_value.npy
+      └── results
+         ├── my_2d_denoising
+          ├── . . .
+          └── my_2d_denoising
+              ├── cell_counter.csv
+              ├── aug
+              │   └── .tif files
+             ├── charts
+              │   ├── my_2d_denoising_1_n2v_mse.png
+              │   ├── my_2d_denoising_1_loss.png
+              │   └── model_plot_my_2d_denoising_1.png
+             ├── per_image
+              │   └── .tif files
+              ├── train_logs
+              └── tensorboard
+
+\
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 
