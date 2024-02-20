@@ -192,8 +192,10 @@ Choose your installation method
 
                          ::
 
-                              # Install Pytorch and GPU dependencies    
-                              conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+                              # Install Pytorch 2.2.0 + CUDA 11.8
+                              pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu118 
+                              pip install timm torchmetrics
+
                               cd BiaPy
                               pip install --editable .
 
@@ -201,8 +203,9 @@ Choose your installation method
 
                          ::
 
-                              # Install Pytorch and GPU dependencies    
+                              # Install Pytorch 1.12.1 + CUDA 10.2  
                               conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=10.2 -c pytorch
+                              pip install timm torchmetrics
                               cd BiaPy
                               pip install --editable .
 
