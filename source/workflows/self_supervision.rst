@@ -7,7 +7,7 @@ The idea of this workflow is to pretrain the backbone model by solving a so-call
 
 * **Input:** 
 
-  * Image. 
+  * Image (single-channel or multi-channel). E.g. image with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``.  
 
 * **Output:**
 

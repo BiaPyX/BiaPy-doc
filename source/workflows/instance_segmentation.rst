@@ -8,8 +8,8 @@ The goal of this workflow is assign an unique id, i.e. integer, to each object o
 
 * **Input:** 
 
-  * Image. 
-  * Instance mask where each object is identify with a unique label. 
+  * Image (single-channel or multi-channel). E.g. image with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``. 
+  * Mask (single-channel or multi-channel). The first channel is where each object is identified with a unique label. If provided, the second channel must represent the class of each instance. E.g. mask with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``. 
 
 * **Output:**
 
@@ -33,6 +33,13 @@ In the figure below an example of this workflow's **input** is depicted. Each co
          :width: 80.0%
 
          Input mask.
+
+For the multi-channel mask setting, where the second channel represents the class of each instance, ``MODEL.N_CLASSES`` needs to be more than ``2``. An example of this setting  is depicted below:
+
+.. figure:: ../img/instance_seg_multichannel.gif
+    :align: center
+
+    From right to left: raw image and multi-channel mask (instances and classification). Sample from `CoNIC Challenge <https://conic-challenge.grand-challenge.org/>`__. 
 
 .. _instance_segmentation_data_prep:
 

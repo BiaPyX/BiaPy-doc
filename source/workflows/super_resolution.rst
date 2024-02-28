@@ -7,7 +7,7 @@ The goal of this workflow aims at reconstructing high-resolution (HR) images fro
 
 * **Input:** 
     
-  * LR image. 
+  * LR image (single-channel or multi-channel). E.g. image with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``.  
 
 * **Output:**
 

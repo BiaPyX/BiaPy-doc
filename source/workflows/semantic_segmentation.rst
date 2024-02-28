@@ -7,14 +7,14 @@ The goal of this workflow is assign a class to each pixel of the input image.
 
 * **Input:** 
 
-  * Image. 
-  * Class mask where each pixel is labeled with an integer representing a class.
+  * Image (single-channel or multi-channel). E.g. image with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``. 
+  * Mask (single-channel), where each pixel is labeled with an integer representing a class. E.g. a mask with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``.
 
 * **Output:**
 
-  * Image with the probability of being part of each class.  
+  * Image with each class represented by a unique integer.  
 
-In the figure below an example of this workflow's **input** is depicted. There, only two labels are present in the mask: black pixels, with value 0, represent the background and white ones the mitochondria, labeled with 1. The number of classes is defined by ``MODEL.N_CLASSES`` variable.
+In the figure below an example of this workflow's **input** is depicted. There, only two labels are present in the mask: black pixels, with value ``0``, represent the background and white ones the mitochondria, labeled with ``1``. The number of classes is defined by ``MODEL.N_CLASSES`` variable.
 
 .. list-table:: 
 
@@ -26,11 +26,26 @@ In the figure below an example of this workflow's **input** is depicted. There, 
     - .. figure:: ../img/lucchi_test_0_gt.png
          :align: center
 
+         Input mask. 
+
+For multiclass case, the same rule applies: the expected mask is single-channel with each class labeled with a different integer. Below an example is depicted where ``0`` is background (black), ``1`` are outlines (pink) and ``2`` nuclei (light blue). 
+
+.. list-table:: 
+
+  * - .. figure:: ../img/semantic_seg/semantic_seg_multiclass_raw.png
+         :align: center
+        
+         Input image.
+
+    - .. figure:: ../img/semantic_seg/semantic_seg_multiclass_mask.png
+         :align: center
+
          Input mask.
 
-The **output** in case that only two classes are present, as in this example, will be an image where each pixel will have the probability of being of class 1. 
+The **output** can be: 
 
-If there are **3 or more classes**, the output will be a multi-channel image, with the same number of channels as classes, and the same pixel in each channel will be the probability (in ``[0-1]`` range) of being of the class that represents that channel number. For instance, with 3 classes, e.g. background, mitochondria and contours, the fist channel will represent background, the second mitochondria and the last contour class. 
+- Single-channel image, when ``DATA.TEST.ARGMAX_TO_OUTPUT`` is ``True``, with each class labeled with an integer. 
+- Multi-channel image, when ``DATA.TEST.ARGMAX_TO_OUTPUT`` is ``False``, with the same number of channels as classes, and the same pixel in each channel will be the probability (in ``[0-1]`` range) of being of the class that represents that channel number. For instance, with ``3`` classes, e.g. background, mitochondria and contours, the fist channel will represent background, the second mitochondria and the last the contours. 
 
 .. _semantic_segmentation_data_prep:
 

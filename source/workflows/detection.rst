@@ -7,7 +7,7 @@ The goal of this workflow is to localize objects in the input image, not requiri
 
 * **Input:** 
 
-  * Image. 
+  * Image (single-channel or multi-channel). E.g. image with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``.  
   * ``.csv`` file containing the list of points to detect. 
 
 * **Output:**
