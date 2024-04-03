@@ -57,6 +57,7 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
    tutorials/stable
    tutorials/cartocell
    tutorials/mitoem
+   tutorials/lightmycells
    tutorials/nucleus
 
 .. toctree::                                                                    
