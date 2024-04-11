@@ -79,9 +79,10 @@ In the case of test data, even if ``DATA.TEST.IN_MEMORY`` is selected or not, ea
 Data normalization
 ~~~~~~~~~~~~~~~~~~
 
-Two options are available for normalizing the data:
+A few options are available for normalizing the data:
 
 * Adjusting it to the ``[0-1]`` range, which is the default option. This can be done by setting ``DATA.NORMALIZATION.TYPE`` to ``div``.
+* Percentile normalization, to not take into account outliers, by setting ``DATA.NORMALIZATION.PERC_LOWER`` and ``DATA.NORMALIZATION.PERC_UPPER``. This can be done by setting ``DATA.NORMALIZATION.TYPE`` to ``percentile``.
 * Custom normalization using a specified mean (``DATA.NORMALIZATION.CUSTOM_MEAN``) and standard deviation (``DATA.NORMALIZATION.CUSTOM_STD``). This can be done by setting ``DATA.NORMALIZATION.TYPE`` to ``custom``. If the mean and standard deviation are both set to ``-1``, which is the default, they will be calculated based on the training data. These values will be stored in the job's folder to be used at the inference phase, so that the test images are normalized using the same values. If specific values for mean and standard deviation are provided, those values will be used for normalization.
 
 Pre-processing
