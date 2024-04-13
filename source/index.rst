@@ -38,7 +38,7 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
 
 .. toctree::
    :maxdepth: 1
-   :caption: Workflows
+   :caption: Workflow description
    :glob:
 
    workflows/semantic_segmentation
@@ -54,11 +54,14 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
    :caption: Tutorials
    :glob:
 
-   tutorials/stable
-   tutorials/cartocell
-   tutorials/mitoem
-   tutorials/lightmycells
-   tutorials/nucleus
+   tutorials/semantic_seg/tutorials_sem_seg
+   tutorials/instance_seg/tutorials_inst_seg
+   tutorials/detection/tutorials_det
+   tutorials/denoising/tutorials_den
+   tutorials/super-resolution/tutorials_sr
+   tutorials/self-supervision/tutorials_ssl
+   tutorials/classification/tutorials_cls
+   tutorials/image-to-image/tutorials_i2i
 
 .. toctree::                                                                    
    :maxdepth: 1

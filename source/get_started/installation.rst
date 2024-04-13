@@ -37,7 +37,7 @@ Choose your installation method
 
                 In Windows you will need to install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__ with Windows Subsystem for Linux (WSL) activated. There is a good video on how you can do it `here <https://www.youtube.com/watch?v=PB7zM3JrgkI>`__. Manually, the steps are these:
 
-                * Install Ubuntu inside WSL. For that `open PowerShell </get_started/faq.html#opening-a-terminal>`__ or Windows Command Prompt in administrator mode by right-clicking and selecting `Run as administrator` and type the following: :: 
+                * Install Ubuntu inside WSL. For that `open PowerShell <faq.html#opening-a-terminal>`__ or Windows Command Prompt in administrator mode by right-clicking and selecting `Run as administrator` and type the following: :: 
                     
                         wsl --install
 
@@ -69,7 +69,7 @@ Choose your installation method
                     sudo usermod -aG docker $USER
                     newgrp docker
 
-                To grant execution permission to the binary, enter the following command in a `terminal </get_started/faq.html#opening-a-terminal>`__: ::
+                To grant execution permission to the binary, enter the following command in a `terminal <faq.html#opening-a-terminal>`__: ::
 
                     chmod +x BiaPy
 
@@ -105,7 +105,7 @@ Choose your installation method
 
                 In Windows you will need to install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__ with Windows Subsystem for Linux (WSL) activated. There is a good video `here <https://www.youtube.com/watch?v=PB7zM3JrgkI>`__. Let's start the installation:
 
-                * Install Ubuntu inside WSL. For that `open PowerShell </get_started/faq.html#opening-a-terminal>`__ or Windows Command Prompt in administrator mode by right-clicking and selecting `Run as administrator` and type the following: :: 
+                * Install Ubuntu inside WSL. For that `open PowerShell <faq.html#opening-a-terminal>`__ or Windows Command Prompt in administrator mode by right-clicking and selecting `Run as administrator` and type the following: :: 
                     
                         wsl --install
 
@@ -152,7 +152,7 @@ Choose your installation method
 
         .. _installation_command_line:
 
-        To use BiaPy via the command line, you will need to set up a ``conda`` environment. To do this, you will first need to install `Anaconda/Miniconda <https://www.anaconda.com/>`__. For detailed installation instructions based on your operating system, please see the following links: `Windows <https://docs.anaconda.com/anaconda/install/windows/>`__, `macOS <https://docs.anaconda.com/anaconda/install/mac-os/>`__ and `Linux <https://docs.anaconda.com/anaconda/install/linux/>`__. Then you need to create a ``conda`` environment through a `terminal </get_started/faq.html#opening-a-terminal>`__: ::
+        To use BiaPy via the command line, you will need to set up a ``conda`` environment. To do this, you will first need to install `Anaconda/Miniconda <https://www.anaconda.com/>`__. For detailed installation instructions based on your operating system, please see the following links: `Windows <https://docs.anaconda.com/anaconda/install/windows/>`__, `macOS <https://docs.anaconda.com/anaconda/install/mac-os/>`__ and `Linux <https://docs.anaconda.com/anaconda/install/linux/>`__. Then you need to create a ``conda`` environment through a `terminal <faq.html#opening-a-terminal>`__: ::
 
           # Create and activate the environment
           conda create -n BiaPy_env python=3.10
@@ -178,7 +178,7 @@ Choose your installation method
 
                To clone the repository you will need to install `git <https://git-scm.com/>`__, a free and open source distributed version control system. Git will allow you to easily download the code with a single command. You can download and install it `here <https://git-scm.com/downloads>`__. For detailed installation instructions based on your operating system, please see the following links: `Windows <https://git-scm.com/download/win>`__, `macOS <https://git-scm.com/download/mac>`__ and `Linux <https://git-scm.com/download/linux>`__. 
 
-               Once you have installed Anaconda and git, you will need to t, you will need to `open a terminal <open-terminal.html>`__ to complete the following steps. Then, you are prepared to download `BiaPy <https://github.com/BiaPyX/BiaPy>`__ repository by running this command in the `terminal </get_started/faq.html#opening-a-terminal>`__ ::
+               Once you have installed Anaconda and git, you will need to t, you will need to `open a terminal <open-terminal.html>`__ to complete the following steps. Then, you are prepared to download `BiaPy <https://github.com/BiaPyX/BiaPy>`__ repository by running this command in the `terminal <faq.html#opening-a-terminal>`__ ::
 
                     git clone https://github.com/BiaPyX/BiaPy.git
 
@@ -206,6 +206,7 @@ Choose your installation method
                               # Install Pytorch 1.12.1 + CUDA 10.2  
                               conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=10.2 -c pytorch
                               pip install timm torchmetrics
+                              
                               cd BiaPy
                               pip install --editable .
 

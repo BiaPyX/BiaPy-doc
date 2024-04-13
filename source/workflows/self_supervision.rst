@@ -109,7 +109,7 @@ Run
 
    .. tab:: Docker 
 
-        `Open a terminal </get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_self-supervised.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/self-supervision/2d_self-supervised.yaml>`__ template file, the code can be run as follows:
+        `Open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_self-supervised.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/self-supervision/2d_self-supervised.yaml>`__ template file, the code can be run as follows:
 
         .. code-block:: bash                                                                                                    
 
@@ -143,7 +143,7 @@ Run
 
    .. tab:: Command line 
 
-        `Open a terminal </get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_self-supervised.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/self-supervised/2d_self-supervised.yaml>`__ template file, the code can be run as follows:
+        `Open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_self-supervised.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/self-supervised/2d_self-supervised.yaml>`__ template file, the code can be run as follows:
 
         .. code-block:: bash
             

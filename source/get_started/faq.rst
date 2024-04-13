@@ -1,7 +1,7 @@
 FAQ & Troubleshooting
 ---------------------
 
-The `Image.sc Forum <https://forum.image.sc/>`__ is the main discussion channel for BiaPy, hence we recommend to use it for any question or curisity related to it. Use a tag such as ``biapy`` so we can go through your questions. Try to find out if the issue you are having has already been discussed or solved by other people. If not, feel free to create a new topic (please provide a clear and concise description to understand and ideally reproduce the issue you're having). 
+The `Image.sc Forum <https://forum.image.sc/>`__ is the main discussion channel for BiaPy, hence we recommend to use it for any question or curiosity related to it. Use a tag such as ``biapy`` so we can go through your questions. Try to find out if the issue you are having has already been discussed or solved by other people. If not, feel free to create a new topic (please provide a clear and concise description to understand and ideally reproduce the issue you're having). 
 
 Installation
 ~~~~~~~~~~~~

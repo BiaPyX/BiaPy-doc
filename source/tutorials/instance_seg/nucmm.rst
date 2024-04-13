@@ -1,7 +1,7 @@
 .. _nucleus_tutorial:
 
-NucMM dataset: 3d neuronal nuclei instance segmentation
--------------------------------------------------------
+(Paper) NucMM dataset: 3d neuronal nuclei instance segmentation
+---------------------------------------------------------------
 
 Problem description
 ~~~~~~~~~~~~~~~~~~~
@@ -11,12 +11,12 @@ The goal is to segment and identify automatically each cell nuclei in EM images.
 
 .. list-table:: 
 
-  * - .. figure:: ../video/nucmm_z_volume.gif
+  * - .. figure:: ../../video/nucmm_z_volume.gif
          :align: center
 
          MitoEM-H tissue image sample. 
 
-    - .. figure:: ../video/nucmm_z_volume_mask.gif
+    - .. figure:: ../../video/nucmm_z_volume_mask.gif
          :align: center
 
          Its corresponding instance mask.
@@ -26,7 +26,7 @@ In this dataset ``27`` ``3D`` images of size ``(64, 64, 64)`` voxels, for ``(z,x
 done over the whole Zebrafish volume. Here is a training sample and its ground truth:
 
 
-.. figure:: ../img/nucmm_z_paper_view.png
+.. figure:: ../../img/nucmm_z_paper_view.png
   :scale: 30%
   :alt: Nucmm-z dataset overview
   :align: center
@@ -58,14 +58,14 @@ The results follow same structure as explained in :ref:`instance_segmentation_re
 
 The resulting instance segmentation should be something like this:
 
-.. figure:: ../video/nucmm_z_instances_medium.gif
+.. figure:: ../../video/nucmm_z_instances_medium.gif
   :scale: 80% 
   :alt: Nucmm-z dataset overview                                                
   :align: center                                                                
                                                                                 
   Instance segmentation results on the whole dataset.
     
-.. figure:: ../video/smallpart_nucmm_z_instances.gif
+.. figure:: ../../video/smallpart_nucmm_z_instances.gif
   :scale: 80%
   :alt: Nucmm-z dataset overview (zoomed version)
   :align: center

@@ -1,8 +1,7 @@
 .. _stable:
 
-Stable DNN architectures for mitochondria segmentation
-------------------------------------------------------
-
+(Paper) Stable DNN architectures for mitochondria segmentation
+--------------------------------------------------------------
 
 This tutorial describes how to reproduce the results reported in our paper to 
 make semantic segmentation of mitochondria in electron microscopy (EM) images: 
@@ -21,12 +20,12 @@ The goal is to segment automatically mitochondria in EM images as described in :
 
 .. list-table:: 
 
-  * - .. figure:: ../img/lucchi_test_0.png
+  * - .. figure:: ../../img/lucchi_test_0.png
          :align: center
 
          EM tissue image
 
-    - .. figure:: ../img/lucchi_test_0_gt.png
+    - .. figure:: ../../img/lucchi_test_0_gt.png
          :align: center
 
          Corresponding mask 
@@ -34,7 +33,7 @@ The goal is to segment automatically mitochondria in EM images as described in :
 Installation
 ~~~~~~~~~~~~
 
-Apart from the steps described in :ref:`installation`, to reproduce exact results of our paper you need to use the `V1.0 <https://github.com/BiaPyX/BiaPy/releases/tag/v1.0>`__ version of our library. For that, you simply need to run this command in the `terminal </get_started/faq.html#opening-a-terminal>`__ ::
+Apart from the steps described in :ref:`installation`, to reproduce exact results of our paper you need to use the `V1.0 <https://github.com/BiaPyX/BiaPy/releases/tag/v1.0>`__ version of our library. For that, you simply need to run this command in the `terminal <../../get_started/faq.html#opening-a-terminal>`__ ::
 
     git checkout v1.0
 
@@ -88,7 +87,7 @@ The procedure to run the library is slightly different as it is now for the last
 
    .. tab:: Command line
             
-        `Open a terminal </get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_semantic_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
+        `Open a terminal <../../../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_semantic_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
 
         .. code-block:: bash
             
@@ -129,7 +128,7 @@ Results
 The results follow same structure as explained in :ref:`semantic_segmentation_results`.
 
                                                            
-.. figure:: ../img/seg.gif
+.. figure:: ../../img/seg.gif
     :width: 100%
     :align: center 
 

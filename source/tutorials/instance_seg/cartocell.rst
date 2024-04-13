@@ -1,11 +1,11 @@
 .. _cartocell:
 
-CartoCell, a high-throughput pipeline for accurate 3D image analysis
---------------------------------------------------------------------
+(Paper) CartoCell, a high-throughput pipeline for accurate 3D image analysis
+----------------------------------------------------------------------------
 
 This tutorial describes how to train and infer using our custom ResU-Net 3D DNN in order to reproduce the results obtained in ``(Andrés-San Román, 2022)``. Given an initial training dataset of 21 segmented epithelial 3D cysts acquired after confocal microscopy, we follow the CartoCell pipeline (figure below) to high-throughput segment hundreds of cysts at low resolution automatically.
 
-.. figure:: ../img/cartocell_pipeline.png
+.. figure:: ../../img/cartocell_pipeline.png
     :align: center
 
     CartoCell pipeline for high-throughput epithelial cysts segmentation.  
@@ -13,13 +13,13 @@ This tutorial describes how to train and infer using our custom ResU-Net 3D DNN 
 
 .. list-table:: 
 
-  * - .. figure:: ../video/cyst_sample.gif
+  * - .. figure:: ../../video/cyst_sample.gif
         :align: center
         :scale: 120%
 
         Cyst raw image   
 
-    - .. figure:: ../video/cyst_instance_prediction.gif 
+    - .. figure:: ../../video/cyst_instance_prediction.gif 
         :align: center
         :scale: 120%
 
@@ -66,11 +66,11 @@ Data preparation
 
 The data needed is:
 
-* `training_down-sampled_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-dd7044fc-dda2-43a2-9951-cbe6c1851030>`__, `training_down-sampled_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-3e5dded7-24c6-41e3-ab6d-9ca3587c0fbe>`__, `validation_dataset_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-83538c77-61d8-4770-85d1-1bac988c5e43>`__ and `validation_dataset_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-5195c7ac-eacd-491e-9d69-8115b36b6c43>`__ to feed the initial model (`model M1`, `Phase 2`). 
+* `high-resolution_MDCK-Normoxia_raw_images` and `high-resolution_MDCK-Normoxia_label_images` to feed the initial model (`model M1`, `Phase 2`). 
 
-* `low-resolution_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-0506e31c-69f2-445d-80d8-d46b0547d320>`__ to run `Phase 3 – 5` of CartoCell pipeline.
+* `low-resolution_MDCK-Normoxia_raw_images` to run `Phase 3 – 5` of CartoCell pipeline.
 
-* `test_dataset_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-ba6774bd-7858-4bfb-aca9-9ac307e72120>`__ or  `low-resolution_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-0506e31c-69f2-445d-80d8-d46b0547d320>`__  if you just want to run the inference using our pretrained `model M2`.
+* `low-resolution_MDCK-Normoxia_test_raw_images` or `low-resolution_MDCK-Normoxia_raw_images` if you just want to run the inference using our pretrained `model M2`.
 
 We also provide all the properly segmented cysts (ground truth) in `Mendeley <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft>`__.
 
@@ -83,15 +83,15 @@ You have two options to train your model: via **command line** or using **Google
 
    .. tab:: Command line
 
-        You can reproduce the exact results of our manuscript via **command line** using `cartocell_training.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/cartocell_training.yaml>`__ configuration file.
+        You can reproduce the exact results of our manuscript via **command line** using `cartocell_training.yaml <https://github.com/BiaPyX/BiaPy/blob/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/cartocell_training.yaml>`__ configuration file.
 
-        * In case you want to reproduce our **model M1, Phase 2**, you will need to modify the ``TRAIN.PATH`` and ``TRAIN.GT_PATH`` with the paths of `training_down-sampled_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-dd7044fc-dda2-43a2-9951-cbe6c1851030>`__ and `training_down-sampled_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-3e5dded7-24c6-41e3-ab6d-9ca3587c0fbe>`__ respectively.
+        * In case you want to reproduce our **model M1, Phase 2**, you will need to modify the ``TRAIN.PATH`` and ``TRAIN.GT_PATH`` with the paths of `high-resolution_MDCK-Normoxia_raw_images` and `high-resolution_MDCK-Normoxia_label_images` respectively.
 
-        * In case you want to reproduce our **model M2, Phase 4**, you need to merge `training_down-sampled_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-dd7044fc-dda2-43a2-9951-cbe6c1851030>`__ and Phase 3 (`model M1`) output in a folder and set its path in ``TRAIN.PATH``. In the same way you need to merge `training_down-sampled_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-3e5dded7-24c6-41e3-ab6d-9ca3587c0fbe>`__ and `low-resolution_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-fa0564a8-1e55-4c97-b031-843de45b3771>`__ images in a folder and set its path in ``TRAIN.GT_PATH``. 
+        * In case you want to reproduce our **model M2, Phase 4**, you need to merge `high-resolution_MDCK-Normoxia_raw_images` and Phase 3 (`model M1`) output in a folder and set its path in ``TRAIN.PATH``. In the same way you need to merge `high-resolution_MDCK-Normoxia_label_images` and `low-resolution_MDCK-Normoxia_label_images` images in a folder and set its path in ``TRAIN.GT_PATH``. 
 
-        For the validation data, for both **model M1** and **model M2**, you will need to modify ``VAL.PATH`` and ``VAL.GT_PATH`` with `validation_dataset_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-83538c77-61d8-4770-85d1-1bac988c5e43>`__ and `validation_dataset_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-5195c7ac-eacd-491e-9d69-8115b36b6c43>`__. 
+        For the validation data, for both **model M1** and **model M2**, you will need to modify ``VAL.PATH`` and ``VAL.GT_PATH`` with `validation_dataset_raw_images` and `validation_dataset_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-5195c7ac-eacd-491e-9d69-8115b36b6c43>`__. 
 
-        The next step is to `open a terminal </get_started/faq.html#opening-a-terminal>`__ and run the code as follows:
+        The next step is to `open a terminal <../../get_started/faq.html#opening-a-terminal>`__ and run the code as follows:
 
         .. code-block:: bash
             
@@ -125,7 +125,7 @@ You have two options to train your model: via **command line** or using **Google
         Another alternative is to use a **Google Colab** |colablink_train|. Noteworthy, Google Colab standard account do not allow you to run a long number of epochs due to time limitations. Because of this, we set ``50`` epochs to train and patience to ``10`` while the original configuration they are set to ``1300`` and ``100`` respectively. In this case you do not need to donwload any data, as the notebook will do it for you. 
 
         .. |colablink_train| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Training%20workflow%20(Phase%202).ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Training%20workflow%20(Phase%202).ipynb
 
 How to run the inference
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -134,9 +134,9 @@ How to run the inference
 
    .. tab:: Command line
 
-        You can reproduce the exact results of our **model M2, Phase 5**, of the manuscript via **command line** using `cartocell_inference.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/cartocell_inference.yaml>`__ configuration file.
+        You can reproduce the exact results of our **model M2, Phase 5**, of the manuscript via **command line** using `cartocell_inference.yaml <https://github.com/BiaPyX/BiaPy/blob/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/cartocell_inference.yaml>`__ configuration file.
 
-        You will need to set ``TEST.PATH`` and ``TEST.GT_PATH`` with `test_dataset_raw_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-ba6774bd-7858-4bfb-aca9-9ac307e72120>`__ and `test_dataset_label_images <https://data.mendeley.com/v1/datasets/7gbkxgngpm/draft#folder-efddb305-dec1-46e3-b235-00d7cd670e66>`__ data. You will need to download `model_weights_cartocell.h5 <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/model_weights_cartocell.h5>`__ file, which is the pretained model, and set its path in ``PATHS.CHECKPOINT_FILE``. 
+        You will need to set ``TEST.PATH`` and ``TEST.GT_PATH`` with `low-resolution_MDCK-Normoxia_test_raw_images` and `low-resolution_MDCK-Normoxia_test_label_images` data. You will need to download `model_weights_cartocell.h5 <https://github.com/BiaPyX/BiaPy/raw/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/model_weights_cartocell.h5>`__ file, which is the pretained model, and set its path in ``PATHS.CHECKPOINT_FILE``. 
 
 
    .. tab:: Google Colab
@@ -144,7 +144,7 @@ How to run the inference
         To perform an inference using a pretrained model, you can run a Google Colab |colablink_inference|. 
 
         .. |colablink_inference| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Inference%20workflow%20(Phase%205).ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Inference%20workflow%20(Phase%205).ipynb
 
 Results
 ~~~~~~~

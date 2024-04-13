@@ -1,7 +1,7 @@
 .. _mito_tutorial:
 
-MitoEM dataset: large-scale 3d mitochondria instance segmentation
------------------------------------------------------------------
+(Paper) MitoEM dataset: large-scale 3d mitochondria instance segmentation
+-------------------------------------------------------------------------
 
 This tutorial describes how to reproduce the results reported in our paper, concretely 
 ``U2D-BC`` to make instance segmentation of mitochondria in electron microscopy (EM) images: 
@@ -21,12 +21,12 @@ The goal is to segment and identify automatically mitochondria instances in EM i
 
 .. list-table::
 
-  * - .. figure:: ../img/mitoem_crop.png
+  * - .. figure:: ../../img/mitoem_crop.png
          :align: center
 
          MitoEM-H tissue image sample. 
 
-    - .. figure:: ../img/mitoem_crop_mask.png
+    - .. figure:: ../../img/mitoem_crop_mask.png
          :align: center
 
          Its corresponding instance mask.
@@ -37,7 +37,7 @@ train, ``(100,4096,4096)`` for validation and ``(500,4096,4096)`` for test. Both
 entangling with each other with unclear boundaries and complex morphology, e.g., (a) mitochondria-on-a-string (MOAS)
 instances are connected by thin microtubules, and (b) multiple instances can entangle with each other.
 
-.. figure:: ../img/MitoEM_teaser.png
+.. figure:: ../../img/MitoEM_teaser.png
   :alt: MitoEM complex shape teaser
   :align: center
 
@@ -79,12 +79,12 @@ The results follow same structure as explained in :ref:`instance_segmentation_re
 
 .. list-table::
 
-  * - .. figure:: ../img/mitoem_crop_mask.png
+  * - .. figure:: ../../img/mitoem_crop_mask.png
          :align: center
 
          MitoEM-H train sample's GT.
 
-    - .. figure:: ../img/mitoem_pred.png
+    - .. figure:: ../../img/mitoem_pred.png
          :align: center
 
          MitoEM-H train prediction.
