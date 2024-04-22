@@ -115,7 +115,7 @@ Then, you can train by you own those models or you can use directly our checkpoi
                     # Move where BiaPy installation resides
                     cd BiaPy
                     # Use an specific commmit until a release with the changes is created 
-                    git checkpout 60e06ccc27099375c6a6692a6ffbce9308b2aea8
+                    git checkout 60e06ccc27099375c6a6692a6ffbce9308b2aea8
 
                     # Configuration file
                     job_cfg_file=/home/user/lightmycells_nucleus.yaml       
@@ -183,7 +183,7 @@ Then, you can train by you own those models or you can use directly our checkpoi
             # Move where BiaPy installation resides
             cd BiaPy
             # Use an specific commmit until a release with the changes is created 
-            git checkpout 60e06ccc27099375c6a6692a6ffbce9308b2aea8 
+            git checkout 60e06ccc27099375c6a6692a6ffbce9308b2aea8 
 
             # Configuration file
             job_cfg_file=/home/user/lightmycells_nucleus.yaml       
