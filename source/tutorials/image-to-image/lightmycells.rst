@@ -27,7 +27,9 @@ We refer the reader to our paper (released soon) to check all details of our app
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-LightMyCells challenge data can be downloaded in the `challenge's page <https://lightmycells.grand-challenge.org/>`__ (registration is needed). You can use the `lightmycell_data_preparation.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/lightmycell_data_preparation.py>`__  script available here to organize your data directory structure. This script converts the Study_* folder arrangement from the challenge into the data organization required by BiaPy.
+Currently, LightMyCells challenge data can be downloaded in the `challenge's page <https://lightmycells.grand-challenge.org/>`__ (registration is needed). In the near future the organizers will publish the data in the BioImage Archive. 
+
+You can use the `lightmycell_data_preparation.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/lightmycell_data_preparation.py>`__  script available here to organize your data directory structure. This script converts the Study_* folder arrangement from the challenge into the data organization required by BiaPy.
 
 In our proposed approach we implemented a custom data loader to handle more than one out-of-focus image. To ensure the proper operation of the library the data directory tree should be something like this (here actin training data as example): 
 
