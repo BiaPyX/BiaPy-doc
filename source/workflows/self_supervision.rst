@@ -158,13 +158,10 @@ Run
             # Number of the GPU to run the job in (according to 'nvidia-smi' command)
             gpu_number=0                   
 
-            # Move where BiaPy installation resides
-            cd BiaPy
-
             # Load the environment
             conda activate BiaPy_env
             
-            python -u main.py \
+            biapy \
                 --config $job_cfg_file \
                 --result_dir $result_dir  \ 
                 --name $job_name    \
@@ -176,10 +173,14 @@ Run
 
         .. code-block:: bash
             
+            # First check where is your biapy command (you need it in the below command)
+            # $ which biapy
+            # > /home/user/anaconda3/envs/BiaPy_env/bin/biapy
+
             gpu_number="0, 1, 2"
             python -u -m torch.distributed.run \
                 --nproc_per_node=3 \
-                main.py \
+                /home/user/anaconda3/envs/BiaPy_env/bin/biapy \
                 --config $job_cfg_file \
                 --result_dir $result_dir  \ 
                 --name $job_name    \

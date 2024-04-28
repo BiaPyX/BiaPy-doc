@@ -113,14 +113,7 @@ Then, you can train by you own those models or you can use directly our checkpoi
                 These steps assume that you have already installed BiaPy (`instructions here <../../get_started/installation.html>`__). Then, `open a terminal <../../get_started/installation.html>`__ and run the following (here nucleus model is used as example):
 
                 .. code-block:: bash
-
-                    # Clone BiaPy if you don't have it yet 
-                    git clone git@github.com:BiaPyX/BiaPy.git 
-                    # Move where BiaPy installation resides
-                    cd BiaPy
-                    # Use an specific commmit until a release with the changes is created 
-                    git checkout 60e06ccc27099375c6a6692a6ffbce9308b2aea8
-
+   
                     # Configuration file
                     job_cfg_file=/home/user/lightmycells_nucleus.yaml       
                     # Where the experiment output directory should be created
@@ -135,7 +128,7 @@ Then, you can train by you own those models or you can use directly our checkpoi
                     # Load the environment
                     conda activate BiaPy_env
 
-                    python -u main.py \
+                    biapy \
                         --config $job_cfg_file \
                         --result_dir $result_dir  \ 
                         --name $job_name    \
@@ -182,13 +175,6 @@ Then, you can train by you own those models or you can use directly our checkpoi
 
         .. code-block:: bash
 
-            # Clone BiaPy if you don't have it yet 
-            git clone git@github.com:BiaPyX/BiaPy.git 
-            # Move where BiaPy installation resides
-            cd BiaPy
-            # Use an specific commmit until a release with the changes is created 
-            git checkout 60e06ccc27099375c6a6692a6ffbce9308b2aea8 
-
             # Configuration file
             job_cfg_file=/home/user/lightmycells_nucleus.yaml       
             # Where the experiment output directory should be created
@@ -203,7 +189,7 @@ Then, you can train by you own those models or you can use directly our checkpoi
             # Load the environment
             conda activate BiaPy_env
             
-            python -u main.py \
+            biapy \
                 --config $job_cfg_file \
                 --result_dir $result_dir  \ 
                 --name $job_name    \
@@ -214,10 +200,14 @@ Then, you can train by you own those models or you can use directly our checkpoi
 
         .. code-block:: bash
 
+            # First check where is your biapy command (you need it in the below command)
+            # $ which biapy
+            # > /home/user/anaconda3/envs/BiaPy_env/bin/biapy
+
             gpu_number="0, 1, 2"
             python -u -m torch.distributed.run \
                 --nproc_per_node=3 \
-                main.py \
+                /home/user/anaconda3/envs/BiaPy_env/bin/biapy \
                 --config $job_cfg_file \
                 --result_dir $result_dir  \ 
                 --name $job_name    \

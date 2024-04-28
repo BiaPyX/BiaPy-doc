@@ -105,7 +105,9 @@ You have two options to train your model: via **command line** or using **Google
             gpu_number=0                   
 
             # Move where BiaPy installation resides
+            git clone git@github.com:BiaPyX/BiaPy.git
             cd BiaPy
+            git checkout 2bfa7508c36694e0977fdf2c828e3b424011e4b1
 
             # Load the environment
             conda activate BiaPy_env
@@ -135,6 +137,35 @@ How to run the inference
 
         You will need to set ``TEST.PATH`` and ``TEST.GT_PATH`` with `test/x <https://zenodo.org/records/10973241>`__ and `test/y <https://zenodo.org/records/10973241>`__ data. You will need to download `model_weights_cartocell.h5 <https://github.com/BiaPyX/BiaPy/raw/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/model_weights_cartocell.h5>`__ file, which is the pretained model, and set its path in ``PATHS.CHECKPOINT_FILE``. 
 
+        The next step is to `open a terminal <../../get_started/faq.html#opening-a-terminal>`__ and run the code as follows:
+
+        .. code-block:: bash
+            
+            # Configuration file
+            job_cfg_file=/home/user/cartocell_inference.yaml       
+            # Where the experiment output directory should be created
+            result_dir=/home/user/exp_results  
+            # Just a name for the job
+            job_name=cartocell_inference      
+            # Number that should be increased when one need to run the same job multiple times (reproducibility)
+            job_counter=1
+            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+            gpu_number=0                   
+
+            # Move where BiaPy installation resides (if you didn't in the previous steps)
+            git clone git@github.com:BiaPyX/BiaPy.git
+            cd BiaPy
+            git checkout 2bfa7508c36694e0977fdf2c828e3b424011e4b1
+
+            # Load the environment
+            conda activate BiaPy_env
+
+            python -u main.py \
+                --config $job_cfg_file \
+                --result_dir $result_dir  \ 
+                --name $job_name    \
+                --run_id $job_counter  \
+                --gpu $gpu_number  
 
    .. tab:: Google Colab
     
