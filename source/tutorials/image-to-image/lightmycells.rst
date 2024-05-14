@@ -20,7 +20,7 @@ In this work, we address the Cell Painting problem within the `LightMyCells chal
     Schematic representation of our organelle-specialized 2D UNETR approach. The base model is a modified `UNETR architecture <https://arxiv.org/abs/2103.10504>`__ pretrained using `MAE <https://arxiv.org/abs/2111.06377>`__. Then, four specialized models are fine-tuned independently for identifying specific organelles using an image-to-image workflow with heavy data augmentation.
 
 
-We refer the reader to our paper (released soon) to check all details of our approach. 
+We refer the reader to our paper to check all details of our approach. Preprint: `10.1101/2024.04.22.590525 <https://www.biorxiv.org/content/10.1101/2024.04.22.590525v1.abstract>`__ . 
 
 .. _lightmycells_data_prep:
 
@@ -75,12 +75,12 @@ Run
 
 For that you need to download the templates of our four specialized models:
 
-- Nucleus `lightmycells_nucleus.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/lightmycells_nucleus.yaml>`__  
-- Mitochondria `lightmycells_mito.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/lightmycells_mito.yaml>`__
-- Actin `lightmycells_actin.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/lightmycells_actin.yaml>`__
-- Tubulin `lightmycells_tubulin.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/lightmycells_tubulin.yaml>`__
+- Nucleus `lightmycells_nucleus.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/lightmycells/lightmycells_nucleus.yaml>`__  
+- Mitochondria `lightmycells_mito.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/lightmycells/lightmycells_mito.yaml>`__
+- Actin `lightmycells_actin.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/lightmycells/lightmycells_actin.yaml>`__
+- Tubulin `lightmycells_tubulin.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/lightmycells/lightmycells_tubulin.yaml>`__
 
-Then you need to modify ``TRAIN.PATH`` and ``TRAIN.GT_PATH`` with your training data path of EM images and labels respectively. In the same way, do it for the validation data with ``VAL.PATH`` and ``VAL.GT_PATH`` (we use 10% of the training samples as validation). Regarding the test, by setting ``TEST.PATH``, you can use the same validation path. 
+Then you need to modify ``DATA.TRAIN.PATH`` with your training data microscopy image path, and ``DATA.TRAIN.GT_PATH`` with the path to the target images. In the same way, do it for the validation data with ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH``. We use 10% of the training samples as validation, taking one sample every ten, so all studies are covered, and saving it into a separated folder so they are not used for training. Regarding the test, by setting ``DATA.TEST.PATH``, you can use the same validation path. As an example, if you follow the data structure presented above ``DATA.TRAIN.PATH`` should be ``lightmycells_dataset/train/x`` and ``DATA.TRAIN.GT_PATH`` should be ``lightmycells_dataset/train/y``. 
 
 Then, you can train by you own those models or you can use directly our checkpoints:
 
@@ -171,50 +171,118 @@ Then, you can train by you own those models or you can use directly our checkpoi
 
    .. tab:: Train by your own
 
-        The YAML configuration files are prepared for doing test/inferece. For that reason, before using them for training you need to enable it (``TRAIN.ENABLE`` to ``True``) and disable checkpoint loading (``MODEL.LOAD_CHECKPOINT`` to ``True``). After that, you need to `open a terminal <../../get_started/installation.html>`__ as described in :ref:`installation` and run the following (here nucleus model is used as example): 
+        There are two steps to have a fully trained model: phase one and phase two.
+        
+        **1) Phase one: pretraining** 
+        
+        The first stage consists in the self-supervised pretraining using mask autoencoder technique. For that, you can use `lightmycells_pretraining.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/lightmycells/lightmycells_pretraining.yaml>`__ configuration file. 
+        
+        You will need to place all the images inside just one folder and NOT following the above data structure described, as that is for the main phase, which is the second one. Modify in the configuration file the ``DATA.TRAIN.PATH`` with the path to that folder. Currently BiaPy is not prepared to train without a validation data, so you can create a folder with a few training samples as a "fake" validation and set ``DATA.VAL.PATH`` with that folder's path. 
 
-        .. code-block:: bash
+        After that, you need to `open a terminal <../../get_started/installation.html>`__ as described in :ref:`installation` and run the following commands. We strongly recommend using more than one GPU for these pretraining as using all the images it can take a lot of days with just one GPU:
 
-            # Configuration file
-            job_cfg_file=/home/user/lightmycells_nucleus.yaml       
-            # Where the experiment output directory should be created
-            result_dir=/home/user/exp_results  
-            # Just a name for the job
-            job_name=my_lightmycells_nucleus      
-            # Number that should be increased when one need to run the same job multiple times (reproducibility)
-            job_counter=1
-            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-            gpu_number=0                   
+        .. tabs::
 
-            # Load the environment
-            conda activate BiaPy_env
-            
-            biapy \
-                --config $job_cfg_file \
-                --result_dir $result_dir  \ 
-                --name $job_name    \
-                --run_id $job_counter  \
-                --gpu $gpu_number  
+            .. tab:: Single GPU 
 
-        In our approach 8 GPUs where used to train nucleus and mitochondria models, while in tubulin and actin we used 4 and 3 GPUs respectively due the amount of data available. For multi-GPU training you can call BiaPy as follows:
+                .. code-block:: bash
 
-        .. code-block:: bash
+                    # Configuration file
+                    job_cfg_file=/home/user/lightmycells_pretraining.yaml       
+                    # Where the experiment output directory should be created
+                    result_dir=/home/user/exp_results  
+                    # Just a name for the job
+                    job_name=my_lightmycells_pretraining      
+                    # Number that should be increased when one need to run the same job multiple times (reproducibility)
+                    job_counter=1
+                    # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+                    gpu_number=0                   
 
-            # First check where is your biapy command (you need it in the below command)
-            # $ which biapy
-            # > /home/user/anaconda3/envs/BiaPy_env/bin/biapy
+                    # Load the environment
+                    conda activate BiaPy_env
+                    
+                    biapy \
+                        --config $job_cfg_file \
+                        --result_dir $result_dir  \ 
+                        --name $job_name    \
+                        --run_id $job_counter  \
+                        --gpu $gpu_number  
 
-            gpu_number="0, 1, 2"
-            python -u -m torch.distributed.run \
-                --nproc_per_node=3 \
-                /home/user/anaconda3/envs/BiaPy_env/bin/biapy \
-                --config $job_cfg_file \
-                --result_dir $result_dir  \ 
-                --name $job_name    \
-                --run_id $job_counter  \
-                --gpu $gpu_number  
+            .. tab:: Multi-GPU 
 
-        ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+                .. code-block:: bash
+
+                    # First check where is your biapy command (you need it in the below command)
+                    # $ which biapy
+                    # > /home/user/anaconda3/envs/BiaPy_env/bin/biapy
+
+                    gpu_number="0,1,2,3,4,5,6,7"
+                    python -u -m torch.distributed.run \
+                        --nproc_per_node=8 \
+                        /home/user/anaconda3/envs/BiaPy_env/bin/biapy \
+                        --config $job_cfg_file \
+                        --result_dir $result_dir  \ 
+                        --name $job_name    \
+                        --run_id $job_counter  \
+                        --gpu $gpu_number  
+
+                ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+
+
+        **2) Phase two: finetuning** 
+
+        In this phase we are going to reuse the pretrained model from the phase one and finetune the model into an image-to-image workflow. To do that, as the YAML configuration files are prepared for doing test/inferece, you need to enable the training by changing ``TRAIN.ENABLE`` to ``True``. Also, you need to use the pretraining checkpoint of the phase one, which is in a folder called `checkpoints` under the pretraining experiment output folder (e.g. ``/home/user/exp_results/my_lightmycells_pretraining/checkpoints``). Once found, set ``PATHS.CHECKPOINT_FILE`` variable with the path of that checkpoint. 
+        
+        After that, you need to `open a terminal <../../get_started/installation.html>`__ as described in :ref:`installation` and run the following commands. We strongly recommend using more than one GPU for nucleus and mitochondria, as the amount of data for those organelles is large. In these commands nucleus model is used as example: 
+
+        .. tabs::
+
+            .. tab:: Single GPU 
+
+                .. code-block:: bash
+
+                    # Configuration file
+                    job_cfg_file=/home/user/lightmycells_nucleus.yaml       
+                    # Where the experiment output directory should be created
+                    result_dir=/home/user/exp_results  
+                    # Just a name for the job
+                    job_name=my_lightmycells_nucleus      
+                    # Number that should be increased when one need to run the same job multiple times (reproducibility)
+                    job_counter=1
+                    # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+                    gpu_number=0                   
+
+                    # Load the environment
+                    conda activate BiaPy_env
+                    
+                    biapy \
+                        --config $job_cfg_file \
+                        --result_dir $result_dir  \ 
+                        --name $job_name    \
+                        --run_id $job_counter  \
+                        --gpu $gpu_number  
+
+            .. tab:: Multi-GPU 
+
+                In our approach 8 GPUs where used to train nucleus and mitochondria models, while in tubulin and actin we used 4 and 3 GPUs respectively due the amount of data available. For multi-GPU training you can call BiaPy as follows:
+
+                .. code-block:: bash
+
+                    # First check where is your biapy command (you need it in the below command)
+                    # $ which biapy
+                    # > /home/user/anaconda3/envs/BiaPy_env/bin/biapy
+
+                    gpu_number="0, 1, 2"
+                    python -u -m torch.distributed.run \
+                        --nproc_per_node=3 \
+                        /home/user/anaconda3/envs/BiaPy_env/bin/biapy \
+                        --config $job_cfg_file \
+                        --result_dir $result_dir  \ 
+                        --name $job_name    \
+                        --run_id $job_counter  \
+                        --gpu $gpu_number  
+
+                ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
 
 .. _lightmycells_results:
 
