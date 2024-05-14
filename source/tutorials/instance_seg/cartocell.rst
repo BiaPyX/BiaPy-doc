@@ -83,11 +83,11 @@ You have two options to train your model: via **command line** or using **Google
 
         You can reproduce the exact results of our manuscript via **command line** using `cartocell_training.yaml <https://github.com/BiaPyX/BiaPy/blob/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/cartocell_training.yaml>`__ configuration file.
 
-        * In case you want to reproduce our **model M1, Phase 2**, you will need to modify the ``TRAIN.PATH`` and ``TRAIN.GT_PATH`` with the raw image and their corresponding labels, that is to say, with the paths of `train_M1/x <https://zenodo.org/records/10973241>`__ and `train_M1/y <https://zenodo.org/records/10973241>`__ respectively.
+        * In case you want to reproduce our **model M1, Phase 2**, you will need to modify the ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` with the raw image and their corresponding labels, that is to say, with the paths of `train_M1/x <https://zenodo.org/records/10973241>`__ and `train_M1/y <https://zenodo.org/records/10973241>`__ respectively.
 
-        * In case you want to reproduce our **model M2, Phase 4**, you will need to modify the ``TRAIN.PATH`` and ``TRAIN.GT_PATH`` as above but now using the paths of `train_M2/x <https://zenodo.org/records/10973241>`__ and `train_M2/y <https://zenodo.org/records/10973241>`__.
+        * In case you want to reproduce our **model M2, Phase 4**, you will need to modify the ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` as above but now using the paths of `train_M2/x <https://zenodo.org/records/10973241>`__ and `train_M2/y <https://zenodo.org/records/10973241>`__.
 
-        For the validation data, for both **model M1** and **model M2**, you will need to modify ``VAL.PATH`` and ``VAL.GT_PATH`` with the raw image and their corresponding labels, that is to say, with the paths of `validation/x <https://zenodo.org/records/10973241>`__ and `validation/y <https://zenodo.org/records/10973241>`__ respectively.
+        For the validation data, for both **model M1** and **model M2**, you will need to modify ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH`` with the raw image and their corresponding labels, that is to say, with the paths of `validation/x <https://zenodo.org/records/10973241>`__ and `validation/y <https://zenodo.org/records/10973241>`__ respectively.
 
         The next step is to `open a terminal <../../get_started/faq.html#opening-a-terminal>`__ and run the code as follows:
 
@@ -135,7 +135,7 @@ How to run the inference
 
         You can reproduce the exact results of our **model M2, Phase 5**, of the manuscript via **command line** using `cartocell_inference.yaml <https://github.com/BiaPyX/BiaPy/blob/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/cartocell_inference.yaml>`__ configuration file.
 
-        You will need to set ``TEST.PATH`` and ``TEST.GT_PATH`` with `test/x <https://zenodo.org/records/10973241>`__ and `test/y <https://zenodo.org/records/10973241>`__ data. You will need to download `model_weights_cartocell.h5 <https://github.com/BiaPyX/BiaPy/raw/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/model_weights_cartocell.h5>`__ file, which is the pretained model, and set its path in ``PATHS.CHECKPOINT_FILE``. 
+        You will need to set ``DATA.TEST.PATH`` and ``DATA.TEST.GT_PATH`` with `test/x <https://zenodo.org/records/10973241>`__ and `test/y <https://zenodo.org/records/10973241>`__ data. You will need to download `model_weights_cartocell.h5 <https://github.com/BiaPyX/BiaPy/raw/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/model_weights_cartocell.h5>`__ file, which is the pretained model, and set its path in ``PATHS.CHECKPOINT_FILE``. 
 
         The next step is to `open a terminal <../../get_started/faq.html#opening-a-terminal>`__ and run the code as follows:
 
