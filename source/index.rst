@@ -48,6 +48,7 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
    workflows/super_resolution
    workflows/self_supervision
    workflows/classification
+   workflows/image_to_image
    
 .. toctree::
    :maxdepth: 1
