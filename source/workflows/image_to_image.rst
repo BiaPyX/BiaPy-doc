@@ -3,7 +3,7 @@
 Image to Image
 --------------
 
-The goal of this workflow aims at generating new images based on another. It's a translation/mapping problem from one image to another.
+The goal of this workflow aims at translating/mapping input images into target images. This workflow is as the super-resolution one but with no upsampling, e.g. with the scaling factor to x1.
 
 * **Input:** 
     
@@ -13,7 +13,7 @@ The goal of this workflow aims at generating new images based on another. It's a
 
   * image. 
 
-In the figure below an example of paired microscopy images (fluorescence) of lifeact-RFP (**input**) and sir-DNA is depicted (**output**). The images were obtained from `ZeroCostDL4Mic pix2pix example training and test dataset <https://zenodo.org/records/3941889#.XxrkzWMzaV4>`__:
+In the figure below an example of paired microscopy images (fluorescence) of lifeact-RFP (**input**) and SiR-DNA is depicted (**output**). The images were obtained from `ZeroCostDL4Mic pix2pix example training and test dataset <https://zenodo.org/records/3941889#.XxrkzWMzaV4>`__:
 
 .. list-table:: 
 
@@ -25,7 +25,7 @@ In the figure below an example of paired microscopy images (fluorescence) of lif
     - .. figure:: ../img/i2i/i2i_target.png
          :align: center
 
-         Output image.
+         Target image.
 
 .. _i2i2_data_prep:
 
@@ -100,12 +100,12 @@ Run
         Two different options depending on the image dimension: 
 
         .. |sr_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/image-to-image/BiaPy_2D_Image_to_Image.ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/image_to_image/BiaPy_2D_Image_to_Image.ipynb
 
         * 2D: |sr_2D_colablink|
 
         .. |sr_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/image-to-image/BiaPy_3D_Image_to_Image.ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/image_to_image/BiaPy_3D_Image_to_Image.ipynb
 
         * 3D: |sr_3D_colablink|
 
