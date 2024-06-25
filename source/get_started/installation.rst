@@ -90,8 +90,8 @@ Choose your installation method
 
         We have two containers prepared to run BiaPy, one for the actual NVIDIA driver versions and another container for old drivers: 
 
-            * ``biapyx/biapy:latest-11.8``: Ubuntu ``22.04`` SO with Pytorch ``2.3.1`` installed supporting CUDA ``11.8`` (`container link <https://hub.docker.com/layers/biapyx/biapy/latest-11.8/images/sha256-86cf198ab05a953ba950bb96fb74b18045d2ed7318afb8fa9b212c97c41be904?context=repo>`__).
-            * ``biapyx/biapy:latest-10.2``: Ubuntu ``20.04`` SO with Pytorch ``1.12.1`` installed supporting CUDA ``10.2`` (`container link <https://hub.docker.com/layers/biapyx/biapy/latest-10.2/images/sha256-c437972cfe30909879085ffd1769666d11875f0ff239df3100fa04ea056d09ab?context=repo>`__).
+            * ``biapyx/biapy:latest-11.8``: Ubuntu ``22.04`` SO with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``2.3.1`` installed supporting CUDA ``11.8`` (`container link <https://hub.docker.com/layers/biapyx/biapy/latest-11.8/images/sha256-86cf198ab05a953ba950bb96fb74b18045d2ed7318afb8fa9b212c97c41be904?context=repo>`__).
+            * ``biapyx/biapy:latest-10.2``: Ubuntu ``20.04`` SO with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``1.12.1`` installed supporting CUDA ``10.2`` (`container link <https://hub.docker.com/layers/biapyx/biapy/latest-10.2/images/sha256-c437972cfe30909879085ffd1769666d11875f0ff239df3100fa04ea056d09ab?context=repo>`__).
 
         You need to check the CUDA version that you NVIDIA driver can handle. You can do that with ``nvidia-smi`` command in Linux/macOS or by running ``NVIDIA Control Panel`` in Windows. The driver information will tell you the maximum CUDA version it can handle. Select one of the above containers depending on your GPU driver. For instance, if the CUDA version it can handle is ``12.0`` you can use ``biapyx/biapy:latest-11.8`` container. 
         
@@ -156,7 +156,7 @@ Choose your installation method
                     conda create -n BiaPy_env python=3.10
                     conda activate BiaPy_env
 
-               Then you will need to install `BiaPy package <https://pypi.org/project/biapy/>`__: ::
+               Then you will need to install `BiaPy package <https://pypi.org/project/biapy/>`__ and `Pytorch <https://pytorch.org/get-started/locally/>`__: ::
 
                     pip install biapy
 
@@ -166,7 +166,7 @@ Choose your installation method
 
                .. note:: 
 
-                    The PyPI package does not install Pytorch because there is no option to build that package specifying exactly the CUDA version you want to use. There are a few solutions to set up ``pyproject.toml`` with poetry and specify the CUDA version, as discussed `here <https://github.com/python-poetry/poetry/issues/6409>`__, but then PyPI package can not be built (as stated `here <https://peps.python.org/pep-0440/#direct-references>`__).
+                    The PyPI package does not install `Pytorch <https://pytorch.org/get-started/locally/>`__ because there is no option to build that package specifying exactly the CUDA version you want to use. There are a few solutions to set up ``pyproject.toml`` with poetry and specify the CUDA version, as discussed `here <https://github.com/python-poetry/poetry/issues/6409>`__, but then PyPI package can not be built (as stated `here <https://peps.python.org/pep-0440/#direct-references>`__).
 
 
           .. tab:: Mamba
@@ -192,7 +192,7 @@ Choose your installation method
                     mamba create -n BiaPy_env python=3.10
                     mamba activate BiaPy_env
 
-               * Now you need to install `Pytorch <https://pytorch.org/get-started/locally/>`__ and related packages. Double check `Pytorch's official page <https://pytorch.org/get-started/locally/>`__ for its specific installation. For example, to install the last version of Pytorch with ``conda`` installation in Windows OS under cuda 12.1: ::
+               * Now you need to install `Pytorch <https://pytorch.org/get-started/locally/>`__ and related packages. Double check `Pytorch's official page <https://pytorch.org/get-started/locally/>`__ for its specific installation. For example, to install the last version of `Pytorch <https://pytorch.org/get-started/locally/>`__ with ``conda`` installation in Windows OS under cuda 12.1: ::
 
                     mamba install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
 
@@ -220,7 +220,7 @@ Choose your installation method
 
                .. _installation_command_line_dev:
 
-               To use BiaPy via the command line, you will need to set up a ``conda`` environment. To do this, you will first need to install `Conda <https://docs.conda.io/projects/conda/en/stable/>`__. Then create the environment : ::
+               Set up a ``conda`` environment first by installing `Conda <https://docs.conda.io/projects/conda/en/stable/>`__. Then create the environment : ::
 
                     # Create and activate the environment
                     conda create -n BiaPy_env python=3.10
@@ -234,7 +234,7 @@ Choose your installation method
 
                This will create a folder called ``BiaPy`` that contains all the files of the `library's official repository <https://github.com/BiaPyX/BiaPy>`__. Then you need to create a ``conda`` environment and install the dependencies.
 
-               You need to check the CUDA version that you NVIDIA driver can handle. You can do that with ``nvidia-smi`` command in Linux/macOS or by running ``NVIDIA Control Panel`` in Windows. The driver information will tell you the maximum CUDA version it can handle. We here provide two stable installations, one based in CUDA ``11.8`` and another one with an older version of Pytorch and with CUDA ``10.2`` (BiaPy will work anyway). Once you have checked it, proceed with the installation depending on the CUDA version: 
+               You need to check the CUDA version that you NVIDIA driver can handle. You can do that with ``nvidia-smi`` command in Linux/macOS or by running ``NVIDIA Control Panel`` in Windows. The driver information will tell you the maximum CUDA version it can handle. We here provide two stable installations, one based in CUDA ``11.8`` and another one with an older version of `Pytorch <https://pytorch.org/get-started/locally/>`__ and with CUDA ``10.2`` (BiaPy will work anyway). Once you have checked it, proceed with the installation depending on the CUDA version: 
 
                .. tabs::
 
