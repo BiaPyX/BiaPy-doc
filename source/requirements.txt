@@ -115,3 +115,5 @@ yacs==0.1.8
 zarr==2.16.1
 zipp==3.17.0
 pytorch_msssim==1.0.0
+pooch==1.8.1
+marshmallow==3.21.3
