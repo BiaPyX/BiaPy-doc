@@ -43,7 +43,7 @@ Train questions
                 --result_dir XXX  \ 
                 --name XXX    \
                 --run_id XXX  \
-                --gpu "0,1"
+                --gpu "cuda:0,1"
 
     ``nproc_per_node`` need to be equal to the number of GPUs you are using, 2 in this example.
 
@@ -102,7 +102,7 @@ Train questions
             File "/installations/miniconda3/envs/BiaPy_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1146, in _try_get_data
                 raise RuntimeError(f'DataLoader worker (pid(s) {pids_str}) exited unexpectedly') from e
             RuntimeError: DataLoader worker (pid(s) 1285) exited unexpectedly
-            ERROR conda.cli.main_run:execute(124): `conda run python3 -u /installations/BiaPy/main.py --config /BiaPy_files/input.yaml --result_dir /C/Users/Pille/Desktop/training/BiaPy/U-Net_new --name u-net_test2_df --run_id 1 --dist_backend gloo --gpu 0` failed. (See above for error)
+            ERROR conda.cli.main_run:execute(124): `conda run python3 -u /installations/BiaPy/main.py --config /BiaPy_files/input.yaml --result_dir /C/Users/Pille/Desktop/training/BiaPy/U-Net_new --name u-net_test2_df --run_id 1 --dist_backend gloo --gpu "cuda:0"` failed. (See above for error)
 
 Test/Inference questions
 ~~~~~~~~~~~~~~~~~~~~~~~~

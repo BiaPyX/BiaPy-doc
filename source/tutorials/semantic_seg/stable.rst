@@ -113,7 +113,7 @@ The procedure to run the library is slightly different as it is now for the last
                 $job_dir \
                 --id $job_id \
                 --rid $job_counter \
-                --gpu $gpu_number 
+                --gpu "cuda:$gpu_number" 
 
    .. tab:: Google colab
 

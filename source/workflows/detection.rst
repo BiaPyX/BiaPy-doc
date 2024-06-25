@@ -209,7 +209,7 @@ Run
                     -rdir $result_dir \
                     -name $job_name \
                     -rid $job_counter \
-                    -gpu $gpu_number
+                    -gpu "cuda:$gpu_number"
 
         .. note:: 
             Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
@@ -239,7 +239,7 @@ Run
                 --result_dir $result_dir  \ 
                 --name $job_name    \
                 --run_id $job_counter  \
-                --gpu $gpu_number  
+                --gpu "cuda:$gpu_number"  
 
 
         For multi-GPU training you can call BiaPy as follows:
@@ -258,7 +258,7 @@ Run
                 --result_dir $result_dir  \ 
                 --name $job_name    \
                 --run_id $job_counter  \
-                --gpu $gpu_number  
+                --gpu "cuda:$gpu_number"  
 
         ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
 
