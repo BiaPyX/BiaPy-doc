@@ -174,7 +174,7 @@ Run
                     -rdir $result_dir \
                     -name $job_name \
                     -rid $job_counter \
-                    -gpu "cuda:$gpu_number"
+                    -gpu "$gpu_number"
 
         .. note:: 
 
@@ -205,7 +205,7 @@ Run
                 --result_dir $result_dir  \ 
                 --name $job_name    \
                 --run_id $job_counter  \
-                --gpu "cuda:$gpu_number"  
+                --gpu "$gpu_number"  
 
         For multi-GPU training you can call BiaPy as follows:
 
@@ -223,7 +223,7 @@ Run
                 --result_dir $result_dir  \ 
                 --name $job_name    \
                 --run_id $job_counter  \
-                --gpu "cuda:$gpu_number" 
+                --gpu "$gpu_number" 
 
         ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
 

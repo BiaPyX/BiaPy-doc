@@ -117,7 +117,7 @@ You have two options to train your model: via **command line** or using **Google
                 --result_dir $result_dir  \ 
                 --name $job_name    \
                 --run_id $job_counter  \
-                --gpu "cuda:$gpu_number"  
+                --gpu "$gpu_number"  
 
    .. tab:: Google Colab
 
@@ -165,7 +165,7 @@ How to run the inference
                 --result_dir $result_dir  \ 
                 --name $job_name    \
                 --run_id $job_counter  \
-                --gpu "cuda:$gpu_number"  
+                --gpu "$gpu_number"  
 
    .. tab:: Google Colab
     

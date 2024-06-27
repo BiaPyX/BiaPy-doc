@@ -90,7 +90,7 @@ Choose your installation method
 
         We have two containers prepared to run BiaPy, one for the actual NVIDIA driver versions and another container for old drivers: 
 
-            * ``biapyx/biapy:latest-11.8``: Ubuntu ``22.04`` SO with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``2.3.1`` installed supporting CUDA ``11.8`` (`container link <https://hub.docker.com/layers/biapyx/biapy/latest-11.8/images/sha256-86cf198ab05a953ba950bb96fb74b18045d2ed7318afb8fa9b212c97c41be904?context=repo>`__).
+            * ``biapyx/biapy:latest-11.8``: Ubuntu ``22.04`` SO with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``2.2.0`` installed supporting CUDA ``11.8`` (`container link <https://hub.docker.com/layers/biapyx/biapy/latest-11.8/images/sha256-86cf198ab05a953ba950bb96fb74b18045d2ed7318afb8fa9b212c97c41be904?context=repo>`__).
             * ``biapyx/biapy:latest-10.2``: Ubuntu ``20.04`` SO with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``1.12.1`` installed supporting CUDA ``10.2`` (`container link <https://hub.docker.com/layers/biapyx/biapy/latest-10.2/images/sha256-c437972cfe30909879085ffd1769666d11875f0ff239df3100fa04ea056d09ab?context=repo>`__).
 
         You need to check the CUDA version that you NVIDIA driver can handle. You can do that with ``nvidia-smi`` command in Linux/macOS or by running ``NVIDIA Control Panel`` in Windows. The driver information will tell you the maximum CUDA version it can handle. Select one of the above containers depending on your GPU driver. For instance, if the CUDA version it can handle is ``12.0`` you can use ``biapyx/biapy:latest-11.8`` container. 
@@ -168,15 +168,15 @@ Choose your installation method
 
                          :: 
 
-                              # Then install Pytorch 2.3.1 + CUDA 11.8
-                              pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 --index-url https://download.pytorch.org/whl/cu118 
+                              # Then install Pytorch 2.2.0 + CUDA 11.8
+                              pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu118 
                          
                     .. tab:: CPU only support
 
                          :: 
 
-                              # Then install Pytorch 2.3.1 + CUDA 11.8
-                              pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 --index-url https://download.pytorch.org/whl/cpu 
+                              # Then install Pytorch 2.2.0 + CUDA 11.8
+                              pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cpu 
                               
                Ultimately, it is necessary to install additional dependencies that rely on the `Pytorch <https://pytorch.org/get-started/locally/>`__ installation; therefore, they must be installed last: ::
 
@@ -263,8 +263,8 @@ Choose your installation method
                               cd BiaPy
                               pip install --editable .
 
-                              # Install Pytorch 2.3.1 + CUDA 11.8
-                              pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 --index-url https://download.pytorch.org/whl/cu118 
+                              # Install Pytorch 2.2.0 + CUDA 11.8
+                              pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu118 
                               pip install timm torchmetrics pytorch-msssim
 
                     .. tab:: CUDA 10.2
@@ -284,7 +284,7 @@ Choose your installation method
      Verify installation: ::
 
           python -c 'import torch; print(torch.__version__)'
-          >>> 2.3.1
+          >>> 2.2.0
           python -c 'import torch; print(torch.cuda.is_available())'
           >>> True
           
