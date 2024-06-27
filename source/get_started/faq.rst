@@ -3,6 +3,9 @@ FAQ & Troubleshooting
 
 The `Image.sc Forum <https://forum.image.sc/>`__ is the main discussion channel for BiaPy, hence we recommend to use it for any question or curiosity related to it. Use a tag such as ``biapy`` so we can go through your questions. Try to find out if the issue you are having has already been discussed or solved by other people. If not, feel free to create a new topic (please provide a clear and concise description to understand and ideally reproduce the issue you're having). 
 
+Frequently asked question
+*************************
+
 Installation
 ~~~~~~~~~~~~
 
@@ -130,8 +133,11 @@ Test/Inference questions
     .. warning ::
         Be aware of enabling ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` option as it will require to load the prediction entirely in order to save it.
 
-Possible errors
-~~~~~~~~~~~~~~~
+Troubleshooting
+***************
+
+General errors
+~~~~~~~~~~~~~~
 
 - In Linux an error like the following may arise: ::
 
@@ -141,7 +147,7 @@ To sort it out increase the number of open files with the command ``ulimit -Sn 1
 
 
 Graphical User interface (GUI)
-******************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In case you have troubles with GUI you can find instructions on how to use it in the following video (at 41min51s in the video):
 
@@ -149,30 +155,31 @@ In case you have troubles with GUI you can find instructions on how to use it in
     :alt: BiaPy history and GUI demo
     :target: https://www.youtube.com/watch?v=Gnm-VsZQ6Cc&t=41m51s
 
-Windows 
-=======
+* Running the GUI for the first time:
 
-Once you donwload the Windows binary an error may arise when running it: ``Windows protected your PC``. This message occurs if an application is unrecognized by Microsoft. In this situation you can click in ``More info`` button and ``Run anyway``.
+    * **Windows**: once you donwload the Windows binary an error may arise when running it: ``Windows protected your PC``. This message occurs if an application is unrecognized by Microsoft. In this situation you can click in ``More info`` button and ``Run anyway``.
+    
+    * **Linux**: once you donwload the Linux binary you need to grant execution permission to it by typing the following command in a `terminal <faq.html#opening-a-terminal>`__: ::
 
-Linux
-=====
+        chmod +x BiaPy
 
-Once you donwload the Linux binary you need to grant execution permission to it by typing the following command in a `terminal <faq.html#opening-a-terminal>`__: ::
+    * **macOS**: you might experience the following error when open the app for the first time:
 
-    chmod +x BiaPy
+        .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-GUI/main/images/macOS_binary_error.png
+            :align: center 
 
-macOS
-=====
+     To sort it, remove the quarantine attribute through `terminal <faq.html#opening-a-terminal>`__: ::
 
-macOS users might experience the following error when open the app for the first time:
+         xattr -d com.apple.quarantine BiaPy.app  
 
-.. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-GUI/main/images/macOS_binary_error.png
-   :align: center 
+* When running BiaPy, as it is starting and after downloading you may get the following error: 
 
-To sort it, remove the quarantine attribute through `terminal <faq.html#opening-a-terminal>`__: ::
+    .. code-block:: bash
+        
+        GPU error docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.46/containers/9ff69069d7627753045d46f9bb4246f56024a937b48746e0708d3499c9f852a5/start: 
+        Internal Server Error ("could not select device driver "" with capabilities: [[gpu]]")
 
-    xattr -d com.apple.quarantine BiaPy.app  
-
+  This suggest that the NVIDIA GPU compatibility was not correctly set up (probably the **nvidia container toolkit**). Find the following useful links describing a few steps you can follow: https://github.com/NVIDIA/nvidia-docker/issues/1034 and https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/1.13.5/install-guide.html 
 
 Limitations
 ===========
