@@ -16,3 +16,5 @@ pip install -r source/requirements.txt
 ```
 make html
 ```
+
+After executing these steps, the site should appear under `./build/html/`.
