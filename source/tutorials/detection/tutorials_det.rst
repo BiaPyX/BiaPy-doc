@@ -5,5 +5,5 @@ Detection
    :maxdepth: 1
    :glob:
 
-   nuclei_fluo
+   brain_cell_detection
 
