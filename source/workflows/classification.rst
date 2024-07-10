@@ -16,7 +16,9 @@ The goal of this workflow is to assign a label to the input image.
 In the figure below a few examples of this workflow's **input** are depicted:
 
 .. list-table::
-
+  :align: center
+  :width: 680px
+  
   * - .. figure:: ../img/classification/MedMNIST_DermaMNIST_test1008_0.png
          :align: center
          :width: 50
@@ -62,33 +64,33 @@ Each image label is obtained from the directory name in which that image resides
         
       dataset/
       ├── train
-      │   ├── 0
-      │   │   ├── train0_0.png
-      │   │   ├── train1013_0.png
-      │   │   ├── . . .
-      │   │   └── train932_0.png
-      │   ├── 1
-      │   │   ├── train104_1.png
-      │   │   ├── train1049_1.png
-      │   │   ├── . . .
-      │   │   └── train964_1.png
+      │   ├── 0
+      │   │   ├── train0_0.png
+      │   │   ├── train1013_0.png
+      │   │   ├── . . .
+      │   │   └── train932_0.png
+      │   ├── 1
+      │   │   ├── train104_1.png
+      │   │   ├── train1049_1.png
+      │   │   ├── . . .
+      │   │   └── train964_1.png
       | . . .
-      │   └── 6
-      │       ├── train1105_6.png
-      │       ├── train1148_6.png
-      │       ├── . . .
-      │       └── train98_6.png
+      │   └── 6
+      │       ├── train1105_6.png
+      │       ├── train1148_6.png
+      │       ├── . . .
+      │       └── train98_6.png
       └── test
           ├── 0
-          │   ├── test1008_0.png
-          │   ├── test1084_0.png
-          │   ├── . . .
-          │   └── test914_0.png
+          │   ├── test1008_0.png
+          │   ├── test1084_0.png
+          │   ├── . . .
+          │   └── test914_0.png
           ├── 1
-          │   ├── test10_1.png
-          │   ├── test1034_1.png
-          │   ├── . . .
-          │   └── test984_1.png
+          │   ├── test10_1.png
+          │   ├── test1034_1.png
+          │   ├── . . .
+          │   └── test984_1.png
         . . .
           └── 6
               ├── test1021_6.png
@@ -220,7 +222,7 @@ Run
                 --run_id $job_counter  \
                 --gpu "$gpu_number"  
 
-        ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+        ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
 
 .. _classification_results:
 
@@ -242,21 +244,20 @@ All files are placed in ``results`` folder under ``--result_dir`` directory with
     .. code-block:: bash
         
       my_2d_classification/
-      ├── config_files/
-      │   └── 2d_classification.yaml                                                                                                           
+      ├── config_files
+      │   └── 2d_classification.yaml                                                                                                           
       ├── checkpoints
-      │   └── model_weights_classification_1.h5
+      │   └── model_weights_classification_1.h5
       └── results
-         ├── my_2d_classification_1
+          ├── my_2d_classification_1
           ├── . . .
           └── my_2d_classification_5
               ├── predictions.csv
-              ├── aug
-              │   └── .tif files
-             ├── charts
-              │   ├── my_2d_classification_1_*.png
-              │   ├── my_2d_classification_1_loss.png
-              │   └── model_plot_my_2d_classification_1.png
+              ├── aug
+              │   └── .tif files
+              ├── charts
+              │   ├── my_2d_classification_1_*.png
+              │   └── my_2d_classification_1_loss.png
               ├── train_logs
               └── tensorboard
 
@@ -266,33 +267,31 @@ All files are placed in ``results`` folder under ``--result_dir`` directory with
 
   * ``2d_classification.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
 
-* ``checkpoints``: directory where model's weights are stored.
+* ``checkpoints``, *optional*: directory where model's weights are stored. Only created when ``TRAIN.ENABLE`` is ``True`` and the model is trained for at least one epoch. 
 
-  * ``model_weights_my_2d_classification_1.h5``: checkpoint file (best in validation) where the model's weights are stored among other information.
+  * ``model_weights_my_2d_classification_1.h5``, *optional*: checkpoint file (best in validation) where the model's weights are stored among other information. Only created when the model is trained for at least one epoch. 
   
-  * ``normalization_mean_value.npy``: normalization mean value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference.  
+  * ``normalization_mean_value.npy``, *optional*: normalization mean value. Is saved to not calculate it everytime and to use it in inference. Only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``.
   
-  * ``normalization_std_value.npy``: normalization std value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference. 
+  * ``normalization_std_value.npy``, *optional*: normalization std value. Is saved to not calculate it everytime and to use it in inference. Only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``.
 
 * ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
 
-  * ``my_2d_classification_1``: run 1 experiment folder. 
+  * ``my_2d_classification_1``: run 1 experiment folder. Can contain:
 
     * ``predictions.csv``: list of assigned class per test image.
 
-    * ``aug``: image augmentation samples.
+    * ``aug``, *optional*: image augmentation samples. Only created if ``AUGMENTOR.AUG_SAMPLES`` is ``True``.
 
-    * ``charts``:  
+    * ``charts``, *optional*. Only created when ``TRAIN.ENABLE`` is ``True`` and epochs trained are more or equal ``LOG.CHART_CREATION_FREQ``:  
 
-      * ``my_2d_classification_1_*.png``: Plot of each metric used during training.
+      * ``my_2d_classification_1_*.png``: plot of each metric used during training. 
 
-      * ``my_2d_classification_1_loss.png``: Loss over epochs plot (when training is done). 
-
-      * ``model_plot_my_2d_classification_1.png``: plot of the model.
+      * ``my_2d_classification_1_loss.png``: loss over epochs plot. 
 
     * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
 
-    * ``tensorboard``: Tensorboard logs.
+    * ``tensorboard``: tensorboard logs.
 
 .. note:: 
 

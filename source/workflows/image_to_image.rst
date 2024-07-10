@@ -16,14 +16,18 @@ The goal of this workflow aims at translating/mapping input images into target i
 In the figure below an example of paired microscopy images (fluorescence) of lifeact-RFP (**input**) and SiR-DNA is depicted (**output**). The images were obtained from `ZeroCostDL4Mic pix2pix example training and test dataset <https://zenodo.org/records/3941889#.XxrkzWMzaV4>`__:
 
 .. list-table:: 
+  :align: center
+  :width: 680px
 
   * - .. figure:: ../img/i2i/i2i_raw.png
          :align: center
+         :width: 300px
 
          Input image.
 
     - .. figure:: ../img/i2i/i2i_target.png
          :align: center
+         :width: 300px
 
          Target image.
 
@@ -40,22 +44,22 @@ To ensure the proper operation of the library the data directory tree should be 
   
       dataset/
       ├── train
-      │   ├── x
-      │   │   ├── training-0001.tif
-      │   │   ├── training-0002.tif
-      │   │   ├── . . .
-      │   │   ├── training-9999.tif
-      │   └── y
-      │       ├── training_groundtruth-0001.tif
-      │       ├── training_groundtruth-0002.tif
-      │       ├── . . .
-      │       ├── training_groundtruth-9999.tif
+      │   ├── x
+      │   │   ├── training-0001.tif
+      │   │   ├── training-0002.tif
+      │   │   ├── . . .
+      │   │   ├── training-9999.tif
+      │   └── y
+      │       ├── training_groundtruth-0001.tif
+      │       ├── training_groundtruth-0002.tif
+      │       ├── . . .
+      │       ├── training_groundtruth-9999.tif
       └── test
           ├── x
-          │   ├── testing-0001.tif
-          │   ├── testing-0002.tif
-          │   ├── . . .
-          │   ├── testing-9999.tif
+          │   ├── testing-0001.tif
+          │   ├── testing-0002.tif
+          │   ├── . . .
+          │   ├── testing-9999.tif
           └── y
               ├── testing_groundtruth-0001.tif
               ├── testing_groundtruth-0002.tif
@@ -188,7 +192,7 @@ Run
                 --run_id $job_counter  \
                 --gpu "cuda:$gpu_number"  
 
-        ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+        ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
         
 .. _image_to_image_results:
 
@@ -198,14 +202,18 @@ Results
 The results are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. An example of this workflow is depicted below:
 
 .. list-table:: 
+  :align: center
+  :width: 680px
 
   * - .. figure:: ../img/i2i/i2i_pred.png
          :align: center
+         :width: 300px
 
          Predicted image.
 
     - .. figure:: ../img/i2i/i2i_target2.png
          :align: center
+         :width: 300px
 
          Target image.
 
@@ -217,22 +225,24 @@ Following the example, you should see that the directory ``/home/user/exp_result
     .. code-block:: bash
         
       my_2d_image_to_image/
-      ├── config_files/
-      │   └── 2d_image-to-image.yaml                                                                                                           
+      ├── config_files
+      │   └── 2d_image-to-image.yaml                                                                                                           
       ├── checkpoints
-      │   └── my_2d_image-to-image_1-checkpoint-best.pth
+      │   └── my_2d_image-to-image_1-checkpoint-best.pth
       └── results
-         ├── my_2d_image_to_image_1
+          ├── my_2d_image_to_image_1
           ├── . . .
           └── my_2d_image_to_image_5
               ├── aug
-              │   └── .tif files
-             ├── charts
-              │   ├── my_2d_image_to_image_1_*.png
-              │   ├── my_2d_image_to_image_1_loss.png
-              │   └── model_plot_my_2d_image_to_image_1.png
-             ├── per_image
-              │   └── .tif files
+              │   └── .tif files
+              ├── charts
+              │   ├── my_2d_image_to_image_1_*.png
+              │   └── my_2d_image_to_image_1_loss.png
+              ├── per_image
+              │   ├── .tif files
+              │   └── .zarr files (or.h5)
+              ├── full_image
+              │   └── .tif files
               ├── train_logs
               └── tensorboard
 
@@ -242,35 +252,39 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
   * ``2d_image-to-image.yaml``: YAML configuration file used (it will be overwrited every time the code is run)
 
-* ``checkpoints``: directory where model's weights are stored.
+* ``checkpoints``, *optional*: directory where model's weights are stored. Only created when ``TRAIN.ENABLE`` is ``True`` and the model is trained for at least one epoch. 
 
-  * ``my_2d_image-to-image_1-checkpoint-best.pth``: checkpoint file (best in validation) where the model's weights are stored among other information.
+  * ``my_2d_image-to-image_1-checkpoint-best.pth``, *optional*: checkpoint file (best in validation) where the model's weights are stored among other information. Only created when the model is trained for at least one epoch. 
 
-  * ``normalization_mean_value.npy``: normalization mean value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference.  
+  * ``normalization_mean_value.npy``, *optional*: normalization mean value. Is saved to not calculate it everytime and to use it in inference. Only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``.
   
-  * ``normalization_std_value.npy``: normalization std value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference. 
-  
-* ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
+  * ``normalization_std_value.npy``, *optional*: normalization std value. Is saved to not calculate it everytime and to use it in inference. Only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``.
 
-  * ``my_2d_image_to_image_1``: run 1 experiment folder. 
+* ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed. Can contain:
 
-    * ``aug``: image augmentation samples.
+  * ``my_2d_image_to_image_1``: run 1 experiment folder. Can contain:
 
-    * ``charts``:  
+    * ``aug``, *optional*: image augmentation samples. Only created if ``AUGMENTOR.AUG_SAMPLES`` is ``True``.
 
-      * ``my_2d_image_to_image_1_*.png``: Plot of each metric used during training.
+    * ``charts``, *optional*. Only created when ``TRAIN.ENABLE`` is ``True`` and epochs trained are more or equal ``LOG.CHART_CREATION_FREQ``. Can contain:
 
-      * ``my_2d_image_to_image_1_loss.png``: Loss over epochs plot (when training is done). 
+      * ``my_2d_image_to_image_1_*.png``: plot of each metric used during training.
 
-      * ``model_plot_my_2d_image_to_image_1.png``: plot of the model.
+      * ``my_2d_image_to_image_1_loss.png``: loss over epochs plot. 
 
-    * ``per_image``:
+    * ``per_image``, *optional*: only created if ``TEST.FULL_IMG`` is ``False``. Can contain:
 
       * ``.tif files``: reconstructed images from patches.   
 
+      * ``.zarr files (or.h5)``, *optional*: reconstructed images from patches. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``True``.
+
+    * ``full_image``, *optional*: only created if ``TEST.FULL_IMG`` is ``True``. Can contain:
+
+      * ``.tif files``: full image predictions.
+
     * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
 
-    * ``tensorboard``: Tensorboard logs.
+    * ``tensorboard``: tensorboard logs.
 
 .. note:: 
    Here, for visualization purposes, only ``my_2d_image_to_image_1`` has been described but ``my_2d_image_to_image_2``, ``my_2d_image_to_image_3``, ``my_2d_image_to_image_4`` and ``my_2d_image_to_image_5`` will follow the same structure.

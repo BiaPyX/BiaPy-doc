@@ -12,6 +12,8 @@ This tutorial describes how to train and infer using our custom ResU-Net 3D DNN 
 
 
 .. list-table:: 
+  :align: center
+  :width: 680px
 
   * - .. figure:: ../../video/cyst_sample.gif
         :align: center
@@ -182,27 +184,27 @@ Following the example, the results should be placed in ``/home/user/exp_results/
     cartocell/
     ├── config_files/
     |   ├── cartocell_training.yaml 
-    │   └── cartocell_inference.yaml                                                                                                           
+    │   └── cartocell_inference.yaml                                                                                                           
     ├── checkpoints
-    │   └── model_weights_cartocell_1.h5
+    │   └── model_weights_cartocell_1.h5
     └── results
         └── cartocell_1
-            ├── aug
-            │   └── .tif files
-            ├── charts
-            │   ├── cartocell_1_jaccard_index.png
-            │   ├── cartocell_1_loss.png
-            │   └── model_plot_cartocell_1.png
-            ├── per_image
-            │   └── .tif files
-            ├── per_image_instances
-            │   └── .tif files  
-            ├── per_image_instances_voronoi
-            │   └── .tif files                          
-            └── watershed
+            ├── aug
+            │   └── .tif files
+            ├── charts
+            │   ├── cartocell_1_jaccard_index.png
+            │   ├── cartocell_1_loss.png
+            │   └── model_plot_cartocell_1.png
+            ├── per_image
+            │   └── .tif files
+            ├── per_image_instances
+            │   └── .tif files  
+            ├── per_image_instances_voronoi
+            │   └── .tif files                          
+            └── watershed
                 ├── seed_map.tif
                 ├── foreground.tif                
-                └── watershed.tif
+                └── watershed.tif
 
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 

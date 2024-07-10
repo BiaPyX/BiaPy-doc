@@ -17,28 +17,36 @@ The goal of this workflow is assign a class to each pixel of the input image.
 In the figure below an example of this workflow's **input** is depicted. There, only two labels are present in the mask: black pixels, with value ``0``, represent the background and white ones the mitochondria, labeled with ``1``. The number of classes is defined by ``MODEL.N_CLASSES`` variable.
 
 .. list-table:: 
+  :align: center
+  :width: 680px
 
   * - .. figure:: ../img/lucchi_test_0.png
          :align: center
-        
+         :width: 300px
+
          Input image.
 
     - .. figure:: ../img/lucchi_test_0_gt.png
          :align: center
+         :width: 300px
 
          Input mask. 
 
 For multiclass case, the same rule applies: the expected mask is single-channel with each class labeled with a different integer. Below an example is depicted where ``0`` is background (black), ``1`` are outlines (pink) and ``2`` nuclei (light blue). 
 
 .. list-table:: 
+  :align: center
+  :width: 680px
 
   * - .. figure:: ../img/semantic_seg/semantic_seg_multiclass_raw.png
          :align: center
-        
+         :width: 300px
+
          Input image.
 
     - .. figure:: ../img/semantic_seg/semantic_seg_multiclass_mask.png
          :align: center
+         :width: 300px
 
          Input mask.
 
@@ -60,22 +68,22 @@ To ensure the proper operation of the library the data directory tree should be 
   
       dataset/
       ├── train
-      │   ├── x
-      │   │   ├── training-0001.tif
-      │   │   ├── training-0002.tif
-      │   │   ├── . . .
-      │   │   ├── training-9999.tif
-      │   └── y
-      │       ├── training_groundtruth-0001.tif
-      │       ├── training_groundtruth-0002.tif
-      │       ├── . . .
-      │       ├── training_groundtruth-9999.tif
+      │   ├── x
+      │   │   ├── training-0001.tif
+      │   │   ├── training-0002.tif
+      │   │   ├── . . .
+      │   │   ├── training-9999.tif
+      │   └── y
+      │       ├── training_groundtruth-0001.tif
+      │       ├── training_groundtruth-0002.tif
+      │       ├── . . .
+      │       ├── training_groundtruth-9999.tif
       └── test
           ├── x
-          │   ├── testing-0001.tif
-          │   ├── testing-0002.tif
-          │   ├── . . .
-          │   ├── testing-9999.tif
+          │   ├── testing-0001.tif
+          │   ├── testing-0002.tif
+          │   ├── . . .
+          │   ├── testing-9999.tif
           └── y
               ├── testing_groundtruth-0001.tif
               ├── testing_groundtruth-0002.tif
@@ -225,10 +233,9 @@ Run
                 --run_id $job_counter  \
                 --gpu "$gpu_number" 
 
-        ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+        ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
 
       
-
 .. _semantic_segmentation_results:
 
 Results                                                                                                                 
@@ -249,30 +256,30 @@ Following the example, you should see that the directory ``/home/user/exp_result
     .. code-block:: bash
         
       my_2d_semantic_segmentation/
-      ├── config_files/
-      │   └── my_2d_semantic_segmentation_1.yaml                                                                                                           
+      ├── config_files
+      │   └── my_2d_semantic_segmentation_1.yaml                                                                                                           
       ├── checkpoints
-      │   └── my_2d_semantic_segmentation_1-checkpoint-best.pth
+      │   └── my_2d_semantic_segmentation_1-checkpoint-best.pth
       └── results
-         ├── my_2d_semantic_segmentation_1
+          ├── my_2d_semantic_segmentation_1
           ├── . . .
           └── my_2d_semantic_segmentation_5
-              ├── aug
-              │   └── .tif files
-             ├── charts
-              │   ├── my_2d_semantic_segmentation_1_*.png
-              │   ├── my_2d_semantic_segmentation_1_loss.png
-              │   └── model_plot_my_2d_semantic_segmentation_1.png
-             ├── full_image
-              │   └── .tif files
-             ├── full_image_binarized
-              │   └── .tif files
-             ├── full_post_processing
-              │   └── .tif files
-             ├── per_image
-              │   └── .tif files
-             ├── per_image_binarized
-              │   └── .tif files
+              ├── aug
+              │   └── .tif files
+              ├── charts
+              │   ├── my_2d_semantic_segmentation_1_*.png
+              │   └── my_2d_semantic_segmentation_1_loss.png
+              ├── per_image
+              │   ├── .tif files
+              │   └── .zarr files (or.h5)
+              ├── per_image_binarized
+              │   └── .tif files
+              ├── full_image
+              │   └── .tif files
+              ├── full_image_binarized
+              │   └── .tif files
+              ├── full_post_processing
+              │   └── .tif files
               ├── tensorboard
               └── train_logs
 
@@ -282,43 +289,47 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
   * ``my_2d_semantic_segmentation.yaml``: YAML configuration file used (it will be overwrited every time the code is run)
 
-* ``checkpoints``: directory where model's weights are stored.
+* ``checkpoints``, *optional*: directory where model's weights are stored. Only created when ``TRAIN.ENABLE`` is ``True`` and the model is trained for at least one epoch. 
 
-  * ``my_2d_semantic_segmentation_1-checkpoint-best.pth``: checkpoint file (best in validation) where the model's weights are stored among other information.
+  * ``my_2d_semantic_segmentation_1-checkpoint-best.pth``, *optional*: checkpoint file (best in validation) where the model's weights are stored among other information. Only created when the model is trained for at least one epoch. 
+    
+  * ``normalization_mean_value.npy``, *optional*: normalization mean value. Is saved to not calculate it everytime and to use it in inference. Only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``.
+  
+  * ``normalization_std_value.npy``, *optional*: normalization std value. Is saved to not calculate it everytime and to use it in inference. Only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``.
 
 * ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
 
-  * ``my_2d_semantic_segmentation_1``: run 1 experiment folder. 
+  * ``my_2d_semantic_segmentation_1``: run 1 experiment folder. Can contain:
 
-    * ``aug``: image augmentation samples.
+    * ``aug``, *optional*: image augmentation samples. Only created if ``AUGMENTOR.AUG_SAMPLES`` is ``True``.
 
-    * ``charts``:  
+    * ``charts``, *optional*: only created when ``TRAIN.ENABLE`` is ``True`` and epochs trained are more or equal ``LOG.CHART_CREATION_FREQ``. Can contain:  
 
-      * ``my_2d_semantic_segmentation_1_*.png``: Plot of each metric used during training.
+      * ``my_2d_semantic_segmentation_1_*.png``: plot of each metric used during training.
 
-      * ``my_2d_semantic_segmentation_1_loss.png``: Loss over epochs plot (when training is done). 
+      * ``my_2d_semantic_segmentation_1_loss.png``: loss over epochs plot. 
 
-      * ``model_plot_my_2d_semantic_segmentation_1.png``: plot of the model.
-        
-    * ``full_image``: 
+    * ``per_image``, *optional*: only created if ``TEST.FULL_IMG`` is ``False``. Can contain:
 
-      * ``.tif files``: output of the model when feeding entire images (without patching). 
+      * ``.tif files``, *optional*: reconstructed images from patches. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``False`` or when ``TEST.BY_CHUNKS.ENABLE`` is ``True`` but ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` is ``True``. 
+
+      * ``.zarr files (or.h5)``, *optional*: reconstructed images from patches. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``True``.
+
+    * ``per_image_binarized``, *optional*: only created if ``TEST.FULL_IMG`` is ``False``. Can contain: 
+
+      * ``.tif files``: Same as ``per_image`` but with the images binarized.
+
+    * ``full_image``, *optional*: only created if ``TEST.FULL_IMG`` is ``True``. Can contain:
+
+      * ``.tif files``: full image predictions.
 
     * ``full_image_binarized``: 
 
       * ``.tif files``: Same as ``full_image`` but with the image binarized.
 
-    * ``full_post_processing`` (optional if any post-processing was selected):
+    * ``full_image_post_processing``, *optional*: only created if ``TEST.FULL_IMG`` is ``True`` and a post-proccessing is enabled. Can contain:
 
-      * ``.tif files``: output of the model when feeding entire images (without patching) and applying post-processing, which in this case only `y` and `z` axes filtering was selected.
-
-    * ``per_image``:
-
-      * ``.tif files``: reconstructed images from patches.   
-
-    * ``per_image_binarized``: 
-
-      * ``.tif files``: Same as ``per_image`` but with the images binarized.
+      * ``.tif files``: same as ``full_image_instances`` but applied post-processing. 
     
     * ``tensorboard``: Tensorboard logs.
 
