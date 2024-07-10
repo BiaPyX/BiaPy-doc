@@ -3,19 +3,19 @@
 3D cell detection in whole-brain
 --------------------------------
 
-This tutorial offers a step-by-step guide on detecting cells in large 3D brain images using Zarr. The same method can be used for H5 format images. We will use BiaPy for cell extraction, and `Brainglobe <https://brainglobe.info/index.html>`__ for visualization, assigning cells to brain regions, and performing statistical analysis. This tutorial not only links **Brainglobe** and **BiaPy** but also demonstrates how to use large Zarr images without the memory bottleneck that loading all the data into memory might cause.
+This tutorial offers a step-by-step guide on detecting cells in large 3D brain images using Zarr. The same method can be used for H5 format images. You will use BiaPy for cell extraction, and `Brainglobe <https://brainglobe.info/index.html>`__ for visualization, assigning cells to brain regions, and performing statistical analysis. This tutorial not only links **Brainglobe** and **BiaPy** but also demonstrates how to use large Zarr images without the memory bottleneck that loading all the data into memory might cause.
 
 .. figure:: ../../img/detection/3d_cell_detection_biapy_brainglobe.png
    :align: center                  
-   :width: 680px
+   :width: 600px
 
 \
 
-To complete this tutorial, given the large size of the images, it will outline the steps to run BiaPy in a multi-GPU setting via the command line to maximize performance (using PyTorch’s distributed data-parallel, called *DDP*). Additionally, BiaPy includes a special implementation to accelerate the inference process on large Zarr data volumes by using multiple GPUs simultaneously on the same large image. 
+To complete this tutorial, given the large size of the images, it will outline the steps to run BiaPy in a multi-GPU setting via the command line to maximize performance (using `PyTorch’s distributed data-parallel, called *DDP* <https://pytorch.org/tutorials/beginner/ddp_series_theory.html>`__). Additionally, BiaPy includes a special implementation to accelerate the inference process on large Zarr data volumes by using multiple GPUs simultaneously on the same large image. 
 
-We will use the data released in *Tyson, Rousseau & Niedworok et al. (2021)* (:cite:p:`tyson2021deep`). First, download the `data <https://gin.g-node.org/cellfinder/manuscript_data/Zarr_dataset>`__ and unzip it. This dataset is a Zarr version of `the original manuscript dataset <https://gin.g-node.org/cellfinder/manuscript_data/raw_data>`__. The dataset contains the following:
+This tutorial will be using the data released in *Tyson, Rousseau & Niedworok et al. (2021)* (:cite:p:`tyson2021deep`). First, download the `data <https://gin.g-node.org/cellfinder/manuscript_data/src/master/Zarr_dataset>`__ and unzip it. This dataset is a Zarr version of `the original manuscript dataset <https://gin.g-node.org/cellfinder/manuscript_data/src/master/raw_data>`__. The dataset contains the following:
 
-* ``zarr_brain_train.tar.gz``: training data consisting of one brain sample, in the ``x`` folder, with dimensions ``2550 x 4949 x 3873 x 2`` (the first and second channels correspond to *ch2* and *ch4* of the original data). In the ``y`` folder, you will find the corresponding ground truth in comma-separated values (CSV) format. The ground truth is a list of central coordinates of the cells to be identified.
+* ``zarr_brain_train.tar.gz``: training data consisting of one brain sample, in the ``x`` folder, with dimensions ``2550 x 4949 x 3873 x 2`` following ``(z, y, x, channels)`` order (the first and second channels correspond to `ch2 <https://gin.g-node.org/cellfinder/manuscript_data/src/master/raw_data/brain1/ch2.tar.gz>`__ and `ch4 <https://gin.g-node.org/cellfinder/manuscript_data/src/master/raw_data/brain1/ch4.tar.gz>`__ of the original data respectively). In the ``y`` folder, you will find the corresponding ground truth in comma-separated values (CSV) format. The ground truth is a list of central coordinates of the cells to be identified.
 
 * ``zarr_brain_test.tar.gz``: test data consisting of one brain sample with same dimensions and structure as the training data.
 
@@ -54,7 +54,7 @@ This inference process is enabled with ``TEST.BY_CHUNKS.ENABLE`` . As with train
 
   Funny diagram of how the prediction is made chunk by chunk avoiding the memory bottleneck. Each GPU (truck on the image) processes a batch (blue/yellow cube in the image) at each time. 
 
-Everything mentioned up to this point is common to all workflows offered by BiaPy, so these steps can be applied to any of them. From here, we will have the complete image prediction, and the next steps depend on each workflow. To activate these next steps, you need to enable ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.ENABLE`` and set the variable ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.TYPE`` to one of these options:
+Everything mentioned up to this point is common to all workflows offered by BiaPy, so these steps can be applied to any of them. From here, you will have the complete image prediction, and the next steps depend on each workflow. To activate these next steps, you need to enable ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.ENABLE`` and set the variable ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.TYPE`` to one of these options:
 
 
 * ``'chunk_by_chunk'``: Each chunk will be considered as an individual file. Choose this option if you don't have enough memory to process the entire predicted image with ``'entire_pred'``. This option is only available in the Detection workflow.
@@ -196,7 +196,7 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
 Visualizing the results with Brainglobe                                                                                                                 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Once the points are detected, we can load the created CSV files into **Brainglobe**. For example, in this tutorial, if you use the sample file ``brain2_ch2ch4.zarr``, the final CSV with all detected cells will be located at ``results/per_image_local_max_check/brain2_ch2ch4_all_points.csv``. Follow the steps in `Brainglobe's tutorial <https://brainglobe.info/tutorials/brainmapper/index.html>`__ to load this file with brainmapper for easy visualization of the results.
+Once the points are detected, you can load the created CSV files into **Brainglobe**. For example, in this tutorial, if you use the sample file ``brain2_ch2ch4.zarr``, the final CSV with all detected cells will be located at ``results/per_image_local_max_check/brain2_ch2ch4_all_points.csv``. Follow the steps in `Brainglobe's tutorial <https://brainglobe.info/tutorials/brainmapper/index.html>`__ to load this file with brainmapper for easy visualization of the results.
 
 .. figure:: ../../img/detection/brainglobe_brain_atlas_render.png
    :align: center                  
