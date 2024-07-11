@@ -193,7 +193,7 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
     * ``tensorboard``: tensorboard logs.
 
 
-Visualizing the results with Brainglobe                                                                                                                 
+Visualizing the results with BrainGlobe                                                                                                                 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once the points are detected, you can load the created CSV files into **Brainglobe**. For example, in this tutorial, if you use the sample file ``brain2_ch2ch4.zarr``, the final CSV with all detected cells will be located at ``results/per_image_local_max_check/brain2_ch2ch4_all_points.csv``. Follow the steps in `Brainglobe's tutorial <https://brainglobe.info/tutorials/brainmapper/index.html>`__ to load this file with brainmapper for easy visualization of the results.
@@ -202,5 +202,5 @@ Once the points are detected, you can load the created CSV files into **Brainglo
    :align: center                  
    :width: 400px
 
-   Detected cells can be visualized using Brainglobe's ``brainrender`` tool (Caudi et al., 2021). Credits to Adam L. Tyson (`original image <https://www.researchgate.net/publication/352929222_Mesoscale_microscopy_and_image_analysis_tools_for_understanding_the_brain>`__).
+   Detected cells can be visualized using BrainGlobe's ``brainrender`` tool (Caudi et al., 2021). Credits to Adam L. Tyson (`original image <https://www.researchgate.net/publication/352929222_Mesoscale_microscopy_and_image_analysis_tools_for_understanding_the_brain>`__).
 
