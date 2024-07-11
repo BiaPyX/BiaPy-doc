@@ -1,9 +1,9 @@
 .. _cell_det_brainglobe:
 
-3D cell detection in whole-brain
+3D cell detection in whole-brain microscopy images
 --------------------------------
 
-This tutorial offers a step-by-step guide on detecting cells in large 3D brain images using Zarr. The same method can be used for H5 format images. You will use BiaPy for cell extraction, and `Brainglobe <https://brainglobe.info/index.html>`__ for visualization, assigning cells to brain regions, and performing statistical analysis. This tutorial not only links **Brainglobe** and **BiaPy** but also demonstrates how to use large Zarr images without the memory bottleneck that loading all the data into memory might cause.
+This tutorial offers a step-by-step guide on detecting cells in large 3D brain images using Zarr. The same method can be used for H5 format images. You will use BiaPy for cell extraction, and `BrainGlobe <https://brainglobe.info/index.html>`__ for visualization, assigning cells to brain regions, and performing statistical analysis. This tutorial not only links **BrainGlobe** and **BiaPy** but also demonstrates how to use large Zarr images without the memory bottleneck that loading all the data into memory might cause.
 
 .. figure:: ../../img/detection/3d_cell_detection_biapy_brainglobe.png
    :align: center                  
@@ -202,5 +202,5 @@ Once the points are detected, you can load the created CSV files into **Brainglo
    :align: center                  
    :width: 400px
 
-   Detected cells are visualized using Brainglobe's ``brainrender`` tool (Laudi et al., 2021). Credits to Adam L. Tyson (`original image <https://www.researchgate.net/publication/352929222_Mesoscale_microscopy_and_image_analysis_tools_for_understanding_the_brain>`__).
+   Detected cells can be visualized using Brainglobe's ``brainrender`` tool (Caudi et al., 2021). Credits to Adam L. Tyson (`original image <https://www.researchgate.net/publication/352929222_Mesoscale_microscopy_and_image_analysis_tools_for_understanding_the_brain>`__).
 
