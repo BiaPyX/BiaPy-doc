@@ -13,7 +13,7 @@ This tutorial offers a step-by-step guide on detecting cells in large 3D brain i
 
 To complete this tutorial, given the large size of the images, it will outline the steps to run BiaPy in a multi-GPU setting via the command line to maximize performance (using `PyTorch’s distributed data-parallel, called *DDP* <https://pytorch.org/tutorials/beginner/ddp_series_theory.html>`__). Additionally, BiaPy includes a special implementation to accelerate the inference process on large Zarr data volumes by using multiple GPUs simultaneously on the same large image. 
 
-This tutorial will be using the data released in *Tyson, Rousseau & Niedworok et al. (2021)* (:cite:p:`tyson2021deep`). First, download the `data <https://gin.g-node.org/cellfinder/manuscript_data/src/master/Zarr_dataset>`__ and unzip it. This dataset is a Zarr version of `the original manuscript dataset <https://gin.g-node.org/cellfinder/manuscript_data/src/master/raw_data>`__. The dataset contains the following:
+This tutorial will be using the data released in *Tyson, Rousseau & Niedworok et al. (2021)* (:cite:p:`tyson2021deep`). First, download both compressed files `here <https://gin.g-node.org/BrainGlobe/tutorial-data/src/master/cellfinder_ms_data_zarr>`__ and decompress them. This dataset is a Zarr version of `the original manuscript dataset <https://gin.g-node.org/cellfinder/manuscript_data/src/master/raw_data>`__. Each file description is as follows:
 
 * ``zarr_brain_train.tar.gz``: training data consisting of one brain sample, in the ``x`` folder, with dimensions ``2550 x 4949 x 3873 x 2`` following ``(z, y, x, channels)`` order (the first and second channels correspond to `ch2 <https://gin.g-node.org/cellfinder/manuscript_data/src/master/raw_data/brain1/ch2.tar.gz>`__ and `ch4 <https://gin.g-node.org/cellfinder/manuscript_data/src/master/raw_data/brain1/ch4.tar.gz>`__ of the original data respectively). In the ``y`` folder, you will find the corresponding ground truth in comma-separated values (CSV) format. The ground truth is a list of central coordinates of the cells to be identified.
 
@@ -196,7 +196,9 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
 Visualizing the results with BrainGlobe                                                                                                                 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Once the points are detected, you can load the created CSV files into **Brainglobe**. For example, in this tutorial, if you use the sample file ``brain2_ch2ch4.zarr``, the final CSV with all detected cells will be located at ``results/per_image_local_max_check/brain2_ch2ch4_all_points.csv``. Follow the steps in `Brainglobe's tutorial <https://brainglobe.info/tutorials/brainmapper/index.html>`__ to load this file with brainmapper for easy visualization of the results.
+Once the points are detected, you can load the created CSV files into **BrainGlobe**. For example, in this tutorial, if you use the sample file ``brain2_ch2ch4.zarr``, the final CSV with all detected cells will be located at ``results/per_image_local_max_check/brain2_ch2ch4_all_points.csv``. 
+
+**For the next steps, you will need to follow the BrainGlobe tutorial, which is currently in progress and will be available soon.**
 
 .. figure:: ../../img/detection/brainglobe_brain_atlas_render.png
    :align: center                  
