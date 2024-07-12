@@ -1,7 +1,7 @@
 .. _cell_det_brainglobe:
 
 3D cell detection in whole-brain microscopy images
---------------------------------
+--------------------------------------------------
 
 This tutorial offers a step-by-step guide on detecting cells in large 3D brain images using Zarr. The same method can be used for H5 format images. You will use BiaPy for cell extraction, and `BrainGlobe <https://brainglobe.info/index.html>`__ for visualization, assigning cells to brain regions, and performing statistical analysis. This tutorial not only links **BrainGlobe** and **BiaPy** but also demonstrates how to use large Zarr images without the memory bottleneck that loading all the data into memory might cause.
 
