@@ -3,151 +3,399 @@
 Semantic segmentation
 ---------------------
 
-The goal of this workflow is assign a class to each pixel of the input image. 
+Description of the task
+~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Input:** 
+The goal of this workflow is to assign a class to each pixel (or voxel) of the **input image**, thus producing a **label image** with **semantic** masks. 
 
-  * Image (single-channel or multi-channel). E.g. image with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``. 
-  * Mask (single-channel), where each pixel is labeled with an integer representing a class. E.g. a mask with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``.
-
-* **Output:**
-
-  * Image with each class represented by a unique integer.  
-
-In the figure below an example of this workflow's **input** is depicted. There, only two labels are present in the mask: black pixels, with value ``0``, represent the background and white ones the mitochondria, labeled with ``1``. The number of classes is defined by ``MODEL.N_CLASSES`` variable.
+The simplest case would be binary classification, as in the figure depicted below. There, only two labels are present in the label image: black pixels (usually with value ``0``) represent the background, and white pixels represent the foreground (mitochondria in this case, usually labeled with ``1`` or ``255`` value).
 
 .. list-table:: 
 
   * - .. figure:: ../img/lucchi_test_0.png
          :align: center
+         :width: 300
+         :alt: Electron microscopy image to be segmented
         
-         Input image.
+         Input image (electron microscopy).
 
     - .. figure:: ../img/lucchi_test_0_gt.png
          :align: center
+         :width: 300
+         :alt: Corresponding label image with semantic masks
 
-         Input mask. 
+         Corresponding label image with semantic masks. 
 
-For multiclass case, the same rule applies: the expected mask is single-channel with each class labeled with a different integer. Below an example is depicted where ``0`` is background (black), ``1`` are outlines (pink) and ``2`` nuclei (light blue). 
+If there are more than two classes, the label image is single-channel image where pixels (or voxels) of the different classes are labeled with a different integer. Below an example is depicted where ``0`` is background (black), ``1`` are outlines (pink) and ``2`` nuclei (light blue). 
 
 .. list-table:: 
 
   * - .. figure:: ../img/semantic_seg/semantic_seg_multiclass_raw.png
          :align: center
+         :width: 300
+         :alt: Fluorescence microscopy image to be segmented
         
-         Input image.
+         Input image (fluorescence microscopy).
 
     - .. figure:: ../img/semantic_seg/semantic_seg_multiclass_mask.png
          :align: center
+         :width: 300
+         :alt: Corresponding label image with semantic masks
 
-         Input mask.
+         Corresponding label image with semantic masks.
 
-The **output** can be: 
+Inputs and outputs
+~~~~~~~~~~~~~~~~~~
+The semantic segmentation workflows in BiaPy expect a series of **folders** as input:
 
-- Single-channel image, when ``DATA.TEST.ARGMAX_TO_OUTPUT`` is ``True``, with each class labeled with an integer. 
-- Multi-channel image, when ``DATA.TEST.ARGMAX_TO_OUTPUT`` is ``False``, with the same number of channels as classes, and the same pixel in each channel will be the probability (in ``[0-1]`` range) of being of the class that represents that channel number. For instance, with ``3`` classes, e.g. background, mitochondria and contours, the fist channel will represent background, the second mitochondria and the last the contours. 
+* **Training Raw Images**: A folder that contains the unprocessed (single-channel or multi-channel) images that will be used to train the model.
+  
+  .. collapse:: Expand to see how to configure
 
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Semantic Segmentation*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
+
+        .. image:: ../img/GUI-general-options.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D semantic segmentation notebook, go to *Paths for Input Images and Output Files*, edit the field **train_data_path**:
+        
+        .. image:: ../img/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TRAIN.PATH`` with the absolute path to the folder with your training raw images.
+
+
+
+* **Training Label Images**: A folder that contains the semantic label (single-channel) images for training. Ensure the number and dimensions match the training raw images.
+  
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Semantic Segmentation*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input label folder**:
+
+        .. image:: ../img/GUI-general-options.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D semantic segmentation notebook, go to *Paths for Input Images and Output Files*, edit the field **train_data_gt_path**:
+        
+        .. image:: ../img/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TRAIN.GT_PATH`` with the absolute path to the folder with your training label images.
+
+* .. raw:: html
+
+      <b><span style="color: darkgreen;">[Optional]</span> Test Raw Images</b>: A folder that contains the images to evaluate the model's performance.
+ 
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Semantic Segmentation*, three times *Continue*, under *General options* > *Test data*, click on the *Browse* button of **Input raw image folder**:
+
+        .. image:: ../img/GUI-test-data.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D semantic segmentation notebook, go to *Paths for Input Images and Output Files*, edit the field **test_data_path**:
+        
+        .. image:: ../img/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TEST.PATH`` with the absolute path to the folder with your test raw images.
+
+* .. raw:: html
+
+      <b><span style="color: darkgreen;">[Optional]</span> Test Label Images</b>: A folder that contains the semantic label images for testing. Again, ensure their count and sizes align with the test raw images.
+
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Semantic Segmentation*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the *Do you have test labels?* field, and then click on the *Browse* button of **Input label folder**:
+
+        .. image:: ../img/GUI-test-data-gt.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D semantic segmentation notebook, go to *Paths for Input Images and Output Files*, edit the field **test_data_gt_path**:
+        
+        .. image:: ../img/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TEST._GT_PATH`` with the absolute path to the folder with your test label images.
+
+Upon successful execution, a directory will be generated with the segmentation results. Both probability maps and label images will be available there. Therefore, you will need to define:
+
+* **Output Folder**: A designated path to save the segmentation outcomes.
+
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Run Workflow*, click on the *Browse* button of **Output folder to save the results**:
+
+        .. image:: ../img/GUI-run-workflow.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D semantic segmentation notebook, go to *Paths for Input Images and Output Files*, edit the field **output_path**:
+        
+        .. image:: ../img/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: Command line
+        
+        When calling BiaPy from command line, you can specify the output folder with the ``--result_dir`` flag. See the *Command line* configuration of :ref:`semantic_segmentation_data_run` for a full example.
+
+
+.. list-table::
+  :align: center
+
+  * - .. figure:: ../img/Inputs-outputs.svg
+         :align: center
+         :width: 400
+         :alt: Graphical description of minimal inputs and outputs in BiaPy for semantic segmentation.
+        
+         BiaPy input and output folders for semantic segmentation.
+  
 .. _semantic_segmentation_data_prep:
 
-Data preparation
-~~~~~~~~~~~~~~~~
+Data structure
+**************
 
-To ensure the proper operation of the library the data directory tree should be something like this: 
+To ensure the proper operation of the library, the data directory tree should be something like this: 
 
-.. collapse:: Expand directory tree 
+.. code-block::
 
-    .. code-block:: bash
-  
-      dataset/
-      ├── train
-      │   ├── x
-      │   │   ├── training-0001.tif
-      │   │   ├── training-0002.tif
-      │   │   ├── . . .
-      │   │   ├── training-9999.tif
-      │   └── y
-      │       ├── training_groundtruth-0001.tif
-      │       ├── training_groundtruth-0002.tif
-      │       ├── . . .
-      │       ├── training_groundtruth-9999.tif
-      └── test
-          ├── x
-          │   ├── testing-0001.tif
-          │   ├── testing-0002.tif
-          │   ├── . . .
-          │   ├── testing-9999.tif
-          └── y
-              ├── testing_groundtruth-0001.tif
-              ├── testing_groundtruth-0002.tif
-              ├── . . .
-              ├── testing_groundtruth-9999.tif
+  dataset/
+  ├── train
+  │   ├── x
+  │   │   ├── training-0001.tif
+  │   │   ├── training-0002.tif
+  │   │   ├── . . .
+  │   │   └── training-9999.tif
+  │   └── y
+  │       ├── training_groundtruth-0001.tif
+  │       ├── training_groundtruth-0002.tif
+  │       ├── . . .
+  │       └── training_groundtruth-9999.tif
+  └── test
+      ├── x
+      │   ├── testing-0001.tif
+      │   ├── testing-0002.tif
+      │   ├── . . .
+      │   └── testing-9999.tif
+      └── y
+          ├── testing_groundtruth-0001.tif
+          ├── testing_groundtruth-0002.tif
+          ├── . . .
+          └── testing_groundtruth-9999.tif
 
-\
+In this example, the raw training images are under ``dataset/train/x/`` and their corresponding labels are under ``dataset/train/y/``, while the raw test images are under ``dataset/test/x/`` and their corresponding labels are under ``dataset/test/y/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
 
-.. warning:: Ensure that images and their corresponding masks are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example). 
+.. note:: Ensure that images and their corresponding masks are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example).
 
-Configuration                                                                                                                 
-~~~~~~~~~~~~~
 
-Find in `templates/semantic_segmentation <https://github.com/BiaPyX/BiaPy/tree/master/templates/semantic_segmentation>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
+Minimal configuration
+~~~~~~~~~~~~~~~~~~~~~
+Apart from the input and output folders, there are a few basic parameters that always need to be specified in order to run a semantic segmentation workflow in BiaPy. **These parameters can be introduced either directly in the GUI, the code-free notebooks or by editing the YAML configuration file**.
 
-Special workflow configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Data loading
-************
-
-If you want to select ``DATA.EXTRACT_RANDOM_PATCH`` you can also set ``DATA.PROBABILITY_MAP`` to create a probability map so the patches extracted will have a high probability of having an object in the middle of it. Useful to avoid extracting patches which no foreground class information. That map will be saved in ``PATHS.PROB_MAP_DIR``. Furthermore, in ``PATHS.DA_SAMPLES`` path, i.e. ``aug`` folder by default (see :ref:`semantic_segmentation_results`), two more images will be created so you can check how this probability map is working. These images will have painted a blue square and a red point in its middle, which correspond to the patch area extracted and the central point selected respectively. One image will be named as ``mark_x`` and the other one as ``mark_y``, which correspond to the input image and ground truth respectively.  
-
-Metrics
-*******
-
-During the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is ``True``. In the case of semantic segmentation the **Intersection over Union** (IoU) metrics is calculated after the network prediction. This metric, also referred as the Jaccard index, is essentially a method to quantify the percent of overlap between the target mask and the prediction output. Depending on the configuration different values are calculated (as explained in :ref:`config_test` and :ref:`config_metric`). This values can vary a lot as stated in :cite:p:`Franco-Barranco2021`.
-
-* **Per patch**: IoU is calculated for each patch separately and then averaged. 
-* **Reconstructed image**: IoU is calculated for each reconstructed image separately and then averaged. Notice that depending on the amount of overlap/padding selected the merged image can be different than just concatenating each patch. 
-* **Full image**: IoU is calculated for each image separately and then averaged. The results may be slightly different from the reconstructed image.
-
-Post-processing
+Experiment name
 ***************
+Also known as "model name" or "job name", this will be the name of the current experiment you want to run, so it can be differenciated from other past and future experiments.
 
-Only applied to ``3D`` images (e.g. ``PROBLEM.NDIM`` is ``2D`` or ``TEST.ANALIZE_2D_IMGS_AS_3D_STACK`` is ``True``). There are the following options:
+.. collapse:: Expand to see how to configure
 
-* **Z-filtering**: to apply a median filtering in ``z`` axis. Useful to maintain class coherence across ``3D`` volumes. Enable it with ``TEST.POST_PROCESSING.Z_FILTERING`` and use ``TEST.POST_PROCESSING.Z_FILTERING_SIZE`` for the size of the median filter. 
+    .. tabs::
+      .. tab:: GUI
 
-* **YZ-filtering**: to apply a median filtering in ``y`` and ``z`` axes. Useful to maintain class coherence across ``3D`` volumes that can work slightly better than ``Z-filtering``. Enable it with ``TEST.POST_PROCESSING.YZ_FILTERING`` and use ``TEST.POST_PROCESSING.YZ_FILTERING_SIZE`` for the size of the median filter.  
+        Under *Run Workflow*, type the name you want for the job in the **Job name** field:
+
+        .. image:: ../img/GUI-run-workflow.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **model_name**:
+        
+        .. image:: ../img/Notebooks-model-name-data-conf.png
+          :align: center
+          :width: 50%
+
+      .. tab:: Command line
+        
+        When calling BiaPy from command line, you can specify the output folder with the ``--name`` flag. See the *Command line* configuration of :ref:`semantic_segmentation_data_run` for a full example.
+
+
+.. note:: Use only *my_model* -style, not *my-model* (Use "_" not "-"). Do not use spaces in the name. Avoid using the name of an existing experiment/model/job (saved in the same result folder) as it will be overwritten..
+
+Data management
+***************
+Validation Set
+""""""""""""""
+With the goal to monitor the training process, it is common to use a third dataset called the "Validation Set". This is a subset of the whole dataset that is used to evaluate the model's performance and optimize training parameters. This subset will not be directly used for training the model, and thus, when applying the model to these images, we can see if the model is learning the training set's patterns too specifically or if it is generalizing properly.
+
+.. list-table::
+  :align: center
+
+  * - .. figure:: ../img/data-partitions.png
+         :align: center
+         :width: 400
+         :alt: Graphical description of data partitions in BiaPy
+        
+         Graphical description of data partitions in BiaPy.
+
+
+
+To define such set, there are two options:
+  
+* **Validation percentage**: Select a percentage of your training dataset to be used to validate the network during the training. Usual values are 10% or 20%, and the samples of that set will be selected at random.
+  
+  .. collapse:: Expand to see how to configure
+
+      .. tabs::
+        .. tab:: GUI
+
+          Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value in the **Train percentage for validation**:
+
+          .. image:: ../img/GUI-validation-percentage.png
+            :align: center
+
+        .. tab:: Google Colab / Notebooks
+          
+          In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **percentage_validation**:
+          
+          .. image:: ../img/Notebooks-model-name-data-conf.png
+            :align: center
+            :width: 50%
+
+        .. tab:: YAML configuration file
+        
+          Edit the variable ``DATA.VAL.SPLIT_TRAIN`` with a value between 0 and 1, representing the proportion of the training set that will be set apart for validation.
+
+* **Validation paths**: Similar to the training and test sets, you can select two folders with the validation raw and label images:
+
+  * **Validation Raw Images**: A folder that contains the unprocessed (single-channel or multi-channel) images that will be used to select the best model during training.
+  
+    .. collapse:: Expand to see how to configure
+
+      .. tabs::
+        .. tab:: GUI
+
+          Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
+
+          .. image:: ../img/GUI-validation-paths.png
+            :align: center
+
+        .. tab:: Google Colab / Notebooks
+          
+          This option is currently not available in the notebooks.
+
+        .. tab:: YAML configuration file
+        
+          Edit the variable ``DATA.VAL.PATH`` with the absolute path to your validation raw images.
+
+  * **Validation Label Images**: A folder that contains the semantic label (single-channel) images for validation. Ensure the number and dimensions match the training raw images.
+  
+    .. collapse:: Expand to see how to configure
+
+      .. tabs::
+        .. tab:: GUI
+
+          Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input label folder** and select the folder containing your validation label images:
+
+          .. image:: ../img/GUI-validation-paths.png
+            :align: center
+
+        .. tab:: Google Colab / Notebooks
+          
+          This option is currently not available in the notebooks.
+
+        .. tab:: YAML configuration file
+        
+          Edit the variable ``DATA.VAL.GT_PATH`` with the absolute path to your validation label images.
+
+
+
+Test ground-truth
+"""""""""""""""""
+Do you have labels for the test set? This is a key question so BiaPy knows if your test set will be used for evaluation in new data (unseen during training) or simply produce predictions on that new data. All workflows contain a parameter to specify this aspect.
+
+Basic training parameters
+*************************
+At the core of each BiaPy workflow there is a deep learning model. Although we try to simplify the number of parameters to tune, these are the basic parameters that need to be defined for training a semantic segmentation workflow:
+
+* **Number of classes**: The number of segmentation labels, including the background, whose label is usually set to 0. For instance, if you are doing foreground vs background semantic segmentation, the number of classes will be 2 (one for foreground and one for background).
+* **Number of input channels**: The number of channels of your raw images (grayscale = 1, RGB = 3). Notice the dimensionality of your images (2D/3D) is set by default depending on the workflow template you select.
+* **Number of epochs**: This number indicates how many `rounds <https://machine-learning.paperspace.com/wiki/epoch>`_ the network will be trained. On each round, the network usually sees the full training set. The value of this parameter depends on the size and complexity of each dataset. You can start with something like 100 epochs and tune it depending on how fast the loss (error) is reduced.
+* **Patience**: This is a number that indicates how many epochs you want to wait without the model improving its results in the validation set to stop training. Again, this value depends on the data you're working on, but you can start with something like 20.
+
+For improving performance, other advanced parameters can be optimized, for example, the model's architecture. The architecture assigned as default is the U-Net, as it is effective in semantic segmentation tasks. This architecture allows a strong baseline, but further exploration could potentially lead to better results.
+
+.. note:: Once the parameters are correctly assigned, the training phase can be executed. Note that to train large models effectively the use of a GPU (Graphics Processing Unit) is essential. This hardware accelerator performs parallel computations and has larger RAM memory compared to the CPUs, which enables faster training times.
+
 
 .. _semantic_segmentation_data_run:
 
-Run
-~~~
+How to run
+~~~~~~~~~~
+BiaPy offers different options to run workflows depending on your degree of computer expertise. Select whichever is more approppriate for you:
 
 .. tabs::
 
    .. tab:: GUI
 
-        Select semantic segmentation workflow during the creation of a new configuration file:
+        In the GUI of BiaPy, under *Workflow*, select *Semantic Segmentation* and follow the instructions displayed there:
 
         .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-doc/master/source/img/gui/biapy_gui_semantic_seg.jpg
             :align: center 
 
    .. tab:: Google Colab
 
-        Two different options depending on the image dimension: 
+        BiaPy offers two code-free notebooks in Google Colab to perform semantic segmentation: 
 
         .. |sem_seg_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
             :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/semantic_segmentation/BiaPy_2D_Semantic_Segmentation.ipynb
 
-        * 2D: |sem_seg_2D_colablink|
+        * For 2D images: |sem_seg_2D_colablink|
 
         .. |sem_seg_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
             :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/semantic_segmentation/BiaPy_3D_Semantic_Segmentation.ipynb
 
-        * 3D: |sem_seg_3D_colablink|
+        * For 3D images: |sem_seg_3D_colablink|
 
    .. tab:: Docker
             
-        `Open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_semantic_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
+        If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. Then, you can use the `2d_semantic_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file (or your own file), and run the workflow as follows:
 
         .. code-block:: bash                                                                                                    
 
@@ -182,7 +430,7 @@ Run
 
    .. tab:: Command line
 
-        `Open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_semantic_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
+        `From a terminal <../get_started/faq.html#opening-a-terminal>`__, you can use the `2d_semantic_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file (or your own file), and run the workflow as follows:
 
         .. code-block:: bash
             
@@ -228,6 +476,64 @@ Run
         ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
 
       
+
+
+
+
+Templates                                                                                                                 
+~~~~~~~~~~
+
+In the `templates/semantic_segmentation <https://github.com/BiaPyX/BiaPy/tree/master/templates/semantic_segmentation>`__ folder of BiaPy, you will find a few YAML configuration templates for this workflow. 
+
+[Advanced] Special workflow configuration 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. note:: This section is recommended for experienced users only to improve the performance of their workflows. When in doubt, do not hesitate to check our `FAQ & Troubleshooting <../get_started/faq.html>`__ or open a question in the `image.sc discussion forum <our FAQ & Troubleshooting section>`_.
+
+Advanced Parameters 
+*******************
+Many of the parameters of our workflows are set by default to values that work commonly well. However, it may be needed to tune them to improve the results of the workflow. For instance, you may modify the following parameters
+
+* **Model architecture**: Select the architecture of the deep neural network used as backbone of the pipeline. Options: U-Net, Residual U-Net, Attention U-Net, SEUNet, MultiResUNet, ResUNet++, UNETR-Mini, UNETR-Small and UNETR-Base. Default value: U-Net.
+* **Batch size**: This parameter defines the number of patches seen in each training step. Reducing or increasing the batch size may slow or speed up your training, respectively, and can influence network performance. Common values are 4, 8, 16, etc.
+* **Patch size**: Input the size of the patches use to train your model (length in pixels in X and Y). The value should be smaller or equal to the dimensions of the image. The default value is 256 in 2D, i.e. 256x256 pixels.
+* **Optimizer**: Select the optimizer used to train your model. Options: ADAM, ADAMW, Stochastic Gradient Descent (SGD). ADAM usually converges faster, while ADAMW provides a balance between fast convergence and better handling of weight decay regularization. SGD is known for better generalization. Default value: ADAMW.
+* **Initial learning rate**: Input the initial value to be used as learning rate. If you select ADAM as optimizer, this value should be around 10e-4. 
+* **Learning rate scheduler**: Select to adjust the learning rate between epochs. The current options are "Reduce on plateau", "One cycle", "Warm-up cosine decay" or no scheduler.
+* **Test time augmentation (TTA)**: Select to apply augmentation (flips and rotations) at test time. It usually provides more robust results but uses more time to produce each result. By default, no TTA is peformed.
+
+
+Output
+******
+The **output** of a semantic segmentation workflow can be: 
+
+- Single-channel image, when ``DATA.TEST.ARGMAX_TO_OUTPUT`` is ``True``, with each class labeled with an integer. 
+- Multi-channel image, when ``DATA.TEST.ARGMAX_TO_OUTPUT`` is ``False``, with the same number of channels as classes, and the same pixel in each channel will be the probability (in ``[0-1]`` range) of being of the class that represents that channel number. For instance, with ``3`` classes, e.g. background, mitochondria and contours, the fist channel will represent background, the second mitochondria and the last the contours. 
+
+
+Data loading
+************
+
+If you want to select ``DATA.EXTRACT_RANDOM_PATCH`` you can also set ``DATA.PROBABILITY_MAP`` to create a probability map so the patches extracted will have a high probability of having an object in the middle of it. Useful to avoid extracting patches which no foreground class information. That map will be saved in ``PATHS.PROB_MAP_DIR``. Furthermore, in ``PATHS.DA_SAMPLES`` path, i.e. ``aug`` folder by default (see :ref:`semantic_segmentation_results`), two more images will be created so you can check how this probability map is working. These images will have painted a blue square and a red point in its middle, which correspond to the patch area extracted and the central point selected respectively. One image will be named as ``mark_x`` and the other one as ``mark_y``, which correspond to the input image and ground truth respectively.  
+
+Metrics
+*******
+
+During the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is ``True``. In the case of semantic segmentation the **Intersection over Union** (IoU) metrics is calculated after the network prediction. This metric, also referred as the Jaccard index, is essentially a method to quantify the percent of overlap between the target mask and the prediction output. Depending on the configuration different values are calculated (as explained in :ref:`config_test` and :ref:`config_metric`). This values can vary a lot as stated in :cite:p:`Franco-Barranco2021`.
+
+* **Per patch**: IoU is calculated for each patch separately and then averaged. 
+* **Reconstructed image**: IoU is calculated for each reconstructed image separately and then averaged. Notice that depending on the amount of overlap/padding selected the merged image can be different than just concatenating each patch. 
+* **Full image**: IoU is calculated for each image separately and then averaged. The results may be slightly different from the reconstructed image.
+
+Post-processing
+***************
+
+Only applied to ``3D`` images (e.g. ``PROBLEM.NDIM`` is ``2D`` or ``TEST.ANALIZE_2D_IMGS_AS_3D_STACK`` is ``True``). There are the following options:
+
+* **Z-filtering**: to apply a median filtering in ``z`` axis. Useful to maintain class coherence across ``3D`` volumes. Enable it with ``TEST.POST_PROCESSING.Z_FILTERING`` and use ``TEST.POST_PROCESSING.Z_FILTERING_SIZE`` for the size of the median filter. 
+
+* **YZ-filtering**: to apply a median filtering in ``y`` and ``z`` axes. Useful to maintain class coherence across ``3D`` volumes that can work slightly better than ``Z-filtering``. Enable it with ``TEST.POST_PROCESSING.YZ_FILTERING`` and use ``TEST.POST_PROCESSING.YZ_FILTERING_SIZE`` for the size of the median filter.  
+
 
 .. _semantic_segmentation_results:
 
