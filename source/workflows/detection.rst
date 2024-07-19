@@ -20,14 +20,18 @@ The goal of this workflow is to localize objects in the input image, not requiri
 In the figure below an example of this workflow's **input** is depicted:
 
 .. list-table::
+  :align: center
+  :width: 680px
 
   * - .. figure:: ../img/detection_image_input.png
          :align: center
+         :width: 300px
 
          Input image.  
 
     - .. figure:: ../img/detection_csv_input.svg
          :align: center
+         :width: 300px
 
          Input ``.csv`` file. 
 
@@ -56,22 +60,22 @@ To ensure the proper operation of the library the data directory tree should be 
         
       dataset/
       ├── train
-      │   ├── x
-      │   │   ├── training-0001.tif
-      │   │   ├── training-0002.tif
-      │   │   ├── . . .
-      │   │   ├── training-9999.tif
-      │   └── y
-      │       ├── training-0001.csv
-      │       ├── training-0002.csv
-      │       ├── . . .
-      │       ├── training-9999.csv
+      │   ├── x
+      │   │   ├── training-0001.tif
+      │   │   ├── training-0002.tif
+      │   │   ├── . . .
+      │   │   ├── training-9999.tif
+      │   └── y
+      │       ├── training-0001.csv
+      │       ├── training-0002.csv
+      │       ├── . . .
+      │       ├── training-9999.csv
       └── test
           ├── x
-          │   ├── testing-0001.tif
-          │   ├── testing-0002.tif
-          │   ├── . . .
-          │   ├── testing-9999.tif
+          │   ├── testing-0001.tif
+          │   ├── testing-0002.tif
+          │   ├── . . .
+          │   ├── testing-9999.tif
           └── y
               ├── testing-0001.csv
               ├── testing-0002.csv
@@ -90,19 +94,28 @@ Firstly, a **pre-processing** step is done where the list of points of the ``.cs
 After the train phase, the model output will be an image where each pixel of each channel will have the probability (in ``[0-1]`` range) of being of the class that represents that channel. The image would be something similar to the left picture below:
 
 .. list-table::
+  :align: center
+  :width: 680px
 
   * - .. figure:: ../img/detection_probs.png
          :align: center
+         :width: 300px
 
          Model output.   
 
     - .. figure:: ../img/detected_points.png
          :align: center
+         :width: 300px
 
          Final points considered. 
 
 
-So those probability images, as the left picture above, can be converted into the final points, as the rigth picture above, we use `peak_local_max <https://scikit-image.org/docs/stable/api/skimage.feature.html#peak-local-max>`__ function to find peaks in those probability clouds. For that, you need to define a threshold, ``TEST.DET_MIN_TH_TO_BE_PEAK`` variable in our case, for the minimum probability to be considered as a point. You can set different thresholds for each class in ``TEST.DET_MIN_TH_TO_BE_PEAK``, e.g. ``[0.7,0.9]``. 
+So those probability images, as the left picture above, can be converted into the final points, as the rigth picture above. To do so you can use two possible functions (defined by ``TEST.DET_POINT_CREATION_FUNCTION``):
+
+* ``'peak_local_max'`` (`function <https://scikit-image.org/docs/stable/api/skimage.feature.html#skimage.feature.peak_local_max>`__). 
+* ``'blob_log'`` (`function <https://scikit-image.org/docs/stable/api/skimage.feature.html#skimage.feature.blob_log>`__).  
+
+The most important aspect of these options is using the threshold defined by the ``TEST.DET_MIN_TH_TO_BE_PEAK`` variable, which sets the minimum probability for a point to be considered.
 
 Configuration file
 ~~~~~~~~~~~~~~~~~~
@@ -260,7 +273,7 @@ Run
                 --run_id $job_counter  \
                 --gpu "$gpu_number"  
 
-        ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+        ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
 
    
 .. _detection_results:
@@ -268,37 +281,42 @@ Run
 Results                                                                                                                 
 ~~~~~~~  
 
-The results are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. 
-
-Following the example, you should see that the directory ``/home/user/exp_results/my_2d_detection`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: 
+The results are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. Following the example, you should see that the directory ``/home/user/exp_results/my_2d_detection`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: 
 
 .. collapse:: Expand directory tree 
 
     .. code-block:: bash
 
       my_2d_detection/
-      ├── config_files/
-      │   └── my_2d_detection.yaml                                                                                                           
+      ├── config_files
+      │   └── my_2d_detection.yaml                                                                                                           
       ├── checkpoints
-      │   └── my_2d_detection_1-checkpoint-best.pth
+      │   └── my_2d_detection_1-checkpoint-best.pth
       └── results
-         ├── my_2d_detection_1
+          ├── my_2d_detection_1
           ├── . . .
           └── my_2d_detection_5
-              ├── cell_counter.csv
-              ├── aug
-              │   └── .tif files
-             ├── charts
-              │   ├── my_2d_detection_1_*.png
-              │   ├── my_2d_detection_1_loss.png
-              │   └── model_plot_my_2d_detection_1.png
-             ├── per_image
-              │   └── .tif files
-              ├── per_image_local_max_check
-              │   └── .tif files
-             ├── point_associations
+              ├── aug
+              │   └── .tif files
+              ├── charts
+              │   ├── my_2d_detection_1_*.png
+              │   └── my_2d_detection_1_loss.png
+              ├── per_image
               │   ├── .tif files
-              │   └── .csv files  
+              │   └── .zarr files (or.h5)
+              ├── full_image
+              │   └── .tif files
+              ├── per_image_local_max_check
+              │   ├── .tif files  
+              │   ├── *_points.csv files  
+              │   └── *_all_points.csv files
+              ├── point_associations
+              │   ├── .tif files
+              │   └── .csv files  
+              ├── watershed
+              │   ├── seed_map.tif
+              │   ├── foreground.tif                
+              │   └── watershed.tif
               ├── train_logs
               └── tensorboard
 
@@ -308,51 +326,61 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
   * ``my_2d_detection.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
 
-* ``checkpoints``: directory where model's weights are stored.
+* ``checkpoints``, *optional*: directory where model's weights are stored. Only created when ``TRAIN.ENABLE`` is ``True`` and the model is trained for at least one epoch. Can contain:
 
-  * ``my_2d_detection_1-checkpoint-best.pth``: checkpoint file (best in validation) where the model's weights are stored among other information.
+  * ``my_2d_detection_1-checkpoint-best.pth``, *optional*: checkpoint file (best in validation) where the model's weights are stored among other information. Only created when the model is trained for at least one epoch. 
 
-  * ``normalization_mean_value.npy``: normalization mean value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference.  
+  * ``normalization_mean_value.npy``, *optional*: normalization mean value. Is saved to not calculate it everytime and to use it in inference. Only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``.
   
-  * ``normalization_std_value.npy``: normalization std value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference. 
+  * ``normalization_std_value.npy``, *optional*: normalization std value. Is saved to not calculate it everytime and to use it in inference. Only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``.
   
-* ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
+* ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed. Can contain:
 
-  * ``my_2d_detection_1``: run 1 experiment folder. 
+  * ``my_2d_detection_1``: run 1 experiment folder. Can contain:
 
-    * ``cell_counter.csv``: file with a counter of detected objects for each test sample.
+    * ``aug``, *optional*: image augmentation samples. Only created if ``AUGMENTOR.AUG_SAMPLES`` is ``True``.
 
-    * ``aug``: image augmentation samples.
+    * ``charts``, *optional*: only created when ``TRAIN.ENABLE`` is ``True`` and epochs trained are more or equal ``LOG.CHART_CREATION_FREQ``. Can contain:
 
-    * ``charts``:  
+      * ``my_2d_detection_1_*.png``: plot of each metric used during training.
 
-      * ``my_2d_detection_1_*.png``: Plot of each metric used during training.
+      * ``my_2d_detection_1_loss.png``: loss over epochs plot. 
 
-      * ``my_2d_detection_1_loss.png``: Loss over epochs plot (when training is done). 
+    * ``per_image``, *optional*: only created if ``TEST.FULL_IMG`` is ``False``. Can contain:
 
-      * ``model_plot_my_2d_detection_1.png``: plot of the model.
+      * ``.tif files``, *optional*: reconstructed images from patches. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``False`` or when ``TEST.BY_CHUNKS.ENABLE`` is ``True`` but ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` is ``True``. 
 
-    * ``per_image``:
+      * ``.zarr files (or.h5)``, *optional*: reconstructed images from patches. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``True``.
 
-      * ``.tif files``: reconstructed images from patches.  
-    
-    * ``full_image`` (optional if ``TEST.FULL_IMG`` is ``True``):
+    * ``full_image``, *optional*: only created if ``TEST.FULL_IMG`` is ``True``. Can contain:
 
       * ``.tif files``: full image predictions.
 
-    * ``per_image_local_max_check``: 
+    * ``per_image_local_max_check``, can contain:
 
-      * ``.tif files``: Same as ``per_image`` but with the final detected points.
+      * ``.tif files``, *optional*: same as ``per_image`` but with the final detected points in tif format. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``False`` or when ``TEST.BY_CHUNKS.ENABLE`` is ``True`` but ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` is ``True``.  
 
-    * ``point_associations``: optional. Only if ground truth was provided.
+      * ``*_points.csv files``: final point list for each test sample or test chunk (only created if ``TEST.BY_CHUNKS.ENABLE`` is ``True``). 
 
-      * ``.tif files``: prediction (``_pred_ids``) and ground truth (``_gt_ids``) ids. 
+      * ``*_all_points.csv files``, *optional*: all points of all chunks together for each test Zarr/H5 sample (only created if ``TEST.BY_CHUNKS.ENABLE``).
 
-      * ``.csv files``: false positives (``_fp``) and ground truth associations (``_gt_assoc``). 
+    * ``point_associations``, *optional*: only if ground truth was provided by setting ``DATA.TEST.LOAD_GT``. Can contain:
+
+      * ``.tif files``, coloured associations per each matching threshold selected to be analised (controlled by ``TEST.MATCHING_STATS_THS_COLORED_IMG``) for each test sample or test chunk. Green is a true positive, red is a false negative and blue is a false positive.
+
+      * ``.csv files``: false positives (``_fp``) and ground truth associations (``_gt_assoc``) for each test sample or test chunk. There is a file per each matching threshold selected (controlled by ``TEST.MATCHING_STATS_THS``).  
+
+    * ``watershed``, *optional*: only if ``TEST.POST_PROCESSING.DET_WATERSHED`` and ``PROBLEM.DETECTION.DATA_CHECK_MW`` are ``True``. Can contain: 
+              
+      * ``seed_map.tif``: initial seeds created before growing. 
+          
+      * ``semantic.tif``: region where the watershed will run.
+
+      * ``foreground.tif``: foreground mask area that delimits the grown of the seeds.
 
     * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
         
-    * ``tensorboard``: Tensorboard logs.
+    * ``tensorboard``: tensorboard logs.
 
 .. note:: 
 

@@ -19,18 +19,18 @@ The goal of this workflow is assign an unique id, i.e. integer, to each object o
 In the figure below an example of this workflow's **input** is depicted. Each color in the mask corresponds to a unique object.
 
 .. list-table::
-  :width: 100%
-  :class: borderless
+  :align: center
+  :width: 680px
   
   * - .. figure:: ../img/mitoem_crop.png
          :align: center
-         :width: 80.0%
+         :width: 300px
 
          Input image.  
 
     - .. figure:: ../img/mitoem_crop_mask.png
          :align: center
-         :width: 80.0%
+         :width: 300px
 
          Input mask.
 
@@ -54,22 +54,22 @@ To ensure the proper operation of the library the data directory tree should be 
         
       dataset/
       ├── train
-      │   ├── x
-      │   │   ├── training-0001.tif
-      │   │   ├── training-0002.tif
-      │   │   ├── . . .
-      │   │   ├── training-9999.tif
-      │   └── y
-      │       ├── training_groundtruth-0001.tif
-      │       ├── training_groundtruth-0002.tif
-      │       ├── . . .
-      │       ├── training_groundtruth-9999.tif
+      │   ├── x
+      │   │   ├── training-0001.tif
+      │   │   ├── training-0002.tif
+      │   │   ├── . . .
+      │   │   ├── training-9999.tif
+      │   └── y
+      │       ├── training_groundtruth-0001.tif
+      │       ├── training_groundtruth-0002.tif
+      │       ├── . . .
+      │       ├── training_groundtruth-9999.tif
       └── test
           ├── x
-          │   ├── testing-0001.tif
-          │   ├── testing-0002.tif
-          │   ├── . . .
-          │   ├── testing-9999.tif
+          │   ├── testing-0001.tif
+          │   ├── testing-0002.tif
+          │   ├── . . .
+          │   ├── testing-9999.tif
           └── y
               ├── testing_groundtruth-0001.tif
               ├── testing_groundtruth-0002.tif
@@ -378,7 +378,7 @@ Run
               --run_id $job_counter  \
               --gpu "$gpu_number"  
 
-      ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+      ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
       
    
 .. _instance_segmentation_results:
@@ -386,42 +386,42 @@ Run
 Results                                                                                                                 
 ~~~~~~~  
 
-The results are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. 
-
-Following the example, you should see that the directory ``/home/user/exp_results/my_3d_instance_segmentation`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: 
+The results are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. Following the example, you should see that the directory ``/home/user/exp_results/my_3d_instance_segmentation`` has been created. If the same experiment is run 5 times, varying ``--run_id`` argument only, you should find the following directory tree: 
 
 .. collapse:: Expand directory tree 
 
     .. code-block:: bash
         
       my_3d_instance_segmentation/
-      ├── config_files/
-      │   └── 3d_instance_segmentation.yaml                                                                                                           
+      ├── config_files
+      │   └── 3d_instance_segmentation.yaml                                                                                                           
       ├── checkpoints
-      │   └── my_3d_instance_segmentation_1-checkpoint-best.pth
+      │   └── my_3d_instance_segmentation_1-checkpoint-best.pth
       └── results
-         ├── my_3d_instance_segmentation_1
+          ├── my_3d_instance_segmentation_1
           ├── . . .
           └── my_3d_instance_segmentation_5
-              ├── aug
-              │   └── .tif files
-             ├── charts
-              │   ├── my_3d_instance_segmentation_1_*.png
-              │   ├── my_3d_instance_segmentation_1_loss.png
-              │   └── model_plot_my_3d_instance_segmentation_1.png
-             ├── per_image
-              │   └── .tif files
-             ├── per_image_instances
-              │   └── .tif files  
-             ├── per_image_instances_post_processing
-              │   └── .tif files 
+              ├── aug
+              │   └── .tif files
+              ├── charts
+              │   ├── my_3d_instance_segmentation_1_*.png
+              │   └── my_3d_instance_segmentation_1_loss.png
+              ├── per_image
+              │   ├── .tif files
+              │   └── .zarr files (or.h5)
+              ├── full_image
+              │   └── .tif files
+              ├── per_image_instances
+              │   └── .tif files  
+              ├── per_image_instances_post_processing
+              │   └── .tif files 
               ├── instance_associations
               │   ├── .tif files
-              │   └── .csv files                        
-             ├── watershed
+              │   └── .csv files                        
+              ├── watershed
               │   ├── seed_map.tif
               │   ├── foreground.tif                
-              │   └── watershed.tif
+              │   └── watershed.tif
               ├── train_logs
               └── tensorboard
 
@@ -431,65 +431,63 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
   * ``3d_instance_segmentation.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
 
-* ``checkpoints``: directory where model's weights are stored.
+* ``checkpoints``, *optional*: directory where model's weights are stored. Only created when ``TRAIN.ENABLE`` is ``True`` and the model is trained for at least one epoch. 
 
-  * ``model_weights_my_3d_instance_segmentation_1.h5``: checkpoint file (best in validation) where the model's weights are stored among other information.
+  * ``model_weights_my_3d_instance_segmentation_1.h5``, *optional*: checkpoint file (best in validation) where the model's weights are stored among other information. Only created when the model is trained for at least one epoch. 
 
-  * ``normalization_mean_value.npy``: normalization mean value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference.  
+  * ``normalization_mean_value.npy``, *optional*: normalization mean value. Is saved to not calculate it everytime and to use it in inference. Only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``.
   
-  * ``normalization_std_value.npy``: normalization std value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference. 
+  * ``normalization_std_value.npy``, *optional*: normalization std value. Is saved to not calculate it everytime and to use it in inference. Only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``. 
   
 * ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
 
-  * ``my_3d_instance_segmentation_1``: run 1 experiment folder. 
+  * ``my_3d_instance_segmentation_1``: run 1 experiment folder. Can contain:
 
-    * ``aug``: image augmentation samples.
+    * ``aug``, *optional*: image augmentation samples. Only created if ``AUGMENTOR.AUG_SAMPLES`` is ``True``.
 
-    * ``charts``:  
+    * ``charts``, *optional*. Only created when ``TRAIN.ENABLE`` is ``True`` and epochs trained are more or equal ``LOG.CHART_CREATION_FREQ``:  
 
-      * ``my_3d_instance_segmentation_1_*.png``: Plot of each metric used during training.
+      * ``my_3d_instance_segmentation_1_*.png``: plot of each metric used during training.
 
-      * ``my_3d_instance_segmentation_1_loss.png``: Loss over epochs plot (when training is done). 
+      * ``my_3d_instance_segmentation_1_loss.png``: loss over epochs plot. 
 
-      * ``model_plot_my_3d_instance_segmentation_1.png``: plot of the model.
+    * ``per_image``, *optional*: only created if ``TEST.FULL_IMG`` is ``False``. Can contain:
 
-    * ``per_image``:
+      * ``.tif files``, *optional*: reconstructed images from patches. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``False`` or when ``TEST.BY_CHUNKS.ENABLE`` is ``True`` but ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` is ``True``. 
 
-      * ``.tif files``: reconstructed images from patches.   
+      * ``.zarr files (or.h5)``, *optional*: reconstructed images from patches. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``True``.
 
     * ``per_image_instances``: 
 
       * ``.tif files``: instances from reconstructed image prediction.
 
-    * ``per_image_post_processing`` (optional if any post-proccessing activated): 
+    * ``per_image_post_processing``, *optional*: only created if a post-proccessing is enabled. Can contain: 
 
-      * ``.tif files``: Same as ``per_image_instances`` but applied post-processing. 
+      * ``.tif files``: Same as ``per_image_instances`` but post-processing applied. 
 
-    * ``full_image`` (optional if ``TEST.FULL_IMG`` is ``True``):
+    * ``full_image``, *optional*: only created if ``TEST.FULL_IMG`` is ``True``. Can contain:
 
       * ``.tif files``: full image predictions.
 
-    * ``full_image_instances`` (optional if ``TEST.FULL_IMG`` is ``True``): 
+    * ``full_image_instances``, *optional*: only created if ``TEST.FULL_IMG`` is ``True``. Can contain:
 
       * ``.tif files``: instances from full image prediction.
 
-    * ``full_image_post_processing`` (optional if ``TEST.FULL_IMG`` and any post-proccessing are enabled): 
+    * ``full_image_post_processing``, *optional*: only created if ``TEST.FULL_IMG`` is ``True`` and a post-proccessing is enabled. Can contain:
 
-      * ``.tif files``: Same as ``full_image_instances`` but applied post-processing. 
+      * ``.tif files``: same as ``full_image_instances`` but applied post-processing. 
     
-    * ``as_3d_stack`` (optional if ``TEST.ANALIZE_2D_IMGS_AS_3D_STACK`` is ``True``): 
+    * ``as_3d_stack``, *optional*: only created if ``TEST.ANALIZE_2D_IMGS_AS_3D_STACK`` is ``True``. Can contain:
 
-      * ``.tif files``: Same as ``full_image_instances`` but applied post-processing. 
+      * ``.tif files``: same as ``full_image_instances`` but applied post-processing. 
 
-    * ``point_associations``: optional. Only if ground truth was provided.
+    * ``point_associations``, *optional*: only if ground truth was provided by setting ``DATA.TEST.LOAD_GT``. Can contain:
 
       * ``.tif files``: coloured associations per each matching threshold selected to be analised (controlled by ``TEST.MATCHING_STATS_THS_COLORED_IMG``). Green is a true positive, red is a false negative and blue is a false positive. 
 
       * ``.csv files``: false positives (``_fp``) and ground truth associations (``_gt_assoc``). There is a file per each matching threshold selected (controlled by ``TEST.MATCHING_STATS_THS``).  
 
-    * ``watershed`` (optional): 
-
-      * Created when ``PROBLEM.INSTANCE_SEG.DATA_CHECK_MW`` is ``True``. Inside a folder for each test image will be created containing:
+    * ``watershed``, *optional*: only if ``PROBLEM.INSTANCE_SEG.DATA_CHECK_MW`` is ``True``. Can contain: 
               
       * ``seed_map.tif``: initial seeds created before growing. 
           
@@ -499,7 +497,7 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
     * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
 
-    * ``tensorboard``: Tensorboard logs.
+    * ``tensorboard``: tensorboard logs.
 
 .. note:: 
 

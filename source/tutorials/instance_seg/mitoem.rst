@@ -20,14 +20,18 @@ Problem description
 The goal is to segment and identify automatically mitochondria instances in EM images. To solve such task pairs of EM images and their corresponding instance segmentation labels are provided. Below a pair example is depicted:
 
 .. list-table::
+  :align: center
+  :width: 680px
 
   * - .. figure:: ../../img/mitoem_crop.png
          :align: center
+         :width: 300px
 
          MitoEM-H tissue image sample. 
 
     - .. figure:: ../../img/mitoem_crop_mask.png
          :align: center
+         :width: 300px
 
          Its corresponding instance mask.
 
@@ -78,14 +82,18 @@ Results
 The results follow same structure as explained in :ref:`instance_segmentation_results`. The results should be something like the following:
 
 .. list-table::
+  :align: center
+  :width: 680px
 
   * - .. figure:: ../../img/mitoem_crop_mask.png
          :align: center
+         :width: 300px
 
          MitoEM-H train sample's GT.
 
     - .. figure:: ../../img/mitoem_pred.png
          :align: center
+         :width: 300px
 
          MitoEM-H train prediction.
 

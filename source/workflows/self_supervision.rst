@@ -16,16 +16,19 @@ The idea of this workflow is to pretrain the backbone model by solving a so-call
 In the figure below an example of ``crappify`` pretext task input images are depicted:
 
 .. list-table::
+  :align: center
+  :width: 680px
 
   * - .. figure:: ../img/lucchi_train_0.png
          :align: center
-         :class: with-shadow
+         :width: 300px
 
          Input image.
 
     - .. figure:: ../img/lucchi_train_0_crap.png
          :align: center
-         
+         :width: 300px
+
          Worstened image.
 
 .. _self-supervision_data_prep:
@@ -41,17 +44,17 @@ To ensure the proper operation of the library the data directory tree should be 
         
       dataset/
       ├── train
-      │   └── x
-      │       ├── training-0001.tif
-      │       ├── training-0002.tif
-      │       ├── . . .
-      │       └── training-9999.tif
+      │   └── x
+      │       ├── training-0001.tif
+      │       ├── training-0002.tif
+      │       ├── . . .
+      │       └── training-9999.tif
       └── test
           └── x
-             ├── testing-0001.tif
-             ├── testing-0002.tif
-             ├── . . .
-             └── testing-9999.tif
+             ├── testing-0001.tif
+             ├── testing-0002.tif
+             ├── . . .
+             └── testing-9999.tif
 
 \
 
@@ -187,7 +190,7 @@ Run
                 --run_id $job_counter  \
                 --gpu "$gpu_number"  
 
-        ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+        ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
 
 .. _self-supervision_results:
 
@@ -197,14 +200,18 @@ Results
 The results are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. An example of this workflow is depicted below:
 
 .. list-table:: 
+  :align: center
+  :width: 680px
 
   * - .. figure:: ../img/pred_ssl.png
          :align: center
+         :width: 300px
 
          Predicted image.
 
     - .. figure:: ../img/lucchi_train_0.png
          :align: center
+         :width: 300px
 
          Original image.
 
@@ -216,24 +223,24 @@ Following the example, you should see that the directory ``/home/user/exp_result
     .. code-block:: bash
         
       my_2d_self-supervised/
-      ├── config_files/
-      │   └── my_2d_self-supervised.yaml                                                                                                           
+      ├── config_files
+      │   └── my_2d_self-supervised.yaml                                                                                                           
       ├── checkpoints
-      │   └── my_2d_self-supervised_1-checkpoint-best.pth
+      │   └── my_2d_self-supervised_1-checkpoint-best.pth
       └── results
-         ├── my_2d_self-supervised_1
+          ├── my_2d_self-supervised_1
           ├── . . .
           └── my_2d_self-supervised_5
-              ├── aug
-              │   └── .tif files
-             ├── charts
-              │   ├── my_2d_self-supervised_1_*.png
-              │   ├── my_2d_self-supervised_1_loss.png
-              │   └── model_plot_my_2d_self-supervised_1.png
-             ├── MAE_checks
-              │   └── .tif files            
-             ├── per_image
-              │   └── .tif files
+              ├── aug
+              │   └── .tif files
+              ├── charts
+              │   ├── my_2d_self-supervised_1_*.png
+              │   └── my_2d_self-supervised_1_loss.png
+              ├── MAE_checks
+              │   └── .tif files            
+              ├── per_image
+              │   ├── .tif files
+              │   └── .zarr files (or.h5)
               ├── tensorboard
               └── train_logs
 
@@ -243,29 +250,27 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
   * ``my_2d_self-supervised.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
 
-* ``checkpoints``: directory where model's weights are stored.
+* ``checkpoints``, *optional*: directory where model's weights are stored. Only created when ``TRAIN.ENABLE`` is ``True`` and the model is trained for at least one epoch. Can contain:
 
-  * ``my_2d_self-supervised_1-checkpoint-best.pth``: checkpoint file (best in validation) where the model's weights are stored among other information.
+  * ``my_2d_self-supervised_1-checkpoint-best.pth``, *optional*: checkpoint file (best in validation) where the model's weights are stored among other information. Only created when the model is trained for at least one epoch. 
 
-  * ``normalization_mean_value.npy``: normalization mean value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference.  
+  * ``normalization_mean_value.npy``, *optional*: normalization mean value. Is saved to not calculate it everytime and to use it in inference. Only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``.
   
-  * ``normalization_std_value.npy``: normalization std value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference. 
+  * ``normalization_std_value.npy``, *optional*: normalization std value. Is saved to not calculate it everytime and to use it in inference. Only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``.
   
 * ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
 
-  * ``my_2d_self-supervised_1``: run 1 experiment folder. 
+  * ``my_2d_self-supervised_1``: run 1 experiment folder. Can contain:
 
-    * ``aug``: image augmentation samples.
+    * ``aug``, *optional*: image augmentation samples. Only created if ``AUGMENTOR.AUG_SAMPLES`` is ``True``.
 
-    * ``charts``:  
+    * ``charts``, *optional*: only created when ``TRAIN.ENABLE`` is ``True`` and epochs trained are more or equal ``LOG.CHART_CREATION_FREQ``. Can contain:
 
       * ``my_2d_self-supervised_1_*.png``: Plot of each metric used during training.
 
-      * ``my_2d_self-supervised_1_loss.png``: Loss over epochs plot (when training is done). 
+      * ``my_2d_self-supervised_1_loss.png``: Loss over epochs plot. 
 
-      * ``model_plot_my_2d_self-supervised_1.png``: plot of the model.
-
-    * ``MAE_checks``: MAE predictions. Only available if ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK`` is ``masking``.
+    * ``MAE_checks``, *optional*: MAE predictions. Only created if ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK`` is ``masking``.
       
       * ``*_original.tif``: Original image. 
 
@@ -278,6 +283,8 @@ Following the example, you should see that the directory ``/home/user/exp_result
     * ``per_image``:
 
       * ``.tif files``: reconstructed images from patches.  
+
+      * ``.zarr files (or.h5)``, *optional*: reconstructed images from patches. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``True``.
 
     * ``tensorboard``: Tensorboard logs.
 

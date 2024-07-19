@@ -632,4 +632,3 @@ Following the example, you should see that the directory ``/home/user/exp_result
         
 .. note:: 
    Here, for visualization purposes, only ``my_2d_semantic_segmentation_1`` has been described but ``my_2d_semantic_segmentation_2``, ``my_2d_semantic_segmentation_3``, ``my_2d_semantic_segmentation_4`` and ``my_2d_semantic_segmentation_5`` will follow the same structure.
-

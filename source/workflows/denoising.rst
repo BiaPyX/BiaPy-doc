@@ -35,17 +35,17 @@ To ensure the proper operation of the library the data directory tree should be 
         
       dataset/
       ├── train
-      │   └── x
-      │       ├── training-0001.tif
-      │       ├── training-0002.tif
-      │       ├── . . .
-      │       ├── training-9999.tif   
+      │   └── x
+      │       ├── training-0001.tif
+      │       ├── training-0002.tif
+      │       ├── . . .
+      │       ├── training-9999.tif   
       └── test
           └── x
-             ├── testing-0001.tif
-             ├── testing-0002.tif
-             ├── . . .
-             ├── testing-9999.tif
+             ├── testing-0001.tif
+             ├── testing-0002.tif
+             ├── . . .
+             ├── testing-9999.tif
 
 \
 
@@ -176,7 +176,7 @@ Run
                 --run_id $job_counter  \
                 --gpu "$gpu_number"  
 
-        ``nproc_per_node`` need to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+        ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
 
    
 
@@ -200,25 +200,25 @@ Following the example, you should see that the directory ``/home/user/exp_result
     .. code-block:: bash
 
       my_2d_denoising/
-      ├── config_files/
-      │   └── my_2d_denoising.yaml                                                                                                           
+      ├── config_files
+      │   └── my_2d_denoising.yaml                                                                                                           
       ├── checkpoints
       |   ├── my_2d_denoising_1-checkpoint-best.pth
       |   ├── normalization_mean_value.npy
-      │   └── normalization_std_value.npy
+      │   └── normalization_std_value.npy
       └── results
-         ├── my_2d_denoising
+          ├── my_2d_denoising
           ├── . . .
           └── my_2d_denoising
               ├── cell_counter.csv
-              ├── aug
-              │   └── .tif files
-             ├── charts
-              │   ├── my_2d_denoising_1_n2v_mse.png
-              │   ├── my_2d_denoising_1_loss.png
-              │   └── model_plot_my_2d_denoising_1.png
-             ├── per_image
-              │   └── .tif files
+              ├── aug
+              │   └── .tif files
+              ├── charts
+              │   ├── my_2d_denoising_1_n2v_mse.png
+              │   └── my_2d_denoising_1_loss.png
+              ├── per_image
+              │   ├── .tif files
+              │   └── .zarr files (or.h5)
               ├── train_logs
               └── tensorboard
 
@@ -228,37 +228,35 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
   * ``my_2d_denoising.yaml``: YAML configuration file used (it will be overwrited every time the code is run).
 
-* ``checkpoints``: directory where model's weights are stored.
+* ``checkpoints``, *optional*: directory where model's weights are stored. Only created when ``TRAIN.ENABLE`` is ``True`` and the model is trained for at least one epoch. Can contain:
 
-  * ``my_2d_denoising_1-checkpoint-best.pth``: checkpoint file (best in validation) where the model's weights are stored among other information.
+  * ``my_2d_denoising_1-checkpoint-best.pth``, *optional*: checkpoint file (best in validation) where the model's weights are stored among other information. Only created when the model is trained for at least one epoch. 
 
-  * ``normalization_mean_value.npy``: normalization mean value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference.  
+  * ``normalization_mean_value.npy``, *optional*: normalization mean value. Is saved to not calculate it everytime and to use it in inference. Only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``.
   
-  * ``normalization_std_value.npy``: normalization std value (only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``). Is saved to not calculate it everytime and to use it in inference. 
+  * ``normalization_std_value.npy``, *optional*: normalization std value. Is saved to not calculate it everytime and to use it in inference. Only created if ``DATA.NORMALIZATION.TYPE`` is ``custom``.
 
-* ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
+* ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed. Can contain:
 
-  * ``my_2d_denoising_1``: run 1 experiment folder. 
+  * ``my_2d_denoising_1``: run 1 experiment folder. Can contain:
 
-    * ``cell_counter.csv``: file with a counter of detected objects for each test sample.
+    * ``aug``, *optional*: image augmentation samples. Only created if ``AUGMENTOR.AUG_SAMPLES`` is ``True``.
 
-    * ``aug``: image augmentation samples.
+    * ``charts``, *optional*: only created when ``TRAIN.ENABLE`` is ``True`` and epochs trained are more or equal ``LOG.CHART_CREATION_FREQ``. Can contain:  
 
-    * ``charts``:  
+      * ``my_2d_denoising_1_*.png``: plot of each metric used during training.
 
-      * ``my_2d_denoising_1_*.png``: Plot of each metric used during training.
+      * ``my_2d_denoising_1_loss.png``: loss over epochs plot. 
 
-      * ``my_2d_denoising_1_loss.png``: Loss over epochs plot (when training is done). 
+    * ``per_image``, *optional*: only created if ``TEST.FULL_IMG`` is ``False``. Can contain:
 
-      * ``model_plot_my_2d_denoising_1.png``: plot of the model.
+      * ``.tif files``, *optional*: reconstructed images from patches. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``False`` or when ``TEST.BY_CHUNKS.ENABLE`` is ``True`` but ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` is ``True``.
 
-    * ``per_image``:
-
-      * ``.tif files``: reconstructed images from patches.  
+      * ``.zarr files (or.h5)``, *optional*: reconstructed images from patches. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``True``.
 
     * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
 
-    * ``tensorboard``: Tensorboard logs.
+    * ``tensorboard``: tensorboard logs.
 
 .. note:: 
 

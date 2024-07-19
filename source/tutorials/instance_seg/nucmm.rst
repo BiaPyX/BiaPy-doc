@@ -10,14 +10,18 @@ The goal is to segment and identify automatically each cell nuclei in EM images.
 
 
 .. list-table:: 
+  :align: center
+  :width: 680px
 
   * - .. figure:: ../../video/nucmm_z_volume.gif
          :align: center
+         :width: 300px
 
          MitoEM-H tissue image sample. 
 
     - .. figure:: ../../video/nucmm_z_volume_mask.gif
          :align: center
+         :width: 300px
 
          Its corresponding instance mask.
 
