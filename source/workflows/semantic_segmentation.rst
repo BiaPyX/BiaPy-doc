@@ -259,6 +259,7 @@ Also known as "model name" or "job name", this will be the name of the current e
         
         When calling BiaPy from command line, you can specify the output folder with the ``--name`` flag. See the *Command line* configuration of :ref:`semantic_segmentation_data_run` for a full example.
 
+\
 
 .. note:: Use only *my_model* -style, not *my-model* (Use "_" not "-"). Do not use spaces in the name. Avoid using the name of an existing experiment/model/job (saved in the same result folder) as it will be overwritten..
 
