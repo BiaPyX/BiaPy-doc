@@ -3,85 +3,597 @@
 Instance segmentation
 ---------------------
 
+Description of the task
+~~~~~~~~~~~~~~~~~~~~~~~
 
-The goal of this workflow is assign an unique id, i.e. integer, to each object of the input image. 
-
-* **Input:** 
-
-  * Image (single-channel or multi-channel). E.g. image with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``. 
-  * Mask (single-channel or multi-channel). The first channel is where each object is identified with a unique label. If provided, the second channel must represent the class of each instance. E.g. mask with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``. 
-
-* **Output:**
-
-  * Image with objects identified with a unique label. 
-
-
-In the figure below an example of this workflow's **input** is depicted. Each color in the mask corresponds to a unique object.
+The goal of this workflow is assign a unique ID, i.e. an integer value, to each object of the **input image**, thus producing a **label image** with **instance** masks. An example of this task is displayed in the figure below, with an electron microscopy image used as input (left) and its corresponding instance label image identifying each invididual mitochondrion (rigth). Each color in the mask image corresponds to a unique object.
 
 .. list-table::
   :align: center
-  :width: 680px
+  :widths: 50 50
   
   * - .. figure:: ../img/mitoem_crop.png
          :align: center
-         :width: 300px
+         :figwidth: 300px
 
-         Input image.  
+         Input image (electron microscopy, `MitoEM dataset <https://mitoem.grand-challenge.org/>`_).
+
 
     - .. figure:: ../img/mitoem_crop_mask.png
          :align: center
-         :width: 300px
+         :figwidth: 300px
 
-         Input mask.
+         Label image with mitochondria instance masks.
+         
 
-For the multi-channel mask setting, where the second channel represents the class of each instance, ``MODEL.N_CLASSES`` needs to be more than ``2``. An example of this setting  is depicted below:
+Each instance may also contain information about its **class** (optional). In that case, the label image will contain two channels, one with the instance IDs and one with their corresponding semantic (class) labels. An example of this setting is depicted below:
 
 .. figure:: ../img/instance_seg_multichannel.gif
     :align: center
 
-    From right to left: raw image and multi-channel mask (instances and classification). Sample from `CoNIC Challenge <https://conic-challenge.grand-challenge.org/>`__. 
+    **Instance and classification setting example**. From right to left: input raw image (histology image from `CoNIC Challenge <https://conic-challenge.grand-challenge.org/>`__) and its corresponding label image with instance masks (channel 0) and classification/semantic masks (channel 1).
 
+
+
+
+Inputs and outputs
+~~~~~~~~~~~~~~~~~~
+The instance segmentation workflows in BiaPy expect a series of **folders** as input:
+
+* **Training Raw Images**: A folder that contains the unprocessed (single-channel or multi-channel) images that will be used to train the model.
+  
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Instance Segmentation*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
+
+        .. image:: ../img/GUI-general-options.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D instance segmentation notebook, go to *Paths for Input Images and Output Files*, edit the field **train_data_path**:
+        
+        .. image:: ../img/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TRAIN.PATH`` with the absolute path to the folder with your training raw images.
+
+
+
+* **Training Label Images**: A folder that contains the instance label (single- or multi-channel) images for training. Ensure the number and dimensions match the training raw images.
+  
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Instance Segmentation*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input label folder**:
+
+        .. image:: ../img/GUI-general-options.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D instance segmentation notebook, go to *Paths for Input Images and Output Files*, edit the field **train_data_gt_path**:
+        
+        .. image:: ../img/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TRAIN.GT_PATH`` with the absolute path to the folder with your training label images.
+
+    .. note:: Remember the label images need to be **single-channel when performing instance segmentation only**, and **multi-channel in the instance and classification setting** (first channel for instance labels and second channel for semantic labels).
+
+* .. raw:: html
+
+      <b><span style="color: darkgreen;">[Optional]</span> Test Raw Images</b>: A folder that contains the images to evaluate the model's performance.
+ 
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Instance Segmentation*, three times *Continue*, under *General options* > *Test data*, click on the *Browse* button of **Input raw image folder**:
+
+        .. image:: ../img/GUI-test-data.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D instance segmentation notebook, go to *Paths for Input Images and Output Files*, edit the field **test_data_path**:
+        
+        .. image:: ../img/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TEST.PATH`` with the absolute path to the folder with your test raw images.
+
+* .. raw:: html
+
+      <b><span style="color: darkgreen;">[Optional]</span> Test Label Images</b>: A folder that contains the instance label images for testing. Again, ensure their count and sizes align with the test raw images.
+
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Instance Segmentation*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the *Do you have test labels?* field, and then click on the *Browse* button of **Input label folder**:
+
+        .. image:: ../img/GUI-test-data-gt.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D instance segmentation notebook, go to *Paths for Input Images and Output Files*, edit the field **test_data_gt_path**:
+        
+        .. image:: ../img/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TEST._GT_PATH`` with the absolute path to the folder with your test label images.
+
+    .. note:: Remember the label images need to be **single-channel when performing instance segmentation only**, and **multi-channel in the instance and classification setting** (first channel for instance labels and second channel for semantic labels).
+
+Upon successful execution, a directory will be generated with the segmentation results. Therefore, you will need to define:
+
+* **Output Folder**: A designated path to save the segmentation outcomes.
+
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Run Workflow*, click on the *Browse* button of **Output folder to save the results**:
+
+        .. image:: ../img/GUI-run-instance-seg-workflow.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D instance segmentation notebook, go to *Paths for Input Images and Output Files*, edit the field **output_path**:
+        
+        .. image:: ../img/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: Command line
+        
+        When calling BiaPy from command line, you can specify the output folder with the ``--result_dir`` flag. See the *Command line* configuration of :ref:`instance_segmentation_data_run` for a full example.
+
+
+.. list-table::
+  :align: center
+
+  * - .. figure:: ../img/Inputs-outputs.svg
+         :align: center
+         :width: 500
+         :alt: Graphical description of minimal inputs and outputs in BiaPy for semantic segmentation.
+        
+         **BiaPy input and output folders for instance segmentation.**
+  
 .. _instance_segmentation_data_prep:
 
-Data preparation
-~~~~~~~~~~~~~~~~
+Data structure
+**************
 
-To ensure the proper operation of the library the data directory tree should be something like this:
+To ensure the proper operation of the library, the data directory tree should be something like this: 
 
-.. collapse:: Expand directory tree 
+.. code-block::
 
-    .. code-block:: bash
+  dataset/
+  ├── train
+  │   ├── x
+  │   │   ├── training-0001.tif
+  │   │   ├── training-0002.tif
+  │   │   ├── . . .
+  │   │   └── training-9999.tif
+  │   └── y
+  │       ├── training_groundtruth-0001.tif
+  │       ├── training_groundtruth-0002.tif
+  │       ├── . . .
+  │       └── training_groundtruth-9999.tif
+  └── test
+      ├── x
+      │   ├── testing-0001.tif
+      │   ├── testing-0002.tif
+      │   ├── . . .
+      │   └── testing-9999.tif
+      └── y
+          ├── testing_groundtruth-0001.tif
+          ├── testing_groundtruth-0002.tif
+          ├── . . .
+          └── testing_groundtruth-9999.tif
+
+In this example, the raw training images are under ``dataset/train/x/`` and their corresponding labels are under ``dataset/train/y/``, while the raw test images are under ``dataset/test/x/`` and their corresponding labels are under ``dataset/test/y/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
+
+.. note:: Ensure that images and their corresponding masks are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example).
+
+
+Minimal configuration
+~~~~~~~~~~~~~~~~~~~~~
+Apart from the input and output folders, there are a few basic parameters that always need to be specified in order to run an instance segmentation workflow in BiaPy. **These parameters can be introduced either directly in the GUI, the code-free notebooks or by editing the YAML configuration file**.
+
+Experiment name
+***************
+Also known as "model name" or "job name", this will be the name of the current experiment you want to run, so it can be differenciated from other past and future experiments.
+
+.. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Run Workflow*, type the name you want for the job in the **Job name** field:
+
+        .. image:: ../img/GUI-run-instance-seg-workflow.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
         
-      dataset/
-      ├── train
-      │   ├── x
-      │   │   ├── training-0001.tif
-      │   │   ├── training-0002.tif
-      │   │   ├── . . .
-      │   │   ├── training-9999.tif
-      │   └── y
-      │       ├── training_groundtruth-0001.tif
-      │       ├── training_groundtruth-0002.tif
-      │       ├── . . .
-      │       ├── training_groundtruth-9999.tif
-      └── test
-          ├── x
-          │   ├── testing-0001.tif
-          │   ├── testing-0002.tif
-          │   ├── . . .
-          │   ├── testing-9999.tif
-          └── y
-              ├── testing_groundtruth-0001.tif
-              ├── testing_groundtruth-0002.tif
-              ├── . . .
-              ├── testing_groundtruth-9999.tif
+        In either the 2D or the 3D instance segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **model_name**:
+        
+        .. image:: ../img/Notebooks-ins-seg-model-name-data-conf.png
+          :align: center
+          :width: 50%
+
+      .. tab:: Command line
+        
+        When calling BiaPy from command line, you can specify the output folder with the ``--name`` flag. See the *Command line* configuration of :ref:`instance_segmentation_data_run` for a full example.
+
 
 \
 
-.. warning:: Ensure that images and their corresponding masks are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example). 
+.. note:: Use only *my_model* -style, not *my-model* (Use "_" not "-"). Do not use spaces in the name. Avoid using the name of an existing experiment/model/job (saved in the same result folder) as it will be overwritten..
 
-Problem resolution
-~~~~~~~~~~~~~~~~~~
+Data management
+***************
+Validation Set
+""""""""""""""
+With the goal to monitor the training process, it is common to use a third dataset called the "Validation Set". This is a subset of the whole dataset that is used to evaluate the model's performance and optimize training parameters. This subset will not be directly used for training the model, and thus, when applying the model to these images, we can see if the model is learning the training set's patterns too specifically or if it is generalizing properly.
+
+.. list-table::
+  :align: center
+
+  * - .. figure:: ../img/data-partitions.png
+         :align: center
+         :width: 400
+         :alt: Graphical description of data partitions in BiaPy
+        
+         **Graphical description of data partitions in BiaPy.**
+
+
+
+To define such set, there are two options:
+  
+* **Validation percentage**: Select a percentage of your training dataset to be used to validate the network during the training. Usual values are 10% or 20%, and the samples of that set will be selected at random.
+  
+  .. collapse:: Expand to see how to configure
+
+      .. tabs::
+        .. tab:: GUI
+
+          Under *Workflow*, select *Instance Segmentation*, click twice on *Continue*, and under *General options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value in the **Train percentage for validation**:
+
+          .. image:: ../img/GUI-validation-percentage.png
+            :align: center
+
+        .. tab:: Google Colab / Notebooks
+          
+          In either the 2D or the 3D instance segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **percentage_validation**:
+          
+          .. image:: ../img/Notebooks-ins-seg-model-name-data-conf.png
+            :align: center
+            :width: 50%
+
+        .. tab:: YAML configuration file
+        
+          Edit the variable ``DATA.VAL.SPLIT_TRAIN`` with a value between 0 and 1, representing the proportion of the training set that will be set apart for validation.
+
+* **Validation paths**: Similar to the training and test sets, you can select two folders with the validation raw and label images:
+
+  * **Validation Raw Images**: A folder that contains the unprocessed (single-channel or multi-channel) images that will be used to select the best model during training.
+  
+    .. collapse:: Expand to see how to configure
+
+      .. tabs::
+        .. tab:: GUI
+
+          Under *Workflow*, select *Instance Segmentation*, click twice on *Continue*, and under *General options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
+
+          .. image:: ../img/GUI-validation-paths.png
+            :align: center
+
+        .. tab:: Google Colab / Notebooks
+          
+          This option is currently not available in the notebooks.
+
+        .. tab:: YAML configuration file
+        
+          Edit the variable ``DATA.VAL.PATH`` with the absolute path to your validation raw images.
+
+  * **Validation Label Images**: A folder that contains the instance label (single-channel) images for validation. Ensure the number and dimensions match the training raw images.
+  
+    .. collapse:: Expand to see how to configure
+
+      .. tabs::
+        .. tab:: GUI
+
+          Under *Workflow*, select *Instance Segmentation*, click twice on *Continue*, and under *General options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input label folder** and select the folder containing your validation label images:
+
+          .. image:: ../img/GUI-validation-paths.png
+            :align: center
+
+        .. tab:: Google Colab / Notebooks
+          
+          This option is currently not available in the notebooks.
+
+        .. tab:: YAML configuration file
+        
+          Edit the variable ``DATA.VAL.GT_PATH`` with the absolute path to your validation label images.
+
+      .. note:: Remember the label images need to be **single-channel when performing instance segmentation only**, and **multi-channel in the instance and classification setting** (first channel for instance labels and second channel for semantic labels).
+
+
+
+Test ground-truth
+"""""""""""""""""
+Do you have labels for the test set? This is a key question so BiaPy knows if your test set will be used for evaluation in new data (unseen during training) or simply produce predictions on that new data. All workflows contain a parameter to specify this aspect.
+
+.. collapse:: Expand to see how to configure
+
+  .. tabs::
+    .. tab:: GUI
+
+      Under *Workflow*, select *Instance Segmentation*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the **Do you have test labels?** field:
+
+      .. image:: ../img/GUI-test-data.png
+        :align: center
+
+    .. tab:: Google Colab / Notebooks
+      
+      In either the 2D or the 3D instance segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and select the **test_tround_truth** option:
+      
+      .. image:: ../img/Notebooks-ins-seg-model-name-data-conf.png
+        :align: center
+        :width: 50%
+
+
+    .. tab:: YAML configuration file
+      
+      Set the variable ``DATA.TEST.LOAD_GT`` to ``True``.
+
+
+\
+
+Basic training parameters
+*************************
+At the core of each BiaPy workflow there is a deep learning model. Although we try to simplify the number of parameters to tune, these are the basic parameters that need to be defined for training an instance segmentation workflow:
+
+* **Number of input channels**: The number of channels of your raw images (grayscale = 1, RGB = 3). Notice the dimensionality of your images (2D/3D) is set by default depending on the workflow template you select.
+  
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Instance Segmentation*, click twice on *Continue*, and under *General options*, scroll down to *Advanced options*, and edit the last value of the field **Patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
+
+            .. image:: ../img/GUI-advanced-options.png
+              :align: center
+              :width: 75%
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D instance segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **input_channels**:
+            
+            .. image:: ../img/Notebooks-ins-seg-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``DATA.PATCH_SIZE`` with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D.
+
+* **Number of epochs**: This number indicates how many `rounds <https://machine-learning.paperspace.com/wiki/epoch>`_ the network will be trained. On each round, the network usually sees the full training set. The value of this parameter depends on the size and complexity of each dataset. You can start with something like 100 epochs and tune it depending on how fast the loss (error) is reduced.
+  
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Instance Segmentation*, click twice on *Continue*, and under *General options*, scroll down to *Basic training parameters*, and edit the field **Number of epochs**:
+
+            .. image:: ../img/GUI-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D instance segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **number_of_epochs**:
+            
+            .. image:: ../img/Notebooks-ins-seg-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``TRAIN.EPOCHS`` with the number of epochs. For this to have effect, the variable ``TRAIN.ENABLE`` should also be set to ``True``.
+
+* **Patience**: This is a number that indicates how many epochs you want to wait without the model improving its results in the validation set to stop training. Again, this value depends on the data you're working on, but you can start with something like 20.
+   
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Instance Segmentation*, click twice on *Continue*, and under *General options*, scroll down to *Basic training parameters*, and edit the field **Patience**:
+
+            .. image:: ../img/GUI-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D instance segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **patience**:
+            
+            .. image:: ../img/Notebooks-ins-seg-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``TRAIN.PATIENCE`` with the number of epochs. For this to have effect, the variable ``TRAIN.ENABLE`` should also be set to ``True``.
+
+
+For improving performance, other advanced parameters can be optimized, for example, the model's architecture. The architecture assigned as default is the U-Net, as it is effective in instance segmentation tasks. This architecture allows a strong baseline, but further exploration could potentially lead to better results.
+
+.. note:: Once the parameters are correctly assigned, the training phase can be executed. Note that to train large models effectively the use of a GPU (Graphics Processing Unit) is essential. This hardware accelerator performs parallel computations and has larger RAM memory compared to the CPUs, which enables faster training times.
+
+.. _instance_segmentation_data_run:
+
+How to run
+~~~~~~~~~~
+BiaPy offers different options to run workflows depending on your degree of computer expertise. Select whichever is more approppriate for you:
+
+.. tabs::
+   .. tab:: GUI
+
+        In the GUI of BiaPy, under *Workflow*, select *Instance Segmentation* and follow the instructions displayed there:
+
+        .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-doc/master/source/img/gui/biapy_gui_instance_seg.jpg
+            :align: center 
+
+   .. tab:: Google Colab 
+    
+      BiaPy offers two code-free notebooks in Google Colab to perform instance segmentation: 
+
+      .. |inst_seg_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+          :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_2D_Instance_Segmentation.ipynb
+
+      * For 2D images: |inst_seg_2D_colablink|
+
+      .. |inst_seg_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+          :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_3D_Instance_Segmentation.ipynb
+
+      * For 3D images: |inst_seg_3D_colablink|
+
+   .. tab:: Docker 
+
+      If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. Then, you can use the `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file (or your own file), and run the workflow as follows:
+
+      .. code-block:: bash                                                                                                    
+
+          # Configuration file
+          job_cfg_file=/home/user/3d_instance_segmentation.yaml
+          # Path to the data directory
+          data_dir=/home/user/data
+          # Where the experiment output directory should be created
+          result_dir=/home/user/exp_results
+          # Just a name for the job
+          job_name=my_3d_instance_segmentation
+          # Number that should be increased when one need to run the same job multiple times (reproducibility)
+          job_counter=1
+          # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+          gpu_number=0
+
+          docker run --rm \
+              --gpus "device=$gpu_number" \
+              --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
+              --mount type=bind,source=$result_dir,target=$result_dir \
+              --mount type=bind,source=$data_dir,target=$data_dir \
+              BiaPyX/biapy \
+                  -cfg $job_cfg_file \
+                  -rdir $result_dir \
+                  -name $job_name \
+                  -rid $job_counter \
+                  -gpu "$gpu_number"
+
+      .. note:: 
+          Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
+
+   .. tab:: Command line
+
+      `From a terminal <../get_started/faq.html#opening-a-terminal>`__, you can use the `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file (or your own file), and run the workflow as follows:
+
+      .. code-block:: bash
+          
+          # Configuration file
+          job_cfg_file=/home/user/3d_instance_segmentation.yaml       
+          # Where the experiment output directory should be created
+          result_dir=/home/user/exp_results  
+          # Just a name for the job
+          job_name=my_3d_instance_segmentation      
+          # Number that should be increased when one need to run the same job multiple times (reproducibility)
+          job_counter=1
+          # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+          gpu_number=0                   
+
+          # Load the environment
+          conda activate BiaPy_env
+          
+          biapy \
+                --config $job_cfg_file \
+                --result_dir $result_dir  \ 
+                --name $job_name    \
+                --run_id $job_counter  \
+                --gpu "$gpu_number"  
+
+      For multi-GPU training you can call BiaPy as follows:
+
+      .. code-block:: bash
+          
+          # First check where is your biapy command (you need it in the below command)
+          # $ which biapy
+          # > /home/user/anaconda3/envs/BiaPy_env/bin/biapy
+
+          gpu_number="0, 1, 2"
+          python -u -m torch.distributed.run \
+              --nproc_per_node=3 \
+              /home/user/anaconda3/envs/BiaPy_env/bin/biapy \
+              --config $job_cfg_file \
+              --result_dir $result_dir  \ 
+              --name $job_name    \
+              --run_id $job_counter  \
+              --gpu "$gpu_number"  
+
+      ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+      
+
+Templates                                                                                                                 
+~~~~~~~~~~
+
+In the `templates/instance_segmentation <https://github.com/BiaPyX/BiaPy/tree/master/templates/instance_segmentation>`__ folder of BiaPy, you will find a few YAML configuration templates for this workflow. 
+
+[Advanced] Special workflow configuration 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. note:: This section is recommended for experienced users only to improve the performance of their workflows. When in doubt, do not hesitate to check our `FAQ & Troubleshooting <../get_started/faq.html>`__ or open a question in the `image.sc discussion forum <our FAQ & Troubleshooting section>`_.
+
+Advanced Parameters 
+*******************
+Many of the parameters of our workflows are set by default to values that work commonly well. However, it may be needed to tune them to improve the results of the workflow. For instance, you may modify the following parameters
+
+* **Model architecture**: Select the architecture of the deep neural network used as backbone of the pipeline. Options: U-Net, Residual U-Net, Attention U-Net, SEUNet, MultiResUNet, ResUNet++, UNETR-Mini, UNETR-Small and UNETR-Base. Default value: U-Net.
+* **Batch size**: This parameter defines the number of patches seen in each training step. Reducing or increasing the batch size may slow or speed up your training, respectively, and can influence network performance. Common values are 4, 8, 16, etc.
+* **Patch size**: Input the size of the patches use to train your model (length in pixels in X and Y). The value should be smaller or equal to the dimensions of the image. The default value is 256 in 2D, i.e. 256x256 pixels.
+* **Optimizer**: Select the optimizer used to train your model. Options: ADAM, ADAMW, Stochastic Gradient Descent (SGD). ADAM usually converges faster, while ADAMW provides a balance between fast convergence and better handling of weight decay regularization. SGD is known for better generalization. Default value: ADAMW.
+* **Initial learning rate**: Input the initial value to be used as learning rate. If you select ADAM as optimizer, this value should be around 10e-4. 
+* **Learning rate scheduler**: Select to adjust the learning rate between epochs. The current options are "Reduce on plateau", "One cycle", "Warm-up cosine decay" or no scheduler.
+* **Test time augmentation (TTA)**: Select to apply augmentation (flips and rotations) at test time. It usually provides more robust results but uses more time to produce each result. By default, no TTA is peformed.
+
+Problem representation
+**********************
 
 Firstly, a **pre-processing** step is done where the new data representation is created from the input instance masks. The new data is a multi-channel mask with up to three channels (controlled by ``PROBLEM.INSTANCE_SEG.DATA_CHANNELS``). This way, the model is trained with the input images and these new multi-channel masks. Available channels to choose are the following: 
 
@@ -175,15 +687,6 @@ In a further step the multi-channel data information will be used to create the 
 
 In general, each configuration has its own advantages and drawbacks. The best thing to do is to inspect the results generated by the model so you can adjust each threshold for your particular case and run again the inference (i.e. not training again the network and loading model's weights). 
 
-Configuration file
-~~~~~~~~~~~~~~~~~~
-
-Find in `templates/instance_segmentation <https://github.com/BiaPyX/BiaPy/tree/master/templates/instance_segmentation>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
-
-
-Special workflow configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 Metrics
 *******
 
@@ -272,115 +775,7 @@ Then, after extracting the final instances from the predictions, the following p
 
 * **Voronoi tessellation**: The variable ``TEST.POST_PROCESSING.VORONOI_ON_MASK`` can be used after the instances have been created to ensure that all instances are touching each other (`Voronoi tesellation <https://en.wikipedia.org/wiki/Voronoi_diagram>`__). This grown is restricted by a predefined area from ``PROBLEM.INSTANCE_SEG.DATA_CHANNEL_WEIGHTS``. For that reason, that last variable need to be set as one between ``BC``, ``BCM``, ``BCD`` and ``BCDv2``. This way, the area will be the foreground mask, so ``M`` will be used ``BCM`` and the sum of ``B`` and ``C`` channels in the rest of the options.
 
-.. _instance_segmentation_run:
 
-Run
-~~~
-
-.. tabs::
-   .. tab:: GUI
-
-        Select instance segmentation workflow during the creation of a new configuration file:
-
-        .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-doc/master/source/img/gui/biapy_gui_instance_seg.jpg
-            :align: center 
-
-   .. tab:: Google Colab 
-    
-      Two different options depending on the image dimension: 
-
-      .. |inst_seg_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-          :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_2D_Instance_Segmentation.ipynb
-
-      * 2D: |inst_seg_2D_colablink|
-
-      .. |inst_seg_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-          :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_3D_Instance_Segmentation.ipynb
-
-      * 3D: |inst_seg_3D_colablink|
-
-   .. tab:: Docker 
-
-      `Open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file, the code can be run as follows:
-
-      .. code-block:: bash                                                                                                    
-
-          # Configuration file
-          job_cfg_file=/home/user/3d_instance_segmentation.yaml
-          # Path to the data directory
-          data_dir=/home/user/data
-          # Where the experiment output directory should be created
-          result_dir=/home/user/exp_results
-          # Just a name for the job
-          job_name=my_3d_instance_segmentation
-          # Number that should be increased when one need to run the same job multiple times (reproducibility)
-          job_counter=1
-          # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-          gpu_number=0
-
-          docker run --rm \
-              --gpus "device=$gpu_number" \
-              --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
-              --mount type=bind,source=$result_dir,target=$result_dir \
-              --mount type=bind,source=$data_dir,target=$data_dir \
-              BiaPyX/biapy \
-                  -cfg $job_cfg_file \
-                  -rdir $result_dir \
-                  -name $job_name \
-                  -rid $job_counter \
-                  -gpu "$gpu_number"
-
-      .. note:: 
-          Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
-
-   .. tab:: Command line
-
-      `Open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file, the code can be run as follows:
-
-      .. code-block:: bash
-          
-          # Configuration file
-          job_cfg_file=/home/user/3d_instance_segmentation.yaml       
-          # Where the experiment output directory should be created
-          result_dir=/home/user/exp_results  
-          # Just a name for the job
-          job_name=my_3d_instance_segmentation      
-          # Number that should be increased when one need to run the same job multiple times (reproducibility)
-          job_counter=1
-          # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-          gpu_number=0                   
-
-          # Load the environment
-          conda activate BiaPy_env
-          
-          biapy \
-                --config $job_cfg_file \
-                --result_dir $result_dir  \ 
-                --name $job_name    \
-                --run_id $job_counter  \
-                --gpu "$gpu_number"  
-
-      For multi-GPU training you can call BiaPy as follows:
-
-      .. code-block:: bash
-          
-          # First check where is your biapy command (you need it in the below command)
-          # $ which biapy
-          # > /home/user/anaconda3/envs/BiaPy_env/bin/biapy
-
-          gpu_number="0, 1, 2"
-          python -u -m torch.distributed.run \
-              --nproc_per_node=3 \
-              /home/user/anaconda3/envs/BiaPy_env/bin/biapy \
-              --config $job_cfg_file \
-              --result_dir $result_dir  \ 
-              --name $job_name    \
-              --run_id $job_counter  \
-              --gpu "$gpu_number"  
-
-      ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
-      
-   
 .. _instance_segmentation_results:
 
 Results                                                                                                                 
