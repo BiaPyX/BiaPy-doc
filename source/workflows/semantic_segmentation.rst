@@ -165,7 +165,7 @@ Upon successful execution, a directory will be generated with the segmentation r
 
         Under *Run Workflow*, click on the *Browse* button of **Output folder to save the results**:
 
-        .. image:: ../img/GUI-run-workflow.png
+        .. image:: ../img/GUI-run-semantic-seg-workflow.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
@@ -244,14 +244,14 @@ Also known as "model name" or "job name", this will be the name of the current e
 
         Under *Run Workflow*, type the name you want for the job in the **Job name** field:
 
-        .. image:: ../img/GUI-run-workflow.png
+        .. image:: ../img/GUI-run-semantic-seg-workflow.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
         
         In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **model_name**:
         
-        .. image:: ../img/Notebooks-model-name-data-conf.png
+        .. image:: ../img/Notebooks-sem-seg-model-name-data-conf.png
           :align: center
           :width: 50%
 
@@ -298,7 +298,7 @@ To define such set, there are two options:
           
           In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **percentage_validation**:
           
-          .. image:: ../img/Notebooks-model-name-data-conf.png
+          .. image:: ../img/Notebooks-sem-seg-model-name-data-conf.png
             :align: center
             :width: 50%
 
@@ -375,7 +375,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
             
             In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **number_of_classes**:
             
-            .. image:: ../img/Notebooks-basic-training-params.png
+            .. image:: ../img/Notebooks-sem-seg-basic-training-params.png
               :align: center
               :width: 75%
 
@@ -400,7 +400,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
             
             In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **input_channels**:
             
-            .. image:: ../img/Notebooks-basic-training-params.png
+            .. image:: ../img/Notebooks-sem-seg-basic-training-params.png
               :align: center
               :width: 75%
 
@@ -425,7 +425,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
             
             In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **number_of_epochs**:
             
-            .. image:: ../img/Notebooks-basic-training-params.png
+            .. image:: ../img/Notebooks-sem-seg-basic-training-params.png
               :align: center
               :width: 75%
 
@@ -450,7 +450,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
             
             In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **patience**:
             
-            .. image:: ../img/Notebooks-basic-training-params.png
+            .. image:: ../img/Notebooks-sem-seg-basic-training-params.png
               :align: center
               :width: 75%
 
