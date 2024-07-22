@@ -359,9 +359,105 @@ Basic training parameters
 At the core of each BiaPy workflow there is a deep learning model. Although we try to simplify the number of parameters to tune, these are the basic parameters that need to be defined for training a semantic segmentation workflow:
 
 * **Number of classes**: The number of segmentation labels, including the background, whose label is usually set to 0. For instance, if you are doing foreground vs background semantic segmentation, the number of classes will be 2 (one for foreground and one for background).
+
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options*, scroll down to *Basic training parameters*, and edit the field **Number of classes**:
+
+            .. image:: ../img/GUI-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **number_of_classes**:
+            
+            .. image:: ../img/Notebooks-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: YAML configuration file
+          
+            Edit the variable ``MODEL.N_CLASSES`` with the number of classes.
+
 * **Number of input channels**: The number of channels of your raw images (grayscale = 1, RGB = 3). Notice the dimensionality of your images (2D/3D) is set by default depending on the workflow template you select.
+  
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options*, scroll down to *Advanced options*, and edit the last value of the field **Patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
+
+            .. image:: ../img/GUI-advanced-options.png
+              :align: center
+              :width: 75%
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **input_channels**:
+            
+            .. image:: ../img/Notebooks-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``DATA.PATCH_SIZE`` with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D.
+
 * **Number of epochs**: This number indicates how many `rounds <https://machine-learning.paperspace.com/wiki/epoch>`_ the network will be trained. On each round, the network usually sees the full training set. The value of this parameter depends on the size and complexity of each dataset. You can start with something like 100 epochs and tune it depending on how fast the loss (error) is reduced.
+  
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options*, scroll down to *Basic training parameters*, and edit the field **Number of epochs**:
+
+            .. image:: ../img/GUI-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **number_of_epochs**:
+            
+            .. image:: ../img/Notebooks-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``TRAIN.EPOCHS`` with the number of epochs. For this to have effect, the variable ``TRAIN.ENABLE`` should also be set to ``True``.
+
 * **Patience**: This is a number that indicates how many epochs you want to wait without the model improving its results in the validation set to stop training. Again, this value depends on the data you're working on, but you can start with something like 20.
+   
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options*, scroll down to *Basic training parameters*, and edit the field **Patience**:
+
+            .. image:: ../img/GUI-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **patience**:
+            
+            .. image:: ../img/Notebooks-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``TRAIN.PATIENCE`` with the number of epochs. For this to have effect, the variable ``TRAIN.ENABLE`` should also be set to ``True``.
+
 
 For improving performance, other advanced parameters can be optimized, for example, the model's architecture. The architecture assigned as default is the U-Net, as it is effective in semantic segmentation tasks. This architecture allows a strong baseline, but further exploration could potentially lead to better results.
 
