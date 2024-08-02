@@ -194,29 +194,45 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
 
 
 Integration with BrainGlobe                                                                                                                 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Once the points are detected, you can use the `BrainGlobe brainmapper napari widget <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`_ to analyse the distribution of cells within the brain. A full `brainmapper tutorial is available <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`_, but briefly, the process is as follows:
+Once the points are detected, you can use the `BrainGlobe brainmapper napari widget <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`__ to analyse the distribution of cells within the brain. A full `brainmapper tutorial is available <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`__, but briefly, the process is as follows:
 
-- `Install BrainGlobe <https://brainglobe.info/documentation/index.html>`_
-- Register your data to an atlas of your choice using `brainreg <https://brainglobe.info/documentation/brainreg/index.html>`_
-- Transform your BiaPy detected cells to the atlas and analyse their distribution using the `brainmapper napari widget <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`_
+- `Install BrainGlobe <https://brainglobe.info/documentation/index.html>`__.
+- Register your data to an atlas of your choice using `brainreg <https://brainglobe.info/documentation/brainreg/index.html>`__.
+- Transform your BiaPy detected cells to the atlas and analyse their distribution using the `brainmapper napari widget <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`__.
 
 
 The `brainmapper` widget will assign cells to a brain region, e.g.:
 
-+-----------------------------------------------------+-----------------+------------------+
-| structure_name                                      | left_cell_count | right_cell_count |
-+=====================================================+=================+==================+
-| Primary visual area, layer 2/3                      | 983.0           | 1.0              |
-| Primary visual area, layer 5                        | 668.0           | 4.0              |
-| Dorsal part of the lateral geniculate complex, core | 286.0           | 0.0              |
-| Lateral posterior nucleus of the thalamus           | 245.0           | 3.0              |
-| Primary visual area, layer 4                        | 242.0           | 0.0              |
-| Retrosplenial area, ventral part, layer 5           | 159.0           | 0.0              |
-| Lateral dorsal nucleus of thalamus                  | 121.0           | 1.0              |
-| Retrosplenial area, dorsal part, layer 5            | 118.0           | 0.0              |
-+-----------------------------------------------------+-----------------+------------------+
+.. list-table:: 
+   :widths: 25 25 50
+   :header-rows: 1
+
+   * - Primary visual area, layer 2/3 
+     - 983.0 
+     - 1.0
+   * - Primary visual area, layer 5
+     - 668.0  
+     - 4.0
+   * - Dorsal part of the lateral geniculate complex, core
+     - 286.0  
+     - 0.0
+   * - Lateral posterior nucleus of the thalamus
+     - 245.0  
+     - 3.0
+   * - Primary visual area, layer 4
+     - 242.0  
+     - 0.0
+   * - Retrosplenial area, ventral part, layer 5
+     - 159.0  
+     - 0.0
+   * - Lateral dorsal nucleus of thalamus
+     - 121.0  
+     - 1.0
+   * - Retrosplenial area, dorsal part, layer 5 
+     - 118.0  
+     - 0.0
 
 It will also transform the cells to the atlas space, allowing visualisations such as this one using BrainGlobe's ``brainrender`` tool (`Claudi et al., 2021 <https://doi.org/10.7554/eLife.65751>`_).
 
@@ -225,5 +241,5 @@ It will also transform the cells to the atlas space, allowing visualisations suc
    :align: center                  
    :width: 400px
 
-Credits to Adam L. Tyson (`original image <https://www.researchgate.net/publication/352929222_Mesoscale_microscopy_and_image_analysis_tools_for_understanding_the_brain>`__).
+   Credits to Adam L. Tyson (`original image <https://www.researchgate.net/publication/352929222_Mesoscale_microscopy_and_image_analysis_tools_for_understanding_the_brain>`__).
 
