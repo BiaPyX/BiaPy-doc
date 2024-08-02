@@ -193,16 +193,37 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
     * ``tensorboard``: tensorboard logs.
 
 
-Visualizing the results with BrainGlobe                                                                                                                 
+Integration with BrainGlobe                                                                                                                 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Once the points are detected, you can load the created CSV files into **BrainGlobe**. For example, in this tutorial, if you use the sample file ``brain2_ch2ch4.zarr``, the final CSV with all detected cells will be located at ``results/per_image_local_max_check/brain2_ch2ch4_all_points.csv``. 
+Once the points are detected, you can use the `BrainGlobe brainmapper napari widget <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`_ to analyse the distribution of cells within the brain. A full `brainmapper tutorial is available <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`_, but briefly, the process is as follows:
 
-**For the next steps, you will need to follow the BrainGlobe tutorial, which is currently in progress and will be available soon.**
+- `Install BrainGlobe <https://brainglobe.info/documentation/index.html>`_
+- Register your data to an atlas of your choice using `brainreg <https://brainglobe.info/documentation/brainreg/index.html>`_
+- Transform your BiaPy detected cells to the atlas and analyse their distribution using the `brainmapper napari widget <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`_
+
+
+The `brainmapper` widget will assign cells to a brain region, e.g.:
+
++-----------------------------------------------------+-----------------+------------------+
+| structure_name                                      | left_cell_count | right_cell_count |
++=====================================================+=================+==================+
+| Primary visual area, layer 2/3                      | 983.0           | 1.0              |
+| Primary visual area, layer 5                        | 668.0           | 4.0              |
+| Dorsal part of the lateral geniculate complex, core | 286.0           | 0.0              |
+| Lateral posterior nucleus of the thalamus           | 245.0           | 3.0              |
+| Primary visual area, layer 4                        | 242.0           | 0.0              |
+| Retrosplenial area, ventral part, layer 5           | 159.0           | 0.0              |
+| Lateral dorsal nucleus of thalamus                  | 121.0           | 1.0              |
+| Retrosplenial area, dorsal part, layer 5            | 118.0           | 0.0              |
++-----------------------------------------------------+-----------------+------------------+
+
+It will also transform the cells to the atlas space, allowing visualisations such as this one using BrainGlobe's ``brainrender`` tool (`Claudi et al., 2021 <https://doi.org/10.7554/eLife.65751>`_).
+
 
 .. figure:: ../../img/detection/brainglobe_brain_atlas_render.png
    :align: center                  
    :width: 400px
 
-   Detected cells can be visualized using BrainGlobe's ``brainrender`` tool (Caudi et al., 2021). Credits to Adam L. Tyson (`original image <https://www.researchgate.net/publication/352929222_Mesoscale_microscopy_and_image_analysis_tools_for_understanding_the_brain>`__).
+Credits to Adam L. Tyson (`original image <https://www.researchgate.net/publication/352929222_Mesoscale_microscopy_and_image_analysis_tools_for_understanding_the_brain>`__).
 
