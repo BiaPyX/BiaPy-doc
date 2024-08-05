@@ -329,7 +329,7 @@ To define such set, there are two options:
         
           Edit the variable ``DATA.VAL.PATH`` with the absolute path to your validation raw images.
 
-  * **Validation Label Images**: A folder that contains the semantic label (single-channel) images for validation. Ensure the number and dimensions match the training raw images.
+  * **Validation Label Images**: A folder that contains the semantic label (single-channel) images for validation. Ensure the number and dimensions match the validation raw images.
   
     .. collapse:: Expand to see how to configure
 
