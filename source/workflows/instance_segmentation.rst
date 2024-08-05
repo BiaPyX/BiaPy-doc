@@ -182,7 +182,7 @@ Upon successful execution, a directory will be generated with the segmentation r
   * - .. figure:: ../img/Inputs-outputs.svg
          :align: center
          :width: 500
-         :alt: Graphical description of minimal inputs and outputs in BiaPy for semantic segmentation.
+         :alt: Graphical description of minimal inputs and outputs in BiaPy for instance segmentation.
         
          **BiaPy input and output folders for instance segmentation.**
   
