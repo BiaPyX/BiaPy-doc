@@ -1,4 +1,4 @@
-classification
+Classification
 --------------
 
 .. toctree::
