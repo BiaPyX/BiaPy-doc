@@ -145,7 +145,7 @@ The instance segmentation workflows in BiaPy expect a series of **folders** as i
 
       .. tab:: YAML configuration file
         
-        Edit the variable ``DATA.TEST._GT_PATH`` with the absolute path to the folder with your test label images.
+        Edit the variable ``DATA.TEST.GT_PATH`` with the absolute path to the folder with your test label images.
 
     .. note:: Remember the label images need to be **single-channel when performing instance segmentation only**, and **multi-channel in the instance and classification setting** (first channel for instance labels and second channel for semantic labels).
 
