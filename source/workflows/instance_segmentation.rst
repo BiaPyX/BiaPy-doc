@@ -8,6 +8,9 @@ Description of the task
 
 The goal of this workflow is assign a unique ID, i.e. an integer value, to each object of the **input image**, thus producing a **label image** with **instance** masks. An example of this task is displayed in the figure below, with an electron microscopy image used as input (left) and its corresponding instance label image identifying each invididual mitochondrion (rigth). Each color in the mask image corresponds to a unique object.
 
+.. role:: raw-html(raw)
+    :format: html
+
 .. list-table::
   :align: center
   :widths: 50 50
@@ -16,14 +19,14 @@ The goal of this workflow is assign a unique ID, i.e. an integer value, to each 
          :align: center
          :figwidth: 300px
 
-         Input image (electron microscopy, `MitoEM dataset <https://mitoem.grand-challenge.org/>`_).
+         Input image (electron microscopy, :raw-html:`<br />` from the `MitoEM dataset <https://mitoem.grand-challenge.org/>`_).
 
 
     - .. figure:: ../img/mitoem_crop_mask.png
          :align: center
          :figwidth: 300px
 
-         Label image with mitochondria instance masks.
+         Label image with mitochondria :raw-html:`<br />` instance masks.
          
 
 Each instance may also contain information about its **class** (optional). In that case, the label image will contain two channels, one with the instance IDs and one with their corresponding semantic (class) labels. An example of this setting is depicted below:
