@@ -355,6 +355,32 @@ Test ground-truth
 """""""""""""""""
 Do you have labels for the test set? This is a key question so BiaPy knows if your test set will be used for evaluation in new data (unseen during training) or simply produce predictions on that new data. All workflows contain a parameter to specify this aspect.
 
+.. collapse:: Expand to see how to configure
+
+  .. tabs::
+    .. tab:: GUI
+
+      Under *Workflow*, select *Semantic Segmentation*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the **Do you have test labels?** field:
+
+      .. image:: ../img/GUI-test-data.png
+        :align: center
+
+    .. tab:: Google Colab / Notebooks
+      
+      In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and select the **test_tround_truth** option:
+      
+      .. image:: ../img/semantic_seg/Notebooks-model-name-data-conf.png
+        :align: center
+        :width: 50%
+
+
+    .. tab:: YAML configuration file
+      
+      Set the variable ``DATA.TEST.LOAD_GT`` to ``True``.
+
+
+\
+
 Basic training parameters
 *************************
 At the core of each BiaPy workflow there is a deep learning model. Although we try to simplify the number of parameters to tune, these are the basic parameters that need to be defined for training a semantic segmentation workflow:
