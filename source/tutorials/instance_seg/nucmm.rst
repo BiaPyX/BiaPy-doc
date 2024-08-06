@@ -52,12 +52,12 @@ To create the YAML file you can use the template `3d_instance_segmentation.yaml 
 Run
 ~~~
 
-To run it via **command line** or **Docker** you can follow the same steps as decribed in :ref:`instance_segmentation_run`. 
+To run it via **command line** or **Docker** you can follow the same steps as decribed in the :ref:`instance_segmentation_data_run` section of the instance segmentation workflow documentation.
 
 Results
 ~~~~~~~
 
-The results follow same structure as explained in :ref:`instance_segmentation_results`. The results should be something like the following:
+The results follow same structure as explained in the :ref:`instance_segmentation_results` section of the instance segmentation workflow documentation. The results should be something like the following:
 
 
 The resulting instance segmentation should be something like this:

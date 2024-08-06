@@ -74,12 +74,12 @@ Then you need to modify ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` with your
 Run
 ~~~
 
-To run it via **command line** or **Docker** you can follow the same steps as decribed in :ref:`instance_segmentation_run`. 
+To run it via **command line** or **Docker** you can follow the same steps as decribed in the :ref:`instance_segmentation_data_run` section of the instance segmentation workflow documentation. 
 
 Results
 ~~~~~~~
 
-The results follow same structure as explained in :ref:`instance_segmentation_results`. The results should be something like the following:
+The results follow same structure as explained in the :ref:`instance_segmentation_results` section of the instance segmentation workflow documentation. The results should be something like the following:
 
 .. list-table::
   :align: center
