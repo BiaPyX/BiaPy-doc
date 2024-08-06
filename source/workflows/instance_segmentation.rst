@@ -160,7 +160,7 @@ Upon successful execution, a directory will be generated with the segmentation r
 
         Under *Run Workflow*, click on the *Browse* button of **Output folder to save the results**:
 
-        .. image:: ../img/GUI-run-instance-seg-workflow.png
+        .. image:: ../img/instance-seg/GUI-run-workflow.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
@@ -239,14 +239,14 @@ Also known as "model name" or "job name", this will be the name of the current e
 
         Under *Run Workflow*, type the name you want for the job in the **Job name** field:
 
-        .. image:: ../img/GUI-run-instance-seg-workflow.png
+        .. image:: ../img/instance-seg/GUI-run-workflow.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
         
         In either the 2D or the 3D instance segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **model_name**:
         
-        .. image:: ../img/Notebooks-ins-seg-model-name-data-conf.png
+        .. image:: ../img/instance-seg/Notebooks-model-name-data-conf.png
           :align: center
           :width: 50%
 
@@ -295,7 +295,7 @@ To define such set, there are two options:
           
           In either the 2D or the 3D instance segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **percentage_validation**:
           
-          .. image:: ../img/Notebooks-ins-seg-model-name-data-conf.png
+          .. image:: ../img/instance-seg/Notebooks-model-name-data-conf.png
             :align: center
             :width: 50%
 
@@ -367,7 +367,7 @@ Do you have labels for the test set? This is a key question so BiaPy knows if yo
       
       In either the 2D or the 3D instance segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and select the **test_tround_truth** option:
       
-      .. image:: ../img/Notebooks-ins-seg-model-name-data-conf.png
+      .. image:: ../img/instance-seg/Notebooks-model-name-data-conf.png
         :align: center
         :width: 50%
 
@@ -400,7 +400,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
             
             In either the 2D or the 3D instance segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **input_channels**:
             
-            .. image:: ../img/Notebooks-ins-seg-basic-training-params.png
+            .. image:: ../img/instance-seg/Notebooks-basic-training-params.png
               :align: center
               :width: 75%
 
@@ -425,7 +425,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
             
             In either the 2D or the 3D instance segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **number_of_epochs**:
             
-            .. image:: ../img/Notebooks-ins-seg-basic-training-params.png
+            .. image:: ../img/instance-seg/Notebooks-basic-training-params.png
               :align: center
               :width: 75%
 
@@ -450,7 +450,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
             
             In either the 2D or the 3D instance segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **patience**:
             
-            .. image:: ../img/Notebooks-ins-seg-basic-training-params.png
+            .. image:: ../img/instance-seg/Notebooks-basic-training-params.png
               :align: center
               :width: 75%
 
