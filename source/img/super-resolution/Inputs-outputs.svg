@@ -27,15 +27,15 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="3.0254534"
-     inkscape:cx="479.7628"
-     inkscape:cy="181.9562"
+     inkscape:zoom="1.0335515"
+     inkscape:cx="216.24466"
+     inkscape:cy="211.40697"
      inkscape:window-width="1470"
      inkscape:window-height="810"
      inkscape:window-x="0"
      inkscape:window-y="37"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g101153"
+     inkscape:current-layer="layer1"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1" />
   <defs
@@ -663,9 +663,9 @@
        xml:space="preserve"
        transform="matrix(0.26458322,-2.3514459e-4,2.3514459e-4,0.26458322,4.7581115,25.86628)"
        id="text11935-2"
-       style="font-style:normal;font-weight:normal;font-size:14.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect11937-1);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect11937-1);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="31.291016"
-         y="318.92775"
+         y="320.14416"
          id="tspan1">LR</tspan></text>
     <g
        id="g2638"
@@ -849,9 +849,9 @@
        xml:space="preserve"
        transform="matrix(0.26458332,5.1503772e-5,-5.1503772e-5,0.26458332,36.962198,25.913183)"
        id="text11935-2-6"
-       style="font-style:normal;font-weight:normal;font-size:14.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect11937-1-7);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect11937-1-7);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="31.291016"
-         y="318.92775"
+         y="320.14416"
          id="tspan2">HR</tspan></text>
     <text
        xml:space="preserve"
@@ -893,11 +893,11 @@
     </g>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458327,-1.6397672e-4,1.6397672e-4,0.26458327,91.634116,3.8060899)"
+       transform="matrix(0.26458327,-1.6397672e-4,1.6397672e-4,0.26458327,91.153884,3.8060899)"
        id="text11935-0"
-       style="font-style:normal;font-weight:normal;font-size:14.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect11937-7);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect11937-7);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="31.291016"
-         y="318.92775"
+         y="320.14416"
          id="tspan5">Test</tspan></text>
     <g
        id="g2433-6-1"
@@ -949,17 +949,17 @@
        xml:space="preserve"
        transform="matrix(0.26458322,-2.3514459e-4,2.3514459e-4,0.26458322,69.883843,25.86628)"
        id="text11935-2-2"
-       style="font-style:normal;font-weight:normal;font-size:14.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect11937-1-71);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect11937-1-71);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="31.291016"
-         y="318.92775"
+         y="320.14416"
          id="tspan6">LR</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458332,5.1503772e-5,-5.1503772e-5,0.26458332,102.08793,25.913183)"
        id="text11935-2-6-7"
-       style="font-style:normal;font-weight:normal;font-size:14.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect11937-1-7-7);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect11937-1-7-7);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="31.291016"
-         y="318.92775"
+         y="320.14416"
          id="tspan7">HR</tspan></text>
     <text
        xml:space="preserve"
@@ -1329,13 +1329,13 @@
       </g>
       <text
          xml:space="preserve"
-         transform="matrix(0.19357243,0,0,0.19357243,53.114704,24.867297)"
+         transform="matrix(0.19357243,0,0,0.19357243,51.978136,28.571466)"
          id="text96423"
-         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect96425);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
+         style="font-style:normal;font-weight:normal;font-size:21.8695px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect96425);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
            x="605.48633"
-           y="405.33696"
+           y="388.79596"
            id="tspan15"><tspan
-             style="font-size:18.6667px;fill:#333333"
+             style="fill:#333333"
              id="tspan14">Results</tspan></tspan></text>
     </g>
     <rect
