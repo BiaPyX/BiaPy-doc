@@ -90,7 +90,7 @@ Choose your installation method
 
         We have two containers prepared to run BiaPy, one for the actual NVIDIA driver versions and another container for old drivers: 
 
-            * ``biapyx/biapy:latest-11.8``: Ubuntu ``22.04`` SO with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``2.2.0`` installed supporting CUDA ``11.8`` (`container link <https://hub.docker.com/layers/biapyx/biapy/latest-11.8/images/sha256-86cf198ab05a953ba950bb96fb74b18045d2ed7318afb8fa9b212c97c41be904?context=repo>`__).
+            * ``biapyx/biapy:latest-11.8``: Ubuntu ``22.04`` SO with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``2.4.0`` installed supporting CUDA ``11.8`` (`container link <https://hub.docker.com/layers/biapyx/biapy/latest-11.8/images/sha256-86cf198ab05a953ba950bb96fb74b18045d2ed7318afb8fa9b212c97c41be904?context=repo>`__).
             * ``biapyx/biapy:latest-10.2``: Ubuntu ``20.04`` SO with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``1.12.1`` installed supporting CUDA ``10.2`` (`container link <https://hub.docker.com/layers/biapyx/biapy/latest-10.2/images/sha256-c437972cfe30909879085ffd1769666d11875f0ff239df3100fa04ea056d09ab?context=repo>`__).
 
         You need to check the CUDA version that you NVIDIA driver can handle. You can do that with ``nvidia-smi`` command in Linux/macOS or by running ``NVIDIA Control Panel`` in Windows. The driver information will tell you the maximum CUDA version it can handle. Select one of the above containers depending on your GPU driver. For instance, if the CUDA version it can handle is ``12.0`` you can use ``biapyx/biapy:latest-11.8`` container. 
@@ -168,19 +168,19 @@ Choose your installation method
 
                          :: 
 
-                              # Then install Pytorch 2.2.0 + CUDA 11.8
-                              pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu118 
+                              # Then install Pytorch 2.4.0 + CUDA 11.8
+                              pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu118 
                          
                     .. tab:: CPU only support
 
                          :: 
 
-                              # Then install Pytorch 2.2.0 + CUDA 11.8
-                              pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cpu 
+                              # Then install Pytorch 2.4.0 + CUDA 11.8
+                              pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cpu 
                               
                Ultimately, it is necessary to install additional dependencies that rely on the `Pytorch <https://pytorch.org/get-started/locally/>`__ installation; therefore, they must be installed last: ::
 
-                    pip install timm torchmetrics pytorch-msssim
+                    pip install timm pytorch-msssim torchmetrics[image]
 
                .. note:: 
 
@@ -224,7 +224,7 @@ Choose your installation method
 
                * Install BiaPy Dependencies: ::
                     
-                    mamba install pytz asciitree tzdata typer tqdm torchinfo tifffile threadpoolctl six Shapely scipy ruamel.yaml.clib pyparsing protobuf numcodecs marshmallow lazy_loader kiwisolver joblib imageio h5py fonttools fastremap fasteners cycler contourpy zarr=2.16.1 scikit-learn=1.4.0 scikit-image=0.21.0 ruamel.yaml python-dateutil pydot=1.4.2 marshmallow-union marshmallow-jsonschema pandas matplotlib bioimageio.spec=0.4.9 xarray imgaug bioimageio.core=0.5.9
+                    mamba install pytz asciitree tzdata typer tqdm torchinfo tifffile threadpoolctl six Shapely scipy ruamel.yaml.clib pyparsing protobuf numcodecs lazy_loader kiwisolver joblib h5py fonttools fastremap fasteners cycler contourpy zarr=2.16.1 scikit-learn=1.4.0 scikit-image ruamel.yaml python-dateutil pydot=1.4.2 pandas matplotlib bioimageio.spec=0.4.9 xarray imgaug bioimageio.core=0.6.7
 
                * Install packages not available on conda-forge, so install it via pip: ::
                     
@@ -263,9 +263,9 @@ Choose your installation method
                               cd BiaPy
                               pip install --editable .
 
-                              # Install Pytorch 2.2.0 + CUDA 11.8
-                              pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu118 
-                              pip install timm torchmetrics pytorch-msssim
+                              # Install Pytorch 2.4.0 + CUDA 11.8
+                              pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu118 
+                              pip install timm pytorch-msssim torchmetrics[image]
 
                     .. tab:: CUDA 10.2
 
@@ -276,7 +276,7 @@ Choose your installation method
 
                               # Install Pytorch 1.12.1 + CUDA 10.2  
                               conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=10.2 -c pytorch
-                              pip install timm torchmetrics pytorch-msssim
+                              pip install timm pytorch-msssim torchmetrics[image]
 
 
      \ 
@@ -284,7 +284,7 @@ Choose your installation method
      Verify installation: ::
 
           python -c 'import torch; print(torch.__version__)'
-          >>> 2.2.0
+          >>> 2.4.0
           python -c 'import torch; print(torch.cuda.is_available())'
           >>> True
           
