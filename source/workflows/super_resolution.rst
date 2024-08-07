@@ -6,19 +6,13 @@ Super-resolution
 Description of the task
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-The goal of this workflow aims at reconstructing high-resolution (HR) images from low-resolution (LR) ones. If there is a difference in the size of the LR and HR, typically determined by a scale factor (x2, x4), this task is usually known as **single-image super-resolution**. It the size of the LR and HR images is the same, this task is usually referred to as **image restoration**.
+The goal of this workflow aims at reconstructing high-resolution (HR) images from low-resolution (LR) ones. If there is a difference in the size of the LR and HR images, typically determined by a scale factor (x2, x4), this task is known as **single-image super-resolution**. If the size of the LR and HR images is the same, this task is usually referred to as **image restoration**.
 
+An example of this task is displayed in the figure below, with a LR fluorescence microscopy image used as input (left) and its corresponding HR image (x2 scale factor).
 
+.. role:: raw-html(raw)
+    :format: html
 
-* **Input:** 
-    
-  * LR image (single-channel or multi-channel). E.g. image with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``.  
-
-* **Output:**
-
-  * HR image. 
-
-In the figure below an example of this workflow's **input** is depicted to make a ``x2`` upsampling. The images were obtained from `ZeroCostDL4Mic <https://github.com/HenriquesLab/ZeroCostDL4Mic>`__ project:
 
 .. list-table:: 
   :align: center
@@ -27,16 +21,161 @@ In the figure below an example of this workflow's **input** is depicted to make 
   * - .. figure:: ../img/LR_sr.png
          :align: center
          :width: 300px
-
-         Input LR image.
+         
+         LR fluorescence image from the :raw-html:`<br />` `F-actin dataset by Qiao et al <https://figshare.com/articles/dataset/BioSR/13264793>`_.
 
     - .. figure:: ../img/HR_sr.png
          :align: center
          :width: 300px
 
-         Input HR image.
+         Corresponding HR image :raw-html:`<br />` at x2 resolution.
 
-Notice that the LR image has been resized but actually that is ``502x502`` whereas the HR is ``1004x1004``. 
+Notice that the LR image has been resized but its actual size is 502x502 pixels, whereas the size of its HR counterpart is 1004x1004. 
+
+Inputs and outputs
+~~~~~~~~~~~~~~~~~~
+The super-resolution workflows in BiaPy expect a series of **folders** as input:
+
+* **Training LR Images**: A folder that contains the LR (single-channel or multi-channel) images that will be used to train the model.
+  
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Super-resolution*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
+
+        .. image:: ../img/GUI-general-options.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D super-resolution notebook, go to *Paths for Input Images and Output Files*, edit the field **train_lr_data_path**:
+        
+        .. image:: ../img/super-resolution/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TRAIN.PATH`` with the absolute path to the folder with your training raw images.
+
+
+
+* **Training HR Images**: A folder that contains the HR (single- or multi-channel) images for training. Ensure their number match that of the training LR images.
+  
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Super-resolution*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input label folder**:
+
+        .. image:: ../img/GUI-general-options.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D super-resolution notebook, go to *Paths for Input Images and Output Files*, edit the field **train_hr_data_path**:
+        
+        .. image:: ../img/super-resolution/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TRAIN.GT_PATH`` with the absolute path to the folder with your training HR images.
+
+* .. raw:: html
+
+      <b><span style="color: darkgreen;">[Optional]</span> Test LR Images</b>: A folder that contains the images to evaluate the model's performance.
+ 
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Super-resolution*, three times *Continue*, under *General options* > *Test data*, click on the *Browse* button of **Input raw image folder**:
+
+        .. image:: ../img/GUI-test-data.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D super-resolution notebook, go to *Paths for Input Images and Output Files*, edit the field **test_lr_data_path**:
+        
+        .. image:: ../img/super-resolution/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TEST.PATH`` with the absolute path to the folder with your test LR images.
+
+* .. raw:: html
+
+      <b><span style="color: darkgreen;">[Optional]</span> Test HR Images</b>: A folder that contains the HR images for testing. Again, ensure their count and sizes align with the test raw images.
+
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Super-resolution*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the *Do you have test labels?* field, and then click on the *Browse* button of **Input label folder**:
+
+        .. image:: ../img/GUI-test-data-gt.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D super-resolution notebook, go to *Paths for Input Images and Output Files*, edit the field **test_hr_data_path**:
+        
+        .. image:: ../img/super-resolution/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TEST.GT_PATH`` with the absolute path to the folder with your test HR images.
+
+Upon successful execution, a directory will be generated with the segmentation results. Therefore, you will need to define:
+
+* **Output Folder**: A designated path to save the segmentation outcomes.
+
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Run Workflow*, click on the *Browse* button of **Output folder to save the results**:
+
+        .. image:: ../img/super-resolution/GUI-run-workflow.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D super-resolution/ notebook, go to *Paths for Input Images and Output Files*, edit the field **output_path**:
+        
+        .. image:: ../img/super-resolution/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: Command line
+        
+        When calling BiaPy from command line, you can specify the output folder with the ``--result_dir`` flag. See the *Command line* configuration of :ref:`super_resolution_data_run` for a full example.
+
+
+.. list-table::
+  :align: center
+
+  * - .. figure:: ../img/super-resolution/Inputs-outputs.svg
+         :align: center
+         :width: 500
+         :alt: Graphical description of minimal inputs and outputs in BiaPy for super-resolution.
+        
+         **BiaPy input and output folders for super-resolution.**
+  
+
 
 .. _super_resolution_data_prep:
 
