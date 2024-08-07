@@ -45,7 +45,7 @@ The super-resolution workflows in BiaPy expect a series of **folders** as input:
 
         Under *Workflow*, select *Super-resolution*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
 
-        .. image:: ../img/GUI-general-options.png
+        .. image:: ../img/super-resolution/GUI-general-options.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
@@ -69,9 +69,9 @@ The super-resolution workflows in BiaPy expect a series of **folders** as input:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Super-resolution*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input label folder**:
+        Under *Workflow*, select *Super-resolution*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input high-resolution image folder**:
 
-        .. image:: ../img/GUI-general-options.png
+        .. image:: ../img/super-resolution/GUI-general-options.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
@@ -97,7 +97,7 @@ The super-resolution workflows in BiaPy expect a series of **folders** as input:
 
         Under *Workflow*, select *Super-resolution*, three times *Continue*, under *General options* > *Test data*, click on the *Browse* button of **Input raw image folder**:
 
-        .. image:: ../img/GUI-test-data.png
+        .. image:: ../img/super-resolution/GUI-test-data.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
@@ -121,9 +121,9 @@ The super-resolution workflows in BiaPy expect a series of **folders** as input:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Super-resolution*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the *Do you have test labels?* field, and then click on the *Browse* button of **Input label folder**:
+        Under *Workflow*, select *Super-resolution*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the *Do you have high-resolution test data?* field, and then click on the *Browse* button of **Input high-resolution image folder**:
 
-        .. image:: ../img/GUI-test-data-gt.png
+        .. image:: ../img/super-resolution/GUI-test-data-gt.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
