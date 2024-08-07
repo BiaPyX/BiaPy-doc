@@ -124,7 +124,7 @@ The detection workflows in BiaPy expect a series of **folders** as input:
 
         Under *Workflow*, select *Object detection*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the *Do you have CSV files for test data?* field, and then click on the *Browse* button of **Input CSV folder**:
 
-        .. image:: ../img/GUI-test-data-gt.png
+        .. image:: ../img/detection/GUI-test-data-gt.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
