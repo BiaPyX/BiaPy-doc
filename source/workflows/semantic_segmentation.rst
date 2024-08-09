@@ -367,7 +367,7 @@ Do you have labels for the test set? This is a key question so BiaPy knows if yo
 
     .. tab:: Google Colab / Notebooks
       
-      In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and select the **test_tround_truth** option:
+      In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and select the **test_ground_truth** option:
       
       .. image:: ../img/semantic_seg/Notebooks-model-name-data-conf.png
         :align: center

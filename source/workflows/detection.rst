@@ -385,7 +385,7 @@ Do you have annotations (CSV files with the object coordinates) for the test set
 
     .. tab:: Google Colab / Notebooks
       
-      In either the 2D or the 3D detection notebook, go to *Configure and train the DNN model* > *Select your parameters*, and select the **test_tround_truth** option:
+      In either the 2D or the 3D detection notebook, go to *Configure and train the DNN model* > *Select your parameters*, and select the **test_ground_truth** option:
       
       .. image:: ../img/detection/Notebooks-model-name-data-conf.png
         :align: center
