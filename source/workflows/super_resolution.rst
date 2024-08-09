@@ -6,7 +6,7 @@ Super-resolution
 Description of the task
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-The goal of this workflow aims at reconstructing high-resolution (HR) images from low-resolution (LR) ones. If there is a difference in the size of the LR and HR images, typically determined by a scale factor (x2, x4), this task is known as **single-image super-resolution**. If the size of the LR and HR images is the same, this task is usually referred to as **image restoration**.
+The goal of this workflow is to reconstruct high-resolution (HR) images from low-resolution (LR) ones. If there is a difference in the size of the LR and HR images, typically determined by a scale factor (x2, x4), this task is known as **single-image super-resolution**. If the size of the LR and HR images is the same, this task is usually referred to as **image restoration**.
 
 An example of this task is displayed in the figure below, with a LR fluorescence microscopy image used as input (left) and its corresponding HR image (x2 scale factor).
 
