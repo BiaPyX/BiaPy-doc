@@ -182,7 +182,7 @@ Upon successful execution, a directory will be generated with the segmentation r
 Data structure
 **************
 
-To ensure the proper operation of the library the data directory tree should be something like this: 
+To ensure the proper operation of the workflow, the directory tree should be something like this: 
 
 
 
