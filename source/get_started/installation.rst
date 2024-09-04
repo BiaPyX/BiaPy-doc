@@ -220,7 +220,7 @@ Choose your installation method
 
                * Then, add extra pytorch related packages: ::
 
-                    mamba timm torchmetrics
+                    mamba install timm torchmetrics
 
                * Install BiaPy Dependencies: ::
                     
