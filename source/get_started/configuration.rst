@@ -54,25 +54,57 @@ To specify whether the data is ``2D`` or ``3D``, use the ``PROBLEM.NDIM`` option
 Data management
 ~~~~~~~~~~~~~~~
 
-The ``DATA.PATCH_SIZE`` variable is used to specify the shape of the images that will be used in the workflow. The order of the dimensions for ``2D`` images is ``(y,x,c)`` and for ``3D`` images it is ``(z,y,x,c)``.
+The ``DATA.PATCH_SIZE`` variable is used to specify the shape of the images that will be used in the workflow. The order of the dimensions for ``2D`` images is ``(y,x,c)`` and for ``3D`` images it is ``(z,y,x,c)``. To ensure all images have a minimum size of ``DATA.PATCH_SIZE`` you can use ``DATA.REFLECT_TO_COMPLETE_SHAPE`` to ``True`` and those images smaller in any dimension will be padded with reflect. 
 
-The paths for the training data are set using the ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` variables (if necessary, depending on the specific workflow). Similarly, the paths for the validation data can be set using ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH`` unless ``DATA.VAL.FROM_TRAIN`` is set, in which case these variables do not need to be defined. For test data, the ``DATA.TEST.PATH`` variable should be set if ``TEST.ENABLE`` is ``True``. However, ``DATA.TEST.GT_PATH`` is not used when ``DATA.TEST.LOAD_GT`` is disabled, as there is usually no ground truth for test data.
+.. tabs::
 
-There are two ways to handle the data during the workflow: 1) loading all images into memory at once, or 2) loading each image individually as it is needed. This behavior can be set for the training, validation, and test data using the ``DATA.TRAIN.IN_MEMORY``, ``DATA.VAL.IN_MEMORY``, and ``DATA.TEST.IN_MEMORY`` variables, respectively.
+  .. tab:: Train data
 
-When loading training data into memory, i.e. setting ``DATA.TRAIN.IN_MEMORY`` to ``True``, all the images will be loaded into memory only once. During this process, each image will be divided into patches of size ``DATA.PATCH_SIZE`` using ``DATA.TRAIN.OVERLAP`` and ``DATA.TRAIN.PADDING``. By default, the minimum overlap is used, and the patches will always cover the entire image. In this configuration, the validation data can be created from the training data by setting ``DATA.VAL.SPLIT_TRAIN`` to the desired percentage of the training data to be used as validation. For this, ``DATA.VAL.FROM_TRAIN`` and ``DATA.VAL.IN_MEMORY`` must be set to ``True``. In general, loading training data in memory is the fastest approach, but it relies on having enough memory available on the computer.
+        The paths for the training data are set using the ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` variables. 
 
-Alternatively, when data is not loaded into memory, i.e. ``DATA.TRAIN.IN_MEMORY`` is set to False, a number of images equal to ``TRAIN.BATCH_SIZE`` will be loaded from the disk for each training epoch. If an image does not match the selected shape, i.e. ``DATA.PATCH_SIZE``, you can use ``DATA.EXTRACT_RANDOM_PATCH`` to extract a random patch from the image. As this approach requires loading each image multiple times, it is slower than the first approach but it saves memory.
+        There are two ways to work with the training data:
 
-In the case of test data, even if ``DATA.TEST.IN_MEMORY`` is selected or not, each image is cropped to ``DATA.PATCH_SIZE`` using ``DATA.TEST.OVERLAP`` and ``DATA.TEST.PADDING``. Minimum overlap is made by default and the patches always cover the entire image. If ground truth is available you can set ``DATA.TEST.LOAD_GT`` to load it and measure the performance of the model. The metrics used depends on the workflow selected. 
+        * In the default setting, each image is divided into patches of size ``DATA.PATCH_SIZE`` using ``DATA.TRAIN.OVERLAP`` and ``DATA.TRAIN.PADDING``. By default, the minimum overlap is used, and the patches will always cover the entire image. On each epoch all these patches are visited. 
+
+        * A random patch (of ``DATA.PATCH_SIZE`` size) from each image can be extracted if ``DATA.EXTRACT_RANDOM_PATCH`` is ``True``. This way, each epoch will only visit a patch within each training image, so it will be faster (but the amount of data seen by the network will be reduced too).
+
+        The training data can be loaded into memory using ``DATA.TRAIN.IN_MEMORY`` to ``True``. In general, loading the data in memory is the fastest approach, but it relies on having enough memory available on the computer.
+
+  .. tab:: Validation data
+        
+        There are two options to create the validation data:
+          
+        * Extract validation data from the training, where ``DATA.VAL.FROM_TRAIN`` must be set to ``True``. There are two options for doing it:
+        
+        .. tabs::
+
+          .. tab:: Percentage split
+
+                Create validation from the training data by setting ``DATA.VAL.SPLIT_TRAIN`` to the desired percentage of the training data to be used as validation.
+          
+          .. tab:: Cross validation      
+                
+                `Cross validation strategy <https://en.wikipedia.org/wiki/Cross-validation_(statistics)#:~:text=Cross%2Dvalidation%20includes%20resampling%20and,model%20will%20perform%20in%20practice.>`__ by setting ``DATA.VAL.CROSS_VAL`` to ``True``. Use ``DATA.VAL.CROSS_VAL_NFOLD`` to set the number of folds and ``DATA.VAL.CROSS_VAL`` to set the number of the fold to choose as validation.
+
+        * Create it by setting ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH`` so the images and target can be read from the defined folders. For this, ``DATA.VAL.FROM_TRAIN`` must be set to ``False``. In this settings, as with the training data, two options are available:
+
+          * Each image is divided into patches of size ``DATA.PATCH_SIZE`` using ``DATA.VAL.OVERLAP`` and ``DATA.VAL.PADDING``. By default, the minimum overlap is used, and the patches will always cover the entire image. On each epoch all these patches are visited. 
+
+          * A fixed patch, starting from the origin (0,0), of ``DATA.PATCH_SIZE`` size will be extracted from each image if ``DATA.EXTRACT_RANDOM_PATCH`` is ``True``. This way, each epoch will only visit a patch within each validation image, so it will be faster (but the amount of data seen by the network will be reduced too). 
+
+        The validation data can be loaded into memory using ``DATA.VAL.IN_MEMORY`` to ``True``. In general, loading the data in memory is the fastest approach, but it relies on having enough memory available on the computer.
+
+  .. tab:: Test data
+        
+        The paths for the test data are set using the ``DATA.TEST.PATH`` and ``DATA.TEST.GT_PATH`` variables. If this last is present and ``DATA.TEST.LOAD_GT`` is ``True`` the model prediction will be compared with this target/ground truth and some metrics calculated to evaluate the performance of the model. 
+
+        For more information regarding the test data management go to :ref:`config_test`.
+
+For all data types (training, validation, and test), the parameters ``DATA.TRAIN.FILTER_SAMPLES``, ``DATA.VAL.FILTER_SAMPLES``, and ``DATA.TEST.FILTER_SAMPLES`` can be used to specify which samples should be included. In each case, the option ``DATA.*.FILTER_SAMPLES.ENABLE`` must be set to ``True``. After enabling, you need to configure ``DATA.*.FILTER_SAMPLES.PROPS``, ``DATA.*.FILTER_SAMPLES.VALUES``, and ``DATA.*.FILTER_SAMPLES.SIGNS`` to define the filtering criteria. Currently, the available properties for filtering are: ``'foreground'``, ``'mean'``, ``'min'``, and ``'max'``. The ``DATA.FILTER_BY_IMAGE`` parameter determines how the filtering is applied: if set to ``True``, the entire image is processed (this is always the case if ``DATA.EXTRACT_RANDOM_PATCH`` is ``True``); if set to ``False``, the filtering is performed on a patch-by-patch basis.
 
 .. seealso::
 
-    In general, in test phase, if for some reason the images loaded are smaller than the given patch size, i.e. ``DATA.PATCH_SIZE``, there will be no option to extract a patch from it. For that purpose the variable ``DATA.REFLECT_TO_COMPLETE_SHAPE`` was created so the image can be reshaped in those dimensions to complete ``DATA.PATCH_SIZE`` shape when needed.  
-
-.. seealso::
-
-    Set ``DATA.TRAIN.RESOLUTION`` and ``DATA.TEST.RESOLUTION`` to let the model know the resolution of training and test data respectively. In training, that information will be taken into account for some data augmentations. In test, that information will be used when the user selects to remove points from predictions in detection workflow. 
+    For test data, even if ``DATA.FILTER_BY_IMAGE`` is set to ``False``, indicating that filtering will be applied on a patch-by-patch basis, no patches are discarded to ensure the complete image can be reconstructed. These patches are flagged and are not processed by the model, resulting in a black patch prediction.
 
 .. _data_norm:
 
@@ -81,10 +113,11 @@ Data normalization
 
 Previous to normalization, you can choose to do a percentile clipping to remove outliers (by setting ``DATA.NORMALIZATION.PERC_CLIP`` to ``True``). Lower and upper bound for percentile clip are set with  ``DATA.NORMALIZATION.PERC_LOWER`` and ``DATA.NORMALIZATION.PERC_UPPER`` respectively. 
 
-A few options are available for normalizing the data:
+The data normalization type is controlled by ``DATA.NORMALIZATION.TYPE`` and a few options are available:
 
-* Adjusting it to the ``[0-1]`` range, which is the default option. This can be done by setting ``DATA.NORMALIZATION.TYPE`` to ``div``.
-* Custom normalization using a specified mean (``DATA.NORMALIZATION.CUSTOM_MEAN``) and standard deviation (``DATA.NORMALIZATION.CUSTOM_STD``). This can be done by setting ``DATA.NORMALIZATION.TYPE`` to ``custom``. If the mean and standard deviation are both set to ``-1``, which is the default, they will be calculated based on the training data. These values will be stored in the job's folder to be used at the inference phase, so that the test images are normalized using the same values. If specific values for mean and standard deviation are provided, those values will be used for normalization.
+* ``'div'`` (default): normalizes the data to ``[0-1]`` range. The division is done using the maximum value of the data type. i.e. 255 for uint8 or 65535 if uint16.
+* ``'custom'``: custom normalization using a specified mean (``DATA.NORMALIZATION.CUSTOM_MEAN``) and standard deviation (``DATA.NORMALIZATION.CUSTOM_STD``). If the mean and standard deviation are both set to ``-1``, which is the default, they will be calculated based on the training data. These values will be stored in the job's folder to be used at the inference phase, so that the test images are normalized using the same values. If specific values for mean and standard deviation are provided, those values will be used for normalization.
+* ``'scale_range'``: normalizes the data to ``[0-1]`` range but, instead of dividing by the maximum value of the data type as in ``'div'``, it divides by the maximum value of each image.
 
 Pre-processing
 ~~~~~~~~~~~~~~
@@ -101,6 +134,11 @@ There are a few pre-processing functions  (controlled by ``DATA.PREPROCESS``) th
 
 * **Canny** (controlled by ``DATA.PREPROCESS.CANNY``): to apply `Canny <https://en.wikipedia.org/wiki/Canny_edge_detector>`__ or edge detection (only for ``2D`` images, grayscale or RGB).
 
+Check out our pre-processing notebook showcasing all these transformations that can be applied to the data: |preprocessing_notebook_colablink|
+
+.. |preprocessing_notebook_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+    :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/Data_Preprocessing.ipynb
+    
 Data augmentation
 ~~~~~~~~~~~~~~~~~
 
@@ -115,9 +153,9 @@ BiaPy offers three different backends to be used to choose a model (controlled b
 
 - ``biapy``, which uses BiaPy as the backend for the model definition. Use ``MODEL.ARCHITECTURE`` to select the model. Different models for each workflow are implemented:
 
-  * Semantic segmentation: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet``, ``multiresunet`` and ``unetr``. 
+  * Semantic segmentation: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet``, ``resunet_se``, ``unext_v1``, ``multiresunet`` and ``unetr``. 
 
-  * Instance segmentation: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet``, ``multiresunet`` and ``unetr``. 
+  * Instance segmentation: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet``, ``resunet_se``, ``unext_v1``, ``multiresunet`` and ``unetr``. 
 
   * Detection: ``unet``, ``resunet``, ``resunet++``, ``attention_unet`` and ``seunet``.
 
@@ -125,13 +163,15 @@ BiaPy offers three different backends to be used to choose a model (controlled b
 
   * Super-resolution: ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet`` and ``multiresunet``. 
 
-  * Self-supervision: ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet``, ``multiresunet``, ``unetr``, ``vit`` and ``mae``.
+  * Self-supervision: ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet``, ``resunet_se``, ``unext_v1``, ``multiresunet``, ``unetr``, ``vit`` and ``mae``.
 
   * Classification: ``simple_cnn``, ``efficientnet_b0``, ``efficientnet_b1``, ``efficientnet_b2``, ``efficientnet_b3``, ``efficientnet_b4``, ``efficientnet_b5``, ``efficientnet_b6``, ``efficientnet_b7``, ``vit``. 
 
-  For ``unet``, ``resunet``, ``resunet++``, ``attention_unet`` and ``seunet`` architectures you can set ``MODEL.FEATURE_MAPS`` to determine the feature maps to use on each network level. In the same way, ``MODEL.DROPOUT_VALUES`` can be set for each level in those networks. For ``unetr`` and ``vit`` networks only the first value of those variables will be taken into account.
+  * Image to image: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet``, ``resunet_se``, ``unext_v1``, ``multiresunet``,  ``unetr``, ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet`` and ``multiresunet``. 
 
-  The ``MODEL.BATCH_NORMALIZATION`` variable can be used to enable batch normalization on the ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet`` and ``unetr`` models. For the ``3D`` versions of these networks (except for ``unetr``), the ``MODEL.Z_DOWN`` option can also be used to avoid downsampling in the z-axis, which is typically beneficial for anisotropic data.
+  For ``unet``, ``resunet``, ``resunet++``, ``resunet_se``, ``attention_unet`` and ``seunet`` architectures you can set ``MODEL.FEATURE_MAPS`` to determine the feature maps to use on each network level. In the same way, ``MODEL.DROPOUT_VALUES`` can be set for each level in those networks. For ``unetr`` and ``vit`` networks only the first value of those variables will be taken into account.
+
+  The ``MODEL.BATCH_NORMALIZATION`` variable can be used to enable batch normalization on the ``unet``, ``resunet``, ``resunet++``, ``resunet_se``, ``attention_unet``, ``seunet`` and ``unetr`` models. For the ``3D`` versions of these networks (except for ``unetr``), the ``MODEL.Z_DOWN`` option can also be used to avoid downsampling in the z-axis, which is typically beneficial for anisotropic data.
 
   The ``MODEL.N_CLASSES`` variable can be used to specify the number of classes for the classification problem, excluding the background class (labeled as ``0``). If the number of classes is set to ``1`` or ``2``, the problem is considered binary, and the behavior is the same. For more than ``2`` classes, the problem is considered multi-class, and the output of the models will have the corresponding number of channels.
 
@@ -163,6 +203,54 @@ To activate the training phase, set the ``TRAIN.ENABLE`` variable to ``True``. T
 Additionally, you need to specify how many images will be fed into the network at the same time using the ``TRAIN.BATCH_SIZE`` variable. For example, if you have ``100`` training samples and you select a batch size of ``6``, this means that ``17`` batches (``100/6 = 16.6``) are needed to input all the training data to the network, after which one epoch is completed.
 
 To train the network, you need to specify the number of epochs using the ``TRAIN.EPOCHS`` variable. You can also set the patience using ``TRAIN.PATIENCE``, which will stop the training process if no improvement is made on the validation data for that number of epochs.
+
+.. seealso::
+
+    Set ``DATA.TRAIN.RESOLUTION`` to let the model know the resolution of training data. This information will be taken into account for some data augmentations.
+
+Loss types 
+~~~~~~~~~~
+
+Different loss functions can be set depending on the workflow: 
+
+* Semantic segmentation:
+
+    * ``"CE"`` (default): `Cross entropy loss <https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html>`__. 
+    * ``"DICE"``: `Dice loss <https://www.kaggle.com/code/bigironsphere/loss-function-library-keras-pytorch>`__.
+    * ``"W_CE_DICE"``: ``CE`` and ``Dice`` (with a weight term on each one that must sum ``1``). With ``LOSS.WEIGHTS`` the weights for each of the losses can be configured. `Reference link <https://www.kaggle.com/code/bigironsphere/loss-function-library-keras-pytorch>`__.
+
+* Instance segmentation: automatically set depending on the channels selected (``PROBLEM.INSTANCE_SEG.DATA_CHANNELS``). There is no need to set it.
+
+* Detection:
+
+    * ``"CE"`` (default): `Cross entropy loss <https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html>`__.
+    * ``"DICE"``: `Dice loss <https://www.kaggle.com/code/bigironsphere/loss-function-library-keras-pytorch>`__.
+    * ``"W_CE_DICE"``: ``CE`` and ``Dice`` (with a weight term on each one that must sum ``1``). With ``LOSS.WEIGHTS`` the weights for each of the losses can be configured. `Reference link <https://www.kaggle.com/code/bigironsphere/loss-function-library-keras-pytorch>`__. 
+
+* Denoising:
+
+    * ``"MSE"`` (default): `Mean Square Error <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__. 
+
+* Super-resolution:
+
+    * ``"MAE"`` (default): `Mean Absolute Error <https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html#torch.nn.L1Loss>`__. 
+    * ``"MSE"``: `Mean Square Error <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__. 
+
+* Self-supervision. These losses can only be set when ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK`` is ``"crappify"``. Otherwise it will be automatically set to ``"MSE"``, i.e when ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK`` is ``"masking"``. The options are:
+
+    * ``"MAE"`` (default): `Mean Absolute Error <https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html#torch.nn.L1Loss>`__.
+    * ``"MSE"``: `Mean Square Error <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__. 
+
+* Classification:
+
+    * ``"CE"`` (default): `Cross entropy loss <https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html>`__.
+
+* Image to image:
+
+    * ``"MAE"`` (default): `Mean Absolute Error <https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html#torch.nn.L1Loss>`__.
+    * ``"MSE"``: `Mean Square Error <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__. 
+
+``LOSS.CLASS_REBALANCE`` can be used to adjust the loss function based on the imbalance between classes. This can be used when ``LOSS.TYPE`` is ``"CE"`` detection and semantic segmentation, or if using ``'B'``, ``'C'``, ``'M'``, ``'P'`` or ``'A'`` channels in instance segmentation workflow, as those are are binary channels.
 
 .. _config_test:
 
@@ -205,21 +293,45 @@ To initiate the testing phase, also referred to as inference or prediction, one 
 Metric measurement
 ~~~~~~~~~~~~~~~~~~
 
-We can divide the metrics in two types:
+You can configure the metrics to be measured during train and test with ``TRAIN.METRICS`` and ``TEST.METRICS`` variables, respectively. Each workflow have different type of metrics that can be configured. If empty, some default metrics will be configured automatically.
 
-* Ones calculated in all the workflows that return probabilities from their models, e.g. semantic/instance segmentation and detection. Currently, it is measured the **Intersection over Union** (IoU).
+During training these ones can be applied (all of them on each case are set by default):
 
-* Workflow-specific metrics tailored for the task at hand.
+* Semantic segmentation: ``"iou"`` (called also Jaccard index).
+* Instance segmentation: automatically set depending on the channels selected (``PROBLEM.INSTANCE_SEG.DATA_CHANNELS``).
+* Detection: ``"iou"`` (called also Jaccard index).
+* Denoising: ``"mae"``, ``"mse"``.
+* Super-resolution: ``"psnr"``, ``"mae"``, ``"mse"``, ``"ssim"``.
+* Self-supervision: ``"psnr"``, ``"mae"``, ``"mse"``, ``"ssim"``.
+* Classification: ``'accuracy'``, ``"top-5-accuracy"``.
+* Image to image: ``"psnr"``, ``"mae"``, ``"mse"``, ``"ssim"``.
+
+During test these ones can be applied (all of them on each case are set by default):
+
+* Semantic segmentation: ``"iou"`` (called also Jaccard index).
+* Instance segmentation: automatically set depending on the channels selected (``PROBLEM.INSTANCE_SEG.DATA_CHANNELS``). Instance metrics will be always calculated.
+* Detection: ``"iou"`` (called also Jaccard index).
+* Denoising: ``"mae"``, ``"mse"``.
+* Super-resolution: ``"psnr"``, ``"mae"``, ``"mse"``, ``"ssim"``. Additionally, if only if ``PROBLEM.NDIM`` is ``'2D'``, these can also be selected: ``"fid"``, ``"is"``, ``"lpips"``.
+* Self-supervision: ``"psnr"``, ``"mae"``, ``"mse"``, ``"ssim"``. Additionally, if only if ``PROBLEM.NDIM`` is ``'2D'``, these can also be selected: ``"fid"``, ``"is"``, ``"lpips"``.
+* Classification: ``'accuracy'``, ``"top-5-accuracy"``.
+* Image to image: ``"psnr"``, ``"mae"``, ``"mse"``, ``"ssim"``. Additionally, if only if ``PROBLEM.NDIM`` is ``'2D'``, these can also be selected: ``"fid"``, ``"is"``, ``"lpips"``.
+
 
 Post-processing
 ~~~~~~~~~~~~~~~
 
 BiaPy is equipped with several post-processing methods that are primarily applied in two distinct stages:
 
-1. After the network's prediction. These post-processing methods are common among workflows that return probabilities from their models, e.g. semantic/instance segmentation and detection. These post-processing methods aim to improve the resulting probabilities. Currently, these post-processing methods are only avaialable for ``3D`` images (e.g. ``PROBLEM.NDIM`` is ``2D`` or ``TEST.ANALIZE_2D_IMGS_AS_3D_STACK`` is ``True``):
+1. After the network's prediction. These post-processing methods are common among workflows that return probabilities from their models, e.g. semantic/instance segmentation and detection. These post-processing methods aim to improve the resulting probabilities. Currently, these post-processing methods are only avaialable for ``3D`` images (e.g. ``PROBLEM.NDIM`` is ``3D`` or ``PROBLEM.NDIM`` is ``2D`` but ``TEST.ANALIZE_2D_IMGS_AS_3D_STACK`` is ``True``):
 
   * ``TEST.POST_PROCESSING.APPLY_MASK``: a binary mask is applied to remove anything not contained within the mask. For this, the ``DATA.TEST.BINARY_MASKS`` path needs to be set.
-  * ``TEST.POST_PROCESSING.Z_FILTERING``: Z-axis filtering is applied for ``3D`` data. Additionally, you can apply a YZ-axes filtering using ``TEST.POST_PROCESSING.YZ_FILTERING`` variable.
+  * ``TEST.POST_PROCESSING.MEDIAN_FILTER``: to apply a median filtering. This variable expects a list of median filters to apply. They are going to be applied in the list order. This can only be used in ``'SEMANTIC_SEG'``, ``'INSTANCE_SEG'`` and ``'DETECTION'`` workflows. There are multiple options to compose the list:
+
+    * ``'xy'`` or ``'yx'``: to apply the filter in x and y axes together.
+    * ``'zy'`` or ``'yz'``: to apply the filter in y and z axes together.
+    * ``'zx'`` or ``'xz'``: to apply the filter in x and z axes together.
+    * ``'z'``: to apply the filter only in z axis.
 
 2.  After each workflow main process is done there is another post-processing step on some of the workflows to achieve the final results, i.e. workflow-specific post-processing methods. Find a full description of each method inside the workflow description:
 
