@@ -9,7 +9,7 @@ In this section, the structure of BiaPy and the various steps involved in execut
 
 2. In the ``biapy/engine/check_configuration.py`` file, the checks for the workflow variables should be added.
 
-3. All the workflow extend the class Base_Workflow in ``biapy/engine/base_workflow.py``. 
+3. All the workflows extend the class ``Base_Workflow ``in ``biapy/engine/base_workflow.py``. 
 
 4. During training, all the steps that a workflow must follow are listed in the first lines of `train() <https://github.com/BiaPyX/BiaPy/blob/d3abc3069ce490c688e102e96064be7463eae511/biapy/engine/base_workflow.py#L474>`__ function.
 
