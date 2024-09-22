@@ -35,6 +35,7 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
    get_started/select_workflow
    get_started/faq
    get_started/contribute
+   get_started/cpu_vs_gpu
 
 .. toctree::
    :maxdepth: 1
