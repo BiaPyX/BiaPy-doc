@@ -33,6 +33,7 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
    get_started/how_it_works
    get_started/configuration
    get_started/select_workflow
+   get_started/bmz
    get_started/faq
    get_started/contribute
    get_started/cpu_vs_gpu

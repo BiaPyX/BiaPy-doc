@@ -54,6 +54,7 @@ extensions = [
     'sphinxcontrib.bibtex',
     'sphinx_tabs.tabs',
     'sphinx_toolbox.collapse',
+    "sphinx_carousel.carousel",
     'numpydoc'
 ]
 
