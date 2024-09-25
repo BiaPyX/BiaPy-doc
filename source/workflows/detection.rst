@@ -21,7 +21,7 @@ An example of this task is displayed in the figure below, with a fluorescence mi
          :align: center
          :figwidth: 300px
 
-         Input image (fluorescence microscopy, :raw-html:`<br />` by `Jukkala & Jacquemet <https://zenodo.org/records/3715492#.Y4m7FjPMJH6>`_ ).
+         Input image (fluorescence microscopy, :raw-html:`<br />` by `Jukkala & Jacquemet <https://zenodo.org/records/3715492#.Y4m7FjPMJH6>`_).
 
 
     - .. figure:: ../img/detection/detected-nuclei.png
