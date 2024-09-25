@@ -337,7 +337,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
         In the GUI of BiaPy, under *Workflow*, select *Image denoising* and follow the instructions displayed there:
 
-        .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-doc/master/source/img/gui/biapy_gui_denoising.jpg
+        .. image:: ../img/gui/biapy_gui_denoising.png
             :align: center 
 
    .. tab:: Google Colab

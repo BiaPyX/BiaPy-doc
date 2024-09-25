@@ -93,7 +93,7 @@ Run
 
         Select self-supervised learning workflow during the creation of a new configuration file:
 
-        .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-doc/master/source/img/gui/biapy_gui_ssl.jpg
+        .. image:: ../img/gui/biapy_gui_ssl.png
             :align: center 
    
    .. tab:: Google Colab 

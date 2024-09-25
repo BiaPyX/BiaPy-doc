@@ -96,7 +96,7 @@ Run
 
         Select image-to-image workflow during the creation of a new configuration file:
 
-        .. image:: ../img/gui/biapy_gui_i2i.jpg
+        .. image:: ../img/gui/biapy_gui_i2i.png
             :align: center 
 
    .. tab:: Google Colab
