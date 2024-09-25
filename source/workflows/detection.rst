@@ -306,7 +306,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Object detection*, click twice on *Continue*, and under *General options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value in the **Train percentage for validation**:
+          Under *Workflow*, select *Object detection*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value in the **Train percentage for validation**:
 
           .. image:: ../img/GUI-validation-percentage.png
             :align: center
@@ -332,7 +332,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Object detection*, click twice on *Continue*, and under *General options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
+          Under *Workflow*, select *Object detection*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
 
           .. image:: ../img/detection/GUI-validation-paths.png
             :align: center
@@ -378,14 +378,14 @@ Do you have annotations (CSV files with the object coordinates) for the test set
   .. tabs::
     .. tab:: GUI
 
-      Under *Workflow*, select *Object detection*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the **Do you have CSV files for test data?** field:
+      Under *Workflow*, select *Object detection*, three times *Continue*, under *General options* > *Test data*, select "Yes" or "No" in the **Do you have CSV files for test data?** field:
 
       .. image:: ../img/detection/GUI-test-data.png
         :align: center
 
     .. tab:: Google Colab / Notebooks
       
-      In either the 2D or the 3D detection notebook, go to *Configure and train the DNN model* > *Select your parameters*, and select the **test_ground_truth** option:
+      In either the 2D or the 3D detection notebook, go to *Configure and train the DNN model* > *Select your parameters*, and check or uncheck the **test_ground_truth** option:
       
       .. image:: ../img/detection/Notebooks-model-name-data-conf.png
         :align: center
@@ -394,7 +394,7 @@ Do you have annotations (CSV files with the object coordinates) for the test set
 
     .. tab:: YAML configuration file
       
-      Set the variable ``DATA.TEST.LOAD_GT`` to ``True``.
+      Set the variable ``DATA.TEST.LOAD_GT`` to ``True`` if you have test annotations, and ``False`` if you do not.
 
 
 \
@@ -410,11 +410,10 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Object detection*, click twice on *Continue*, and under *General options*, scroll down to *Advanced options*, and edit the last value of the field **Patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
+            Under *Workflow*, select *Object detection*, click twice on *Continue*, and under *General options* > *Train data*, edit the last value of the field **Data patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
 
-            .. image:: ../img/GUI-advanced-options.png
+            .. image:: ../img/detection/GUI-train-data.png
               :align: center
-              :width: 75%
 
           .. tab:: Google Colab / Notebooks
             
@@ -435,11 +434,10 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Object detection*, click twice on *Continue*, and under *General options*, scroll down to *Basic training parameters*, and edit the field **Number of epochs**:
+            Under *Workflow*, select *Object detection*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *Basic training parameters*, and edit the field **Number of epochs**:
 
             .. image:: ../img/GUI-basic-training-params.png
               :align: center
-              :width: 75%
 
           .. tab:: Google Colab / Notebooks
             
@@ -460,11 +458,10 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Object detection*, click twice on *Continue*, and under *General options*, scroll down to *Basic training parameters*, and edit the field **Patience**:
+            Under *Workflow*, select *Object detection*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *Basic training parameters*, and edit the field **Patience**:
 
             .. image:: ../img/GUI-basic-training-params.png
               :align: center
-              :width: 75%
 
           .. tab:: Google Colab / Notebooks
             
@@ -610,7 +607,7 @@ Advanced Parameters
 *******************
 Many of the parameters of our workflows are set by default to values that work commonly well. However, it may be needed to tune them to improve the results of the workflow. For instance, you may modify the following parameters
 
-* **Model architecture**: Select the architecture of the deep neural network used as backbone of the pipeline. Options: U-Net, Residual U-Net, Attention U-Net, SEUNet, MultiResUNet, ResUNet++, UNETR-Mini, UNETR-Small and UNETR-Base. Default value: Residual U-Net.
+* **Model architecture**: Select the architecture of the deep neural network used as backbone of the pipeline. Options: U-Net, Residual U-Net, Attention U-Net, SEUNet, MultiResUNet, ResUNet++, UNETR-Mini, UNETR-Small, UNETR-Base and U-NeXt V1. Common choice: Residual U-Net.
 * **Batch size**: This parameter defines the number of patches seen in each training step. Reducing or increasing the batch size may slow or speed up your training, respectively, and can influence network performance. Common values are 4, 8, 16, etc.
 * **Patch size**: Input the size of the patches use to train your model (length in pixels in X and Y). The value should be smaller or equal to the dimensions of the image. The default value is 256 in 2D, i.e. 256x256 pixels.
 * **Optimizer**: Select the optimizer used to train your model. Options: ADAM, ADAMW, Stochastic Gradient Descent (SGD). ADAM usually converges faster, while ADAMW provides a balance between fast convergence and better handling of weight decay regularization. SGD is known for better generalization. Default value: ADAMW.
