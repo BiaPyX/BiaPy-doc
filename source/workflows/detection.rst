@@ -220,23 +220,23 @@ To ensure the proper operation of the library, the data directory tree should be
   │   │   ├── training-0001.tif
   │   │   ├── training-0002.tif
   │   │   ├── . . .
-  │   │   ├── training-9999.tif
+  │   │   └── training-9999.tif
   │   └── y
   │       ├── training-0001.csv
   │       ├── training-0002.csv
   │       ├── . . .
-  │       ├── training-9999.csv
+  │       └── training-9999.csv
   └── test
       ├── x
       │   ├── testing-0001.tif
       │   ├── testing-0002.tif
       │   ├── . . .
-      │   ├── testing-9999.tif
+      │   └── testing-9999.tif
       └── y
           ├── testing-0001.csv
           ├── testing-0002.csv
           ├── . . .
-          ├── testing-9999.csv
+          └── testing-9999.csv
 
 
 In this example, the raw training images are under ``dataset/train/x/`` and their corresponding CSV files are under ``dataset/train/y/``, while the raw test images are under ``dataset/test/x/`` and their corresponding CSV files are under ``dataset/test/y/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
