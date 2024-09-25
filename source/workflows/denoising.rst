@@ -255,9 +255,8 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
 
             Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *General options*, scroll down to *Advanced options*, and edit the last value of the field **Patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
 
-            .. image:: ../img/GUI-advanced-options.png
+            .. image:: ../img/denoising/GUI-general-options.png
               :align: center
-              :width: 75%
 
           .. tab:: Google Colab / Notebooks
             
@@ -265,7 +264,6 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
             
             .. image:: ../img/denoising/Notebooks-basic-training-params.png
               :align: center
-              :width: 75%
 
           .. tab:: YAML configuration file
           
@@ -278,11 +276,10 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *General options*, scroll down to *Basic training parameters*, and edit the field **Number of epochs**:
+            Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *Basic training parameters*, and edit the field **Number of epochs**:
 
             .. image:: ../img/denoising/GUI-basic-training-params.png
               :align: center
-              :width: 75%
 
           .. tab:: Google Colab / Notebooks
             
@@ -290,7 +287,6 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
             
             .. image:: ../img/denoising/Notebooks-basic-training-params.png
               :align: center
-              :width: 75%
 
           .. tab:: YAML configuration file
           
@@ -303,11 +299,10 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *General options*, scroll down to *Basic training parameters*, and edit the field **Patience**:
+            Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *Basic training parameters*, and edit the field **Patience**:
 
             .. image:: ../img/denoising/GUI-basic-training-params.png
               :align: center
-              :width: 75%
 
           .. tab:: Google Colab / Notebooks
             
@@ -315,7 +310,6 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
             
             .. image:: ../img/denoising/Notebooks-basic-training-params.png
               :align: center
-              :width: 75%
 
           .. tab:: YAML configuration file
           
@@ -454,7 +448,7 @@ Advanced Parameters
 *******************
 Many of the parameters of our workflows are set by default to values that work commonly well. However, it may be needed to tune them to improve the results of the workflow. For instance, you may modify the following parameters:
 
-* **Model architecture**: Select the architecture of the deep neural network used as backbone of the pipeline. Options: U-Net, Residual U-Net, Attention U-Net, SEUNet, MultiResUNet, ResUNet++, UNETR-Mini, UNETR-Small and UNETR-Base. Safe option: U-Net.
+* **Model architecture**: Select the architecture of the deep neural network used as backbone of the pipeline. Options: U-Net, Residual U-Net, Attention U-Net, SEUNet, MultiResUNet, ResUNet++, UNETR-Mini, UNETR-Small, UNETR-Base and U-NeXt V1. Safe option: U-Net.
 * **Batch size**: This parameter defines the number of patches seen in each training step. Reducing or increasing the batch size may slow or speed up your training, respectively, and can influence network performance. Common values are 4, 8, 16, etc.
 * **Patch size**: Input the size of the patches use to train your model (length in pixels in X and Y). The value should be smaller or equal to the dimensions of the image. The default value is 64 in 2D, i.e. 64x64 pixels.
 * **Optimizer**: Select the optimizer used to train your model. Options: ADAM, ADAMW, Stochastic Gradient Descent (SGD). ADAM usually converges faster, while ADAMW provides a balance between fast convergence and better handling of weight decay regularization. SGD is known for better generalization. Default value: ADAMW.
