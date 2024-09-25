@@ -421,7 +421,6 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
 
             .. image:: ../img/GUI-general-options.png
               :align: center
-              :width: 75%
 
           .. tab:: Google Colab / Notebooks
             
