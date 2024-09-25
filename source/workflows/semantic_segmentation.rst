@@ -290,7 +290,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value in the **Train percentage for validation**:
+          Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value in the **Train percentage for validation**:
 
           .. image:: ../img/GUI-validation-percentage.png
             :align: center
@@ -316,7 +316,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
+          Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
 
           .. image:: ../img/GUI-validation-paths.png
             :align: center
@@ -336,7 +336,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input label folder** and select the folder containing your validation label images:
+          Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input label folder** and select the folder containing your validation label images:
 
           .. image:: ../img/GUI-validation-paths.png
             :align: center
@@ -360,14 +360,14 @@ Do you have labels for the test set? This is a key question so BiaPy knows if yo
   .. tabs::
     .. tab:: GUI
 
-      Under *Workflow*, select *Semantic Segmentation*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the **Do you have test labels?** field:
+      Under *Workflow*, select *Semantic Segmentation*, three times *Continue*, under *General options* > *Test data*, select "No" or "Yes" in the **Do you have test labels?** field:
 
       .. image:: ../img/GUI-test-data.png
         :align: center
 
     .. tab:: Google Colab / Notebooks
       
-      In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and select the **test_ground_truth** option:
+      In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and check or uncheck the **test_ground_truth** option:
       
       .. image:: ../img/semantic_seg/Notebooks-model-name-data-conf.png
         :align: center
@@ -376,7 +376,7 @@ Do you have labels for the test set? This is a key question so BiaPy knows if yo
 
     .. tab:: YAML configuration file
       
-      Set the variable ``DATA.TEST.LOAD_GT`` to ``True``.
+      Set the variable ``DATA.TEST.LOAD_GT`` to ``True`` or ``False``.
 
 
 \
@@ -392,7 +392,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options*, scroll down to *Basic training parameters*, and edit the field **Number of classes**:
+            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *Basic training parameters*, and edit the field **Number of classes**:
 
             .. image:: ../img/GUI-basic-training-params.png
               :align: center
@@ -417,9 +417,9 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options*, scroll down to *Advanced options*, and edit the last value of the field **Patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
+            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Train data*, edit the last value of the field **Data patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
 
-            .. image:: ../img/GUI-advanced-options.png
+            .. image:: ../img/GUI-general-options.png
               :align: center
               :width: 75%
 
@@ -442,7 +442,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options*, scroll down to *Basic training parameters*, and edit the field **Number of epochs**:
+            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *Basic training parameters*, and edit the field **Number of epochs**:
 
             .. image:: ../img/GUI-basic-training-params.png
               :align: center
@@ -467,7 +467,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options*, scroll down to *Basic training parameters*, and edit the field **Patience**:
+            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *Basic training parameters*, and edit the field **Patience**:
 
             .. image:: ../img/GUI-basic-training-params.png
               :align: center
@@ -503,7 +503,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
         In the GUI of BiaPy, under *Workflow*, select *Semantic Segmentation* and follow the instructions displayed there:
 
-        .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-doc/master/source/img/gui/biapy_gui_semantic_seg.jpg
+        .. image:: ../img/gui/biapy_gui_semantic_seg.png
             :align: center 
 
    .. tab:: Google Colab
