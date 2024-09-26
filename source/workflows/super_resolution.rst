@@ -280,7 +280,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value in the **Train percentage for validation**:
+          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value in the **Train percentage for validation**:
 
           .. image:: ../img/GUI-validation-percentage.png
             :align: center
@@ -306,7 +306,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw (LR) images:
+          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw (LR) images:
 
           .. image:: ../img/super-resolution/GUI-validation-paths.png
             :align: center
@@ -326,7 +326,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input high-resolution image folder** and select the folder containing your validation HR images:
+          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input high-resolution image folder** and select the folder containing your validation HR images:
 
           .. image:: ../img/super-resolution/GUI-validation-paths.png
             :align: center
@@ -350,14 +350,14 @@ Do you have HR images for the test set? This is a key question so BiaPy knows if
   .. tabs::
     .. tab:: GUI
 
-      Under *Workflow*, select *Super-resolution*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the **Do you have high-resolution test data?** field:
+      Under *Workflow*, select *Super-resolution*, three times *Continue*, under *General options* > *Test data*, select "Yes" or "No" in the **Do you have high-resolution test data?** field:
 
       .. image:: ../img/super-resolution/GUI-test-data.png
         :align: center
 
     .. tab:: Google Colab / Notebooks
       
-      In either the 2D or the 3D instance segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and select the **test_ground_truth** option:
+      In either the 2D or the 3D instance segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and check or uncheck the **test_ground_truth** option:
       
       .. image:: ../img/super-resolution/Notebooks-model-name-data-conf.png
         :align: center
@@ -366,7 +366,7 @@ Do you have HR images for the test set? This is a key question so BiaPy knows if
 
     .. tab:: YAML configuration file
       
-      Set the variable ``DATA.TEST.LOAD_GT`` to ``True``.
+      Set the variable ``DATA.TEST.LOAD_GT`` to ``True`` if you have test HR images, and ``False`` if you do not.
 
 
 \
@@ -382,9 +382,9 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options*, scroll down to *Advanced options*, and edit the last value of the field **Patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
+            Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options* > *Train data*, edit the last value of the field **Data patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
 
-            .. image:: ../img/GUI-advanced-options.png
+            .. image:: ../img/super-resolution/GUI-general-options.png
               :align: center
               :width: 75%
 
@@ -439,7 +439,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options*, scroll down to *Basic training parameters*, and edit the field **Number of epochs**:
+            Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *Basic training parameters*, and edit the field **Number of epochs**:
 
             .. image:: ../img/super-resolution/GUI-basic-training-params.png
               :align: center
@@ -464,7 +464,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options*, scroll down to *Basic training parameters*, and edit the field **Patience**:
+            Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *Basic training parameters*, and edit the field **Patience**:
 
             .. image:: ../img/super-resolution/GUI-basic-training-params.png
               :align: center
@@ -510,12 +510,12 @@ BiaPy offers different options to run workflows depending on your degree of comp
         .. |sr_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
             :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/super-resolution/BiaPy_2D_Super_Resolution.ipynb
 
-        * 2D: |sr_2D_colablink|
+        * For 2D images: |sr_2D_colablink|
 
         .. |sr_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
             :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/super-resolution/BiaPy_3D_Super_Resolution.ipynb
 
-        * 3D: |sr_3D_colablink|
+        * For 3D images: |sr_3D_colablink|
 
    .. tab:: Docker
 
