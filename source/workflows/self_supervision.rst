@@ -33,6 +33,64 @@ An example of a pretext task is depicted below, with an original image and its c
 
 .. _self-supervision_data_prep:
 
+
+Inputs and outputs
+~~~~~~~~~~~~~~~~~~
+The self-supervision workflows in BiaPy expect a **folder** as input:
+
+* **Training Raw Images**: A folder that contains the unprocessed (single-channel or multi-channel) images that will be used to (pre-)train the model.
+  
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *self-supervised learning*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
+
+        .. image:: ../img/GUI-general-options.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D self-supervision notebook, go to *Paths for Input Images and Output Files*, edit the field **train_data_path**:
+        
+        .. image:: ../img/self-supervised/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 95%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TRAIN.PATH`` with the absolute path to the folder with your training raw images.
+
+
+Upon successful execution, a directory will be generated with the results of the pre-training. Therefore, you will need to define:
+
+* **Output Folder**: A designated path to save the self-supervision outcomes.
+
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Run Workflow*, click on the *Browse* button of **Output folder to save the results**:
+
+        .. image:: ../img/self-supervised/GUI-run-workflow.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D self-supervised learning notebook, go to *Paths for Input Images and Output Files*, edit the field **output_path**:
+        
+        .. image:: ../img/self-supervised/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 95%
+
+      .. tab:: Command line
+        
+        When calling BiaPy from command line, you can specify the output folder with the ``--result_dir`` flag. See the *Command line* configuration of :ref:`self-supervision_data_run` for a full example.
+
+
+
 Data preparation
 ~~~~~~~~~~~~~~~~
 
