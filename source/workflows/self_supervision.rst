@@ -3,17 +3,15 @@
 Self-supervision
 ----------------
 
-The idea of this workflow is to pretrain the backbone model by solving a so-called pretext task without labels. This way, the model learns a representation that can be later transferred to solve a downstream task in a labeled (but smaller) dataset. 
+Description of the task
+~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Input:** 
+The idea of this workflow is to **pretrain** a deep learning model by solving a so-called **pretext task** (denoising, inpainting, etc.) without labels. This way, the model learns a representation that can be later transferred to solve a **downstream task** (segmentation, detection, etc.) in a labeled (and usually smaller) dataset. 
 
-  * Image (single-channel or multi-channel). E.g. image with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``.  
+An example of a pretext task is depicted below, with an original image and its corresponding degradated version. The model will be then train using the *clean* original image as target and the degrated image as input:
 
-* **Output:**
-
-  * Pretrained model. 
-
-In the figure below an example of ``crappify`` pretext task input images are depicted:
+.. role:: raw-html(raw)
+    :format: html
 
 .. list-table::
   :align: center
@@ -22,14 +20,16 @@ In the figure below an example of ``crappify`` pretext task input images are dep
   * - .. figure:: ../img/lucchi_train_0.png
          :align: center
          :width: 300px
+         :alt: Electron microscopy image to be used as target for pretraining
 
-         Input image.
+         Original electron microscopy image.
 
     - .. figure:: ../img/lucchi_train_0_crap.png
          :align: center
          :width: 300px
+         :alt: Corresponding degrated version of the same image
 
-         Worstened image.
+         Corresponding degradated image.
 
 .. _self-supervision_data_prep:
 
