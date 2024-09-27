@@ -434,9 +434,9 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Object detection*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *Basic training parameters*, and edit the field **Number of epochs**:
+            Under *Workflow*, select *Object detection*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
 
-            .. image:: ../img/GUI-basic-training-params.png
+            .. image:: ../img/detection/GUI-basic-training-params.png
               :align: center
 
           .. tab:: Google Colab / Notebooks
@@ -458,9 +458,9 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Object detection*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *Basic training parameters*, and edit the field **Patience**:
+            Under *Workflow*, select *Object detection*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
 
-            .. image:: ../img/GUI-basic-training-params.png
+            .. image:: ../img/detection/GUI-basic-training-params.png
               :align: center
 
           .. tab:: Google Colab / Notebooks
