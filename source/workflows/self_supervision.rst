@@ -31,8 +31,6 @@ An example of a pretext task is depicted below, with an original image and its c
 
          Corresponding degradated image.
 
-.. _self-supervision_data_prep:
-
 
 Inputs and outputs
 ~~~~~~~~~~~~~~~~~~
@@ -90,87 +88,278 @@ Upon successful execution, a directory will be generated with the results of the
         When calling BiaPy from command line, you can specify the output folder with the ``--result_dir`` flag. See the *Command line* configuration of :ref:`self-supervision_data_run` for a full example.
 
 
+.. list-table::
+  :align: center
 
-Data preparation
-~~~~~~~~~~~~~~~~
-
-To ensure the proper operation of the library the data directory tree should be something like this: 
-
-.. collapse:: Expand directory tree 
-
-    .. code-block:: bash
+  * - .. figure:: ../img/self-supervised/Inputs-outputs.svg
+         :align: center
+         :width: 300
+         :alt: Graphical description of minimal inputs and outputs in BiaPy for self-supervised learning.
         
-      dataset/
-      ├── train
-      │   └── x
-      │       ├── training-0001.tif
-      │       ├── training-0002.tif
-      │       ├── . . .
-      │       └── training-9999.tif
-      └── test
-          └── x
-             ├── testing-0001.tif
-             ├── testing-0002.tif
-             ├── . . .
-             └── testing-9999.tif
+         **BiaPy input and output folders for self-supervised learning.** Since this workflow :raw-html:`<br />` is self-supervised, no labels are needed in neither train nor test.
+  
+
+.. _self-supervision_data_prep:
+
+Data structure
+~~~~~~~~~~~~~~
+
+To ensure the proper operation of the workflow, the data directory tree should be something like this: 
+
+.. code-block::
+    
+  dataset/
+  ├── train
+  │   └── x
+  │       ├── training-0001.tif
+  │       ├── training-0002.tif
+  │       ├── . . .
+  │       └── training-9999.tif
+  └── test
+      └── x
+          ├── testing-0001.tif
+          ├── testing-0002.tif
+          ├── . . .
+          └── testing-9999.tif
 
 \
 
-.. _self-supervision_problem_resolution:
+In this example, the (pre-)training images are under ``dataset/train/x/``, while the test images are under ``dataset/test/x/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
 
-Problem resolution
-~~~~~~~~~~~~~~~~~~
+Minimal configuration
+~~~~~~~~~~~~~~~~~~~~~
+Apart from the input and output folders, there are a few basic parameters that always need to be specified in order to run a self-supervised learning workflow in BiaPy. **These parameters can be introduced either directly in the GUI, the code-free notebooks or by editing the YAML configuration file**.
 
-In BiaPy we adopt two pretext tasks that you will need to choose with **pretext_task** variable below (controlled with ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK``):
+Experiment name
+***************
+Also known as "model name" or "job name", this will be the name of the current experiment you want to run, so it can be differenciated from other past and future experiments.
 
-* ``crappify``: Firstly, a **pre-processing** step is done where the input images are worstened by adding Gaussian noise and downsampling and upsampling them so the resolution gets worsen. This way, the images are stored in ``DATA.TRAIN.SSL_SOURCE_DIR``, ``DATA.VAL.SSL_SOURCE_DIR`` and ``DATA.TEST.SSL_SOURCE_DIR`` for train, validation and test data respectively. This way, the model will be input with the worstened version of images and will be trained to map it to its good version (as in :cite:p:`franco2022deep`).
+.. collapse:: Expand to see how to configure
 
-* ``masking``: The model undergoes training by acquiring the skill to restore a concealed input image. This occurs in real-time during training, where random portions of the images are automatically obscured (:cite:p:`he2022masked`).
+    .. tabs::
+      .. tab:: GUI
 
-After this training, the model should have learned some features of the images, which will be a good starting point in another training process. This way, if you re-train the model loading those learned model's weigths, which can be done enabling ``MODEL.LOAD_CHECKPOINT`` if you call BiaPy with the same ``--name`` option or setting ``PATHS.CHECKPOINT_FILE`` variable to point the file directly otherwise, the training process will be easier and faster than training from scratch. 
+        Under *Run Workflow*, type the name you want for the job in the **Job name** field:
 
-Configuration file
-~~~~~~~~~~~~~~~~~~
+        .. image:: ../img/self-supervised/GUI-run-workflow.png
+          :align: center
 
-Find in `templates/self-supervised <https://github.com/BiaPyX/BiaPy/tree/master/templates/self-supervised>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D self-supervised learning notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **model_name**:
+        
+        .. image:: ../img/self-supervised/Notebooks-model-name-data-conf.png
+          :align: center
+          :width: 65%
+
+      .. tab:: Command line
+        
+        When calling BiaPy from command line, you can specify the output folder with the ``--name`` flag. See the *Command line* configuration of :ref:`self-supervision_data_run` for a full example.
 
 
-Special workflow configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\
 
-Metrics
-*******
+.. note:: Use only *my_model* -style, not *my-model* (Use "_" not "-"). Do not use spaces in the name. Avoid using the name of an existing experiment/model/job (saved in the same result folder) as it will be overwritten.
 
-During the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is ``True``. In the case of super-resolution the **Peak signal-to-noise ratio** (`PSNR <https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio>`__) metrics is calculated when the worstened image is reconstructed from individual patches.
+Data management
+***************
+Validation Set
+""""""""""""""
+With the goal to monitor the training process, it is common to use a third dataset called the "Validation Set". This is a subset of the whole dataset that is used to evaluate the model's performance and optimize training parameters. This subset will not be directly used for training the model, and thus, when applying the model to these images, we can see if the model is learning the training set's patterns too specifically or if it is generalizing properly.
 
-Run
-~~~
+.. list-table::
+  :align: center
+
+  * - .. figure:: ../img/self-supervised/data-partitions.png
+         :align: center
+         :width: 400
+         :alt: Graphical description of data partitions in BiaPy for SSL
+        
+         **Graphical description of data partitions in BiaPy when using self-generated labels.**
+
+
+
+To define such set, there are two options:
+  
+* **Validation proportion/percentage**: Select a proportion (or percentage) of your training dataset to be used to validate the network during the training. Usual values are 0.1 (10%) or 0.2 (20%), and the samples of that set will be selected at random.
+  
+  .. collapse:: Expand to see how to configure
+
+      .. tabs::
+        .. tab:: GUI
+
+          Under *Workflow*, select *Self-supervised learning*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train proportion for validation**:
+
+          .. image:: ../img/GUI-validation-percentage.png
+            :align: center
+
+        .. tab:: Google Colab / Notebooks
+          
+          In either the 2D or the 3D denoising notebook, go to *Configure and train the DNN model* > *Select your parameters*, and under *Data management*, edit the field **percentage_validation** with a value between 0 and 100:
+          
+          .. image:: ../img/self-supervised/Notebooks-model-name-data-conf.png
+            :align: center
+            :width: 75%
+
+        .. tab:: YAML configuration file
+        
+          Edit the variable ``DATA.VAL.SPLIT_TRAIN`` with a value between 0 and 1, representing the proportion of the training set that will be set apart for validation.
+
+
+* **Validation path**: Similar to the training and test sets, you can select a folder that contains the unprocessed (single-channel or multi-channel) raw images that will be used to validate the current model during training.
+
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
+
+        .. image:: ../img/self-supervised/GUI-validation-paths.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        This option is currently not available in the notebooks.
+
+      .. tab:: YAML configuration file
+      
+        Edit the variable ``DATA.VAL.PATH`` with the absolute path to your validation raw images.
+
+ 
+
+Basic training parameters
+*************************
+At the core of each BiaPy workflow there is a deep learning model. Although we try to simplify the number of parameters to tune, these are the basic parameters that need to be defined for training a self-supervised learning workflow:
+
+* **Pretext task**: The task to use to pretrain the model. Options: 'crappify' to recover a worstened version of the input image (as in :cite:p:`franco2022deep`), and 'masking', where random patches of the input image are masked and the network needs to reconstruct the missing pixels (as in :cite:p:`he2022masked`). Default value: 'masking'.
+
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Self-supervised learning*, click twice on *Continue*, and under *Workflow specific options* > *Pretext task options*, edit the **Type of task** field by selecting "masking" or "crappify":
+
+            .. image:: ../img/self-supervised/GUI-workflow-specific-options.png
+              :align: center
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D self-supervised learning notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **pretext_task**:
+            
+            .. image:: ../img/self-supervised/Notebooks-basic-training-params.png
+              :align: center
+
+          .. tab:: YAML configuration file
+          
+            Edit the value of the variable ``DATA.SELF_SUPERVISED.PRETEXT_TASK`` with either ``"crappify"``or ``"masking"``.
+
+* **Number of input channels**: The number of channels of your raw images (grayscale = 1, RGB = 3). Notice the dimensionality of your images (2D/3D) is set by default depending on the workflow template you select.
+  
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Self-supervised learning*, click twice on *Continue*, and under *General options* > *Train data*, edit the last value of the field **Data patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
+
+            .. image:: ../img/GUI-general-options.png
+              :align: center
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D self-supervised learning notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **input_channels**:
+            
+            .. image:: ../img/self-supervised/Notebooks-basic-training-params.png
+              :align: center
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``DATA.PATCH_SIZE`` with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D.
+
+* **Number of epochs**: This number indicates how many `rounds <https://machine-learning.paperspace.com/wiki/epoch>`_ the network will be trained. On each round, the network usually sees the full training set. The value of this parameter depends on the size and complexity of each dataset. You can start with something like 100 epochs and tune it depending on how fast the loss (error) is reduced.
+  
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Self-supervised learning*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
+
+            .. image:: ../img/self-supervised/GUI-basic-training-params.png
+              :align: center
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D self-supervised learning notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **number_of_epochs**:
+            
+            .. image:: ../img/self-supervised/Notebooks-basic-training-params.png
+              :align: center
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``TRAIN.EPOCHS`` with the number of epochs. For this to have effect, the variable ``TRAIN.ENABLE`` should also be set to ``True``.
+
+* **Patience**: This is a number that indicates how many epochs you want to wait without the model improving its results in the validation set to stop training. Again, this value depends on the data you're working on, but you can start with something like 20.
+   
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Self-supervised learning*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
+
+            .. image:: ../img/self-supervised/GUI-basic-training-params.png
+              :align: center
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D self-supervised notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **patience**:
+            
+            .. image:: ../img/self-supervised/Notebooks-basic-training-params.png
+              :align: center
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``TRAIN.PATIENCE`` with the number of epochs. For this to have effect, the variable ``TRAIN.ENABLE`` should also be set to ``True``.
+
+
+For improving performance, other advanced parameters can be optimized, for example, the model's architecture. The architecture assigned as default is usually the MAE, as it is a standard in self-supervision tasks. This architecture allows a strong baseline, but further exploration could potentially lead to better results.
+
+.. note:: Once the parameters are correctly assigned, the training phase can be executed. Note that to train large models effectively the use of a GPU (Graphics Processing Unit) is essential. This hardware accelerator performs parallel computations and has larger RAM memory compared to the CPUs, which enables faster training times.
+
+.. _self-supervision_data_run:
+
+How to run
+~~~~~~~~~~
+BiaPy offers different options to run workflows depending on your degree of computer expertise. Select whichever is more approppriate for you:
 
 .. tabs::
    .. tab:: GUI
 
-        Select self-supervised learning workflow during the creation of a new configuration file:
+        In the GUI of BiaPy, under *Workflow*, select *Self-supervised learning* and follow the instructions displayed there:
 
         .. image:: ../img/gui/biapy_gui_ssl.png
             :align: center 
    
    .. tab:: Google Colab 
 
-        Two different options depending on the image dimension:
+        BiaPy offers two code-free notebooks in Google Colab to perform self-supervised learning:
 
         .. |class_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
             :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/self-supervised/BiaPy_2D_Self_Supervision.ipynb
 
-        * 2D: |class_2D_colablink|
+        * For 2D images: |class_2D_colablink|
 
         .. |class_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
             :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/self-supervised/BiaPy_3D_Self_Supervision.ipynb
 
-        * 3D: |class_3D_colablink|
+        * For 3D images: |class_3D_colablink|
 
    .. tab:: Docker 
 
-        `Open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_self-supervised.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/self-supervision/2d_self-supervised.yaml>`__ template file, the code can be run as follows:
+        If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, you can use the `2d_self-supervised.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/self-supervision/2d_self-supervised.yaml>`__ template file (or your own YAML file), and then run the workflow as follows:
 
         .. code-block:: bash                                                                                                    
 
@@ -204,7 +393,7 @@ Run
 
    .. tab:: Command line 
 
-        `Open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_self-supervised.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/self-supervised/2d_self-supervised.yaml>`__ template file, the code can be run as follows:
+        `From a terminal <../get_started/faq.html#opening-a-terminal>`__, you can use `2d_self-supervised.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/self-supervised/2d_self-supervised.yaml>`__ template file (or your own YAML file)to run the workflow as follows:
 
         .. code-block:: bash
             
@@ -249,6 +438,47 @@ Run
                 --gpu "$gpu_number"  
 
         ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+
+
+
+.. _self-supervision_problem_resolution:
+
+Templates                                                                                                                 
+~~~~~~~~~
+
+In the `templates/self-supervised <https://github.com/BiaPyX/BiaPy/tree/master/templates/self-supervised>`__ folder of BiaPy, you can find a few YAML configuration templates for this workflow. 
+
+[Advanced] Special workflow configuration 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. note:: This section is recommended for experienced users only to improve the performance of their workflows. When in doubt, do not hesitate to check our `FAQ & Troubleshooting <../get_started/faq.html>`__ or open a question in the `image.sc discussion forum <our FAQ & Troubleshooting section>`_.
+
+Advanced Parameters 
+*******************
+Many of the parameters of our workflows are set by default to values that work commonly well. However, it may be needed to tune them to improve the results of the workflow. For instance, you may modify the following parameters:
+
+* **Model architecture**:  Select the architecture of the DNN used as backbone of the pipeline. Options: MAE, EDSR, RCAN, WDSR, DFCAN, U-Net, Residual U-Net, Attention U-Net, SEUNet, MultiResUNet, ResUNet++, UNETR-Mini, UNETR-Small and UNETR-Base. Common option: MAE.
+* **Batch size**: This parameter defines the number of patches seen in each training step. Reducing or increasing the batch size may slow or speed up your training, respectively, and can influence network performance. Common values are 4, 8, 16, etc.
+* **Patch size**: Input the size of the patches use to train your model (length in pixels in X and Y). The value should be smaller or equal to the dimensions of the image. The default value is 64 in 2D, i.e. 64x64 pixels.
+* **Optimizer**: Select the optimizer used to train your model. Options: ADAM, ADAMW, Stochastic Gradient Descent (SGD). ADAM usually converges faster, while ADAMW provides a balance between fast convergence and better handling of weight decay regularization. SGD is known for better generalization. Default value: ADAMW.
+* **Initial learning rate**: Input the initial value to be used as learning rate. If you select ADAM as optimizer, this value should be around 10e-4. 
+
+Problem resolution
+******************
+
+In BiaPy we adopt two pretext tasks that you will need to choose with **pretext_task** variable below (controlled with ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK``):
+
+* ``crappify``: Firstly, a **pre-processing** step is done where the input images are worstened by adding Gaussian noise and downsampling and upsampling them so the resolution gets worsen. This way, the images are stored in ``DATA.TRAIN.SSL_SOURCE_DIR``, ``DATA.VAL.SSL_SOURCE_DIR`` and ``DATA.TEST.SSL_SOURCE_DIR`` for train, validation and test data respectively. This way, the model will be input with the worstened version of images and will be trained to map it to its good version (as in :cite:p:`franco2022deep`).
+
+* ``masking``: The model undergoes training by acquiring the skill to restore a concealed input image. This occurs in real-time during training, where random portions of the images are automatically obscured (:cite:p:`he2022masked`).
+
+After this training, the model should have learned some features of the images, which will be a good starting point in another training process. This way, if you re-train the model loading those learned model's weigths, which can be done enabling ``MODEL.LOAD_CHECKPOINT`` if you call BiaPy with the same ``--name`` option or setting ``PATHS.CHECKPOINT_FILE`` variable to point the file directly otherwise, the training process will be easier and faster than training from scratch. 
+
+Metrics
+*******
+
+During the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is ``True``. In the case of super-resolution the **Peak signal-to-noise ratio** (`PSNR <https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio>`__) metrics is calculated when the worstened image is reconstructed from individual patches.
+
 
 .. _self-supervision_results:
 
