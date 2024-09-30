@@ -3,15 +3,10 @@
 Image classification
 --------------------
 
-The goal of this workflow is to assign a label to the input image. 
+Description of the task
+~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Input:** 
-
-  * Image (single-channel or multi-channel). E.g. image with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``. 
-
-* **Output:**
-
-  * ``.csv`` file with the assigned class to each image.
+The goal of this workflow is to assign a category (or classl) to every input image. 
 
 In the figure below a few examples of this workflow's **input** are depicted:
 
@@ -50,57 +45,152 @@ In the figure below a few examples of this workflow's **input** are depicted:
 Each of these examples are of a different class and were obtained from `MedMNIST v2 <https://medmnist.com/>`__ (:cite:p:`yang2021medmnist`), concretely from DermaMNIST dataset which is a large collection of multi-source dermatoscopic images of common
 pigmented skin lesions.
 
+Inputs and outputs
+~~~~~~~~~~~~~~~~~~
+The image classification workflows in BiaPy expect a series of **folders** as input:
+
+* **Training Raw Images**: A folder that contains the unprocessed (single-channel or multi-channel) images that will be used to train the model. As explained later, all images of the same category are expected to be in the same sub-folder.
+  
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Image classification*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
+
+        .. image:: ../img/classification/GUI-general-options.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D self-supervision notebook, go to *Paths for Input Images and Output Files*, edit the field **train_data_path**:
+        
+        .. image:: ../img/classification/Notebooks-Inputs-Outputs.png
+          :align: center
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TRAIN.PATH`` with the absolute path to the folder with your training raw images.
+
+* .. raw:: html
+
+      <b><span style="color: darkgreen;">[Optional]</span> Test Raw Images</b>: A folder that contains the images to evaluate the model's performance.
+ 
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Image classification*, three times *Continue*, under *General options* > *Test data*, click on the *Browse* button of **Input raw image folder**:
+
+        .. image:: ../img/classification/GUI-test-data.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D image classification notebook, go to *Paths for Input Images and Output Files*, edit the field **test_data_path**:
+        
+        .. image:: ../img/classification/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 95%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TEST.PATH`` with the absolute path to the folder with your test raw images.
+
+
+Upon successful execution, a directory will be generated with the results of the classification. Therefore, you will need to define:
+
+* **Output Folder**: A designated path to save the classification outcomes.
+
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Run Workflow*, click on the *Browse* button of **Output folder to save the results**:
+
+        .. image:: ../img/classification/GUI-run-workflow.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D image classification notebook, go to *Paths for Input Images and Output Files*, edit the field **output_path**:
+        
+        .. image:: ../img/classification/Notebooks-Inputs-Outputs.png
+          :align: center
+
+      .. tab:: Command line
+        
+        When calling BiaPy from command line, you can specify the output folder with the ``--result_dir`` flag. See the *Command line* configuration of :ref:`classification_data_run` for a full example.
+
+
+.. role:: raw-html(raw)
+    :format: html
+
+
+.. list-table::
+  :align: center
+
+  * - .. figure:: ../img/classification/Inputs-outputs.svg
+         :align: center
+         :width: 500
+         :alt: Graphical description of minimal inputs and outputs in BiaPy for image classification.
+        
+         **BiaPy input and output folders for image classification.** Notice the test folder :raw-html:`<br />` and its sub-folders are optional.
+
 
 .. _classification_data_prep:
 
-Data preparation
-~~~~~~~~~~~~~~~~
+Data structure
+**************
 
-Each image label is obtained from the directory name in which that image resides. That is why is so important to follow the directory tree as described below. If you have a .csv file with each image label, as is provided by `MedMNIST v2 <https://medmnist.com/>`__, you can use our script `from_class_csv_to_folders.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/from_class_csv_to_folders.py>`__ to create the directory tree as below: 
+To ensure the proper operation of the workflow, the directory tree should be something like this: 
+ 
+.. code-block::
     
-.. collapse:: Expand directory tree 
-
-    .. code-block:: bash
-        
-      dataset/
-      ├── train
-      │   ├── 0
-      │   │   ├── train0_0.png
-      │   │   ├── train1013_0.png
-      │   │   ├── . . .
-      │   │   └── train932_0.png
-      │   ├── 1
-      │   │   ├── train104_1.png
-      │   │   ├── train1049_1.png
-      │   │   ├── . . .
-      │   │   └── train964_1.png
-      | . . .
-      │   └── 6
-      │       ├── train1105_6.png
-      │       ├── train1148_6.png
-      │       ├── . . .
-      │       └── train98_6.png
-      └── test
-          ├── 0
-          │   ├── test1008_0.png
-          │   ├── test1084_0.png
-          │   ├── . . .
-          │   └── test914_0.png
-          ├── 1
-          │   ├── test10_1.png
-          │   ├── test1034_1.png
-          │   ├── . . .
-          │   └── test984_1.png
-        . . .
-          └── 6
-              ├── test1021_6.png
-              ├── test1069_6.png
-              ├── . . .
-              └── test806_6.png
+  dataset/
+  ├── train
+  │   ├── class_0
+  │   │   ├── train0_0.png
+  │   │   ├── train1013_0.png
+  │   │   ├── . . .
+  │   │   └── train932_0.png
+  │   ├── class_1
+  │   │   ├── train104_1.png
+  │   │   ├── train1049_1.png
+  │   │   ├── . . .
+  │   │   └── train964_1.png
+  | . . .
+  │   └── class_6
+  │       ├── train1105_6.png
+  │       ├── train1148_6.png
+  │       ├── . . .
+  │       └── train98_6.png
+  └── test
+      ├── class_0
+      │   ├── test1008_0.png
+      │   ├── test1084_0.png
+      │   ├── . . .
+      │   └── test914_0.png
+      ├── class_1
+      │   ├── test10_1.png
+      │   ├── test1034_1.png
+      │   ├── . . .
+      │   └── test984_1.png
+    . . .
+      └── class_6
+          ├── test1021_6.png
+          ├── test1069_6.png
+          ├── . . .
+          └── test806_6.png
 
 \
 
-Here each directory is a number but it can be any string. Notice that they will be considered the class names. Regarding the test, if you have no classes it doesn't matter if the images are separated in several folders or are all in one folder. But, if ``DATA.TEST.LOAD_GT`` is ``True``, each folder in test path (i.e. ``DATA.TEST.PATH``) will be considered as a class (as done for training and validation). 
+Each image category is obtained from the sub-folder name in which that image resides. That is why is so important to follow the directory tree as described above. If you have a .csv file with each image category, as is provided by `MedMNIST v2 <https://medmnist.com/>`__, you can use our script `from_class_csv_to_folders.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/from_class_csv_to_folders.py>`__ to create such directory tree.
+
+The sub-folder names can be a number or any string. They will be considered as the class names. Regarding the test, if you have no classes it doesn't matter if the images are separated in several folders or are all in one folder.
+
 
 .. _classification_problem_resolution:
 
@@ -118,8 +208,10 @@ Metrics
 
 During the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is ``True``. In the case of classification the **accuracy**, **precision**, **recall**, and **F1** are calculated. Apart from that, the `confusion matrix <https://en.wikipedia.org/wiki/Confusion_matrix>`__ is also printed.
 
-Run
-~~~
+.. _classification_data_run:
+
+How to run
+~~~~~~~~~~
 
 .. tabs::
    .. tab:: GUI
