@@ -227,7 +227,7 @@ To define such set, there are two options:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *General options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
+        Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *General options* > *Advanced otions* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
 
         .. image:: ../img/denoising/GUI-validation-paths.png
           :align: center
