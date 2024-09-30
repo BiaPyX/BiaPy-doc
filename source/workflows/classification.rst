@@ -74,7 +74,7 @@ The image classification workflows in BiaPy expect a series of **folders** as in
 
 * .. raw:: html
 
-      <b><span style="color: darkgreen;">[Optional]</span> Test Raw Images</b>: A folder that contains the images to evaluate the model's performance.
+      <b><span style="color: darkgreen;">[Optional]</span> Test Raw Images</b>: A folder that contains the images to evaluate the model's performance. Optionaly, if the category of each test image is known, all images of the same category are expected to be in the same sub-folder.
  
   .. collapse:: Expand to see how to configure
 
@@ -189,55 +189,278 @@ To ensure the proper operation of the workflow, the directory tree should be som
 
 Each image category is obtained from the sub-folder name in which that image resides. That is why is so important to follow the directory tree as described above. If you have a .csv file with each image category, as is provided by `MedMNIST v2 <https://medmnist.com/>`__, you can use our script `from_class_csv_to_folders.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/from_class_csv_to_folders.py>`__ to create such directory tree.
 
-The sub-folder names can be a number or any string. They will be considered as the class names. Regarding the test, if you have no classes it doesn't matter if the images are separated in several folders or are all in one folder.
+The **sub-folder names can be any number or string**. They will be considered as the class names. Regarding the test, if you have no classes it doesn't matter if the images are separated in several folders or are all in one folder.
+
+Minimal configuration
+~~~~~~~~~~~~~~~~~~~~~
+Apart from the input and output folders, there are a few basic parameters that always need to be specified in order to run an image classification workflow in BiaPy. **These parameters can be introduced either directly in the GUI, the code-free notebooks or by editing the YAML configuration file**.
+
+Experiment name
+***************
+Also known as "model name" or "job name", this will be the name of the current experiment you want to run, so it can be differenciated from other past and future experiments.
+
+.. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Run Workflow*, type the name you want for the job in the **Job name** field:
+
+        .. image:: ../img/classification/GUI-run-workflow.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D image classification notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **model_name**:
+        
+        .. image:: ../img/classification/Notebooks-model-name-data-conf.png
+          :align: center
+          :width: 75%
+
+      .. tab:: Command line
+        
+        When calling BiaPy from command line, you can specify the output folder with the ``--name`` flag. See the *Command line* configuration of :ref:`classification_data_run` for a full example.
 
 
-.. _classification_problem_resolution:
+\
 
-Configuration file
-~~~~~~~~~~~~~~~~~~
-
-Find in `templates/classification <https://github.com/BiaPyX/BiaPy/tree/master/templates/classification>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
+.. note:: Use only *my_model* -style, not *my-model* (Use "_" not "-"). Do not use spaces in the name. Avoid using the name of an existing experiment/model/job (saved in the same result folder) as it will be overwritten.
 
 
-Special workflow configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Data management
+***************
+Validation Set
+""""""""""""""
+With the goal to monitor the training process, it is common to use a third dataset called the "Validation Set". This is a subset of the whole dataset that is used to evaluate the model's performance and optimize training parameters. This subset will not be directly used for training the model, and thus, when applying the model to these images, we can see if the model is learning the training set's patterns too specifically or if it is generalizing properly.
 
-Metrics
-*******
+.. list-table::
+  :align: center
 
-During the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is ``True``. In the case of classification the **accuracy**, **precision**, **recall**, and **F1** are calculated. Apart from that, the `confusion matrix <https://en.wikipedia.org/wiki/Confusion_matrix>`__ is also printed.
+  * - .. figure:: ../img/data-partitions.png
+         :align: center
+         :width: 400
+         :alt: Graphical description of data partitions in BiaPy
+        
+         **Graphical description of data partitions in BiaPy.**
+
+
+
+To define such set, there are two options:
+  
+* **Validation proportion/percentage**: Select a proportion (or percentage) of your training dataset to be used to validate the network during the training. Usual values are 0.1 (10%) or 0.2 (20%), and the samples of that set will be selected at random.
+  
+  .. collapse:: Expand to see how to configure
+
+      .. tabs::
+        .. tab:: GUI
+
+          Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *General options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train proportion for validation**:
+
+          .. image:: ../img/GUI-validation-percentage.png
+            :align: center
+
+        .. tab:: Google Colab / Notebooks
+          
+          In either the 2D or the 3D image classification notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **percentage_validation** with a value between 0 and 100:
+          
+          .. image:: ../img/classification/Notebooks-model-name-data-conf.png
+            :align: center
+            :width: 75%
+
+        .. tab:: YAML configuration file
+        
+          Edit the variable ``DATA.VAL.SPLIT_TRAIN`` with a value between 0 and 1, representing the proportion of the training set that will be set apart for validation.
+
+
+* **Validation path**: Similar to the training set, you can select a folder that contains the unprocessed (single-channel or multi-channel) raw images that will be used to validate the current model during training. As it happened with the training images, **all images of the same category are expected to be in the same sub-folder**.
+
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
+
+        .. image:: ../img/classification/GUI-validation-paths.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        This option is currently not available in the notebooks.
+
+      .. tab:: YAML configuration file
+      
+        Edit the variable ``DATA.VAL.PATH`` with the absolute path to your validation raw images.
+
+ 
+Test ground-truth
+"""""""""""""""""
+Do you have labels (classes) for the test set? This is a key question so BiaPy knows if your test set will be used for evaluation in new data (unseen during training) or simply produce predictions on that new data. All supervised workflows contain a parameter to specify this aspect.
+
+.. collapse:: Expand to see how to configure
+
+  .. tabs::
+    .. tab:: GUI
+
+      Under *Workflow*, select *Image Classification*, three times *Continue*, under *General options* > *Test data*, select "No" or "Yes" in the **Is the test separated in classes?** field:
+
+      .. image:: ../img/classification/GUI-test-data.png
+        :align: center
+
+    .. tab:: Google Colab / Notebooks
+      
+      In either the 2D or the 3D image classification notebook, go to *Configure and train the DNN model* > *Select your parameters*, and check or uncheck the **test_ground_truth** option:
+      
+      .. image:: ../img/classification/Notebooks-model-name-data-conf.png
+        :align: center
+        :width: 75%
+
+
+    .. tab:: YAML configuration file
+      
+      Set the variable ``DATA.TEST.LOAD_GT`` to ``True`` if you do have labels for your test images, or ``False`` otherwise.
+
+
+\
+
+
+Basic training parameters
+*************************
+At the core of each BiaPy workflow there is a deep learning model. Although we try to simplify the number of parameters to tune, these are the basic parameters that need to be defined for training an image classification workflow:
+
+* **Number of classes**: The number of classes present in the problem. It must be equal to the number of subfolders in the training folder.
+
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *Workflow specific options* > *Train data options*, and edit the field **Number of classes**:
+
+            .. image:: ../img/classification/GUI-workflow-specific-options.png
+              :align: center
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D image classification notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **number_of_classes**:
+            
+            .. image:: ../img/classification/Notebooks-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: YAML configuration file
+          
+            Edit the variable ``MODEL.N_CLASSES`` with the number of classes.
+
+* **Number of input channels**: The number of channels of your raw images (grayscale = 1, RGB = 3). Notice the dimensionality of your images (2D/3D) is set by default depending on the workflow template you select.
+  
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *General options* > *Train data*, edit the last value of the field **Data patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
+
+            .. image:: ../img/classification/GUI-general-options.png
+              :align: center
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D image classification notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **input_channels**:
+            
+            .. image:: ../img/classification/Notebooks-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``DATA.PATCH_SIZE`` with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D.
+
+* **Number of epochs**: This number indicates how many `rounds <https://machine-learning.paperspace.com/wiki/epoch>`_ the network will be trained. On each round, the network usually sees the full training set. The value of this parameter depends on the size and complexity of each dataset. You can start with something like 100 epochs and tune it depending on how fast the loss (error) is reduced.
+  
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
+
+            .. image:: ../img/classification/GUI-basic-training-params.png
+              :align: center
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D image classification notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **number_of_epochs**:
+            
+            .. image:: ../img/classification/Notebooks-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``TRAIN.EPOCHS`` with the number of epochs. For this to have effect, the variable ``TRAIN.ENABLE`` should also be set to ``True``.
+
+* **Patience**: This is a number that indicates how many epochs you want to wait without the model improving its results in the validation set to stop training. Again, this value depends on the data you're working on, but you can start with something like 20.
+   
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
+
+            .. image:: ../img/classification/GUI-basic-training-params.png
+              :align: center
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D image classification notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **patience**:
+            
+            .. image:: ../img/classification/Notebooks-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``TRAIN.PATIENCE`` with the number of epochs. For this to have effect, the variable ``TRAIN.ENABLE`` should also be set to ``True``.
+
+
+For improving performance, other advanced parameters can be optimized, for example, the model's architecture. The architecture assigned as default is the ViT, as it is effective in image classification tasks. This architecture allows a strong baseline, but further exploration could potentially lead to better results.
+
+.. note:: Once the parameters are correctly assigned, the training phase can be executed. Note that to train large models effectively the use of a GPU (Graphics Processing Unit) is essential. This hardware accelerator performs parallel computations and has larger RAM memory compared to the CPUs, which enables faster training times.
+
 
 .. _classification_data_run:
 
 How to run
 ~~~~~~~~~~
+BiaPy offers different options to run workflows depending on your degree of computer expertise. Select whichever is more approppriate for you:
 
 .. tabs::
    .. tab:: GUI
 
-        Select classification workflow during the creation of a new configuration file:
+        In the GUI of BiaPy, under *Workflow*, select *Image classification* and follow the instructions displayed there:
 
         .. image:: ../img/gui/biapy_gui_classification.png
             :align: center 
 
    .. tab:: Google Colab 
 
-        Two different options depending on the image dimension:
+        BiaPy offers two code-free notebooks in Google Colab to perform image classification: 
 
         .. |class_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
             :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/classification/BiaPy_2D_Classification.ipynb
 
-        * 2D: |class_2D_colablink|
+        * For 2D images: |class_2D_colablink|
 
         .. |class_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
             :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/classification/BiaPy_3D_Classification.ipynb
 
-        * 3D: |class_3D_colablink|
+        * For 3D images: |class_3D_colablink|
 
    .. tab:: Docker
 
-        `Open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_classification.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/classification/2d_classification.yaml>`__ template file, the code can be run as follows:
+        If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. Then, you can use the `2d_classification.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/classification/2d_classification.yaml>`__ template file (or your own file), and run the workflow as follows:
 
         .. code-block:: bash                                                                                                    
 
@@ -271,7 +494,7 @@ How to run
 
    .. tab:: Command line 
 
-        `Open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_classification.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/classification/2d_classification.yaml>`__ template file, the code can be run as follows:
+        `From a terminal <../get_started/faq.html#opening-a-terminal>`__, you can use the `2d_classification.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/classification/2d_classification.yaml>`__ template file (or your own file), and run the workflow as follows:
 
         .. code-block:: bash
             
@@ -315,6 +538,39 @@ How to run
                 --gpu "$gpu_number"  
 
         ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+
+
+
+.. _classification_problem_resolution:
+
+Templates                                                                                                                 
+~~~~~~~~~
+
+In the `templates/classification <https://github.com/BiaPyX/BiaPy/tree/master/templates/classification>`__ folder of BiaPy, you can find a few YAML configuration templates for this workflow. 
+
+
+[Advanced] Special workflow configuration 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. note:: This section is recommended for experienced users only to improve the performance of their workflows. When in doubt, do not hesitate to check our `FAQ & Troubleshooting <../get_started/faq.html>`__ or open a question in the `image.sc discussion forum <our FAQ & Troubleshooting section>`_.
+
+Advanced Parameters 
+*******************
+Many of the parameters of our workflows are set by default to values that work commonly well. However, it may be needed to tune them to improve the results of the workflow. For instance, you may modify the following parameters
+
+* **Model architecture**: Select the architecture of the deep neural network used as backbone of the pipeline. ViT, EfficientNetB0, EfficientNetB1, EfficientNetB2, EfficientNetB3, EfficientNetB4, EfficientNetB5, EfficientNetB6, EfficientNetB7 and simple CNN. Default value: ViT.
+* **Batch size**: This parameter defines the number of patches seen in each training step. Reducing or increasing the batch size may slow or speed up your training, respectively, and can influence network performance. Common values are 4, 8, 16, etc.
+* **Patch size**: Input the size of the patches use to train your model (length in pixels in X and Y). The value should be smaller or equal to the dimensions of the image. The default value is 256 in 2D, i.e. 256x256 pixels.
+* **Optimizer**: Select the optimizer used to train your model. Options: ADAM, ADAMW, Stochastic Gradient Descent (SGD). ADAM usually converges faster, while ADAMW provides a balance between fast convergence and better handling of weight decay regularization. SGD is known for better generalization. Default value: ADAMW.
+* **Initial learning rate**: Input the initial value to be used as learning rate. If you select ADAM as optimizer, this value should be around 10e-4. 
+* **Learning rate scheduler**: Select to adjust the learning rate between epochs. The current options are "Reduce on plateau", "One cycle", "Warm-up cosine decay" or no scheduler.
+* **Test time augmentation (TTA)**: Select to apply augmentation (flips and rotations) at test time. It usually provides more robust results but uses more time to produce each result. By default, no TTA is peformed.
+
+Metrics
+*******
+
+During the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is ``True``. In the case of classification the **accuracy**, **precision**, **recall**, and **F1** are calculated. Apart from that, the `confusion matrix <https://en.wikipedia.org/wiki/Confusion_matrix>`__ is also printed.
+
 
 .. _classification_results:
 
