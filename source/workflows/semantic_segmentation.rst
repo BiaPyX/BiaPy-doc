@@ -392,7 +392,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *Workflow specific options* > *Train data options*, and edit the field **Number of classes**:
+            Under *Workflow*, select *Semantic segmentation*, click twice on *Continue*, and under *Workflow specific options* > *Train data options*, and edit the field **Number of classes**:
 
             .. image:: ../img/semantic_seg/GUI-workflow-specific-options.png
               :align: center
@@ -416,7 +416,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Train data*, edit the last value of the field **Data patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
+            Under *Workflow*, select *Semantic segmentation*, click twice on *Continue*, and under *General options* > *Train data*, edit the last value of the field **Data patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
 
             .. image:: ../img/GUI-general-options.png
               :align: center
@@ -440,7 +440,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
+            Under *Workflow*, select *Semantic segmentation*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
 
             .. image:: ../img/semantic_seg/GUI-basic-training-params.png
               :align: center
@@ -464,7 +464,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
+            Under *Workflow*, select *Semantic segmentation*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
 
             .. image:: ../img/semantic_seg/GUI-basic-training-params.png
               :align: center
@@ -604,7 +604,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
 
 Templates                                                                                                                 
-~~~~~~~~~~
+~~~~~~~~~
 
 In the `templates/semantic_segmentation <https://github.com/BiaPyX/BiaPy/tree/master/templates/semantic_segmentation>`__ folder of BiaPy, you will find a few YAML configuration templates for this workflow. 
 
