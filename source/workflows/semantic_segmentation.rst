@@ -283,21 +283,21 @@ With the goal to monitor the training process, it is common to use a third datas
 
 To define such set, there are two options:
   
-* **Validation percentage**: Select a percentage of your training dataset to be used to validate the network during the training. Usual values are 10% or 20%, and the samples of that set will be selected at random.
+* **Validation proportion/percentage**: Select a proportion (or percentage) of your training dataset to be used to validate the network during the training. Usual values are 0.1 (10%) or 0.2 (20%), and the samples of that set will be selected at random.
   
   .. collapse:: Expand to see how to configure
 
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value in the **Train percentage for validation**:
+          Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train proportion for validation**:
 
           .. image:: ../img/GUI-validation-percentage.png
             :align: center
 
         .. tab:: Google Colab / Notebooks
           
-          In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **percentage_validation**:
+          In either the 2D or the 3D semantic segmentation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **percentage_validation** with a value between 0 and 100:
           
           .. image:: ../img/semantic_seg/Notebooks-model-name-data-conf.png
             :align: center
