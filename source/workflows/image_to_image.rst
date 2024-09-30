@@ -1,6 +1,6 @@
 .. _image-to-image:
 
-Image to Image
+Image to image
 --------------
 
 The goal of this workflow aims at translating/mapping input images into target images. This workflow is as the super-resolution one but with no upsampling, e.g. with the scaling factor to x1.
