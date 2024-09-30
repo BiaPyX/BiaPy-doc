@@ -45,8 +45,8 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
 
    workflows/classification
    workflows/denoising
-   workflows/detection
    workflows/image_to_image
+   workflows/detection
    workflows/instance_segmentation
    workflows/self_supervision
    workflows/semantic_segmentation
