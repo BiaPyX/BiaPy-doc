@@ -6,7 +6,7 @@ Image classification
 Description of the task
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-The goal of this workflow is to assign a category (or classl) to every input image. 
+The goal of this workflow is to assign a **category (or class)** to every input image. 
 
 In the figure below a few examples of this workflow's **input** are depicted:
 
