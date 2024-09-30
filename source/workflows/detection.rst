@@ -1,6 +1,6 @@
 .. _detection:
 
-Object Detection
+Object detection
 ----------------
 
 Description of the task

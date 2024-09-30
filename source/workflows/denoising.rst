@@ -1,6 +1,6 @@
 .. _denoising:
 
-Image Denoising
+Image denoising
 ---------------
 
 Description of the task

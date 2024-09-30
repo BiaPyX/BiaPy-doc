@@ -1,6 +1,6 @@
 .. _classification:
 
-Image Classification
+Image classification
 --------------------
 
 The goal of this workflow is to assign a label to the input image. 
