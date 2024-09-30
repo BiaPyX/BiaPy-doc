@@ -43,7 +43,7 @@ The self-supervision workflows in BiaPy expect a **folder** as input:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *self-supervised learning*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
+        Under *Workflow*, select *Self-supervised learning*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
 
         .. image:: ../img/GUI-general-options.png
           :align: center
