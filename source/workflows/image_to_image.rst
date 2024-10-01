@@ -162,7 +162,7 @@ Upon successful execution, a directory will be generated with the image-to-image
 
       .. tab:: Command line
         
-        When calling BiaPy from command line, you can specify the output folder with the ``--result_dir`` flag. See the *Command line* configuration of :ref:`image_to_image_data_run` for a full example.
+        When calling BiaPy from command line, you can specify the output folder with the ``--result_dir`` flag. See the *Command line* configuration of :ref:`i2i_data_run` for a full example.
 
 
 .. list-table::
@@ -215,6 +215,240 @@ To ensure the proper operation of the library, the data directory tree should be
 In this example, the raw training images are under ``dataset/train/x/`` and their corresponding target images are under ``dataset/train/y/``, while the raw test images are under ``dataset/test/x/`` and their corresponding target images are under ``dataset/test/y/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
 
 .. note:: Make sure that raw and target images are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example).
+
+
+Minimal configuration
+~~~~~~~~~~~~~~~~~~~~~
+Apart from the input and output folders, there are a few basic parameters that always need to be specified in order to run an image-to-image workflow in BiaPy. **These parameters can be introduced either directly in the GUI, the code-free notebooks or by editing the YAML configuration file**.
+
+Experiment name
+***************
+Also known as "model name" or "job name", this will be the name of the current experiment you want to run, so it can be differenciated from other past and future experiments.
+
+.. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Run Workflow*, type the name you want for the job in the **Job name** field:
+
+        .. image:: ../img/i2i/GUI-run-workflow.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D image-to-image translation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **model_name**:
+        
+        .. image:: ../img/i2i/Notebooks-model-name-data-conf.png
+          :align: center
+          :width: 75%
+
+      .. tab:: Command line
+        
+        When calling BiaPy from command line, you can specify the output folder with the ``--name`` flag. See the *Command line* configuration of :ref:`i2i_data_run` for a full example.
+
+\
+
+.. note:: Use only *my_model* -style, not *my-model* (Use "_" not "-"). Do not use spaces in the name. Avoid using the name of an existing experiment/model/job (saved in the same result folder) as it will be overwritten..
+
+Data management
+***************
+Validation Set
+""""""""""""""
+With the goal to monitor the training process, it is common to use a third dataset called the "Validation Set". This is a subset of the whole dataset that is used to evaluate the model's performance and optimize training parameters. This subset will not be directly used for training the model, and thus, when applying the model to these images, we can see if the model is learning the training set's patterns too specifically or if it is generalizing properly.
+
+.. list-table::
+  :align: center
+
+  * - .. figure:: ../img/data-partitions.png
+         :align: center
+         :width: 400
+         :alt: Graphical description of data partitions in BiaPy
+        
+         Graphical description of data partitions in BiaPy.
+
+
+
+To define such set, there are two options:
+  
+* **Validation proportion/percentage**: Select a proportion (or percentage) of your training dataset to be used to validate the network during the training. Usual values are 0.1 (10%) or 0.2 (20%), and the samples of that set will be selected at random.
+  
+  .. collapse:: Expand to see how to configure
+
+      .. tabs::
+        .. tab:: GUI
+
+          Under *Workflow*, select *Image to image*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train proportion for validation**:
+
+          .. image:: ../img/GUI-validation-percentage.png
+            :align: center
+
+        .. tab:: Google Colab / Notebooks
+          
+          In either the 2D or the 3D image-to-image translation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **percentage_validation** with a value between 0 and 100:
+          
+          .. image:: ../img/i2i/Notebooks-model-name-data-conf.png
+            :align: center
+            :width: 75%
+
+        .. tab:: YAML configuration file
+        
+          Edit the variable ``DATA.VAL.SPLIT_TRAIN`` with a value between 0 and 1, representing the proportion of the training set that will be set apart for validation.
+
+* **Validation paths**: Similar to the training and test sets, you can select two folders with the validation raw and target images:
+
+  * **Validation Raw Images**: A folder that contains the unprocessed (single-channel or multi-channel) images that will be used to select the best model during training.
+  
+    .. collapse:: Expand to see how to configure
+
+      .. tabs::
+        .. tab:: GUI
+
+          Under *Workflow*, select *Image to image*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
+
+          .. image:: ../img/i2i/GUI-validation-paths.png
+            :align: center
+
+        .. tab:: Google Colab / Notebooks
+          
+          This option is currently not available in the notebooks.
+
+        .. tab:: YAML configuration file
+        
+          Edit the variable ``DATA.VAL.PATH`` with the absolute path to your validation raw images.
+
+  * **Validation Target Images**: A folder that contains the semantic label (single-channel) images for validation. Ensure the number and dimensions match the validation raw images.
+  
+    .. collapse:: Expand to see how to configure
+
+      .. tabs::
+        .. tab:: GUI
+
+          Under *Workflow*, select *Image to image*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input label folder** and select the folder containing your validation label images:
+
+          .. image:: ../img/i2i/GUI-validation-paths.png
+            :align: center
+
+        .. tab:: Google Colab / Notebooks
+          
+          This option is currently not available in the notebooks.
+
+        .. tab:: YAML configuration file
+        
+          Edit the variable ``DATA.VAL.GT_PATH`` with the absolute path to your validation target images.
+
+
+Test ground-truth
+"""""""""""""""""
+Do you have target images for the test set? This is a key question so BiaPy knows if your test set will be used for evaluation in new data (unseen during training) or simply produce predictions on that new data. All supervised workflows contain a parameter to specify this aspect.
+
+.. collapse:: Expand to see how to configure
+
+  .. tabs::
+    .. tab:: GUI
+
+      Under *Workflow*, select *Image to image*, three times *Continue*, under *General options* > *Test data*, select "No" or "Yes" in the **Do you have target test data?** field:
+
+      .. image:: ../img/i2i/GUI-test-data.png
+        :align: center
+
+    .. tab:: Google Colab / Notebooks
+      
+      In either the 2D or the 3D image-to-image translation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and check or uncheck the **test_ground_truth** option:
+      
+      .. image:: ../img/i2i/Notebooks-model-name-data-conf.png
+        :align: center
+        :width: 50%
+
+
+    .. tab:: YAML configuration file
+      
+      Set the variable ``DATA.TEST.LOAD_GT`` to ``True`` if you do have target images in your test set, or ``False`` otherwise.
+
+
+\
+
+Basic training parameters
+*************************
+At the core of each BiaPy workflow there is a deep learning model. Although we try to simplify the number of parameters to tune, these are the basic parameters that need to be defined for training an image-to-image translation workflow:
+
+* **Number of input channels**: The number of channels of your raw images (grayscale = 1, RGB = 3). Notice the dimensionality of your images (2D/3D) is set by default depending on the workflow template you select.
+  
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Image to image*, click twice on *Continue*, and under *General options* > *Train data*, edit the last value of the field **Data patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
+
+            .. image:: ../img/i2i/GUI-general-options.png
+              :align: center
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D image-to-image translation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **input_channels**:
+            
+            .. image:: ../img/i2i/Notebooks-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``DATA.PATCH_SIZE`` with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D.
+
+* **Number of epochs**: This number indicates how many `rounds <https://machine-learning.paperspace.com/wiki/epoch>`_ the network will be trained. On each round, the network usually sees the full training set. The value of this parameter depends on the size and complexity of each dataset. You can start with something like 100 epochs and tune it depending on how fast the loss (error) is reduced.
+  
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Image to image*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
+
+            .. image:: ../img/i2i/GUI-basic-training-params.png
+              :align: center
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D image-to-image translation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **number_of_epochs**:
+            
+            .. image:: ../img/i2i/Notebooks-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``TRAIN.EPOCHS`` with the number of epochs. For this to have effect, the variable ``TRAIN.ENABLE`` should also be set to ``True``.
+
+* **Patience**: This is a number that indicates how many epochs you want to wait without the model improving its results in the validation set to stop training. Again, this value depends on the data you're working on, but you can start with something like 20.
+   
+  .. collapse:: Expand to see how to configure
+
+        .. tabs::
+          .. tab:: GUI
+
+            Under *Workflow*, select *Image to image*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
+
+            .. image:: ../img/i2i/GUI-basic-training-params.png
+              :align: center
+
+          .. tab:: Google Colab / Notebooks
+            
+            In either the 2D or the 3D image-to-image translation notebook, go to *Configure and train the DNN model* > *Select your parameters*, and edit the field **patience**:
+            
+            .. image:: ../img/i2i/Notebooks-basic-training-params.png
+              :align: center
+              :width: 75%
+
+          .. tab:: YAML configuration file
+          
+            Edit the last value of the variable ``TRAIN.PATIENCE`` with the number of epochs. For this to have effect, the variable ``TRAIN.ENABLE`` should also be set to ``True``.
+
+
+For improving performance, other advanced parameters can be optimized, for example, the model's architecture. A common choice is the U-Net, as it is effective in image-to-image translation tasks. This architecture allows a strong baseline, but further exploration could potentially lead to better results.
+
+.. note:: Once the parameters are correctly assigned, the training phase can be executed. Note that to train large models effectively the use of a GPU (Graphics Processing Unit) is essential. This hardware accelerator performs parallel computations and has larger RAM memory compared to the CPUs, which enables faster training times.
+
 
 Configuration                                                                                                                 
 ~~~~~~~~~~~~~
