@@ -449,53 +449,38 @@ For improving performance, other advanced parameters can be optimized, for examp
 
 .. note:: Once the parameters are correctly assigned, the training phase can be executed. Note that to train large models effectively the use of a GPU (Graphics Processing Unit) is essential. This hardware accelerator performs parallel computations and has larger RAM memory compared to the CPUs, which enables faster training times.
 
-
-Configuration                                                                                                                 
-~~~~~~~~~~~~~
-
-Find in `templates/image-to-image <https://github.com/BiaPyX/BiaPy/tree/master/templates/image-to-image>`__ folder of BiaPy a few YAML configuration templates for this workflow. 
-
-
-Special workflow configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Here some special configuration options that can be selected in this workflow are described:
-
-* If each training sample is composed by several images, e.g. transformed versions of the sample, you need to set ``PROBLEM.IMAGE_TO_IMAGE.MULTIPLE_RAW_ONE_TARGET_LOADER``. Find an example of this configuration in the `LightMyCells tutorial <https://biapy.readthedocs.io/en/latest/tutorials/image-to-image/lightmycells.html>`__. 
-
-* **Metrics**: during the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is ``True``. In the case of image-to-image the **Peak signal-to-noise ratio** (`PSNR <https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio>`__) metric is calculated when the target image is reconstructed from individual patches.
-
 .. _i2i_data_run:
 
-Run
-~~~
+How to run
+~~~~~~~~~~
+BiaPy offers different options to run workflows depending on your degree of computer expertise. Select whichever is more approppriate for you:
 
 .. tabs::
 
    .. tab:: GUI
 
-        Select image-to-image workflow during the creation of a new configuration file:
+        In the GUI of BiaPy, under *Workflow*, select *Image to image* and follow the instructions displayed there:
 
         .. image:: ../img/gui/biapy_gui_i2i.png
             :align: center 
 
    .. tab:: Google Colab
 
-        Two different options depending on the image dimension: 
+        BiaPy offers two code-free notebooks in Google Colab to perform image to image translation: 
 
         .. |sr_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
             :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/image_to_image/BiaPy_2D_Image_to_Image.ipynb
 
-        * 2D: |sr_2D_colablink|
+        * For 2D images: |sr_2D_colablink|
 
         .. |sr_3D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
             :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/image_to_image/BiaPy_3D_Image_to_Image.ipynb
 
-        * 3D: |sr_3D_colablink|
+        * For 3D images: |sr_3D_colablink|
 
    .. tab:: Docker
 
-        `Open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_image-to-image.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/2d_image-to-image.yaml>`__ template file, the code can be run as follows:
+        If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. . Then, you can use the `2d_image-to-image.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/2d_image-to-image.yaml>`__ template file (or your own file), and run the workflow as follows:
 
         .. code-block:: bash                                                                                                    
 
@@ -529,7 +514,7 @@ Run
 
    .. tab:: Command line
 
-        `Open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_image-to-image.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/2d_image-to-image.yaml>`__ template file, the code can be run as follows:
+        `From a terminal <../get_started/faq.html#opening-a-terminal>`__, you can use the `2d_image-to-image.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/2d_image-to-image.yaml>`__ template file (or your own file), and run the workflow as follows:
 
         .. code-block:: bash
             
@@ -573,7 +558,38 @@ Run
                 --gpu "cuda:$gpu_number"  
 
         ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
-        
+      
+
+
+Templates                                                                                                                 
+~~~~~~~~~
+
+In the `templates/image-to-image <https://github.com/BiaPyX/BiaPy/tree/master/templates/image-to-image>`__ folder of BiaPy, you can find a few YAML configuration templates for this workflow. 
+
+[Advanced] Special workflow configuration 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. note:: This section is recommended for experienced users only to improve the performance of their workflows. When in doubt, do not hesitate to check our `FAQ & Troubleshooting <../get_started/faq.html>`__ or open a question in the `image.sc discussion forum <our FAQ & Troubleshooting section>`_.
+
+Advanced Parameters 
+*******************
+Many of the parameters of our workflows are set by default to values that work commonly well. However, it may be needed to tune them to improve the results of the workflow. For instance, you may modify the following parameters
+
+* **Model architecture**: Select the architecture of the deep neural network used as backbone of the pipeline. Options: EDSR, RCAN, WDSR, DFCAN, U-Net, Residual U-Net, Attention U-Net, SEUNet, MultiResUNet, ResUNet++, UNETR-Mini, UNETR-Small, UNETR-Base, ResUNet SE and U-NeXt V1. Safe choice: U-Net.
+* **Batch size**: This parameter defines the number of patches seen in each training step. Reducing or increasing the batch size may slow or speed up your training, respectively, and can influence network performance. Common values are 4, 8, 16, etc.
+* **Patch size**: Input the size of the patches use to train your model (length in pixels in X and Y). The value should be smaller or equal to the dimensions of the image. The default value is 256 in 2D, i.e. 256x256 pixels.
+* **Optimizer**: Select the optimizer used to train your model. Options: ADAM, ADAMW, Stochastic Gradient Descent (SGD). ADAM usually converges faster, while ADAMW provides a balance between fast convergence and better handling of weight decay regularization. SGD is known for better generalization. Default value: ADAMW.
+* **Initial learning rate**: Input the initial value to be used as learning rate. If you select ADAM as optimizer, this value should be around 10e-4. 
+* **Learning rate scheduler**: Select to adjust the learning rate between epochs. The current options are "Reduce on plateau", "One cycle", "Warm-up cosine decay" or no scheduler.
+* **Test time augmentation (TTA)**: Select to apply augmentation (flips and rotations) at test time. It usually provides more robust results but uses more time to produce each result. By default, no TTA is peformed.
+* **Multiple raw inputs**. If each training sample is composed by several images, e.g. transformed versions of the sample, you need to set ``PROBLEM.IMAGE_TO_IMAGE.MULTIPLE_RAW_ONE_TARGET_LOADER``. Find an example of this configuration in the `LightMyCells tutorial <https://biapy.readthedocs.io/en/latest/tutorials/image-to-image/lightmycells.html>`__. 
+
+
+Metrics
+*******
+During the inference phase, the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is ``True``. In the case of image-to-image the **Peak signal-to-noise ratio** (`PSNR <https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio>`__) metric is calculated when the target image is reconstructed from individual patches.
+
+  
 .. _image_to_image_results:
 
 Results                                                                                                                 
