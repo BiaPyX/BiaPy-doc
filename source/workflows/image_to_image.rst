@@ -3,17 +3,16 @@
 Image to image
 --------------
 
-The goal of this workflow aims at translating/mapping input images into target images. This workflow is as the super-resolution one but with no upsampling, e.g. with the scaling factor to x1.
+Description of the task
+~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Input:** 
-    
-  * image (single-channel or multi-channel). E.g. image with shape ``(500, 500, 1)`` ``(y, x, channels)`` in ``2D`` or ``(100, 500, 500, 1)`` ``(z, y, x, channels)`` in ``3D``.  
+The goal of this workflow is to **translate/map input images into target images**. Because of that, this task is commonly known as "image to image", and can be used for different purposes such as **image inpainting, colorization or even super-resolution** (with a scale factor of x1). In bioimage analysis, this workflow can be used for `virtual staining <https://www.cell.com/trends/biotechnology/fulltext/S0167-7799%2824%2900038-6>`__, i.e., training a model to produce stained images from an unstained tissue image, or through transferring information from one stain to another.
 
-* **Output:**
+An example of this task is displayed in the figure below, with a pair of (input-output) fluorescence microscopy images:
 
-  * image. 
+.. role:: raw-html(raw)
+    :format: html
 
-In the figure below an example of paired microscopy images (fluorescence) of lifeact-RFP (**input**) and SiR-DNA is depicted (**output**). The images were obtained from `ZeroCostDL4Mic pix2pix example training and test dataset <https://zenodo.org/records/3941889#.XxrkzWMzaV4>`__:
 
 .. list-table:: 
   :align: center
@@ -23,13 +22,13 @@ In the figure below an example of paired microscopy images (fluorescence) of lif
          :align: center
          :width: 300px
 
-         Input image.
+         Input image (lifeact-RFP) from the :raw-html:`<br />` `ZeroCostDL4Mic pix2pix example dataset <https://zenodo.org/records/3941889#.XxrkzWMzaV4>`__.
 
     - .. figure:: ../img/i2i/i2i_target.png
          :align: center
          :width: 300px
 
-         Target image.
+         Target image (sir-DNA) from the :raw-html:`<br />` `ZeroCostDL4Mic pix2pix example dataset <https://zenodo.org/records/3941889#.XxrkzWMzaV4>`__.
 
 .. _i2i2_data_prep:
 
