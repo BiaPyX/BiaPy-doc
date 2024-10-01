@@ -84,7 +84,7 @@ Choose your installation method
 
    .. tab:: Google Colab
 
-        Nothing special is needed except a browser on your PC. You can run any of the avaialable workflows in BiaPy through Jupyter notebook using Google Colab by clicking in the "Open in colab" button in each workflow page's "Run" section. You can find all workflows in the left menu. 
+        Nothing special is needed except a browser on your PC. You can run any of BiaPy workflow using Google Colab by clicking in the "Open in colab" buttons available on the "How to run" section of each workflow configuration page. You can find all workflows in the left menu. 
 
    .. tab:: Docker
 
