@@ -179,42 +179,42 @@ Upon successful execution, a directory will be generated with the image-to-image
 
 .. _i2i2_data_prep:
 
-Data preparation
-~~~~~~~~~~~~~~~~
+Data structure
+**************
 
-To ensure the proper operation of the library the data directory tree should be something like this: 
+To ensure the proper operation of the library, the data directory tree should be something like this: 
 
-.. collapse:: Expand directory tree 
+.. code-block::
 
-    .. code-block:: bash
-  
-      dataset/
-      ├── train
-      │   ├── x
-      │   │   ├── training-0001.tif
-      │   │   ├── training-0002.tif
-      │   │   ├── . . .
-      │   │   ├── training-9999.tif
-      │   └── y
-      │       ├── training_groundtruth-0001.tif
-      │       ├── training_groundtruth-0002.tif
-      │       ├── . . .
-      │       ├── training_groundtruth-9999.tif
-      └── test
-          ├── x
-          │   ├── testing-0001.tif
-          │   ├── testing-0002.tif
-          │   ├── . . .
-          │   ├── testing-9999.tif
-          └── y
-              ├── testing_groundtruth-0001.tif
-              ├── testing_groundtruth-0002.tif
-              ├── . . .
-              ├── testing_groundtruth-9999.tif
+  dataset/
+  ├── train
+  │   ├── x
+  │   │   ├── training-0001.tif
+  │   │   ├── training-0002.tif
+  │   │   ├── . . .
+  │   │   └── training-9999.tif
+  │   └── y
+  │       ├── training_groundtruth-0001.tif
+  │       ├── training_groundtruth-0002.tif
+  │       ├── . . .
+  │       └── training_groundtruth-9999.tif
+  └── test
+      ├── x
+      │   ├── testing-0001.tif
+      │   ├── testing-0002.tif
+      │   ├── . . .
+      │   └── testing-9999.tif
+      └── y
+          ├── testing_groundtruth-0001.tif
+          ├── testing_groundtruth-0002.tif
+          ├── . . .
+          └── testing_groundtruth-9999.tif
 
 \
 
-.. warning:: Ensure that images and their corresponding masks are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example). 
+In this example, the raw training images are under ``dataset/train/x/`` and their corresponding target images are under ``dataset/train/y/``, while the raw test images are under ``dataset/test/x/`` and their corresponding target images are under ``dataset/test/y/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
+
+.. note:: Make sure that raw and target images are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example).
 
 Configuration                                                                                                                 
 ~~~~~~~~~~~~~
