@@ -353,7 +353,7 @@ To define such set, there are two options:
 
 Test ground-truth
 """""""""""""""""
-Do you have labels for the test set? This is a key question so BiaPy knows if your test set will be used for evaluation in new data (unseen during training) or simply produce predictions on that new data. All workflows contain a parameter to specify this aspect.
+Do you have labels for the test set? This is a key question so BiaPy knows if your test set will be used for evaluation in new data (unseen during training) or simply produce predictions on that new data. All supervised workflows contain a parameter to specify this aspect.
 
 .. collapse:: Expand to see how to configure
 
