@@ -59,7 +59,7 @@ The semantic segmentation workflows in BiaPy expect a series of **folders** as i
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Semantic Segmentation*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
+        Under *Workflow*, select *Semantic segmentation*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
 
         .. image:: ../img/GUI-general-options.png
           :align: center
@@ -85,7 +85,7 @@ The semantic segmentation workflows in BiaPy expect a series of **folders** as i
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Semantic Segmentation*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input label folder**:
+        Under *Workflow*, select *Semantic segmentation*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input label folder**:
 
         .. image:: ../img/GUI-general-options.png
           :align: center
@@ -111,7 +111,7 @@ The semantic segmentation workflows in BiaPy expect a series of **folders** as i
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Semantic Segmentation*, three times *Continue*, under *General options* > *Test data*, click on the *Browse* button of **Input raw image folder**:
+        Under *Workflow*, select *Semantic segmentation*, three times *Continue*, under *General options* > *Test data*, click on the *Browse* button of **Input raw image folder**:
 
         .. image:: ../img/GUI-test-data.png
           :align: center
@@ -137,7 +137,7 @@ The semantic segmentation workflows in BiaPy expect a series of **folders** as i
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Semantic Segmentation*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the *Do you have test labels?* field, and then click on the *Browse* button of **Input label folder**:
+        Under *Workflow*, select *Semantic segmentation*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the *Do you have test labels?* field, and then click on the *Browse* button of **Input label folder**:
 
         .. image:: ../img/GUI-test-data-gt.png
           :align: center
@@ -290,7 +290,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train proportion for validation**:
+          Under *Workflow*, select *Semantic segmentation*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train proportion for validation**:
 
           .. image:: ../img/GUI-validation-percentage.png
             :align: center
@@ -316,7 +316,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
+          Under *Workflow*, select *Semantic segmentation*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
 
           .. image:: ../img/GUI-validation-paths.png
             :align: center
@@ -336,7 +336,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Semantic Segmentation*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input label folder** and select the folder containing your validation label images:
+          Under *Workflow*, select *Semantic segmentation*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input label folder** and select the folder containing your validation label images:
 
           .. image:: ../img/GUI-validation-paths.png
             :align: center
@@ -360,7 +360,7 @@ Do you have labels for the test set? This is a key question so BiaPy knows if yo
   .. tabs::
     .. tab:: GUI
 
-      Under *Workflow*, select *Semantic Segmentation*, three times *Continue*, under *General options* > *Test data*, select "No" or "Yes" in the **Do you have test labels?** field:
+      Under *Workflow*, select *Semantic segmentation*, three times *Continue*, under *General options* > *Test data*, select "No" or "Yes" in the **Do you have test labels?** field:
 
       .. image:: ../img/GUI-test-data.png
         :align: center
@@ -497,7 +497,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
    .. tab:: GUI
 
-        In the GUI of BiaPy, under *Workflow*, select *Semantic Segmentation* and follow the instructions displayed there:
+        In the GUI of BiaPy, under *Workflow*, select *Semantic segmentation* and follow the instructions displayed there:
 
         .. image:: ../img/gui/biapy_gui_semantic_seg.png
             :align: center 
