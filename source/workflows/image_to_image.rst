@@ -30,6 +30,115 @@ An example of this task is displayed in the figure below, with a pair of (input-
 
          Target image (sir-DNA) from the :raw-html:`<br />` `ZeroCostDL4Mic pix2pix example dataset <https://zenodo.org/records/3941889#.XxrkzWMzaV4>`__.
 
+
+Inputs and outputs
+~~~~~~~~~~~~~~~~~~
+The image-to-image workflows in BiaPy expect a series of **folders** as input:
+
+* **Training Raw Images**: A folder that contains the unprocessed (single-channel or multi-channel) images that will be used to train the model.
+  
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Image to image*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
+
+        .. image:: ../img/i2i/GUI-general-options.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D image-to-image notebook, go to *Paths for Input Images and Output Files*, edit the field **train_raw_data_path**:
+        
+        .. image:: ../img/i2i/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TRAIN.PATH`` with the absolute path to the folder with your training raw images.
+
+
+
+* **Training Target Images**: A folder that contains the target (single-channel) images for training. Ensure the number and dimensions match the training raw images.
+  
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Image to image*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input target folder**:
+
+        .. image:: ../img/i2i/GUI-general-options.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D image-to-image notebook, go to *Paths for Input Images and Output Files*, edit the field **train_target_data_path**:
+        
+        .. image:: ../img/i2i/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TRAIN.GT_PATH`` with the absolute path to the folder with your training target images.
+
+* .. raw:: html
+
+      <b><span style="color: darkgreen;">[Optional]</span> Test Raw Images</b>: A folder that contains the images to evaluate the model's performance.
+ 
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Image to image*, three times *Continue*, under *General options* > *Test data*, click on the *Browse* button of **Input raw image folder**:
+
+        .. image:: ../img/i2i/GUI-test-data.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D image-to-image notebook, go to *Paths for Input Images and Output Files*, edit the field **test_raw_data_path**:
+        
+        .. image:: ../img/i2i/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TEST.PATH`` with the absolute path to the folder with your test raw images.
+
+* .. raw:: html
+
+      <b><span style="color: darkgreen;">[Optional]</span> Test Target Images</b>: A folder that contains the target images for testing. Again, ensure their count and sizes align with the test raw images.
+
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Workflow*, select *Image to image*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the *Do you have target test data?* field, and then click on the *Browse* button of **Input target folder**:
+
+        .. image:: ../img/i2i/GUI-test-data-gt.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D image-to-image notebook, go to *Paths for Input Images and Output Files*, edit the field **test_target_data_path**:
+        
+        .. image:: ../img/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: YAML configuration file
+        
+        Edit the variable ``DATA.TEST._GT_PATH`` with the absolute path to the folder with your test target images.
+
+
+
 .. _i2i2_data_prep:
 
 Data preparation
