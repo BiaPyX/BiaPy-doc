@@ -138,6 +138,44 @@ The image-to-image workflows in BiaPy expect a series of **folders** as input:
         Edit the variable ``DATA.TEST._GT_PATH`` with the absolute path to the folder with your test target images.
 
 
+Upon successful execution, a directory will be generated with the image-to-image translation results. Therefore, you will need to define:
+
+* **Output Folder**: A designated path to save the image-to-image outcomes.
+
+  .. collapse:: Expand to see how to configure
+
+    .. tabs::
+      .. tab:: GUI
+
+        Under *Run Workflow*, click on the *Browse* button of **Output folder to save the results**:
+
+        .. image:: ../img/i2i/GUI-run-workflow.png
+          :align: center
+
+      .. tab:: Google Colab / Notebooks
+        
+        In either the 2D or the 3D image-to-image notebook, go to *Paths for Input Images and Output Files*, edit the field **output_path**:
+        
+        .. image:: ../img/i2i/Notebooks-Inputs-Outputs.png
+          :align: center
+          :width: 75%
+
+      .. tab:: Command line
+        
+        When calling BiaPy from command line, you can specify the output folder with the ``--result_dir`` flag. See the *Command line* configuration of :ref:`image_to_image_data_run` for a full example.
+
+
+.. list-table::
+  :align: center
+
+  * - .. figure:: ../img/i2i/Inputs-outputs.svg
+         :align: center
+         :width: 500
+         :alt: Graphical description of minimal inputs and outputs in BiaPy for image-to-image translation.
+        
+         **BiaPy input and output folders for image-to-image translation**.
+
+
 
 .. _i2i2_data_prep:
 
