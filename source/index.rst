@@ -57,10 +57,11 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
    :caption: Tutorials
    :glob:
 
+   
    tutorials/image-to-image/tutorials_i2i
-   tutorials/detection/tutorials_det
    tutorials/instance_seg/tutorials_inst_seg
    tutorials/semantic_seg/tutorials_sem_seg
+   tutorials/detection/tutorials_det
 
 .. toctree::                                                                    
    :maxdepth: 1
