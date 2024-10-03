@@ -36,7 +36,7 @@ numpydoc_show_class_members = False
 # -- Project information -----------------------------------------------------
 
 project = u'BiaPy'
-copyright = u'%d, Daniel Franco-Barranco' % (datetime.datetime.now().year,)
+copyright = u'%d, BiaPy Team' % (datetime.datetime.now().year,)
 author = u'Daniel Franco-Barranco'
 
 
