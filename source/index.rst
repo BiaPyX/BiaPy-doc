@@ -83,10 +83,12 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
 
 Citation
 ========
+Please note that BiaPy is based on a publication. If you use it successfully for your research please be so kind to cite our work:
 
 .. code-block:: text
     
-   Franco-Barranco, Daniel, et al. "BiaPy: a ready-to-use library for Bioimage Analysis 
-   Pipelines." 2023 IEEE 20th International Symposium on Biomedical Imaging (ISBI). 
-   IEEE, 2023.
+   Franco-Barranco, D., Andrés-San Román, J.A., Gómez-Gálvez, P., Escudero, L.M., Muñoz-Barrutia,
+   A. and Arganda-Carreras, I., 2023, April. BiaPy: a ready-to-use library for Bioimage Analysis 
+   Pipelines. In 2023 IEEE 20th International Symposium on Biomedical Imaging (ISBI) (pp. 1-5). 
+   IEEE.
   
