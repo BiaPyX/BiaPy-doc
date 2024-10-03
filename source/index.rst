@@ -5,12 +5,10 @@ BiaPy: Bioimage analysis pipelines in Python
    :width: 50%
    :align: center 
 
-`BiaPy <https://biapyx.github.io/>`__ is an open source ready-to-use all-in-one library that provides **deep-learning workflows for a large variety of bioimage analysis tasks**, including 2D and 3D `semantic segmentation <workflows/semantic_segmentation.html>`__, `instance segmentation <workflows/instance_segmentation.html>`__, `object detection <workflows/detection.html>`__, `image denoising <workflows/denoising.html>`__, `single image super-resolution <workflows/super_resolution.html>`__, `self-supervised learning <workflows/self_supervision.html>`__, `image classification <workflows/classification.html>`__ and `image-to-image translation <workflows/image_to_image.html>`__.
+`BiaPy <https://biapyx.github.io/>`__ is an open source ready-to-use all-in-one library that provides **deep-learning workflows for a large variety of bioimage analysis tasks**, including 2D and 3D `semantic segmentation <workflows/semantic_segmentation.html>`__, `instance segmentation <workflows/instance_segmentation.html>`__, `object detection <workflows/detection.html>`__, `image denoising <workflows/denoising.html>`__, `single image super-resolution <workflows/super_resolution.html>`__, `self-supervised learning <workflows/self_supervision.html>`__ (for model pretraining), `image classification <workflows/classification.html>`__ and `image-to-image translation <workflows/image_to_image.html>`__.
 
 BiaPy is a versatile platform designed to accommodate both proficient computer scientists and users less experienced in programming. It offers diverse and user-friendly access points to our workflows.
-
-This repository is actively under development by the Biomedical Computer Vision group at the `University of the Basque Country <https://www.ehu.eus/en/en-home>`__ and the `Donostia International Physics Center <http://dipc.ehu.es/>`__.                                                                        
-   
+                                                                         
 Find a comprehensive overview of BiaPy and its functionality in the following videos:
 
 .. list-table:: 
