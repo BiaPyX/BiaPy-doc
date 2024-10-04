@@ -29,12 +29,9 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
    get_started/quick_start
    get_started/installation
    get_started/how_it_works
-   get_started/configuration
    get_started/select_workflow
    get_started/bmz
    get_started/faq
-   get_started/contribute
-   get_started/cpu_vs_gpu
 
 .. toctree::
    :maxdepth: 1
@@ -49,29 +46,26 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
    workflows/self_supervision
    workflows/semantic_segmentation
    workflows/super_resolution
-   
+
 .. toctree::
    :maxdepth: 1
    :caption: Tutorials
    :glob:
 
-   
    tutorials/image-to-image/tutorials_i2i
    tutorials/instance_seg/tutorials_inst_seg
    tutorials/semantic_seg/tutorials_sem_seg
    tutorials/detection/tutorials_det
 
-.. toctree::                                                                    
+.. toctree::
    :maxdepth: 1
-   :caption: API
+   :caption: For developers
    :glob:
 
-   API/config/config
-   API/data/data
-   API/engine/engine
-   API/models/models
-   API/utils/utils
-
+   for_developers/configuration
+   for_developers/cpu_vs_gpu
+   for_developers/contribute
+   for_developers/api
 
 .. toctree::
    :maxdepth: 1
