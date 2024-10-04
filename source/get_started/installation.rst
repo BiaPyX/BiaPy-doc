@@ -23,7 +23,7 @@ Choose your installation method
 .. tabs::
    .. tab:: GUI
 
-        Download BiaPy GUI for you OS:
+        Download the corresponding BiaPy GUI for you OS:
 
         - `Windows 64-bit <https://drive.google.com/uc?export=download&id=1iV0wzdFhpCpBCBgsameGyT3iFyQ6av5o>`__ 
         - `Linux 64-bit <https://drive.google.com/uc?export=download&id=13jllkLTR6S3yVZLRdMwhWUu7lq3HyJsD>`__ 
@@ -80,20 +80,20 @@ Choose your installation method
                 .. note::  
                   Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
 
-        Then, the only thing you need to do is double-click in BiaPy binary downloaded. 
+        Then, the only thing you need to do is double-click on the BiaPy binary (application) file you downloaded. 
 
    .. tab:: Google Colab
 
-        Nothing special is needed except a browser on your PC. You can run any of BiaPy workflow using Google Colab by clicking in the "Open in colab" buttons available on the "How to run" section of each workflow configuration page. You can find all workflows in the left menu. 
+        No special setup is required other than a browser on your PC. To run any of the BiaPy workflows, simply click the "Open in Colab" button in the "How to run" section of the corresponding workflow configuration page. All available workflows are listed in the menu on the left.
 
    .. tab:: Docker
 
-        We have two containers prepared to run BiaPy, one for the actual NVIDIA driver versions and another container for old drivers: 
+        We provide two Docker containers for running BiaPy, one compatible with current NVIDIA driver versions and another for older drivers:
 
-            * ``biapyx/biapy:latest-11.8``: Ubuntu ``22.04`` SO with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``2.4.0`` installed supporting CUDA ``11.8`` (`container link <https://hub.docker.com/layers/biapyx/biapy/latest-11.8/images/sha256-86cf198ab05a953ba950bb96fb74b18045d2ed7318afb8fa9b212c97c41be904?context=repo>`__).
-            * ``biapyx/biapy:latest-10.2``: Ubuntu ``20.04`` SO with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``1.12.1`` installed supporting CUDA ``10.2`` (`container link <https://hub.docker.com/layers/biapyx/biapy/latest-10.2/images/sha256-c437972cfe30909879085ffd1769666d11875f0ff239df3100fa04ea056d09ab?context=repo>`__).
+            * ``biapyx/biapy:latest-11.8``: Based on Ubuntu ``22.04`` with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``2.4.0`` and CUDA ``11.8`` support. `Link to container <https://hub.docker.com/layers/biapyx/biapy/latest-11.8/images/sha256-86cf198ab05a953ba950bb96fb74b18045d2ed7318afb8fa9b212c97c41be904?context=repo>`__.
+            * ``biapyx/biapy:latest-10.2``: Based on Ubuntu ``20.04`` with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``1.12.1`` and CUDA ``10.2`` support. `Link to container <https://hub.docker.com/layers/biapyx/biapy/latest-10.2/images/sha256-c437972cfe30909879085ffd1769666d11875f0ff239df3100fa04ea056d09ab?context=repo>`__.
 
-        You need to check the CUDA version that you NVIDIA driver can handle. You can do that with ``nvidia-smi`` command in Linux/macOS or by running ``NVIDIA Control Panel`` in Windows. The driver information will tell you the maximum CUDA version it can handle. Select one of the above containers depending on your GPU driver. For instance, if the CUDA version it can handle is ``12.0`` you can use ``biapyx/biapy:latest-11.8`` container. 
+        To determine the appropriate container for your system, check which CUDA version your NVIDIA driver supports. You can do this by running the command ``nvidia-smi`` in Linux/macOS, or by using the ``NVIDIA Control Panel`` in Windows. The driver information will indicate the maximum CUDA version supported. Choose the container accordingly. For example, if your driver supports CUDA ``12.0``, use the ``biapyx/biapy:latest-11.8`` container. 
         
         To install `Docker <https://docs.docker.com/>`__ in your operating system, you can follow these steps:
 
