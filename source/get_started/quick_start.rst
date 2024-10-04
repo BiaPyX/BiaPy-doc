@@ -12,11 +12,11 @@ BiaPy offers different **execution methods**. More specifically, from lower to h
 
 Once you have determined the **execution method** that aligns best with your computational expertise or preference, proceed by following the subsequent steps:
 
-1. Follow the `installation steps <installation.html>`__ to install BiaPy.
+#. Follow the `installation steps <installation.html>`__ to install BiaPy.
 
-2. `Select the specific workflow <select_workflow.html>`__ intended use.
+#. `Select the specific workflow <select_workflow.html>`__ intended use.
 
-3. Refer to the workflow-specific execution instructions (located in the "How to run" section of each **WORKFLOW CONFIGURATION** page, located in the left menus) corresponding to the chosen **execution method**.
+#. Refer to the workflow-specific execution instructions (located in the "How to run" section of each **WORKFLOW CONFIGURATION** page, located in the left menus) corresponding to the chosen **execution method**.
 
 For a more in-depth understanding of BiaPy functioning, visit the `"How it works" <how_it_works.html>`__ and `"Configuration" <configuration.html>`__ sections. Similarly, if you encounter any challenges while running BiaPy, please consult the `FAQ & Troubleshooting <faq.html>`__ section for assistance.
 
