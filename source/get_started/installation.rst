@@ -101,30 +101,44 @@ Choose your installation method
 
            .. tab:: Windows 
 
-                In Windows you will need to install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__ with Windows Subsystem for Linux (WSL) activated. There is a good video `here <https://www.youtube.com/watch?v=PB7zM3JrgkI>`__. Let's start the installation:
+               To run BiaPy on Windows, you'll need to install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__ with Windows Subsystem for Linux (WSL) enabled. You can follow this helpful video tutorial `here <https://www.youtube.com/watch?v=PB7zM3JrgkI>`__. Below are the steps to get started: 
 
-                * Install Ubuntu inside WSL. For that `open PowerShell <faq.html#opening-a-terminal>`__ or Windows Command Prompt in administrator mode by right-clicking and selecting `Run as administrator` and type the following: :: 
+               #. Install Ubuntu inside WSL:
+
+                    * `Open PowerShell <faq.html#opening-a-terminal>`__ or the Windows Command Prompt in administrator mode by right-clicking and selecting `Run as administrator`.
                     
-                        wsl --install
+                    * Run the following command:
 
-                  This command will enable the features necessary to run WSL and install the Ubuntu distribution of Linux. Then restart your machine and you can do it again so you can check that it is already installed. 
+                         .. code-block:: bash
+                              
+                              wsl --install
 
-                  Once the installation ends it will ask for a username and a password. This is not necessary, exit the installation by using **Ctrl+C** or by closing the window.
+                         This command will enable the necessary features to run WSL and install the Ubuntu Linux distribution. After running the command, restart your machine. You can then run the command again to confirm that Ubuntu has been installed.
+                         
+                         During the installation, you may be prompted to create a username and password. This step is not necessary for our purposes; you can exit the installation by pressing **Ctrl+C** or simply closing the window.
 
-                  Then you need to make Ubuntu the default Linux distribution. List installed Linux distributions typing: ::
+               #. Set Ubuntu as the default Linux distribution:
 
-                        wsl --list -verbose
-
-                  The one with * is the default configuration. So, if it is not Ubuntu, it can be changed by using the command: ::
-
-                        wsl --set-default Ubuntu
-
-                * Install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__. 
-
-                  Check that everything is correct by opening `Docker Desktop` application, going to `Configuration` (wheel icon in the right top corner), in `General` tab the option `WSL 2` should be checked. 
+                    * To check which Linux distributions are installed, type:
                   
-                .. note::  
-                  Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
+                         .. code-block:: bash
+
+                              wsl --list -verbose
+
+                    * The default distribution is marked with an asterisk (*). If Ubuntu is not set as the default, you can change it by running:
+                  
+                         .. code-block:: bash
+
+                              wsl --set-default Ubuntu
+
+               #. Install Docker Desktop:
+                    
+                    * Download and install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__.
+
+                    * Once installed, open Docker Desktop and go to **Settings** (click the gear icon in the top-right corner). In the **General** tab, make sure the **Use the WSL 2 based engine** option is checked.
+                  
+               .. note::  
+                  Whenever you want to run BiaPy using Docker, you must first `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__. 
 
            .. tab:: Linux  
 
