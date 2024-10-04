@@ -3,20 +3,18 @@
 Quick start
 -----------
 
-BiaPy offers different **execution methods**. More specifically, from lower to higher level of expertise:
+BiaPy offers several execution methods, designed to accommodate a range of expertise levels, from beginner to advanced:
 
-* A graphical user interface (GUI), with a user-friendly wizzard for beginners.
-* Jupyter notebooks (to be used locally or in Google Colab).
-* Docker containers.
-* The command-line interface.
+* **Graphical User Interface (GUI)**: With a user-friendly wizard, ideal for beginners.
+* **Jupyter Notebooks**: Can be run locally or through Google Colab.
+* **Docker Containers**: For portable and reproducible environments.
+* **Command-Line Interface (CLI)**: For advanced users comfortable with terminal commands.
 
-Once you have determined the **execution method** that aligns best with your computational expertise or preference, proceed by following the subsequent steps:
+To get started, follow these steps:
 
-#. Follow the `installation steps <installation.html>`__ to install BiaPy.
-
-#. `Select the specific workflow <select_workflow.html>`__ intended use.
-
-#. Refer to the workflow-specific execution instructions (located in the "How to run" section of each **WORKFLOW CONFIGURATION** page, located in the left menus) corresponding to the chosen **execution method**.
+#. Follow the `installation instructions <installation.html>`__ to set up BiaPy.
+#. `Select the specific workflow <select_workflow.html>`__ you wish to use.
+#. Refer to the workflow-specific execution instructions found in the "How to run" section of each **WORKFLOW CONFIGURATION** page (located in the left-hand menu), depending on the execution method you've chosen.
 
 For a more in-depth understanding of BiaPy functioning, visit the `"How it works" <how_it_works.html>`__ and `"Configuration" <configuration.html>`__ sections. Similarly, if you encounter any challenges while running BiaPy, please consult the `FAQ & Troubleshooting <faq.html>`__ section for assistance.
 
