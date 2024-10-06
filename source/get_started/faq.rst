@@ -28,7 +28,7 @@ To open a terminal on your operating system, you can follow these steps:
 General usage
 ~~~~~~~~~~~~~
 
-* When using Docker or GUI on Windows, issues can arise with containers accessing network-mounted paths. If you encounter problems where certain paths are not detected, despite being accessible on your machine, consider using local paths instead.
+* When using Docker or BiaPy GUI on Windows, issues can arise with containers accessing network-mounted paths. If you encounter problems where certain paths are not detected, despite being accessible on your machine, consider using local paths instead.
 
 Train questions
 ~~~~~~~~~~~~~~~
@@ -58,7 +58,7 @@ Train questions
 
     Probably the problem is the GPU memory. We experienced, in Windows, that even if the GPU memory gets saturated the operating system doesn't report an out of memory error. Try to decrease the ``TRAIN.BATCH_SIZE`` to ``1`` (you can increase the value later progresively) and reduce the network parameters, e.g. by reducing ``MODEL.FEATURE_MAPS`` if you are using an U-Net like model. You can also reduce the number of levels, e.g. from ``[16, 32, 64, 128, 256]`` to ``[32, 64, 128]``.
 
-* There can be problems with parallel loads in Windows that throw an error as below. To solve that you can set ``SYSTEM.NUM_WORKERS`` to ``0``. In the GUI you can set it in "general options" window, under "advance options" in the field "Number of workers". 
+* There can be problems with parallel loads in Windows that throw an error as below. To solve that you can set ``SYSTEM.NUM_WORKERS`` to ``0``. In the GUI, you can set it in "general options" window, under "advance options" in the field "Number of workers". 
 
     .. collapse:: Expand error trace
 
@@ -149,11 +149,13 @@ To sort it out increase the number of open files with the command ``ulimit -Sn 1
 Graphical User interface (GUI)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In case you have troubles with GUI you can find instructions on how to use it in the following video (at 41min51s in the video):
+In case you have troubles with GUI, you can find instructions on how to use it in our walk-through video:
 
-.. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy/master/img/BiaPy_presentation_and_demo_at_RTmfm.jpg
-    :alt: BiaPy history and GUI demo
-    :target: https://www.youtube.com/watch?v=Gnm-VsZQ6Cc&t=41m51s
+.. raw:: html
+
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+\
 
 * Running the GUI for the first time:
 
@@ -168,7 +170,9 @@ In case you have troubles with GUI you can find instructions on how to use it in
         .. image:: https://raw.githubusercontent.com/BiaPyX/BiaPy-GUI/main/images/macOS_binary_error.png
             :align: center 
 
-     To sort it, remove the quarantine attribute through `terminal <faq.html#opening-a-terminal>`__: ::
+     This is a common situation when opening third-party applications. Apple offers different ways of `turning BiaPy an authorized application <https://support.apple.com/en-us/102445>`__.
+     
+     In short, you can remove the quarantine attribute through `terminal <faq.html#opening-a-terminal>`__: ::
 
          xattr -d com.apple.quarantine BiaPy.app  
 
