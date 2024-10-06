@@ -498,10 +498,14 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
    .. tab:: GUI
 
-        In the GUI of BiaPy, under *Workflow*, select *Super-resolution* and follow the instructions displayed there:
+        In the BiaPy GUI, navigate to *Workflow*, then select *Super-resolution* and follow the on-screen instructions:
 
         .. image:: ../img/gui/biapy_gui_sr.png
-            :align: center 
+            :align: center
+
+        \
+        
+        **Tip**: If you need additional help, watch BiaPy's `GUI walk-through video <https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB>`__. 
 
    .. tab:: Google Colab
 
