@@ -303,4 +303,4 @@ Choose your installation method
           >>> True
           
 
-The next step consists in `select the specific workflow <select_workflow.html>`_ that aligns with your intended use.
+The next step consists in `selecting the specific workflow <select_workflow.html>`_ that aligns with your intended use.
