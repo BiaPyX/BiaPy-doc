@@ -1,29 +1,30 @@
-CPU vs GPU
-----------
+Differences between CPU and GPU execution
+-----------------------------------------
 
-In order to measure the differences between using a GPU or just CPU for training we conducted several tests with different workflows and image dimensions.
+Running the same BiaPy workflow on a CPU versus a GPU can result in significant differences in both execution time and variability in the results. To illustrate these differences, we provide the results of several tests conducted across various workflows and image dimensions.
 
-2D problem differences
-~~~~~~~~~~~~~~~~~~~~~~
+2D Workflow Comparison
+~~~~~~~~~~~~~~~~~~~~~~~
 
-The following values were measured with BiaPy `v3.5.0 <https://github.com/BiaPyX/BiaPy/tree/v3.5.0>`__, `wound_segmentation template <https://github.com/BiaPyX/BiaPy/blob/v3.5.0/templates/semantic_segmentation/wound_segmentation.yaml>`__ and using `the embryo wound segmentation data <https://drive.google.com/file/d/1qehkWYVJRXfMwvbpayKhb4nmPyYvclAj/view?usp=drive_link>`__ (:cite:p:`backova2023modeling`). 
+The following results were obtained using BiaPy `v3.5.0 <https://github.com/BiaPyX/BiaPy/tree/v3.5.0>`__, the `wound_segmentation template <https://github.com/BiaPyX/BiaPy/blob/v3.5.0/templates/semantic_segmentation/wound_segmentation.yaml>`__, and the `embryo wound segmentation dataset <https://drive.google.com/file/d/1qehkWYVJRXfMwvbpayKhb4nmPyYvclAj/view?usp=drive_link>`__ (:cite:p:`backova2023modeling`).
 
 +-------------------------------------+-------------------+-------------------+
 | Semantic segmentation               | CPU               | GPU               |
 +=====================================+===================+===================+
-| Train time                          | 3:15:16 ± 0:05:30 | 0:22:12 ± 0:00:07 |
+| Train time (360 epochs, patience 50)| 3:15:16 ± 0:05:30 | 0:22:12 ± 0:00:07 |
 |                                     |                   |                   |
 | Test Foreground IoU (per patch)     | 0,336 ± 0.000     | 0,279 ± 0.004     |
 |                                     |                   |                   |
 | Test Foreground IoU (merge patches) | 0,410 ± 0.000     | 0,369 ± 0.012     |
 +-------------------------------------+-------------------+-------------------+
 
-The following values were measured with BiaPy `v3.5.0 <https://github.com/BiaPyX/BiaPy/tree/v3.5.0>`__, `instance_segmentation template <https://github.com/BiaPyX/BiaPy/blob/v3.5.0/templates/instance_segmentation/2d_instance_segmentation.yaml>`__ and using `the ZeroCostDL4Mic - Stardist example training and test dataset <https://drive.google.com/file/d/1b7_WDDGEEaEoIpO_1EefVr0w0VQaetmg/view>`__ for cell instance segmentation.
+For instance segmentation, the following results were obtained using BiaPy `v3.5.0 <https://github.com/BiaPyX/BiaPy/tree/v3.5.0>`__, the `instance_segmentation template <https://github.com/BiaPyX/BiaPy/blob/v3.5.0/templates/instance_segmentation/2d_instance_segmentation.yaml>`__, and the `ZeroCostDL4Mic Stardist dataset <https://drive.google.com/file/d/1b7_WDDGEEaEoIpO_1EefVr0w0VQaetmg/view>`__ for cell instance segmentation.
+
 
 +-------------------------------------+-------------------+-------------------+
 | Instance segmentation               | CPU               | GPU               |
 +=====================================+===================+===================+
-| Train time                          | 3:31:36 ± 0:01:54 | 0:12:54 ± 0:00:11 |
+| Train time (360 epochs, patience 50)| 3:31:36 ± 0:01:54 | 0:12:54 ± 0:00:11 |
 |                                     |                   |                   |
 | Test Foreground IoU (per patch)     | 0,077 ± 0.000     | 0,074 ± 0.002     |
 |                                     |                   |                   |
@@ -61,27 +62,28 @@ The following values were measured with BiaPy `v3.5.0 <https://github.com/BiaPyX
 +-------------------------------------+-------------------+-------------------+
 
 
-3D problem differences
-~~~~~~~~~~~~~~~~~~~~~~
+3D Workflow Comparison
+~~~~~~~~~~~~~~~~~~~~~~~
 
-The following values were measured with BiaPy `v3.5.0 <https://github.com/BiaPyX/BiaPy/tree/v3.5.0>`__, `semantic_segmentation template <https://github.com/BiaPyX/BiaPy/blob/v3.5.0/templates/semantic_segmentation/3d_semantic_segmentation.yaml>`__ and using `the electron microscopy (EPFL - CVLAB) dataset <https://drive.google.com/file/d/10Cf11PtERq4pDHCJroekxu_hf10EZzwG/view>`__ for mitochondria segmentation. 
+For 3D semantic segmentation, the following values were measured with BiaPy `v3.5.0 <https://github.com/BiaPyX/BiaPy/tree/v3.5.0>`__, the `3D semantic_segmentation template <https://github.com/BiaPyX/BiaPy/blob/v3.5.0/templates/semantic_segmentation/3d_semantic_segmentation.yaml>`__, and the `EPFL CVLAB electron microscopy dataset <https://drive.google.com/file/d/10Cf11PtERq4pDHCJroekxu_hf10EZzwG/view>`__ for mitochondria segmentation.
+ 
 
 +-------------------------------------+---------------------+---------------------+
 | Semantic segmentation               | CPU                 | GPU                 |
 +=====================================+=====================+=====================+
-| Train time                          | 13:56:47 ± 00:02:02 | 02:11:03 ± 00:12:19 |
+| Train time (360 epochs, patience 50)| 13:56:47 ± 00:02:02 | 02:11:03 ± 00:12:19 |
 |                                     |                     |                     |
 | Test Foreground IoU (per patch)     | 0,121 ± 0.000       | 0,115 ± 0.010       |
 |                                     |                     |                     |
 | Test Foreground IoU (merge patches) | 0,858 ± 0.000       | 0,829 ± 0.046       |
 +-------------------------------------+---------------------+---------------------+
 
-The following values were measured with BiaPy `v3.5.0 <https://github.com/BiaPyX/BiaPy/tree/v3.5.0>`__, `instance_segmentation template <https://github.com/BiaPyX/BiaPy/blob/v3.5.0/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ and using `the 3D demo dataset from the StarDist 0.3.0 <https://drive.google.com/file/d/1fdL35ZTNw5hhiKau1gadaGu-rc5ZU_C7/view?usp=drive_link>`__ for nuclei instance segmentation.
+For 3D instance segmentation, these values were measured using BiaPy `v3.5.0 <https://github.com/BiaPyX/BiaPy/tree/v3.5.0>`__, the `3D instance_segmentation template <https://github.com/BiaPyX/BiaPy/blob/v3.5.0/templates/instance_segmentation/3d_instance_segmentation.yaml>`__, and the `StarDist 3D demo dataset <https://drive.google.com/file/d/1fdL35ZTNw5hhiKau1gadaGu-rc5ZU_C7/view?usp=drive_link>`__ for nuclei instance segmentation.
 
 +-------------------------------------+-------------------+-------------------+
 | Instance segmentation               | CPU               | GPU               |
 +=====================================+===================+===================+
-| Train time                          | 4:24:58 ± 0:06:49 | 0:42:29 ± 0:00:55 |
+| Train time (360 epochs, patience 50)| 4:24:58 ± 0:06:49 | 0:42:29 ± 0:00:55 |
 |                                     |                   |                   |
 | Test Foreground IoU (per patch)     | 0,074 ± 0.000     | 0,073 ± 0.001     |
 |                                     |                   |                   |
