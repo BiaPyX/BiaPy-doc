@@ -65,7 +65,7 @@ Choose your installation method
               
                   \
 
-                  **Tip**: If you're using a GPU, check the official documentation on `GPU support in Docker Desktop <https://docs.docker.com/desktop/gpu/>`__ for additional setup instructions.
+                  .. tip:: If you're using a GPU, check the official documentation on `GPU support in Docker Desktop <https://docs.docker.com/desktop/gpu/>`__ for additional setup instructions.
 
                   
                 .. note::  
@@ -154,7 +154,7 @@ Choose your installation method
               
                   \
 
-                  **Tip**: If you're using a GPU, check the official documentation on `GPU support in Docker Desktop <https://docs.docker.com/desktop/gpu/>`__ for additional setup instructions.
+                  .. tip:: If you're using a GPU, check the official documentation on `GPU support in Docker Desktop <https://docs.docker.com/desktop/gpu/>`__ for additional setup instructions.
                   
                .. note::  
                   Whenever you want to run BiaPy using Docker, you must first `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__. 

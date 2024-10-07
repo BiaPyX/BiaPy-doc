@@ -445,8 +445,8 @@ BiaPy offers different options to run workflows depending on your degree of comp
             :align: center
         
         \
-        
-        **Tip**: If you need additional help, watch BiaPy's `GUI walk-through video <https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB>`__.
+
+        .. tip:: If you need additional help, watch BiaPy's `GUI walk-through video <https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB>`__.
 
 
    .. tab:: Google Colab 
