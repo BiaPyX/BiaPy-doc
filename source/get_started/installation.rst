@@ -53,9 +53,20 @@ Choose your installation method
 
                         wsl --set-default Ubuntu
 
-                * Install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__. 
+                * Install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__.
 
-                  Check that everything is correct by opening `Docker Desktop` application, going to `Configuration` (wheel icon in the right top corner), in `General` tab the option `WSL 2` should be checked. 
+                  After installation, verify that Docker Desktop is properly configured:
+                    
+                    - Open the Docker Desktop application.
+
+                    - Navigate to `Configuration` (gear icon in the top-right corner).
+
+                    - Under the `General` tab, ensure the option for `WSL 2` is enabled.
+              
+                  \
+
+                  **Tip**: If you're using a GPU, check the official documentation on `GPU support in Docker Desktop <https://docs.docker.com/desktop/gpu/>`__ for additional setup instructions.
+
                   
                 .. note::  
                   Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
@@ -105,37 +116,45 @@ Choose your installation method
 
                #. Install Ubuntu inside WSL:
 
-                    * `Open PowerShell <faq.html#opening-a-terminal>`__ or the Windows Command Prompt in administrator mode by right-clicking and selecting `Run as administrator`.
-                    
-                    * Run the following command:
+                  * `Open PowerShell <faq.html#opening-a-terminal>`__ or the Windows Command Prompt in administrator mode by right-clicking and selecting `Run as administrator`.
+                  
+                  * Run the following command:
 
-                         .. code-block:: bash
-                              
-                              wsl --install
+                       .. code-block:: bash
+                            
+                            wsl --install
 
-                         This command will enable the necessary features to run WSL and install the Ubuntu Linux distribution. After running the command, restart your machine. You can then run the command again to confirm that Ubuntu has been installed.
-                         
-                         During the installation, you may be prompted to create a username and password. This step is not necessary for our purposes; you can exit the installation by pressing **Ctrl+C** or simply closing the window.
+                       This command will enable the necessary features to run WSL and install the Ubuntu Linux distribution. After running the command, restart your machine. You can then run the command again to confirm that Ubuntu has been installed.
+                       
+                       During the installation, you may be prompted to create a username and password. This step is not necessary for our purposes; you can exit the installation by pressing **Ctrl+C** or simply closing the window.
 
                #. Set Ubuntu as the default Linux distribution:
 
-                    * To check which Linux distributions are installed, type:
-                  
-                         .. code-block:: bash
+                  * To check which Linux distributions are installed, type:
+                
+                       .. code-block:: bash
 
-                              wsl --list --verbose
+                            wsl --list --verbose
 
-                    * The default distribution is marked with an asterisk (*). If Ubuntu is not set as the default, you can change it by running:
-                  
-                         .. code-block:: bash
+                  * The default distribution is marked with an asterisk (*). If Ubuntu is not set as the default, you can change it by running:
+                
+                       .. code-block:: bash
 
-                              wsl --set-default Ubuntu
+                            wsl --set-default Ubuntu
 
-               #. Install Docker Desktop:
+               #. Install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__.
+
+                  After installation, verify that Docker Desktop is properly configured:
                     
-                    * Download and install `Docker Desktop <https://docs.docker.com/desktop/install/windows-install/>`__.
+                    - Open the Docker Desktop application.
 
-                    * Once installed, open Docker Desktop and go to **Settings** (click the gear icon in the top-right corner). In the **General** tab, make sure the **Use the WSL 2 based engine** option is checked.
+                    - Navigate to `Configuration` (gear icon in the top-right corner).
+
+                    - Under the `General` tab, ensure the option for `WSL 2` is enabled.
+              
+                  \
+
+                  **Tip**: If you're using a GPU, check the official documentation on `GPU support in Docker Desktop <https://docs.docker.com/desktop/gpu/>`__ for additional setup instructions.
                   
                .. note::  
                   Whenever you want to run BiaPy using Docker, you must first `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__. 
