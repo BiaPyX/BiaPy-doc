@@ -1,5 +1,5 @@
-BiaPy: Bioimage analysis pipelines in Python
-============================================
+BiaPy: Deep learning based bioimage analysis for all audiences
+==============================================================
 
 .. image:: img/biapy_logo.svg
    :width: 50%
