@@ -38,7 +38,33 @@ In bioimage analysis, the **input** and **output** data vary depending on the sp
 
 \  
 
-* `Single image super-resolution <../workflows/super_resolution.html>`_, the goal is to reconstruct high-resolution images from low-resolution ones. The input is a low-resolution image, and the output is a high-resolution (``×2`` or ``×4`` larger) version of the same image. 
-* `Self-supervised pre-training <../workflows/self_supervision.html>`_, the model is trained without the use of labeled data. Instead, the model is presented with a so-called pretext task, such as predicting the rotation of an image, which allows it to learn useful features from the data. Once this initial training is complete, the model can be fine-tuned using labeled data for a specific task, such as image classification. The input in this workflow is simply an image, as no ground truth is needed for the initial training phase (unsupervised learning). 
-* `Image classification <../workflows/classification.html>`_, the goal is to match a given input image to its corresponding class. The input is an image, and the output is the label of the corresponding class.
-* `Image to image translation <../workflows/image_to_image.html>`_, the goal of this workflow aims at translating/mapping input images into target images. This workflow is as the super-resolution one but with no upsampling, e.g. with the scaling factor to x1.
+* `Single image super-resolution <../workflows/super_resolution.html>`_, the goal is to reconstruct high-resolution images from low-resolution ones. The input is a low-resolution image, and the **output is a high-resolution** (usually ``×2`` or ``×4`` larger) **version of the same image**.
+
+  .. image:: ../img/super-resolution/workflow-scheme.svg
+   :width: 70%
+   :align: center 
+
+\
+
+* `Self-supervised pre-training <../workflows/self_supervision.html>`_, the model is trained without the use of labeled data. Instead, the model is presented with a so-called pretext task, such as predicting the rotation of an image, which allows it to learn useful features from the data. Once this initial training is complete, the model can be fine-tuned using labeled data for a specific task, such as image classification. The input in this workflow is simply a set of images, and the **output is the pre-trained model**.
+
+  .. image:: ../img/self-supervised/workflow-scheme.svg
+   :width: 70%
+   :align: center 
+
+\
+
+* `Image classification <../workflows/classification.html>`_, the goal is to match a given input image to its corresponding class. The **input is an image, and the output is the label of the corresponding class**.
+
+  .. image:: ../img/classification/workflow-scheme.svg
+   :width: 70%
+   :align: center 
+
+\
+
+* `Image to image translation <../workflows/image_to_image.html>`_, the purpose of this workflow is to **translate or map input images to corresponding target images**. Often referred to as "image-to-image," this process is versatile and can be applied to various goals, including **image inpainting, colorization, and even super-resolution** (with a scale factor of ``x1``).
+
+  .. image:: ../img/i2i/workflow-scheme.svg
+   :width: 70%
+   :align: center 
+
