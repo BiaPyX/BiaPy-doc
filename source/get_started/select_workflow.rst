@@ -30,7 +30,14 @@ In bioimage analysis, the **input** and **output** data vary depending on the sp
   Additionally, Biapy may output an image with the probability map of each object's center.
 
 
-* `Image denoising <../workflows/denoising.html>`_, the goal is to remove noise from a given input image. The input is a noisy image, and the output is the denoised image. No ground truth is required as the model uses an unsupervised learning technique to remove noise (`Noise2Void <https://arxiv.org/abs/1811.10980>`__).
+* `Image denoising <../workflows/denoising.html>`_, the goal is to remove noise from a given input image. The input is a noisy image, and the **output is the denoised image**. No ground truth is required as the model uses an unsupervised learning technique to remove noise (`Noise2Void <https://arxiv.org/abs/1811.10980>`__).
+
+  .. image:: ../img/denoising/workflow-scheme.svg
+   :width: 70%
+   :align: center 
+
+\  
+
 * `Single image super-resolution <../workflows/super_resolution.html>`_, the goal is to reconstruct high-resolution images from low-resolution ones. The input is a low-resolution image, and the output is a high-resolution (``×2`` or ``×4`` larger) version of the same image. 
 * `Self-supervised pre-training <../workflows/self_supervision.html>`_, the model is trained without the use of labeled data. Instead, the model is presented with a so-called pretext task, such as predicting the rotation of an image, which allows it to learn useful features from the data. Once this initial training is complete, the model can be fine-tuned using labeled data for a specific task, such as image classification. The input in this workflow is simply an image, as no ground truth is needed for the initial training phase (unsupervised learning). 
 * `Image classification <../workflows/classification.html>`_, the goal is to match a given input image to its corresponding class. The input is an image, and the output is the label of the corresponding class.
