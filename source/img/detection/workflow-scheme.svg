@@ -7,7 +7,7 @@
    viewBox="0 0 123.12501 30.009428"
    version="1.1"
    id="svg1"
-   inkscape:version="1.3-alpha (95f74fb, 2023-03-31)"
+   inkscape:version="1.3.2 (1:1.3.2+202311252150+091e20ef0f)"
    sodipodi:docname="workflow-scheme.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -24,17 +24,23 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="1.6711834"
-     inkscape:cx="236.06027"
-     inkscape:cy="74.198918"
-     inkscape:window-width="1470"
-     inkscape:window-height="805"
-     inkscape:window-x="0"
-     inkscape:window-y="37"
+     inkscape:zoom="4.7268205"
+     inkscape:cx="63.467611"
+     inkscape:cy="48.658501"
+     inkscape:window-width="1919"
+     inkscape:window-height="952"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1" />
   <defs
      id="defs1">
+    <rect
+       x="51.942048"
+       y="50.070362"
+       width="126.47405"
+       height="79.181704"
+       id="rect1" />
     <clipPath
        id="g176a3f734bd_0_19.3">
       <path
