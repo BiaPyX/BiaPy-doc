@@ -477,7 +477,15 @@ BiaPy offers different options to run workflows depending on your degree of comp
             :align: center
 
         \
-        
+
+        For a full example on how to configure an instance segmentation workflow in BiaPy GUI, watch our instance segmentation demo video:
+
+        .. raw:: html
+
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/RZJQiUL4ICg?si=AGMxP2TvAR57qauv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+        \
+
         .. tip:: If you need additional help, watch BiaPy's `GUI walk-through video <https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB>`__.
 
 
