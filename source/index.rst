@@ -1,5 +1,5 @@
-BiaPy: Deep learning based bioimage analysis for all audiences
-==============================================================
+BiaPy: Accessible deep learning on bioimages
+============================================
 
 .. image:: img/biapy_logo.svg
    :width: 50%
