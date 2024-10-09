@@ -68,7 +68,7 @@ After running the workflow and completing the training and/or testing phases, a 
 Jupyter notebooks 
 ~~~~~~~~~~~~~~~~~
 
-In all notebooks there are two cells prepared to import and export models from/to BioImage Model Zoo.
+In all notebooks there are two cells prepared to import and export models from/to the BioImage Model Zoo:
 
 .. carousel::
     :show_controls:
@@ -85,6 +85,13 @@ In all notebooks there are two cells prepared to import and export models from/t
         
         Export model to BioImage Model Zoo format
 
+We have also prepared a video tutorial explaining the whole BMZ import/export process using as example the 2D instance segmentation workflow available as a Colab notebook:
+
+.. raw:: html
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/R0Li3tZ7Ryc?si=HDglCfWxDFONgDlF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+\
 
 Command line
 ~~~~~~~~~~~~
