@@ -32,6 +32,14 @@ General usage
 
 Train questions
 ~~~~~~~~~~~~~~~
+* Can I reuse a previously trained model?
+
+    Yes, you can reuse that model if you have both its weights (``.pth``) and configuration (``.yaml``) files. Here you have a video explaining how to do it in BiaPy's GUI:
+
+    .. raw:: html
+
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/wxahMOKpLKM?si=aU1eNutnVN3NVOQq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 
 * My training is too slow. What should I do?  
 
