@@ -5,13 +5,13 @@ Quick start
 
 BiaPy offers several execution methods, designed to accommodate a range of expertise levels, from beginner to advanced:
 
-* **Graphical User Interface (GUI)**: With a user-friendly wizard, ideal for beginners. Have a look at our quick GUI walk-through video:
+* **Graphical User Interface (GUI)**: With a user-friendly wizard, ideal for beginners. Have a look at our quick GUI walksthrough video:
 
     .. raw:: html
 
         <iframe width="560" height="315" src="https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-* **Jupyter Notebooks**: Can be run locally or through Google Colab. More details are available in our quick notebooks walk-through video:
+* **Jupyter Notebooks**: Can be run locally or through Google Colab. More details are available in our quick notebooks walksthrough video:
 
     .. raw:: html
         
