@@ -149,7 +149,7 @@ To sort it out increase the number of open files with the command ``ulimit -Sn 1
 Graphical User interface (GUI)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In case you have troubles with GUI, you can find instructions on how to use it in our walksthrough video:
+In case you have troubles with GUI, you can find instructions on how to use it in our walkthrough video:
 
 .. raw:: html
 
