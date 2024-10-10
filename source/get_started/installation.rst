@@ -3,19 +3,20 @@
 Installation
 ------------
 
-BiaPy can be installed and run locally on any Linux, Windows, or macOS platform using `Docker <https://www.docker.com/>`__ or via the command line with `Conda <https://docs.conda.io/projects/conda/en/stable/>`__ and `Git <https://git-scm.com/>`__. Alternatively, BiaPy can also be used on `Google Colab <https://colab.research.google.com/>`__. Each of these approaches is designed for different types of experiences and users (select the installation based on your level of expertise).
+BiaPy can be installed and run locally on any Linux, Windows, or macOS system using `Docker <https://www.docker.com/>`__, or via the command line using a package manager like `Conda <https://docs.conda.io/projects/conda/en/stable/>`__, `Mamba <https://mamba.readthedocs.io/en/latest/>`__, and `Git <https://git-scm.com/>`__ or `pip <https://pypi.org/project/pip/>`__. Additionally, BiaPy can be seamlessly installed and used on `Google Colab <https://colab.research.google.com/>`__ through our **code-free notebooks**. Each of these approaches is designed to cater to different user experience levels, so choose the installation method that best fits your expertise.
 
 .. image:: ../img/how_to_run.svg
    :width: 80%
-   :align: center 
+   :align: center
 
 |
 
 Prerequisites 
 ~~~~~~~~~~~~~
 
-* Update your `NVIDIA drivers <https://www.nvidia.com/download/index.aspx>`__ for you GPUs in your system. 
-* For Docker and graphical user interface (GUI) installations only: you will need to enable Virtualization Technology on your BIOS. Find here a useful `link <https://support.bluestacks.com/hc/en-us/articles/4409279876621-How-to-enable-Virtualization-VT-on-Windows-11-for-BlueStacks-5#%E2%80%9CA%E2%80%9D>`__ to do it. 
+- If your system has one or more GPUs, ensure your `NVIDIA drivers <https://www.nvidia.com/download/index.aspx>`__ are up to date.
+- For Docker and graphical user interface (GUI) installations: Virtualization Technology must be enabled in your BIOS. Follow this `guide <https://support.bluestacks.com/hc/en-us/articles/4409279876621-How-to-enable-Virtualization-VT-on-Windows-11-for-BlueStacks-5#%E2%80%9CA%E2%80%9D>`__ for instructions on how to enable it.
+
 
 Choose your installation method 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -220,7 +221,7 @@ Choose your installation method
                     The PyPI package does not install `Pytorch <https://pytorch.org/get-started/locally/>`__ because there is no option to build that package specifying exactly the CUDA version you want to use. There are a few solutions to set up ``pyproject.toml`` with poetry and specify the CUDA version, as discussed `here <https://github.com/python-poetry/poetry/issues/6409>`__, but then PyPI package can not be built (as stated `here <https://peps.python.org/pep-0440/#direct-references>`__).
 
 
-          .. tab:: Mamba
+          .. tab:: Mamba + pip
 
                .. _installation_command_line_mamba:
 
