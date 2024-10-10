@@ -38,7 +38,7 @@ In bioimage analysis, the **input** and **output** data vary depending on the sp
 
 \  
 
-* `Single image super-resolution <../workflows/super_resolution.html>`_, the goal is to reconstruct high-resolution images from low-resolution ones. The input is a low-resolution image, and the **output is a high-resolution** (usually ``×2`` or ``×4`` larger) **version of the same image**.
+* `Single image super-resolution <../workflows/super_resolution.html>`_, the goal is to reconstruct high-resolution (HR) images from low-resolution (LR) ones. The input is a LR image, and the **output is a HR** (usually ``×2`` or ``×4`` larger) **version of the same image**. During the training phase, the expected HR image of the input LR image (i.e. the ground truth) needs to be also provided for the model to learn:
 
   .. image:: ../img/super-resolution/workflow-scheme.svg
    :width: 70%
@@ -54,7 +54,7 @@ In bioimage analysis, the **input** and **output** data vary depending on the sp
 
 \
 
-* `Image classification <../workflows/classification.html>`_, the goal is to match a given input image to its corresponding class. The **input is an image, and the output is the label of the corresponding class**.
+* `Image classification <../workflows/classification.html>`_, the goal is to match a given input image to its corresponding class. The **input is a set of images, and the output is a file (usually CSV) containing the predicted class of each input image**.
 
   .. image:: ../img/classification/workflow-scheme.svg
    :width: 70%
@@ -62,7 +62,7 @@ In bioimage analysis, the **input** and **output** data vary depending on the sp
 
 \
 
-* `Image to image translation <../workflows/image_to_image.html>`_, the purpose of this workflow is to **translate or map input images to corresponding target images**. Often referred to as "image-to-image," this process is versatile and can be applied to various goals, including **image inpainting, colorization, and even super-resolution** (with a scale factor of ``x1``).
+* `Image to image translation <../workflows/image_to_image.html>`_, the purpose of this workflow is to **translate or map input images to corresponding target images**. Often referred to as "image-to-image," this process is versatile and can be applied to various goals, including **image inpainting, colorization, and even super-resolution** (with a scale factor of ``x1``). During the training phase, the expected "translated" image of the input image (i.e. the ground truth) needs to be also provided for the model to learn:
 
   .. image:: ../img/i2i/workflow-scheme.svg
    :width: 70%
