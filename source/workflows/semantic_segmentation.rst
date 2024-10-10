@@ -511,7 +511,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
           <iframe width="560" height="315" src="https://www.youtube.com/embed/mosNPxHkLVo?si=6yo8A9HMuJ4_kiII" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
         \
-        .. tip:: If you need additional help, watch BiaPy's `GUI walk-through video <https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB>`__.
+        .. tip:: If you need additional help, watch BiaPy's `GUI walkthrough video <https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB>`__.
 
 
    .. tab:: Google Colab
@@ -527,6 +527,10 @@ BiaPy offers different options to run workflows depending on your degree of comp
             :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/semantic_segmentation/BiaPy_3D_Semantic_Segmentation.ipynb
 
         * For 3D images: |sem_seg_3D_colablink|
+      
+        \
+
+        .. tip:: If you need additional help, watch BiaPy's `Notebook walkthrough video <https://youtu.be/KEqfio-EnYw>`__.
 
    .. tab:: Docker
             
