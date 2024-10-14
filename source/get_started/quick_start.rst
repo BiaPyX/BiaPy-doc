@@ -14,6 +14,8 @@ To quickly get started with BiaPy, follow these steps:
 
 * **Step 3** Refer to the workflow-specific execution instructions found in the "How to run" section of each **WORKFLOW CONFIGURATION** page (located in the left-hand menu of this documentation), depending on the `execution method <quick_start.html#execution-methods>`__ you choose.
 
+Find a visual guide of these steps below:
+
 .. carousel::
     :show_controls:
     :show_captions_below:
