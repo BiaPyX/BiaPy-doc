@@ -113,6 +113,13 @@ Upon successful execution, a directory will be generated with the denoising resu
   
 
 
+.. tip:: To denoise the entire dataset with Noise2Void:
+
+    (1) **Train on the full dataset**: Since Noise2Void learns from the noise patterns within the images themselves, every image in your dataset contributes to the training.
+    (2) **Test on all images as well**: After training, you can apply the model to denoise the entire dataset.
+
+
+
 .. _denoising_data_prep:
 
 Data structure
