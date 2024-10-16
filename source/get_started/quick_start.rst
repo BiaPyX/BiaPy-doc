@@ -55,6 +55,21 @@ BiaPy offers several execution methods, designed to accommodate a range of exper
 * **Docker Containers**: For portable and reproducible environments.
 * **Command-Line Interface (CLI)**: For advanced users comfortable with terminal commands.
 
+
+Limitations
+***********
+
+While BiaPy covers a wide range of tasks such as segmentation, object detection, and super-resolution, it does not include functionalities for common tasks like image visualization, registration, tracking, or manual annotation. For these tasks, we recommend using other popular `tools in the bioimage analysis community <https://forum.image.sc/>`__.
+
+For example, visualization is not natively supported in BiaPy. To address this, we have collaborated with the `Brainglobe project <https://brainglobe.info/>`__, an open-source initiative focused on computational neuroanatomy. In this partnership, BiaPy handles large-scale image processing, such as brain-wide cell detection, while Brainglobe's framework is used for visualizing and further analyzing the results.
+
+A tutorial on how to integrate BiaPy with Brainglobe can be accessed `here <../tutorials/detection/brain_cell_detection.html>`__.
+
+Moving forward, BiaPy will remain focused on deep learning tasks, relying on specialized platforms for complementary functions like visualization and registration.
+
+Further information
+*******************
+
 For a more in-depth understanding of BiaPy functioning, visit the `"How it works" <how_it_works.html>`__ and `"Configuration" <configuration.html>`__ sections. Similarly, if you encounter any challenges while running BiaPy, please consult the `FAQ & Troubleshooting <faq.html>`__ section for assistance.
 
 The **TUTORIALS** section is populated with detailed tutorials designed to replicate the tasks accomplished in all the projects where different BiaPy workflows have been employed.
