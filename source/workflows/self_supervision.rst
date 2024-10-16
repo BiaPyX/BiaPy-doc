@@ -253,7 +253,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
 
           .. tab:: YAML configuration file
           
-            Edit the value of the variable ``DATA.SELF_SUPERVISED.PRETEXT_TASK`` with either ``"crappify"``or ``"masking"``.
+            Edit the value of the variable ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK`` with either ``"crappify"`` or ``"masking"``.
 
 * **Number of input channels**: The number of channels of your raw images (grayscale = 1, RGB = 3). Notice the dimensionality of your images (2D/3D) is set by default depending on the workflow template you select.
   
