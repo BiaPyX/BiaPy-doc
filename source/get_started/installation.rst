@@ -68,10 +68,6 @@ Choose your installation method
 
                   .. tip:: If you're using a GPU, check the official documentation on `GPU support in Docker Desktop <https://docs.docker.com/desktop/gpu/>`__ for additional setup instructions.
 
-                  
-                .. note::  
-                  Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
-
            .. tab:: Linux  
 
                 You will need to follow the steps described `here <https://docs.docker.com/desktop/install/linux-install/>`__. 
@@ -89,10 +85,10 @@ Choose your installation method
 
                 You need to install `Docker Desktop <https://docs.docker.com/desktop/install/mac-install/>`__. 
 
-                .. note::  
-                  Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
+        Then, the only thing you need to do is double-click on the BiaPy binary (application) file you downloaded.
 
-        Then, the only thing you need to do is double-click on the BiaPy binary (application) file you downloaded. 
+        .. note::  
+               Whenever you want to run BiaPy's GUI you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
 
    .. tab:: Google Colab
 
@@ -156,9 +152,6 @@ Choose your installation method
                   \
 
                   .. tip:: If you're using a GPU, check the official documentation on `GPU support in Docker Desktop <https://docs.docker.com/desktop/gpu/>`__ for additional setup instructions.
-                  
-               .. note::  
-                  Whenever you want to run BiaPy using Docker, you must first `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__. 
 
            .. tab:: Linux  
 
@@ -173,8 +166,8 @@ Choose your installation method
 
                 You need to install `Docker Desktop <https://docs.docker.com/desktop/install/mac-install/>`__. 
 
-                .. note::  
-                  Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
+        .. note::  
+               Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
 
    .. tab:: Command line
 
