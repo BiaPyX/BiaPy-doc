@@ -503,6 +503,8 @@ BiaPy offers different options to run workflows depending on your degree of comp
             :align: center
 
         \
+
+        .. note:: BiaPy's GUI requires that all data and configuration files reside on the same machine where the GUI is being executed.
         
         For a full example on how to configure a semantic segmentation workflow in BiaPy GUI, watch our semantic segmentation demo video:
 

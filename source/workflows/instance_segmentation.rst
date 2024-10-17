@@ -478,6 +478,8 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
         \
 
+        .. note:: BiaPy's GUI requires that all data and configuration files reside on the same machine where the GUI is being executed.
+
         For a full example on how to configure an instance segmentation workflow in BiaPy GUI, watch our instance segmentation demo video:
 
         .. raw:: html
@@ -487,6 +489,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
         \
 
         .. tip:: If you need additional help, watch BiaPy's `GUI walkthrough video <https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB>`__.
+        
 
 
    .. tab:: Google Colab 

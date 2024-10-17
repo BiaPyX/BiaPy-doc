@@ -465,6 +465,8 @@ BiaPy offers different options to run workflows depending on your degree of comp
             :align: center 
         
         \
+
+        .. note:: BiaPy's GUI requires that all data and configuration files reside on the same machine where the GUI is being executed.
         
         .. tip:: If you need additional help, watch BiaPy's `GUI walkthrough video <https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB>`__.
 
