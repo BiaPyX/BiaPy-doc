@@ -58,10 +58,6 @@ Train questions
 
     ``nproc_per_node`` need to be equal to the number of GPUs you are using, 2 in this example.
 
-* I have no enough memory in my computer to set ``DATA.TRAIN.IN_MEMORY``, so I've been using ``DATA.EXTRACT_RANDOM_PATCH``. However, the training process is slow. Also, I need to ensure the entire training image is visited every epoch, not just a random patch extracted from it. What should I do?
-
-    You can previously crop the data into patches of ``DATA.PATCH_SIZE`` you want to work with and disable ``DATA.EXTRACT_RANDOM_PATCH`` because all the images will have same shape. You can use `crop_2D_dataset.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/crop_2D_dataset.py>`__ or `crop_3D_dataset.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/crop_3D_dataset.py>`__ to crop the data.
-
 * My training got stuck in the first epoch without no error. What should I do?  
 
     Probably the problem is the GPU memory. We experienced, in Windows, that even if the GPU memory gets saturated the operating system doesn't report an out of memory error. Try to decrease the ``TRAIN.BATCH_SIZE`` to ``1`` (you can increase the value later progresively) and reduce the network parameters, e.g. by reducing ``MODEL.FEATURE_MAPS`` if you are using an U-Net like model. You can also reduce the number of levels, e.g. from ``[16, 32, 64, 128, 256]`` to ``[32, 64, 128]``.
