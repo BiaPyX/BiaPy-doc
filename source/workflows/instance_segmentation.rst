@@ -632,12 +632,12 @@ Firstly, a **pre-processing** step is done where the new data representation is 
 
 ``PROBLEM.INSTANCE_SEG.DATA_CHANNELS`` is in charge of selecting the channels to be created. It can be set to one of the following configurations ``BC``, ``BP``, ``BCM``, ``BCD``, ``BCDv2``, ``Dv2`` and ``BDv2``. For instance, ``BC`` will create a 2-channel mask: the first channel will be ``B`` and the second  ``C``. In the image below the creation of 3-channel mask based on ``BCD`` is depicted:
 
-.. figure:: ../img/cysto_instance_bcd_scheme.svg
-  :width: 300px
-  :alt: multi-channel mask creation
-  :align: center
+.. figure:: ../img/instance_bcd_scheme.svg
+    :width: 400px
+    :alt: Multi-channel mask creation for instance segmentation based on BCD configuration
+    :align: center
 
-  Process of the new multi-channel mask creation based on ``BCD`` configuration. From instance segmentation labels (left) to contour, binary mask and distances (right). Here a small patch is presented just for the sake of visualization but the process is done for each full resolution image.
+    **Process of the multi-channel mask creation based on ``BCD`` configuration**. From instance :raw-html:`<br />` segmentation labels (left) to foreground, contour and distance masks (right). Here a small :raw-html:`<br />` patch is presented just for the sake of visualization but the process is done for each full :raw-html:`<br />` resolution image.
 
 This new data representation is stored in ``DATA.TRAIN.INSTANCE_CHANNELS_DIR`` and ``DATA.TRAIN.INSTANCE_CHANNELS_MASK_DIR`` for train data, ``DATA.VAL.INSTANCE_CHANNELS_DIR`` and ``DATA.VAL.INSTANCE_CHANNELS_MASK_DIR`` for validation, and ``DATA.TEST.INSTANCE_CHANNELS_DIR``, ``DATA.TEST.INSTANCE_CHANNELS_MASK_DIR`` for test. 
 
