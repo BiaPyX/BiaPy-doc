@@ -471,7 +471,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
    .. tab:: Google Colab
 
-        BiaPy offers two code-free notebooks in Google Colab to perform image to image translation: 
+        BiaPy offers two code-free notebooks in Google Colab to perform image-to-image translation: 
 
         .. |sr_2D_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
             :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/image_to_image/BiaPy_2D_Image_to_Image.ipynb

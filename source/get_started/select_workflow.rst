@@ -191,7 +191,7 @@ In bioimage analysis, the **input** and **output** data vary depending on the sp
 
 \
 
-* `Image to image translation <../workflows/image_to_image.html>`_, the purpose of this workflow is to **translate or map input images to corresponding target images**. Often referred to as "image-to-image," this process is versatile and can be applied to various goals, including **image inpainting, colorization, and even super-resolution** (with a scale factor of ``x1``). During the training phase, the expected "translated" image of the input image (i.e. the ground truth) needs to be also provided for the model to learn:
+* `Image-to-image translation <../workflows/image_to_image.html>`_, the purpose of this workflow is to **translate or map input images to corresponding target images**. Often referred to as "image-to-image," this process is versatile and can be applied to various goals, including **image inpainting, colorization, and even super-resolution** (with a scale factor of ``x1``). During the training phase, the expected "translated" image of the input image (i.e. the ground truth) needs to be also provided for the model to learn:
 
   .. image:: ../img/i2i/workflow-scheme.svg
    :width: 70%
