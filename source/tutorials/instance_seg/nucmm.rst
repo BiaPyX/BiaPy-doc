@@ -49,8 +49,8 @@ Configuration file
 
 To create the YAML file you can use the template `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`_ which is prepared for this tutorial.
 
-Run
-~~~
+How to run
+~~~~~~~~~~
 
 To run it via **command line** or **Docker** you can follow the same steps as decribed in the :ref:`instance_segmentation_data_run` section of the instance segmentation workflow documentation.
 
