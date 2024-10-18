@@ -78,8 +78,8 @@ In case you are interested in reproducing one of the state-of-the-art works impl
 .. |oztelcolablink| image:: https://colab.research.google.com/assets/colab-badge.svg
     :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/templates/sota_implementations/Oztel_workflow.ipynb
 
-Run
-~~~
+How to run
+~~~~~~~~~~
 
 The procedure to run the library is slightly different as it is now for the last version of BiaPy. In this version, the library name was ``EM_Image_Segmentation`` and there were no YAML based configuration files to run it. 
 

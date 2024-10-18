@@ -71,8 +71,8 @@ To reproduce the exact results of our manuscript you need to use `mitoem.yaml <h
 
 Then you need to modify ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` with your training data path of EM images and labels respectively. In the same way, do it for the validation data with ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH`` and for the test setting ``DATA.TEST.PATH``. 
 
-Run
-~~~
+How to run
+~~~~~~~~~~
 
 To run it via **command line** or **Docker** you can follow the same steps as decribed in the :ref:`instance_segmentation_data_run` section of the instance segmentation workflow documentation. 
 

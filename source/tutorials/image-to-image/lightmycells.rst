@@ -44,7 +44,7 @@ In our proposed approach we implemented a custom data loader to handle more than
       |   │   |   ├── Study_3_BF_image_53_BF_z0.ome.tiff   
       |   │   |   ├── Study_3_BF_image_53_BF_z1.ome.tiff
       |   │   |   ├── . . .  
-      |   │   |   ├── Study_3_BF_image_53_BF_z19.ome.tiff       
+      |   │   |   └── Study_3_BF_image_53_BF_z19.ome.tiff       
       │   │   ├── Study_3_BF_image_54_Actin.ome.tiff/
       |   │   |   ├── Study_3_BF_image_54_BF_z0.ome.tiff    
       │   │   ├── . . .
@@ -52,7 +52,7 @@ In our proposed approach we implemented a custom data loader to handle more than
       |   │   |   ├── Study_6_PC_image_111_PC_z0.ome.tiff   
       |   │   |   ├── Study_6_PC_image_111_PC_z1.ome.tiff
       |   │   |   ├── . . .  
-      |   │   |   ├── Study_6_PC_image_111_PC_z10.ome.tiff 
+      |   │   |   └── Study_6_PC_image_111_PC_z10.ome.tiff 
       │   └── y
       │       ├── Study_3_BF_image_53_Actin.ome.tiff/
       |       |   └── Study_3_BF_image_53_Actin.ome.tiff          
