@@ -151,9 +151,9 @@ Additionally, replace ``/home/user/anaconda3/envs/BiaPy_env/bin/biapy`` with the
 Results                                                                                                                 
 ~~~~~~~  
 
-The results are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. Following the example, you should see that the directory ``/home/user/exp_results/3d_brain_cell_detection`` has been created. 
+The results are saved in the ``results`` folder within the specified ``--result_dir`` directory, organized under the ``--name`` you provided. For example, with the settings above, you should see the directory ``/home/user/exp_results/3d_brain_cell_detection`` created.
 
-.. collapse:: Expand to see an example of the results directory tree 
+.. collapse:: Expand to see an example of the results directory structure
 
     .. code-block:: bash
 
@@ -182,59 +182,60 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
 
 \
 
-* ``config_files``: directory where the .yaml filed used in the experiment is stored. 
+Here’s a breakdown of the contents:
 
-  * ``3d_brain_cell_detection.yaml``: YAML configuration file used.
+* ``config_files``: Folder that contains the YAML configuration file used for the experiment.
 
-* ``checkpoints``: directory where model's weights are stored.
+  * ``3d_brain_cell_detection.yaml``: The specific configuration file for this example.
 
-  * ``3d_brain_cell_detection_1-checkpoint-best.pth``: checkpoint file (best in validation) where the model's weights are stored among other information.
+* ``checkpoints``: Folder that stores the model's weights.
+
+  * ``3d_brain_cell_detection_1-checkpoint-best.pth``: File that contains the best model weights (based on validation).
   
-* ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
+* ``results``: Folder that stores all generated outputs and logs. A separate subfolder is created for each run.
 
-  * ``3d_brain_cell_detection_1``: run 1 experiment folder. 
+  * ``3d_brain_cell_detection_1``: Folder for the first run of the experiment. 
 
-    * ``aug``: image augmentation samples.
+    * ``aug``: Folder that contains samples of augmented images used during training.
 
-    * ``charts``:  
+    * ``charts``: Folder that stores performance plots.
 
-      * ``3d_brain_cell_detection_1_jaccard_index.png``: plot of IoU (jaccard_index) metric used during training.
+      * ``3d_brain_cell_detection_1_jaccard_index.png``: Plot of the IoU (Jaccard index) metric during training
 
-      * ``3d_brain_cell_detection_1_loss.png``: loss over epochs plot (when training is done). 
+      * ``3d_brain_cell_detection_1_loss.png``: Loss plot over epochs (displayed after training). 
 
     * ``per_image``:
 
-      * ``.zarr files (or.h5)``: reconstructed images from patches.  
+      * ``.zarr files (or.h5)``: Reconstructed images from patches.  
       
     * ``per_image_local_max_check``: 
 
-      * ``*_points.csv files``: final point list on each test chunk. 
+      * ``*_points.csv files``: Contains point locations for each test chunk. 
 
-     * ``*_all_points.csv files``: all points of all chunks together for each test Zarr/H5 sample.
+     * ``*_all_points.csv files``: Aggregates points from all chunks for each test Zarr/H5 sample.
 
     * ``point_associations``:
 
-      * ``.csv files``: false positives (``_fp``) and ground truth associations (``_gt_assoc``) for each test chunk. 
+      * ``.csv files``: Files with false positive (``_fp``) and ground truth associations (``_gt_assoc``) for each test chunk.
 
-    * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
+    * ``train_logs``: Logs with summary statistics for each epoch. Only available if training was performed.
         
-    * ``tensorboard``: tensorboard logs.
+    * ``tensorboard``: Logs for visualization in TensorBoard.
 
 Visualization in BrainGlobe                                                                                                                 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Once the points are detected, you can use the `BrainGlobe brainmapper napari widget <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`__ to analyse the distribution of cells within the brain using the results obtained in BiaPy. Specifically, and following the above example, you would need to use the following file: 
+After detecting cell points, you can analyze their spatial distribution within the brain using BrainGlobe's `brainmapper napari widget <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`__. In the example above, the following file would be used:
 
 ``3d_brain_cell_detection/results/3d_brain_cell_detection_1/per_image_local_max_check/*_all_points.csv``
 
-A full `brainmapper tutorial is available <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`__, but briefly, the process is as follows:
+A comprehensive `brainmapper tutorial is available <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`__, but briefly, the process involves:
 
-#. `Install BrainGlobe <https://brainglobe.info/documentation/index.html>`__.
-#. Register your data to an atlas of your choice using `brainreg <https://brainglobe.info/documentation/brainreg/index.html>`__.
-#. Transform your BiaPy detected cells to the atlas and analyse their distribution using the `brainmapper napari widget <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`__.
+#. `Installing BrainGlobe <https://brainglobe.info/documentation/index.html>`__.
+#. Registering your data to an atlas of your choice with `brainreg <https://brainglobe.info/documentation/brainreg/index.html>`__.
+#. Transforming the detected cell points to the atlas space and analyzing their distribution using the `brainmapper napari widget <https://brainglobe.info/documentation/brainglobe-utils/transform-widget.html>`__.
 
-
-The `brainmapper` widget will assign cells to a brain region, e.g.:
+The `brainmapper` widget will assign cells to specific brain regions, for example:
 
 .. list-table:: 
    :widths: 25 25 50
@@ -265,8 +266,7 @@ The `brainmapper` widget will assign cells to a brain region, e.g.:
      - 118.0  
      - 0.0
 
-It will also transform the cells to the atlas space, allowing visualisations such as this one using BrainGlobe's ``brainrender`` tool (`Claudi et al., 2021 <https://doi.org/10.7554/eLife.65751>`_).
-
+The widget also allows transforming cells into atlas space, enabling visualizations like the following using BrainGlobe's `brainrender` tool (`Claudi et al., 2021 <https://doi.org/10.7554/eLife.65751>`_).
 
 .. figure:: ../../img/detection/brainglobe_brain_atlas_render.png
    :align: center                  
@@ -278,4 +278,4 @@ It will also transform the cells to the atlas space, allowing visualisations suc
 Contact details                                                                                                                
 ~~~~~~~~~~~~~~~
 
-If you have any problem using BiaPy you can contact (biapy.team@gmail.com), create a post in the `Image.sc Forum (biapy tag) <https://forum.image.sc/tag/biapy>`__ or in our `Github <https://github.com/BiaPyX/BiaPy>`__. For any problem related to BrainGlobe you can create a post in the `Image.sc Forum (brainglobe tag) <https://forum.image.sc/tag/brainglobe>`__.
+If you encounter any issues with BiaPy, feel free to reach out via email at (biapy.team@gmail.com), or post in the `Image.sc Forum (biapy tag) <https://forum.image.sc/tag/biapy>`__ or on our `GitHub page <https://github.com/BiaPyX/BiaPy>`__. For BrainGlobe-related questions, you can create a post in the `Image.sc Forum (brainglobe tag) <https://forum.image.sc/tag/brainglobe>`__.
