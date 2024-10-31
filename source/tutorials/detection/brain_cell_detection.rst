@@ -1,156 +1,159 @@
 .. _cell_det_brainglobe:
 
-3D cell detection in whole-brain microscopy images
+3D Cell Detection in Whole-Brain Microscopy Images
 --------------------------------------------------
 
-Description of the task
-~~~~~~~~~~~~~~~~~~~~~~~
+Task overview
+~~~~~~~~~~~~~
 
-This tutorial offers a step-by-step guide on detecting cells in large 3D brain images using Zarr. The same method can be used for H5 format images. You will use BiaPy for cell extraction, and `BrainGlobe <https://brainglobe.info/index.html>`__ for visualization, assigning cells to brain regions, and performing statistical analysis. This tutorial not only links **BrainGlobe** and **BiaPy** but also demonstrates how to use large Zarr images without the memory bottleneck that loading all the data into memory might cause.
+In this tutorial, you'll learn how to detect cells in large 3D brain images using the Zarr format (this method also works with H5 format). We'll use **BiaPy** for cell extraction and **BrainGlobe** for visualization, brain region assignment, and statistical analysis. This tutorial bridges **BrainGlobe** and **BiaPy** while showing how to work with large Zarr images without running into memory limitations.
 
 .. figure:: ../../img/detection/3d_cell_detection_biapy_brainglobe.png
    :align: center                  
-   :width: 600px
+   :width: 450px
+
+   **Tutorial overview**. In this tutorial you will (1) download a public large dataset of two full brains in **Zarr format**, (2) use **BiaPy** to annotate all single cells in the brains, and (3) visualize and analyze the results in **BrainGlobe**.
 
 \
 
-To complete this tutorial, given the large size of the images, it will outline the steps to run BiaPy in a multi-GPU setting via the command line to maximize performance (using `PyTorch’s distributed data-parallel, called *DDP* <https://pytorch.org/tutorials/beginner/ddp_series_theory.html>`__). Additionally, BiaPy includes a special implementation to accelerate the inference process on large Zarr data volumes by using multiple GPUs simultaneously on the same large image. 
+Due to the large image size, we'll run **BiaPy** on multiple GPUs to maximize performance. This guide will show you how to set up **PyTorch’s distributed data-parallel (DDP)** for multi-GPU execution. BiaPy includes a special implementation for processing large Zarr volumes across multiple GPUs.
 
-This tutorial will be using the data released in *Tyson, Rousseau & Niedworok et al. (2021)* (:cite:p:`tyson2021deep`).
+The tutorial uses data from *Tyson, Rousseau & Niedworok et al. (2021)* (:cite:p:`tyson2021deep`).
 
 .. figure:: ../../img/detection/cell_detection_brainglobe.png
    :align: center                  
-   :width: 680px
+   :width: 500px
 
-   Example of the cells to find in the large brain image. 
+   Example of cells to identify in a large brain image. 
 
 Dataset preparation 
 ~~~~~~~~~~~~~~~~~~~
 
-#. Download both compressed files `here <https://gin.g-node.org/danifranco/tutorial-data/src/master/Zarr_dataset>`__ and decompress them. This dataset is a Zarr version of `the original manuscript dataset <https://gin.g-node.org/cellfinder/manuscript_data/src/master/raw_data>`__. Each file description is as follows:
+#. Download and decompress the dataset from `this link <https://gin.g-node.org/danifranco/tutorial-data/src/master/Zarr_dataset>`__. This Zarr dataset is a converted version of `the original dataset <https://gin.g-node.org/cellfinder/manuscript_data/src/master/raw_data>`__.
 
-   * ``zarr_brain_train.tar.gz``: training data consisting of one brain sample, in the ``x`` folder, with dimensions ``2550 x 4949 x 3873 x 2`` following ``(z, y, x, channels)`` order (the first and second channels correspond to `ch2 <https://gin.g-node.org/cellfinder/manuscript_data/src/master/raw_data/brain1/ch2.tar.gz>`__ and `ch4 <https://gin.g-node.org/cellfinder/manuscript_data/src/master/raw_data/brain1/ch4.tar.gz>`__ of the original data respectively). In the ``y`` folder, you will find the corresponding ground truth in comma-separated values (CSV) format. The ground truth is a list of central coordinates of the cells to be identified.
+   * **zarr_brain_train.tar.gz**: Training data consisting of one brain sample in the **x** folder, with dimensions ``(z, y, x, channels)`` - 2550 x 4949 x 3873 x 2. Channels correspond to `ch2 <https://gin.g-node.org/cellfinder/manuscript_data/src/master/raw_data/brain1/ch2.tar.gz>`__ and `ch4 <https://gin.g-node.org/cellfinder/manuscript_data/src/master/raw_data/brain1/ch4.tar.gz>`__ of the original data. The **y** folder contains the ground truth (CSV file) with cell coordinates.
+
+   * **zarr_brain_test.tar.gz**: Test data with the same structure and dimensions.
+
+#. Download the configuration **template** for this task from `this link <https://github.com/BiaPyX/BiaPy/blob/master/templates/detection/3D_cell_detection_zarr_tutorial.yaml>`__ and update the following paths:
+
+   * ``DATA.TRAIN.PATH```` and ``DATA.TRAIN.GT_PATH``: Set these to the **x** and **y** folders inside `zarr_brain_train`.
    
-   * ``zarr_brain_test.tar.gz``: test data consisting of one brain sample with same dimensions and structure as the training data.
-
-#. Download the configuration **template** created for this problem `here <https://github.com/BiaPyX/BiaPy/blob/master/templates/detection/3D_cell_detection_zarr_tutorial.yaml>`__. There, you need to set the data paths: 
-
-   * Update ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` with your training data, i.e., ``x`` and ``y`` folders inside ``zarr_brain_train.tar.gz``. 
-   
-   * Similarly, update the paths for the test data with ``DATA.TEST.PATH`` and ``DATA.TEST.GT_PATH`` with the folders inside ``zarr_brain_test.tar.gz``.
+   * ``DATA.TEST.PATH`` and ``DATA.TEST.GT_PATH``: Set these to the corresponding folders in `zarr_brain_test`.
 
 .. note::
 
-  Here, only one Zarr file is used for both training and testing for simplicity, but multiple Zarr files can be used.
-
-Problem resolution
-~~~~~~~~~~~~~~~~~~
-
-If you're using the provided template with the example dataset in this tutorial, there's **no need to set additional variables**. You can skip this section and head straight to the :ref:`cell_det_brainglobe_run` section to run the experiment.
+  This tutorial uses one Zarr file for training and one for testing. However, you can use multiple Zarr files if needed.
 
 Pre-processing
-**************
+~~~~~~~~~~~~~~
 
-Firstly, a **pre-processing** step is done where the list of points of the CSV file is transformed into point mask images. During this process some checks are made to ensure there is not repeated point there. This option is ``True`` by default with ``PROBLEM.DETECTION.CHECK_POINTS_CREATED`` so if any problem is found the point mask of that CSV will not be created until the problem is solved. 
+In the **pre-processing** step, cell coordinates in the CSV file are transformed into point masks. To avoid duplicate entries, **BiaPy** checks for repeated points by default (``PROBLEM.DETECTION.CHECK_POINTS_CREATED`` is set to ``True``). If duplicates are found, the point mask won't be created until they're resolved.
 
-Training phase
-**************
+Training Phase
+~~~~~~~~~~~~~~
 
-During **training**, the batch will consist of random patches from the training Zarr file. This method ensures that only the patches being processed are loaded into memory, regardless of the image's size. Zarr and H5 file formats help in reading and storing data chunks without needing to load the entire file into memory. During this process, there are some necessary and useful variables worth mentioning:
+During **training**, BiaPy loads random patches from the training Zarr file, so only the needed patches are stored in memory, not the whole image. Zarr and H5 formats allow data chunking to minimize memory usage. Key configuration variables include:
 
-* ``DATA.TRAIN.INPUT_IMG_AXES_ORDER`` (same applies for its corresponding mask variable, e.g. ``DATA.TRAIN.INPUT_MASK_AXES_ORDER``): necessary to match exactly the order of the axes as they are stored within the Zarr/H5 file(s). 
+* ``DATA.TRAIN.INPUT_IMG_AXES_ORDER`` (and corresponding mask variable): Ensure this matches the axis order in your Zarr/H5 file.
+* ``DATA.TRAIN.FILTER_SAMPLES``: Set a minimum foreground percentage to filter out empty patches, helping the model focus on cell-rich areas.
 
-* ``DATA.TRAIN.FILTER_SAMPLES``: this section of the configuration file creates a filtering to drop those patches of the training data that do not have a minimum foreground percentage. In these large images, there is a lot of background, so you can use this variable to ensure the model trains only on patches containing cells.
+Testing Phase
+~~~~~~~~~~~~~
 
-Test phase
-**********
-
-During the **test** phase, BiaPy introduces a novel strategy for multi-GPU inference. Unlike the conventional method of distributing all test images across available GPUs for accelerated processing, BiaPy’s approach is tailored for biological microscopy image data, addressing challenges posed by very large images. More specifically, our method addresses the constraints related to memory and disk space. BiaPy enables multi-GPU processing per image by chunking large images into patches with overlap and padding to mitigate artifacts at the edges. Each GPU processes a chunk of the large image, storing the patch in its designated location within an output file. Consequently, our approach allows the generation of predictions for large images, overcoming potential memory bottlenecks. 
-
-This inference process is enabled with ``TEST.BY_CHUNKS.ENABLE`` . As with training data it is important to set ``TEST.BY_CHUNKS.INPUT_IMG_AXES_ORDER`` correctly so the image can be handled correctly. 
+For **testing**, BiaPy uses a unique approach to multi-GPU inference, designed to handle very large images. Instead of distributing each image across all GPUs, BiaPy splits the image into patches with overlap, allowing each GPU to process a section of the image without loading it all into memory. This setup avoids memory bottlenecks and speeds up large-image processing. To enable this feature, set ``TEST.BY_CHUNKS.ENABLE`` to ``True`` and configure ``TEST.BY_CHUNKS.INPUT_IMG_AXES_ORDER`` for proper image handling.
 
 .. figure:: ../../img/detection/zarr_multigpu_trucks.png
   :align: center                  
   :width: 400px
 
-  Funny diagram of how the prediction is made chunk by chunk avoiding the memory bottleneck. Each GPU (truck on the image) processes a batch (blue/yellow cube in the image) at each time. 
+  Each GPU processes a patch (like the trucks in this diagram) to prevent memory bottlenecks.
 
-Workflow specific configuration
-"""""""""""""""""""""""""""""""
+Detection-specific parameters
+*****************************
+Everything mentioned up to this point is common to all workflows offered by BiaPy, so these steps can be applied to any of them. 
+After inference, the full image is assembled for further processing based on the selected workflow. Next, you need to set the variable ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.ENABLE`` to ``True``, and the variable ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.TYPE`` to one of these options: 
 
-Everything mentioned up to this point is common to all workflows offered by BiaPy, so these steps can be applied to any of them. From here, you will have the complete image prediction, and the next steps depend on each workflow. To activate these next steps, you need to enable ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.ENABLE`` and set the variable ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.TYPE`` to one of these options:
+* ``chunk_by_chunk``: Processes each chunk as an individual file, recommended for limited memory systems.
+* ``entire_pred``: Loads the entire predicted image into memory (useful if memory allows).
 
-* ``'chunk_by_chunk'``: Each chunk will be considered as an individual file. Choose this option if you don't have enough memory to process the entire predicted image with ``'entire_pred'``. This option is only available in the Detection workflow.
+For this tutorial, out **object detection workflow** uses **chunk_by_chunk** to convert probability images into final cell points. You can choose the point detection function (``TEST.DET_POINT_CREATION_FUNCTION``) between these two options:
 
-* ``'entire_pred'``: The predicted image will be loaded into memory and processed entirely (be mindful of your memory limits).
-      
-For the Detection workflow, described in this tutorial, the prediction will be analyzed to extract the endpoints using ``'chunk_by_chunk'``. The model output will be an image where each pixel of each channel will have a probability (ranging from ``0-1``) of representing the class for that channel. The image will look something like the picture on the left below:
+* **peak_local_max** (`function link <https://scikit-image.org/docs/stable/api/skimage.feature.html#skimage.feature.peak_local_max>`__)
+* **blob_log** (`function link <https://scikit-image.org/docs/stable/api/skimage.feature.html#skimage.feature.blob_log>`__)
+
+Set the threshold for point detection with ``TEST.DET_MIN_TH_TO_BE_PEAK``.
 
 .. list-table::
   
-
   * - .. figure:: ../../img/detection_probs.png
          :align: center
          :width: 300px
 
-         Model output.   
+         Deep learning model output (probability maps).   
 
     - .. figure:: ../../img/detected_points.png
          :align: center
          :width: 300px
 
-         Final points considered. 
-
-So those probability images, as the left picture above, can be converted into the final points, as the rigth picture above. To do so you can use two possible functions (defined by ``TEST.DET_POINT_CREATION_FUNCTION``):
-
-* ``'peak_local_max'`` (`function <https://scikit-image.org/docs/stable/api/skimage.feature.html#skimage.feature.peak_local_max>`__). 
-* ``'blob_log'`` (`function <https://scikit-image.org/docs/stable/api/skimage.feature.html#skimage.feature.blob_log>`__).  
-
-The most important aspect of these options is using the threshold defined by the ``TEST.DET_MIN_TH_TO_BE_PEAK`` variable, which sets the minimum probability for a point to be considered.
-
+         Final points detected. 
 .. _cell_det_brainglobe_run:
 
-How to run
+How to Run
 ~~~~~~~~~~
 
-Once you have the YAML configuration file prepared the multi-GPU training of BiaPy can be called as follows:
+Once your YAML configuration file is set up, you can start the multi-GPU training and testing process from the command line with the following steps:
 
 .. code-block:: bash
-    
-    # First check where is your biapy command (you need it in the below command)
+
+    # Find the path to the BiaPy command (you'll need this for the command below)
     # $ which biapy
     # > /home/user/anaconda3/envs/BiaPy_env/bin/biapy
 
-    # Configuration file
-    job_cfg_file=/home/user/3d_brain_cell_detection.yaml       
-    # Where the experiment output directory should be created
-    result_dir=/home/user/exp_results  
-    # Just a name for the job
-    job_name=3d_brain_cell_detection      
-    # Number that should be increased when one need to run the same job multiple times (reproducibility)
-    job_counter=1           
+    # Set the path to your YAML configuration file
+    job_cfg_file=/home/user/3d_brain_cell_detection.yaml
+    # Set the folder path where results will be saved
+    result_dir=/home/user/exp_results
+    # Assign a job name to identify this experiment
+    job_name=3d_brain_cell_detection
+    # Set an execution count for tracking repetitions (start with 1)
+    job_counter=1
 
-    # Load the environment
+    # Activate the BiaPy environment
     conda activate BiaPy_env
-    
+
+    # Specify GPU IDs (as listed by nvidia-smi) for multi-GPU usage
     gpu_number="0,1,2,3,4,5,6,7"
+
+    # Run the workflow with multiple GPUs
     python -u -m torch.distributed.run \
         --nproc_per_node=8 \
         /home/user/anaconda3/envs/BiaPy_env/bin/biapy \
         --config $job_cfg_file \
-        --result_dir $result_dir  \ 
-        --name $job_name    \
-        --run_id $job_counter  \
+        --result_dir $result_dir \
+        --name $job_name \
+        --run_id $job_counter \
         --gpu "$gpu_number"  
 
-``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+
+Before running the command, make sure to update the following parameters:
+
+* ``job_cfg_file``: Full path to your YAML configuration file.
+* ``result_dir``: Full path to the folder where results will be stored. **Note**: A new subfolder will be created within this folder for each run.
+* ``job_name``: A name for your experiment. This helps distinguish it from other experiments. **Tip**: Avoid using hyphens ("-") or spaces in the name.
+* ``job_counter``: A number to identify each execution of your experiment. Start with 1, and increase it if you run the experiment multiple times.
+
+Additionally, replace ``/home/user/anaconda3/envs/BiaPy_env/bin/biapy`` with the correct path to your `biapy` binary, which you can find using the `which biapy` command.
+
+.. note:: Make sure to set **`nproc_per_node`** to match the number of GPUs you are using.
+
 
 Results                                                                                                                 
 ~~~~~~~  
 
 The results are placed in ``results`` folder under ``--result_dir`` directory with the ``--name`` given. Following the example, you should see that the directory ``/home/user/exp_results/3d_brain_cell_detection`` has been created. 
 
-.. collapse:: Expand directory tree 
+.. collapse:: Expand to see an example of the results directory tree 
 
     .. code-block:: bash
 
