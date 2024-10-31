@@ -23,7 +23,7 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
 
 .. toctree::
    :maxdepth: 1
-   :caption: Get started
+   :caption: 🚀 Get started
    :glob:
    
    get_started/quick_start
@@ -35,7 +35,7 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
 
 .. toctree::
    :maxdepth: 1
-   :caption: Workflow configuration
+   :caption: ⚙️ Workflow configuration
    :glob:
 
    workflows/classification
@@ -49,7 +49,7 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
 
 .. toctree::
    :maxdepth: 1
-   :caption: Tutorials
+   :caption: 📘 Tutorials
    :glob:
 
    tutorials/image-to-image/tutorials_i2i
@@ -59,7 +59,7 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
 
 .. toctree::
    :maxdepth: 1
-   :caption: For developers
+   :caption: 🛠️ For developers
    :glob:
 
    for_developers/configuration
@@ -70,13 +70,13 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: Bibliography
+   :caption: 📖 Bibliography
 
    bibliography
    
 
-Citation
-========
+📖 Citation
+===========
 Please note that BiaPy is based on a publication. If you use it successfully for your research please be so kind to cite our work:
 
 .. code-block:: text
