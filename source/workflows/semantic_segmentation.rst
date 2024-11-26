@@ -560,11 +560,11 @@ BiaPy offers different options to run workflows depending on your degree of comp
                 --mount type=bind,source=$result_dir,target=$result_dir \
                 --mount type=bind,source=$data_dir,target=$data_dir \
                 BiaPyX/biapy \
-                    -cfg $job_cfg_file \
-                    -rdir $result_dir \
-                    -name $job_name \
-                    -rid $job_counter \
-                    -gpu "$gpu_number"
+                    --config $job_cfg_file \
+                    --result_dir $result_dir \
+                    --name $job_name \
+                    --run_id $job_counter \
+                    --gpu "$gpu_number"
 
         .. note:: 
 
