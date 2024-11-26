@@ -559,7 +559,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
                 --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
                 --mount type=bind,source=$result_dir,target=$result_dir \
                 --mount type=bind,source=$data_dir,target=$data_dir \
-                BiaPyX/biapy \
+                biapyx/biapy:latest-11.8 \
                     --config $job_cfg_file \
                     --result_dir $result_dir \
                     --name $job_name \
