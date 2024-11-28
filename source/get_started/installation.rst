@@ -251,11 +251,15 @@ Choose your installation method
 
                * Install BiaPy Dependencies: ::
                     
-                    mamba install pytz asciitree tzdata typer tqdm torchinfo tifffile threadpoolctl six Shapely scipy ruamel.yaml.clib pyparsing protobuf numcodecs lazy_loader kiwisolver joblib h5py fonttools fastremap fasteners cycler contourpy zarr=2.16.1 scikit-learn=1.4.0 scikit-image ruamel.yaml python-dateutil pydot=1.4.2 pandas matplotlib bioimageio.spec=0.4.9 xarray imgaug bioimageio.core=0.6.7
+                    mamba install pytz asciitree tzdata typer tqdm torchinfo tifffile threadpoolctl
+                    mamba install six Shapely scipy ruamel.yaml.clib pyparsing protobuf numcodecs lazy_loader kiwisolver
+                    mamba install joblib h5py fonttools fastremap fasteners cycler contourpy zarr=2.16.1 scikit-learn=1.4.0
+                    mamba install scikit-image ruamel.yaml python-dateutil pydot=1.4.2 pandas matplotlib xarray imgaug
+                    mamba install bioimageio.spec bioimageio.core=0.7.0
 
                * Install packages not available on conda-forge, so install it via pip: ::
                     
-                    pip install fill-voids pytorch_msssim opencv-python==4.8.0.76 opencv-python-headless imagecodecs==2024.1.1 numpy==1.25.2 pooch==1.8.1 tensorboardX==2.6.2.2 yacs==0.1.8 edt==2.3.2
+                    pip install fill-voids pytorch_msssim opencv-python opencv-python-headless imagecodecs==2024.1.1 numpy==1.25.2 pooch==1.8.1 tensorboardX==2.6.2.2 yacs==0.1.8 edt==2.3.2
 
                * Install BiaPy: ::
 
