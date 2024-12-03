@@ -33,18 +33,6 @@ The target of the workflow are 3D epithelial cysts acquired with confocal micros
         Corresponding cyst label image (`CartoCell dataset <https://zenodo.org/records/10973241>`__).
 
 
-Please note that **CartoCell** is based on a publication. If you use it successfully for your research please be so kind to cite our work:
-
-.. code-block:: text
-    
-    Andres-San Roman, J.A., Gordillo-Vazquez, C., Franco-Barranco, D., Morato, L., 
-    Fernandez-Espartero, C.H., Baonza, G., Tagua, A., Vicente-Munuera, P., Palacios, A.M.,
-    Gavilán, M.P., Martín-Belmonte, F., Annese, V., Gómez-Gálvez, P., Arganda-Carreras, I.,
-    Escudero, L.M. 2023. CartoCell, a high-content pipeline for 3D image analysis, unveils
-    cell morphology patterns in epithelia. Cell Reports Methods, 3(10).
-    https://doi.org/10.1016/j.crmeth.2023.100597.
-
-
 CartoCell overview
 ~~~~~~~~~~~~~~~~~~
 
@@ -281,3 +269,15 @@ Following the example, the results should be placed in ``/home/user/exp_results/
     
       * ``watershed.tif``: result of watershed.
 
+Citation
+~~~~~~~~
+Please note that **CartoCell** is based on a publication. If you use it successfully for your research please be so kind to cite our work:
+
+.. code-block:: text
+    
+    Andres-San Roman, J.A., Gordillo-Vazquez, C., Franco-Barranco, D., Morato, L., 
+    Fernandez-Espartero, C.H., Baonza, G., Tagua, A., Vicente-Munuera, P., Palacios, A.M.,
+    Gavilán, M.P., Martín-Belmonte, F., Annese, V., Gómez-Gálvez, P., Arganda-Carreras, I.,
+    Escudero, L.M. 2023. CartoCell, a high-content pipeline for 3D image analysis, unveils
+    cell morphology patterns in epithelia. Cell Reports Methods, 3(10).
+    https://doi.org/10.1016/j.crmeth.2023.100597.
