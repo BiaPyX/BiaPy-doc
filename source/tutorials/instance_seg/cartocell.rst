@@ -14,7 +14,7 @@ This tutorial describes how to create a custom 3D instance segmentation workflow
 
     Graphical abstract of `CartoCell (2023) <https://doi.org/10.1016/j.crmeth.2023.100597>`__.
 
-The target of the workflow are 3D epithelial cysts acquired with confocal microscopy, whose segmented cells need to be in direct contact to study their packaging and organization.
+The target of the workflow are **3D epithelial cysts** acquired with confocal microscopy, whose segmented cells need to be in direct contact to study their packaging and organization.
 
 .. list-table:: 
   :align: center
