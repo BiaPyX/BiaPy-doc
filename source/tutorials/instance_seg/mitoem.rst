@@ -1,6 +1,6 @@
 .. _mito_tutorial:
 
-(Paper) MitoEM dataset: large-scale 3d mitochondria instance segmentation
+MitoEM dataset: large-scale 3d mitochondria instance segmentation (Paper)
 -------------------------------------------------------------------------
 
 This tutorial describes how to reproduce the results reported in our paper, concretely 

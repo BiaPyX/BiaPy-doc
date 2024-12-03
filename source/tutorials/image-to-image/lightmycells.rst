@@ -1,6 +1,6 @@
 .. _i2i_lightmycell:
 
-(Paper) LightMyCells challenge: self-supervised Vision Transformers for image-to-image labeling
+LightMyCells challenge: self-supervised Vision Transformers for image-to-image labeling (Paper)
 -----------------------------------------------------------------------------------------------
 
 This tutorial aims to reproduce the results reported in the following paper:

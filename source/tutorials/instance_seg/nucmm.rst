@@ -1,6 +1,6 @@
 .. _nucleus_tutorial:
 
-(Paper) NucMM dataset: 3d neuronal nuclei instance segmentation
+NucMM dataset: 3d neuronal nuclei instance segmentation (Paper)
 ---------------------------------------------------------------
 
 Problem description

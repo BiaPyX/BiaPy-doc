@@ -1,6 +1,6 @@
 .. _stable:
 
-(Paper) Stable DNN architectures for mitochondria segmentation
+Stable DNN architectures for mitochondria segmentation (Paper)
 --------------------------------------------------------------
 
 This tutorial describes how to reproduce the results reported in our paper to 
