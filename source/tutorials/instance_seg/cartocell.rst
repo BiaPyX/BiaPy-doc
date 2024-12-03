@@ -1,15 +1,14 @@
 .. _cartocell:
 
-(Paper) CartoCell, a high-throughput pipeline for accurate 3D image analysis
+CartoCell, a high-throughput pipeline for accurate 3D image analysis (Paper)
 ----------------------------------------------------------------------------
 
-This tutorial describes how to train and infer using our custom ResU-Net 3D DNN in order to reproduce the results obtained in ``(Andrés-San Román, 2022)``. Given an initial training dataset of 21 segmented epithelial 3D cysts acquired after confocal microscopy, we follow the CartoCell pipeline (figure below) to high-throughput segment hundreds of cysts at low resolution automatically.
+Task overview
+~~~~~~~~~~~~~
 
-.. figure:: ../../img/cartocell_pipeline.png
-    :align: center
+This tutorial describes how to create a custom 3D instance segmentation workflow to reproduce the results published in `"CartoCell, a high-content pipeline for 3D image analysis, unveils cell morphology patterns in epithelia" (Cell Report Methods, 2023) <https://doi.org/10.1016/j.crmeth.2023.100597>`__ using **BiaPy**.
 
-    CartoCell pipeline for high-throughput epithelial cysts segmentation.  
-
+The target of the workflow are 3D epithelial cysts acquired with confocal microscopy, whose segmented cells need to be in direct contact to study their packaging and organization.
 
 .. list-table:: 
   :align: center
@@ -19,48 +18,73 @@ This tutorial describes how to train and infer using our custom ResU-Net 3D DNN 
         :align: center
         :scale: 120%
 
-        Cyst raw image   
+        Example of cyst raw image (`CartoCell dataset <https://zenodo.org/records/10973241>`__).
 
     - .. figure:: ../../video/cyst_instance_prediction.gif 
         :align: center
         :scale: 120%
 
-        Cyst label image
+        Corresponding cyst label image (`CartoCell dataset <https://zenodo.org/records/10973241>`__).
 
 
-Paper citation: 
+Please note that **CartoCell** is based on a publication. If you use it successfully for your research please be so kind to cite our work:
 
 .. code-block:: text
     
-    Andres-San Roman, Jesus A., et al. "CartoCell, a high-content pipeline for 3D image 
-    analysis, unveils cell morphology patterns in epithelia." Cell Reports Methods 
-    3.10 (2023).
+    Andres-San Roman, J.A., Gordillo-Vazquez, C., Franco-Barranco, D., Morato, L., 
+    Fernandez-Espartero, C.H., Baonza, G., Tagua, A., Vicente-Munuera, P., Palacios, A.M.,
+    Gavilán, M.P., Martín-Belmonte, F., Annese, V., Gómez-Gálvez, P., Arganda-Carreras, I.,
+    Escudero, L.M. 2023. CartoCell, a high-content pipeline for 3D image analysis, unveils
+    cell morphology patterns in epithelia. Cell Reports Methods, 3(10).
+    https://doi.org/10.1016/j.crmeth.2023.100597.
 
 
-CartoCell phases
-~~~~~~~~~~~~~~~~
+CartoCell overview
+~~~~~~~~~~~~~~~~~~
+
+**CartoCell** follows a multi-phase pipeline to, given an initial training dataset of 21 3D labeled cysts, automatically segment hundreds of cysts at low resolution with enough quality to pergorm cell organization and packaging analysis. The five phases of **CartoCell** are briefly explained in the following tabs:
 
 .. tabs::
 
    .. tab:: Phase 1
 
-        A small dataset of 21 cysts, stained with cell outlines markers, was acquired at high-resolution in a confocal microscope. Next, the individual cell instances were segmented. The high-resolution images from Phase 1 provides the accurate and realistic set of data necessary for the following steps.
+        A small dataset of 21 cysts, stained with cell outlines markers, was acquired at **high-resolution** in a confocal microscope. Next, the individual cell instances were **semi-automatically segmented and manually curated**. The high-resolution images from Phase 1 provide the accurate and realistic set of data necessary for the following steps.
+
+      .. figure:: ../../img/tutorials/instance-segmentation/cartocell/cartocell-phase-1.png
+        :align: center                  
+        :width: 350px
 
    .. tab:: Phase 2
 
-        Both high-resolution raw and label images were down-sampled to create our initial training dataset. Specifically, image volumes were reduced to match the resolution of the images acquired in Phase 3. Using that dataset, a first DNN was trained. We will refer to this first model as `model M1`.
+        Both high-resolution raw and label images were **down-sampled to create our initial training dataset**. Specifically, image volumes were reduced to match the resolution of the images acquired in Phase 3. Using that dataset, a first 3D residual U-Net model (*ResU-Net* for short) was trained. We will refer to this first model as **model M1**.
+
+      .. figure:: ../../img/tutorials/instance-segmentation/cartocell/cartocell-phase-2.png
+        :align: center                  
+        :width: 600px
 
    .. tab:: Phase 3
 
-        A large number of low-resolution stacks of multiple epithelial cysts was acquired. This was a key step to allow the high-throughput analysis of samples since it greatly reduces acquisition time. Here, we extracted the single-layer and single-lumen cysts by cropping them from the complete stack. This way, we obtained a set of 293 low-resolution images, composed of 84 cysts at 4 days, 113 cysts at 7 days and 96 cysts at 10 days. Next, we applied our trained `model M1` to those images and post-processed their output to produce (i) a prediction of individual cell instances (obtained by marker-controlled watershed), and (ii) a prediction of the mask of the full cellular regions. At this stage, the output cell instances were generally not touching each other, which is a problem to study cell connectivity in epithelia. Therefore, we applied a 3D Voronoi algorithm to correctly mimic the epithelial packing. More specifically, each prediction of cell instances was used as a Voronoi seed, while the prediction of the mask of the cellular region defined the bounding territory that each cell could occupy. The result of this phase was a large dataset of low-resolution images and their corresponding accurate labels.
+        A large number of low-resolution stacks of multiple epithelial cysts was acquired. This was a key step to allow the high-throughput analysis of samples since it greatly reduces acquisition time. Here, we extracted the single-layer and single-lumen cysts by cropping them from the complete stack. This way, we obtained a set of **293 low-resolution images**, composed of 84 cysts at 4 days, 113 cysts at 7 days and 96 cysts at 10 days. Next, we applied our trained **model M1** to those images and post-processed their output to produce (i) a prediction of individual cell instances (obtained by marker-controlled watershed), and (ii) a prediction of the mask of the full cellular regions. At this stage, the output cell instances were generally not touching each other, which is a problem to study cell connectivity in epithelia. Therefore, we applied a 3D **Voronoi algorithm** to correctly mimic the epithelial packing. More specifically, each prediction of cell instances was used as a Voronoi seed, while the prediction of the mask of the cellular region defined the bounding territory that each cell could occupy. The result of this phase was a large dataset of low-resolution images and their corresponding accurate labels.
+
+      .. figure:: ../../img/tutorials/instance-segmentation/cartocell/cartocell-phase-3.png
+        :align: center                  
+        :width: 680px
 
    .. tab:: Phase 4
 
-        A new 3D ResU-Net model (`model M2`, from now on) was trained on the newly produced large dataset of low-resolution images and its paired label images. This was a crucial step, since the performance of deep learning models is highly dependent on the amount of training samples.
+        A new 3D ResU-Net model (**model M2**, from now on) was trained on the newly produced large dataset of low-resolution images and its paired label images. This was a crucial step, since the performance of deep learning models is highly dependent on the amount of training samples.
+
+      .. figure:: ../../img/tutorials/instance-segmentation/cartocell/cartocell-phase-4.png
+        :align: center                  
+        :width: 350px
 
    .. tab:: Phase 5
 
-        `model M2` was applied to new low-resolution cysts and their output was post-processed as in Phase 3, thus achieving high-throughput segmentation of the desired cysts. 
+        Finally, **model M2** was applied to new low-resolution cysts and their output was post-processed as in Phase 3, thus achieving high-throughput segmentation of the desired cysts.
+
+      .. figure:: ../../img/tutorials/instance-segmentation/cartocell/cartocell-phase-5.png
+        :align: center                  
+        :width: 580px
 
 
 Data preparation
