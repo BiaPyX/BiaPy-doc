@@ -8,6 +8,12 @@ Task overview
 
 This tutorial describes how to create a custom 3D instance segmentation workflow to reproduce the results published in `"CartoCell, a high-content pipeline for 3D image analysis, unveils cell morphology patterns in epithelia" (Cell Report Methods, 2023) <https://doi.org/10.1016/j.crmeth.2023.100597>`__ using **BiaPy**.
 
+.. figure:: https://ars.els-cdn.com/content/image/1-s2.0-S2667237523002497-fx1_lrg.jpg
+    :align: center                  
+    :width: 350px
+
+    Graphical abstract of `CartoCell (2023) <https://doi.org/10.1016/j.crmeth.2023.100597>`__.
+
 The target of the workflow are 3D epithelial cysts acquired with confocal microscopy, whose segmented cells need to be in direct contact to study their packaging and organization.
 
 .. list-table:: 
