@@ -84,13 +84,58 @@ CartoCell overview
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-The data is accesible through Zenodo `here <https://zenodo.org/records/10973241>`__. The data you need on each phase is:
+All data needed in this tutorial is accesible through Zenodo `here <https://zenodo.org/records/10973241>`__. Download and unzip the `CartoCell.zip <https://zenodo.org/records/10973241/files/CartoCell.zip?download=1>`__ file (185.7 MB). Once unzipped, you should find the following directory tree: ::
 
-* `train_M1 <https://zenodo.org/records/10973241>`__ and `validation <https://zenodo.org/records/10973241>`__ to feed the initial model (`model M1`, `Phase 2`). 
+    CartoCell/
+    ├── train_M1
+    │   ├── x
+    │   │   ├── Cyst 4d filt 2po Pha,Bcat,DAPI 02.08.19 40x POC 3 Z6.tif
+    │   │   ├── Cyst 4d filt 2po Pha,Bcat,DAPI 02.08.19 40x Z4.5 4a.tif
+    │   │   ├── . . .
+    │   │   └── cyst 7d filt 3po pha bcat dapi 15.07.19 40x z4.5 4a.tif
+    │   └── y
+    │       ├── Cyst 4d filt 2po Pha,Bcat,DAPI 02.08.19 40x POC 3 Z6.tif
+    │       ├── Cyst 4d filt 2po Pha,Bcat,DAPI 02.08.19 40x Z4.5 4a.tif
+    │       ├── . . .
+    │       └── cyst 7d filt 3po pha bcat dapi 15.07.19 40x z4.5 4a.tif
+    ├── validation
+    │   ├── x
+    │   │   ├── CYST 7d Filt 3well Pha,Bcat,DAPI 40x Z4 15.7.19 3a.tif
+    │   │   └── cyst 4d fil 3well Pha,bcat,dapi 02.08.19 40x Z5 12a.tif
+    │   └── y
+    │       ├── CYST 7d Filt 3well Pha,Bcat,DAPI 40x Z4 15.7.19 3a.tif
+    │       └── cyst 4d fil 3well Pha,bcat,dapi 02.08.19 40x Z5 12a.tif
+    ├── train_M2
+    │   ├── x
+    │   │   ├── 10d.1B.26.2.tif
+    │   │   ├── 10d.1B.29.1.tif
+    │   │   ├── . . .
+    │   │   └── control_7d.3HX3.1HX1.C.9.3.tif
+    │   └── y
+    │       ├── 10d.1B.26.2.tif
+    │       ├── 10d.1B.29.1.tif
+    │       ├── . . .
+    │       └── control_7d.3HX3.1HX1.C.9.3.tif
+    └── test
+        ├── x
+        │   ├── 10d.1B.10.1.tif
+        │   ├── 10d.1B.10.2.tif
+        │   ├── . . .
+        │   └── 7d.4C.8_2.tif
+        └── y
+            ├── 10d.1B.10.1.tif
+            ├── 10d.1B.10.2.tif
+            ├── . . .
+            └── 7d.4C.8_2.tif
 
-* `train_M2 <https://zenodo.org/records/10973241>`__ to run `Phase 3 – 5` of CartoCell pipeline.
 
-* `test <https://zenodo.org/records/10973241>`__ if you just want to run the inference using our pretrained `model M2`.
+More specifically, the data you need on each phase is as follows:
+
+* **Phase 2**: folders `train_M1 <https://zenodo.org/records/10973241>`__ (19 volumes) and `validation <https://zenodo.org/records/10973241>`__ (2 volumes) to train the initial model (**model M1**). 
+
+* **Phases 3 and 4**: folder `train_M2 <https://zenodo.org/records/10973241>`__ (293 volumes) to be segmented with **model M1** (phase 3) and then train **model M2** (phase 4).
+
+* **Phase 5**: `test <https://zenodo.org/records/10973241>`__ (122 volumes) to run the inference using our pretrained **model M2** on unseen data.
 
 How to train your model
 ~~~~~~~~~~~~~~~~~~~~~~~
