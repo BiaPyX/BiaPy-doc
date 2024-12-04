@@ -137,6 +137,30 @@ More specifically, the data you need on each phase is as follows:
 
 * **Phase 5**: `test <https://zenodo.org/records/10973241>`__ (122 volumes) to run the inference using our pretrained **model M2** on unseen data.
 
+Configure environment for old BiaPy version
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+To reproduce the exact pipeline published with our `manuscript <https://doi.org/10.1016/j.crmeth.2023.100597>`__, you need to configure BiaPy to use the code version associated with the publication. To do so, the easiest way is to configure a **Conda environment** from the command line as follows:
+
+.. code-block:: bash
+  
+  # Create enviroment called "CartoCell_env" using Python v3.10.11
+  conda create -n CartoCell_env python=3.10.11
+
+  # Activate environment
+  conda activate CartoCell_env
+
+  # Install dependences
+  conda install scikit-image==0.20.0 scikit-learn==1.2.2 tqdm==4.65.0 pandas==1.5.3
+  conda install imgaug==0.4.0 yacs==0.1.6 pydot
+
+  pip install fill-voids
+
+  conda install -c conda-forge tensorflow-gpu==2.11.1 edt==2.3.1
+
+.. note::
+
+  **CartoCell** can also be executed using the latest version of **BiaPy** (see instructions below). This step is only needed to use the exact same code and configuration used at the time of publication.
+
 How to train your model
 ~~~~~~~~~~~~~~~~~~~~~~~
 
