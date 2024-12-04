@@ -137,8 +137,16 @@ More specifically, the data you need on each phase is as follows:
 
 * **Phase 5**: `test <https://zenodo.org/records/10973241>`__ (122 volumes) to run the inference using our pretrained **model M2** on unseen data.
 
+Reproducing published results (legacy version)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**BiaPy**, the library behind **CartoCell**, has undergone many changes since the `CartoCell paper <https://doi.org/10.1016/j.crmeth.2023.100597>`__ was published. Here you have the instructions to reproduce exactly the **CartoCell** pipeline using the same version of **BiaPy** available at the time of publication.
+
+.. note::
+
+  **CartoCell** can also be executed using the latest version of **BiaPy** (see instructions below). These steps are only needed to use the exact same code and configuration used at the time of publication.
+
 Configure environment for old BiaPy version
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*******************************************
 To reproduce the exact pipeline published with our `manuscript <https://doi.org/10.1016/j.crmeth.2023.100597>`__, you need to configure BiaPy to use the code version associated with the publication. To do so, the easiest way is to configure a **Conda environment** from the command line as follows:
 
 .. code-block:: bash
@@ -157,50 +165,50 @@ To reproduce the exact pipeline published with our `manuscript <https://doi.org/
 
   conda install -c conda-forge tensorflow-gpu==2.11.1 edt==2.3.1
 
-.. note::
+Model training
+**************
 
-  **CartoCell** can also be executed using the latest version of **BiaPy** (see instructions below). This step is only needed to use the exact same code and configuration used at the time of publication.
-
-How to train your model
-~~~~~~~~~~~~~~~~~~~~~~~
-
-You have two options to train your model: via **command line** or using **Google Colab**. 
+The training of **model M1** and **model M2** is essentially the same, only the input dataset changes. To train either model, you have two options: via **command line** or using **Google Colab**. 
 
 .. tabs::
 
    .. tab:: Command line
 
-        You can reproduce the exact results of our manuscript via **command line** using `cartocell_training.yaml <https://github.com/BiaPyX/BiaPy/blob/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/cartocell_training.yaml>`__ configuration file.
+        You can reproduce the exact results of our manuscript via the **command line** using the `cartocell_training.yaml <https://github.com/BiaPyX/BiaPy/blob/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/cartocell_training.yaml>`__ configuration file.
 
-        * In case you want to reproduce our **model M1, Phase 2**, you will need to modify the ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` with the raw image and their corresponding labels, that is to say, with the paths of `train_M1/x <https://zenodo.org/records/10973241>`__ and `train_M1/y <https://zenodo.org/records/10973241>`__ respectively.
+        * In case you want to reproduce the training of our **model M1** (from phase 2), you will need to modify the ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` with the paths to the folders containing the raw images and their corresponding labels, that is to say, with the paths of `train_M1/x <https://zenodo.org/records/10973241>`__ and `train_M1/y <https://zenodo.org/records/10973241>`__ respectively.
 
-        * In case you want to reproduce our **model M2, Phase 4**, you will need to modify the ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` as above but now using the paths of `train_M2/x <https://zenodo.org/records/10973241>`__ and `train_M2/y <https://zenodo.org/records/10973241>`__.
+        * In case you want to reproduce the training of our **model M2** (from phase 4), you will need to modify the ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` as above but now using the paths of `train_M2/x <https://zenodo.org/records/10973241>`__ and `train_M2/y <https://zenodo.org/records/10973241>`__.
 
-        For the validation data, for both **model M1** and **model M2**, you will need to modify ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH`` with the raw image and their corresponding labels, that is to say, with the paths of `validation/x <https://zenodo.org/records/10973241>`__ and `validation/y <https://zenodo.org/records/10973241>`__ respectively.
+        For the validation data, for both **model M1** and **model M2**, you will need to modify ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH`` with the paths of `validation/x <https://zenodo.org/records/10973241>`__ and `validation/y <https://zenodo.org/records/10973241>`__, respectively.
 
         The next step is to `open a terminal <../../get_started/faq.html#opening-a-terminal>`__ and run the code as follows:
 
         .. code-block:: bash
             
-            # Configuration file
+            # Set the full path to CartoCell's training configuration file
+            # (replace '/home/user/' with an actual path)
             job_cfg_file=/home/user/cartocell_training.yaml       
-            # Where the experiment output directory should be created
-            result_dir=/home/user/exp_results  
-            # Just a name for the job
+            # Set the folder path where results will be saved
+            result_dir=/home/user/exp_results
+            # Assign a job name to identify this experiment
             job_name=cartocell_training      
-            # Number that should be increased when one need to run the same job multiple times (reproducibility)
+            # Set an execution count for tracking repetitions (start with 1)
             job_counter=1
-            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+            # Specify the GPU's id to run the job in (according to 'nvidia-smi' command)
             gpu_number=0                   
 
-            # Move where BiaPy installation resides
+            # Clone BiaPy's repository (only needed once)
             git clone git@github.com:BiaPyX/BiaPy.git
+            # Move to BiaPy's folder
             cd BiaPy
+            # Checkout BiaPy's version at the time of publication
             git checkout 2bfa7508c36694e0977fdf2c828e3b424011e4b1
 
-            # Load the environment
-            conda activate BiaPy_env
+            # Load the environment (created in the previous section)
+            conda activate CartoCell_env
 
+            # Run training workflow
             python -u main.py \
                 --config $job_cfg_file \
                 --result_dir $result_dir  \ 
@@ -210,45 +218,54 @@ You have two options to train your model: via **command line** or using **Google
 
    .. tab:: Google Colab
 
-        Another alternative is to use a **Google Colab** |colablink_train|. Noteworthy, Google Colab standard account do not allow you to run a long number of epochs due to time limitations. Because of this, we set ``50`` epochs to train and patience to ``10`` while the original configuration they are set to ``1300`` and ``100`` respectively. In this case you do not need to donwload any data, as the notebook will do it for you. 
+        An alternative is to use our **Google Colab** |colablink_train| notebook. Noteworthy, Google Colab standard account do not allow you to run a long number of epochs due to time limitations. Because of this, we set ``50`` epochs to train and patience to ``10`` while the original configuration they are set to ``1300`` and ``100`` respectively. In this case you do not need to donwload any data, as the notebook will do it for you. 
 
         .. |colablink_train| image:: https://colab.research.google.com/assets/colab-badge.svg
             :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Training%20workflow%20(Phase%202).ipynb
 
-How to run the inference
-~~~~~~~~~~~~~~~~~~~~~~~~
+        .. warning::
+          This option is **deprecated**, since we don't have control over the versions of the packages installed in Google Colab and there is no way to install the required version of BiaPy through pip (that option was created after the publication of CartoCell).
+
+Model testing
+*************
+Once trained, the models can be applied to the test image volumes as follows:
+
 
 .. tabs::
 
-   .. tab:: Command line
+   .. tab:: Command line (publication)
 
-        You can reproduce the exact results of our **model M2, Phase 5**, of the manuscript via **command line** using `cartocell_inference.yaml <https://github.com/BiaPyX/BiaPy/blob/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/cartocell_inference.yaml>`__ configuration file.
+        You can reproduce the exact results of our **model M2** (from phase 5), of the manuscript via the **command line** using the `cartocell_inference.yaml <https://github.com/BiaPyX/BiaPy/blob/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/cartocell_inference.yaml>`__ configuration file.
 
-        You will need to set ``DATA.TEST.PATH`` and ``DATA.TEST.GT_PATH`` with `test/x <https://zenodo.org/records/10973241>`__ and `test/y <https://zenodo.org/records/10973241>`__ data. You will need to download `model_weights_cartocell.h5 <https://github.com/BiaPyX/BiaPy/raw/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/model_weights_cartocell.h5>`__ file, which is the pretained model, and set its path in ``PATHS.CHECKPOINT_FILE``. 
+        You will need to set ``DATA.TEST.PATH`` and ``DATA.TEST.GT_PATH`` with the paths to the `test/x <https://zenodo.org/records/10973241>`__ and `test/y <https://zenodo.org/records/10973241>`__ folders. To reproduce our results, you can download the `model_weights_cartocell.h5 <https://github.com/BiaPyX/BiaPy/raw/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/model_weights_cartocell.h5>`__ file, which contains out pretained **model M2**, and set its path in ``PATHS.CHECKPOINT_FILE``. 
 
         The next step is to `open a terminal <../../get_started/faq.html#opening-a-terminal>`__ and run the code as follows:
 
         .. code-block:: bash
             
-            # Configuration file
+            # Set the full path to CartoCell's inference configuration file
+            # (replace '/home/user/' with an actual path)
             job_cfg_file=/home/user/cartocell_inference.yaml       
-            # Where the experiment output directory should be created
-            result_dir=/home/user/exp_results  
-            # Just a name for the job
+            # Set the folder path where results will be saved
+            result_dir=/home/user/exp_results
+            # Assign a job name to identify this experiment
             job_name=cartocell_inference      
-            # Number that should be increased when one need to run the same job multiple times (reproducibility)
+            # Set an execution count for tracking repetitions (start with 1)
             job_counter=1
-            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-            gpu_number=0                   
+            # Specify the GPU's id to run the job in (according to 'nvidia-smi' command)
+            gpu_number=0                    
 
-            # Move where BiaPy installation resides (if you didn't in the previous steps)
+            # Clone BiaPy's repository (only needed once)
             git clone git@github.com:BiaPyX/BiaPy.git
+            # Move to BiaPy's folder
             cd BiaPy
+            # Checkout BiaPy's version at the time of publication
             git checkout 2bfa7508c36694e0977fdf2c828e3b424011e4b1
 
-            # Load the environment
-            conda activate BiaPy_env
+            # Load the environment (created in the previous section)
+            conda activate CartoCell_env
 
+            # Run inference workflow
             python -u main.py \
                 --config $job_cfg_file \
                 --result_dir $result_dir  \ 
@@ -256,12 +273,15 @@ How to run the inference
                 --run_id $job_counter  \
                 --gpu "$gpu_number"  
 
-   .. tab:: Google Colab
+   .. tab:: Google Colab (publication)
     
-        To perform an inference using a pretrained model, you can run a Google Colab |colablink_inference|. 
+        As an alternative to perform inference (testing) using a pretrained model, you can run our Google Colab |colablink_inference| notebook. 
 
         .. |colablink_inference| image:: https://colab.research.google.com/assets/colab-badge.svg
             :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Inference%20workflow%20(Phase%205).ipynb
+
+        .. warning::
+          This option is **deprecated**, since we don't have control over the versions of the packages installed in Google Colab and there is no way to install the required version of BiaPy through pip (that option was created after the publication of CartoCell).
 
 Results
 ~~~~~~~
