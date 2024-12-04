@@ -70,9 +70,9 @@ Choose your installation method
 
            .. tab:: Linux  
 
-                You will need to follow the steps described `here <https://docs.docker.com/desktop/install/linux-install/>`__. 
+                You need to install either `Docker Desktop <https://docs.docker.com/desktop/install/linux-install/>`__ (friendlier but not open source) or `Docker Engine <https://docs.docker.com/engine/install/>`__ (open source but command line only).
            
-                If you follow the steps and still have problems maybe you need to add your user to docker group: ::
+                If you follow the steps and still have problems, you may need to add your user to docker group: ::
                     
                     sudo usermod -aG docker $USER
                     newgrp docker
@@ -155,9 +155,9 @@ Choose your installation method
 
            .. tab:: Linux  
 
-                You will need to follow the steps described `here <https://docs.docker.com/desktop/install/linux-install/>`__. 
+                You need to install either `Docker Desktop <https://docs.docker.com/desktop/install/linux-install/>`__ (friendlier but not open source) or `Docker Engine <https://docs.docker.com/engine/install/>`__ (open source but command line only).
            
-                If you follow the steps and still have problems maybe you need to add your user to docker group: ::
+                If you follow the steps and still have problems, you may need to add your user to docker group: ::
                     
                     sudo usermod -aG docker $USER
                     newgrp docker
