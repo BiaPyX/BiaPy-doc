@@ -233,7 +233,7 @@ Once trained, the models can be applied to the test image volumes as follows:
 
 .. tabs::
 
-   .. tab:: Command line (publication)
+   .. tab:: Command line
 
         You can reproduce the exact results of our **model M2** (from phase 5), of the manuscript via the **command line** using the `cartocell_inference.yaml <https://github.com/BiaPyX/BiaPy/blob/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/cartocell_inference.yaml>`__ configuration file.
 
@@ -273,7 +273,7 @@ Once trained, the models can be applied to the test image volumes as follows:
                 --run_id $job_counter  \
                 --gpu "$gpu_number"  
 
-   .. tab:: Google Colab (publication)
+   .. tab:: Google Colab
     
         As an alternative to perform inference (testing) using a pretrained model, you can run our Google Colab |colablink_inference| notebook. 
 
