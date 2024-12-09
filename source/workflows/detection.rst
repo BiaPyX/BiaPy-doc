@@ -520,7 +520,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
    .. tab:: Docker 
 
-        If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. . Then, you can use for instance the `2d_detection.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/detection/2d_detection.yaml>`__ template file (or your own YAML configuration file), and run the workflow as follows:
+        If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. Then, you can use for instance the `2d_detection.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/detection/2d_detection.yaml>`__ template file (or your own YAML configuration file), and run the workflow as follows:
 
         .. code-block:: bash                                                                                                    
 
