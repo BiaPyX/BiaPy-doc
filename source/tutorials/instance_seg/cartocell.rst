@@ -283,6 +283,14 @@ Once trained, the models can be applied to the test image volumes as follows:
         .. warning::
           This option is **deprecated**, since we don't have control over the versions of the packages installed in Google Colab and there is no way to install the required version of BiaPy through pip (that option was created after the publication of CartoCell).
 
+
+.. _cartocell_latest:
+Executing CartoCell with the latest BiaPy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
 Results
 ~~~~~~~
 
