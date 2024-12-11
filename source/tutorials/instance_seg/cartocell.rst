@@ -143,7 +143,7 @@ Reproducing published results (legacy version)
 
 .. note::
 
-  **CartoCell** can also be executed using the latest version of **BiaPy** (see instructions below). These steps are only needed to use the exact same code and configuration used at the time of publication.
+  **CartoCell** can also be executed using the latest version of **BiaPy** (see :ref:`instructions below <cartocell_latest>`). These steps are only needed to use the exact same code and configuration used at the time of publication.
 
 Configure environment for old BiaPy version
 *******************************************
@@ -192,7 +192,7 @@ The training of **model M1** and **model M2** is essentially the same, only the 
             # Set the folder path where results will be saved
             result_dir=/home/user/exp_results
             # Assign a job name to identify this experiment
-            job_name=cartocell_training      
+            job_name=cartocell
             # Set an execution count for tracking repetitions (start with 1)
             job_counter=1
             # Specify the GPU's id to run the job in (according to 'nvidia-smi' command)
@@ -249,7 +249,7 @@ Once trained, the models can be applied to the test image volumes as follows:
             # Set the folder path where results will be saved
             result_dir=/home/user/exp_results
             # Assign a job name to identify this experiment
-            job_name=cartocell_inference      
+            job_name=cartocell
             # Set an execution count for tracking repetitions (start with 1)
             job_counter=1
             # Specify the GPU's id to run the job in (according to 'nvidia-smi' command)
@@ -283,18 +283,10 @@ Once trained, the models can be applied to the test image volumes as follows:
         .. warning::
           This option is **deprecated**, since we don't have control over the versions of the packages installed in Google Colab and there is no way to install the required version of BiaPy through pip (that option was created after the publication of CartoCell).
 
-
-.. _cartocell_latest:
-Executing CartoCell with the latest BiaPy
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
 Results
-~~~~~~~
+*******
 
-Following the example, the results should be placed in ``/home/user/exp_results/cartocell/results``. You should find the following directory tree: ::
+Assuming you named your job ``cartocell`` (set with the ``job_name`` variable in the command-line example) for both training and testing workflows, the results of the execution of both workflows should be stored in the folder you defined, containing a directory tree similar like this: ::
 
     cartocell/
     ├── config_files/
@@ -321,6 +313,8 @@ Following the example, the results should be placed in ``/home/user/exp_results/
                 ├── foreground.tif                
                 └── watershed.tif
 
+
+Where:
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 
@@ -365,6 +359,183 @@ Following the example, the results should be placed in ``/home/user/exp_results/
       * ``foreground.tif``: foreground mask area that delimits the grown of the seeds.
     
       * ``watershed.tif``: result of watershed.
+
+
+
+.. _cartocell_latest:
+
+Executing CartoCell with the latest BiaPy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+If you want to replicate the **CartoCell** steps using the current version of **BiaPy**, make sure your **BiaPy** is up to date. You can follow the general `installation instructions <../../get_started/installation>`__ provided within this documentation.
+
+Model training
+**************
+**BiaPy** offers different options to run the **CartoCell** training workflow depending on your degree of computer expertise. Select whichever is more approppriate for you:
+
+.. tabs::
+    .. tab:: GUI
+
+        First, download CartoCell's training configuration file (`cartocell_training_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/templates/instance_segmentation/CartoCell_paper/cartocell_training_latest.yaml>`__).
+        
+        Next, in BiaPy's GUI, follow the following instructions:
+
+        .. carousel::
+          :show_controls:
+          :show_captions_below:
+          :data-bs-interval: false
+          :show_indicators:    
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-load-and-modify-workflow.png
+
+              Step 1: Click on *Load and modify workflow* and select the ``cartocell_training_latest.yaml`` file you just downloaded.
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-load-information.png
+
+              Step 2: Click on *OK*.
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-instance-segmentation.png
+
+              Step 3: Click on *Continue*.
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-generic-options.png
+
+              Step 4: Under *Generic options*, you should see the directory and name of the configuration file already selected. Click on *Continue*.
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-train-options.png
+
+              Step 5: Under *Train > General options*, input the paths to the training raw and label images by clicking on the *Browse* buttons of **Input raw image folder** and **Input label folder** respectively, and then click on *Continue*.
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-test-options.png
+
+              Step 6: Under *Test*, leave the **Enable test phase** option as "No", and click on *Create configuration file*.
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-overwrite-yaml.png
+
+              Step 7: Click on *Yes* to overwrite the configuration file.
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-yaml-created.png
+
+              Step 8: You should see in information window indicating the files has been created. Click on *OK*.
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-results-folder.png
+
+              Step 9: Input the folder you wish to use to store the results of the workflow by clicking on the *Browse* button of *Output folder to save the results*. Then, click on *Check file* and, if a message is displayed showing no errors in the configuration file, click on *Run Workflow*.
+
+
+        \
+
+        .. note:: BiaPy's GUI requires that all data and configuration files reside on the same machine where the GUI is being executed.
+
+
+        .. tip:: If you need additional help with the parameters of the GUI, watch BiaPy's `GUI walkthrough video <https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB>`__.
+        
+
+
+    .. tab:: Google Colab 
+    
+      .. |cartocell_train_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+          :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/CartoCell/CartoCell%20-%20Training%20workflow%20(Phases%202%20and%204)%20-%20BiaPy's%20latest%20version.ipynb
+      
+      Open our code-free notebook in Google Colab and follow its instructions to perform the training phases as in the **CartoCell** pipeline: |cartocell_train_colablink|
+
+      .. tip:: If you need additional help, watch BiaPy's `Notebook walkthrough video <https://youtu.be/KEqfio-EnYw>`__.
+    
+
+    .. tab:: Docker     
+      
+      First, download CartoCell's training configuration file (`cartocell_training_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/templates/instance_segmentation/CartoCell_paper/cartocell_training_latest.yaml>`__), and edit it to set the correct paths to the training and validation data folders (i.e., ``DATA.TRAIN.PATH``, ``DATA.TRAIN.GT_PATH``, ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH``).
+
+      Then, `open a terminal <../../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation` and execute the following commands: 
+
+      .. code-block:: bash                                                                                                    
+
+          # Set the path to your edited CartoCell training configuration file
+          job_cfg_file=/home/user/cartocell_training_latest.yaml
+          # Set the path to the data directory
+          data_dir=/home/user/data
+          # Set the folder path where results will be saved
+          result_dir=/home/user/exp_results  
+          # Assign a job name to identify this experiment
+          job_name=my_cartocell_training
+          # Set an execution count for tracking repetitions (start with 1)
+          job_counter=1
+          # Set the ID of the GPU to run the job in (according to 'nvidia-smi' command)
+          gpu_number=0            
+
+          docker run --rm \
+              --gpus "device=$gpu_number" \
+              --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
+              --mount type=bind,source=$result_dir,target=$result_dir \
+              --mount type=bind,source=$data_dir,target=$data_dir \
+              BiaPyX/biapy \
+                  -cfg $job_cfg_file \
+                  -rdir $result_dir \
+                  -name $job_name \
+                  -rid $job_counter \
+                  -gpu "$gpu_number"
+
+      .. note:: 
+          Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
+
+    .. tab:: Command line
+
+      First, download CartoCell's training configuration file (`cartocell_training_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/templates/instance_segmentation/CartoCell_paper/cartocell_training_latest.yaml>`__), and edit it to set the correct paths to the training and validation data folders (i.e., ``DATA.TRAIN.PATH``, ``DATA.TRAIN.GT_PATH``, ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH``).
+
+      Next, run the following commands `from a terminal <../../get_started/faq.html#opening-a-terminal>`__:
+
+      .. code-block:: bash
+          
+          # Set the path to your edited CartoCell training configuration file
+          job_cfg_file=/home/user/cartocell_training_latest.yaml
+          # Set the folder path where results will be saved
+          result_dir=/home/user/exp_results  
+          # Assign a job name to identify this experiment
+          job_name=my_cartocell_training
+          # Set an execution count for tracking repetitions (start with 1)
+          job_counter=1
+          # Set the ID of the GPU to run the job in (according to 'nvidia-smi' command)
+          gpu_number=0                   
+
+          # Activate the BiaPy environment
+          conda activate BiaPy_env
+          
+          biapy \
+                --config $job_cfg_file \
+                --result_dir $result_dir  \ 
+                --name $job_name    \
+                --run_id $job_counter  \
+                --gpu "$gpu_number"  
+
+      For multi-GPU training you can call BiaPy as follows:
+
+      .. code-block:: bash
+          
+          # First check where is your biapy command (you need it in the below command)
+          # $ which biapy
+          # > /home/user/anaconda3/envs/BiaPy_env/bin/biapy
+
+          gpu_number="0, 1, 2"
+          python -u -m torch.distributed.run \
+              --nproc_per_node=3 \
+              /home/user/anaconda3/envs/BiaPy_env/bin/biapy \
+              --config $job_cfg_file \
+              --result_dir $result_dir  \ 
+              --name $job_name    \
+              --run_id $job_counter  \
+              --gpu "$gpu_number"  
+
+      Before running the command, make sure to update the following parameters:
+
+        * ``job_cfg_file``: Full path to CartoCell training configuration file.
+        * ``result_dir``: Full path to the folder where results will be stored. **Note**: A new subfolder will be created within this folder for each run.
+        * ``job_name``: A name for your experiment. This helps distinguish it from other experiments. **Tip**: Avoid using hyphens ("-") or spaces in the name.
+        * ``job_counter``: A number to identify each execution of your experiment. Start with 1, and increase it if you run the experiment multiple times.
+
+      Additionally, replace ``/home/user/anaconda3/envs/BiaPy_env/bin/biapy`` with the correct path to your `biapy` binary, which you can find using the `which biapy` command.
+
+      .. note:: Make sure to set **`nproc_per_node`** to match the number of GPUs you are using.
+
+
 
 Citation
 ~~~~~~~~
