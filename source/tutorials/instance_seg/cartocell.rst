@@ -286,7 +286,7 @@ Once trained, the models can be applied to the test image volumes as follows:
 Results
 *******
 
-Assuming you named your job ``cartocell`` (set with the ``job_name`` variable in the command-line example) for both training and testing workflows, the results of the execution of both workflows should be stored in the folder you defined, containing a directory tree similar like this: ::
+Assuming you named your job ``cartocell`` (set with the ``job_name`` variable in the command-line example) for both training and testing workflows, the results of the execution of both workflows should be stored in the folder you defined, containing a directory tree similar to this: ::
 
     cartocell/
     ├── config_files/
