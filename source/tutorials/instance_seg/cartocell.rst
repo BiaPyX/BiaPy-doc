@@ -36,7 +36,7 @@ The target of the workflow are **3D epithelial cysts** acquired with confocal mi
 CartoCell overview
 ~~~~~~~~~~~~~~~~~~
 
-**CartoCell** follows a multi-phase pipeline to, given an initial training dataset of 21 3D labeled cysts, automatically segment hundreds of cysts at low resolution with enough quality to pergorm cell organization and packaging analysis. The five phases of **CartoCell** are briefly explained in the following tabs:
+**CartoCell** follows a multi-phase pipeline to, given an initial training dataset of 21 3D labeled cysts, automatically segment hundreds of cysts at low resolution with enough quality to perform cell organization and packaging analysis. The five phases of **CartoCell** are briefly explained in the following tabs:
 
 .. tabs::
 
@@ -84,7 +84,7 @@ CartoCell overview
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-All data needed in this tutorial is accesible through Zenodo `here <https://zenodo.org/records/10973241>`__. Download and unzip the `CartoCell.zip <https://zenodo.org/records/10973241/files/CartoCell.zip?download=1>`__ file (185.7 MB). Once unzipped, you should find the following directory tree: ::
+All data needed in this tutorial is accessible through Zenodo `here <https://zenodo.org/records/10973241>`__. Download and unzip the `CartoCell.zip <https://zenodo.org/records/10973241/files/CartoCell.zip?download=1>`__ file (185.7 MB). Once unzipped, you should find the following directory tree: ::
 
     CartoCell/
     ├── train_M1
@@ -151,13 +151,13 @@ To reproduce the exact pipeline published with our `manuscript <https://doi.org/
 
 .. code-block:: bash
   
-  # Create enviroment called "CartoCell_env" using Python v3.10.11
+  # Create environment called "CartoCell_env" using Python v3.10.11
   conda create -n CartoCell_env python=3.10.11
 
   # Activate environment
   conda activate CartoCell_env
 
-  # Install dependences
+  # Install dependencies
   conda install scikit-image==0.20.0 scikit-learn==1.2.2 tqdm==4.65.0 pandas==1.5.3
   conda install imgaug==0.4.0 yacs==0.1.6 pydot
 
@@ -237,7 +237,7 @@ Once trained, the models can be applied to the test image volumes as follows:
 
         You can reproduce the exact results of our **model M2** (from phase 5), of the manuscript via the **command line** using the `cartocell_inference.yaml <https://github.com/BiaPyX/BiaPy/blob/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/cartocell_inference.yaml>`__ configuration file.
 
-        You will need to set ``DATA.TEST.PATH`` and ``DATA.TEST.GT_PATH`` with the paths to the `test/x <https://zenodo.org/records/10973241>`__ and `test/y <https://zenodo.org/records/10973241>`__ folders. To reproduce our results, you can download the `model_weights_cartocell.h5 <https://github.com/BiaPyX/BiaPy/raw/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/model_weights_cartocell.h5>`__ file, which contains out pretained **model M2**, and set its path in ``PATHS.CHECKPOINT_FILE``. 
+        You will need to set ``DATA.TEST.PATH`` and ``DATA.TEST.GT_PATH`` with the paths to the `test/x <https://zenodo.org/records/10973241>`__ and `test/y <https://zenodo.org/records/10973241>`__ folders. To reproduce our results, you can download the `model_weights_cartocell.h5 <https://github.com/BiaPyX/BiaPy/raw/ad2f1aca67f2ac7420e25aab5047c596738c12dc/templates/instance_segmentation/CartoCell_paper/model_weights_cartocell.h5>`__ file, which contains our pretrained **model M2**, and set its path in ``PATHS.CHECKPOINT_FILE``. 
 
         The next step is to `open a terminal <../../get_started/faq.html#opening-a-terminal>`__ and run the code as follows:
 
@@ -316,7 +316,7 @@ Assuming you named your job ``cartocell`` (set with the ``job_name`` variable in
 
 Where:
 
-* ``config_files``: directory where the .yaml filed used in the experiment is stored. 
+* ``config_files``: directory where the .yaml files used in the experiment is stored. 
 
   * ``cartocell_training.yaml``: YAML configuration file used for training. 
 
@@ -350,7 +350,7 @@ Where:
 
     * ``per_image_post_processing``: 
 
-      * ``.tif files``: same as ``per_image_instances`` but applied Voronoi, which has been the unique post-proccessing applied here. 
+      * ``.tif files``: same as ``per_image_instances`` but applied Voronoi, which has been the unique post-processing applied here. 
 
     * ``watershed``: 
             
@@ -746,7 +746,7 @@ Results
 
 Where:
 
-* ``config_files``: directory where the .yaml filed used in the experiment is stored. 
+* ``config_files``: directory where the .yaml files used in the experiment is stored. 
 
   * ``cartocell_training_latest.yaml``: the YAML configuration file used for training. 
 
@@ -793,7 +793,7 @@ Where:
 
 Where:
 
-* ``config_files``: directory where the .yaml filed used in the experiment is stored. 
+* ``config_files``: directory where the .yaml files used in the experiment is stored. 
 
   * ``cartocell_inference_latest.yaml``: the YAML configuration file used for inference. 
 
@@ -811,7 +811,7 @@ Where:
 
     * ``per_image_post_processing``: 
 
-      * ``.tif files``: same as ``per_image_instances`` but applied Voronoi, which has been the unique post-proccessing applied here. 
+      * ``.tif files``: same as ``per_image_instances`` but applied Voronoi, which has been the unique post-processing applied here. 
 
     * ``instance-associations``:
 
