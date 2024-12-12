@@ -291,7 +291,7 @@ Assuming you named your job ``cartocell`` (set with the ``job_name`` variable in
     cartocell/
     ├── config_files/
     |   ├── cartocell_training.yaml 
-    │   └── cartocell_inference.yaml                                                                                                           
+    │   └── cartocell_inference.yaml
     ├── checkpoints
     │   └── model_weights_cartocell_1.h5
     └── results
@@ -718,6 +718,61 @@ Again, **BiaPy** offers different options to run the **CartoCell** testing (also
       Additionally, replace ``/home/user/anaconda3/envs/BiaPy_env/bin/biapy`` with the correct path to your `biapy` binary, which you can find using the `which biapy` command.
 
       .. note:: Make sure to set **`nproc_per_node`** to match the number of GPUs you are using.
+
+Results
+*******
+
+Assuming you named your training job ``cartocell_training``, the results of the execution of the workflow should be stored in the folder you defined as result directory, containing a directory tree similar to this: ::
+
+    cartocell/
+    ├── config_files/
+    │   └── cartocell_training_latest.yaml
+    ├── checkpoints
+    │   └── cartocell_training_latest_1-checkpoint-best.pth
+    ├── train_logs
+    │   └── cartocell_training_latest_1_log_....txt
+    └── results
+        └── cartocell_training_latest_1
+            ├── aug
+            │   └── .tif files
+            ├── charts
+            │   ├── cartocell_training_latest_1_IoU (B channel).png
+            │   ├── cartocell_training_latest_1_IoU (C channel).png
+            │   ├── cartocell_training_latest_1_IoU (M channel).png
+            │   └── cartocell_training_latest_1_loss.png
+            └── tensorboard
+                └── event.out.tfevents files
+
+
+Where:
+
+* ``config_files``: directory where the .yaml filed used in the experiment is stored. 
+
+  * ``cartocell_training_latest.yaml``: the YAML configuration file used for inference. 
+
+* ``checkpoints``: directory where model's weights are stored.
+
+  * ``cartocell_training_latest_1-checkpoint-best.pth``: model's weights file.
+  
+* ``train_logs``: directory where training logs are stored.
+
+  * ``cartocell_training_latest_1_log_2024_12_10_14_01_35.txt``: text file with the training log information (the last part of the file name is just an example, since it depends on the time of execution).
+
+* ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
+
+  * ``cartocell_training_latest_1``: run 1 experiment folder. 
+
+    * ``aug``: image augmentation samples.
+
+    * ``charts``:  
+
+      * ``cartocell_training_latest_1_IoU (B channel).png``: IoU (Jaccard_index) over epochs plot for the B channel (binary masks).
+      * ``cartocell_training_latest_1_IoU (C channel).png``: IoU (Jaccard_index) over epochs plot for the C channel (contours).
+      * ``cartocell_training_latest_1_IoU (M channel).png``: IoU (Jaccard_index) over epochs plot for the M channel (foreground mask).
+
+    * ``tensorboard``: TensorBoard visualization related files.
+
+
 
 
 Citation
