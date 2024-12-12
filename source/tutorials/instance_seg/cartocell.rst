@@ -415,11 +415,15 @@ Model training
 
           .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-yaml-created.png
 
-              Step 8: You should see in information window indicating the files has been created. Click on "OK".
+              Step 8: You should see an information window indicating the files has been created. Click on "OK".
 
-          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-results-folder.png
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-results-folder-and-job-name-train.png
 
-              Step 9: Input the folder you wish to use to store the results of the workflow by clicking on the "Browse" button of "Output folder to save the results". Then, click on "Check file" and, if a message is displayed showing no errors in the configuration file, click on "Run Workflow".
+              Step 9: Input the folder you wish to use to store the results of the workflow by clicking on the "Browse" button of "Output folder to save the results" and type a name for your experiment in the "Job name" field.
+              
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-no-errors-train.png
+
+              Step 10: Finally, click on "Check file" and, if a message is displayed showing no errors in the configuration file, click on "Run Workflow".
 
 
         \
@@ -535,6 +539,76 @@ Model training
 
       .. note:: Make sure to set **`nproc_per_node`** to match the number of GPUs you are using.
 
+
+Model testing
+**************
+Again, **BiaPy** offers different options to run the **CartoCell** testing (also called *inference*) workflow depending on your degree of computer expertise. Select whichever is more approppriate for you:
+
+.. tabs::
+    .. tab:: GUI
+
+        First, download CartoCell's inference configuration file (`cartocell_inference_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/templates/instance_segmentation/CartoCell_paper/cartocell_inference_latest.yaml>`__) and our M2 pretrained model (`cartocell_M2-checkpoint-best.pth <https://github.com/BiaPyX/BiaPy/raw/refs/heads/master/notebooks/instance_segmentation/CartoCell/model_weights/cartocell_M2-checkpoint-best.pth>`__).
+        
+        Next, in BiaPy's GUI, follow the following instructions:
+
+        .. carousel::
+          :show_controls:
+          :show_captions_below:
+          :data-bs-interval: false
+          :show_indicators:    
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-load-and-modify-workflow.png
+
+              Step 1: Click on "Load and modify workflow" and select the 'cartocell_inference_latest.yaml' file you just downloaded.
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-load-information.png
+
+              Step 2: Click on "OK".
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-instance-segmentation.png
+
+              Step 3: Click on "Continue".
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-generic-options-inference.png
+
+              Step 4: Under "Generic options", you should see the directory and name of the configuration file already selected. Click on the "Browse" button of "Model file" and select the .pth file you downloaded.
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-checkpoint-configuration.png
+
+              Step 5: You should see the path to 'cartocell_M2-checkpoint-best.pth' in the "Model file" field. Click on "Continue".
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-train-options-inference.png
+
+              Step 6: Under "Train", leave the "Perform training" option as "No", and click on "Continue".
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-test-options-inference.png
+
+              Step 7:  Under "Test > Test data", input the paths to the test raw and (optionally) label images by clicking on the "Browse" buttons of "Input raw image folder" and "Input label folder" respectively, and click on "Create configuration file".
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-overwrite-yaml-inference.png
+
+              Step 8: Click on "Yes" to overwrite the configuration file.
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-yaml-created-inference.png
+
+              Step 9: You should see an information window indicating the files has been created. Click on "OK".
+
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-results-folder-and-job-name-inference.png
+
+              Step 10: Input the folder you wish to use to store the results of the workflow by clicking on the "Browse" button of "Output folder to save the results" and type a name for your experiment in the "Job name" field.
+              
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-no-errors-inference.png
+
+              Step 11: Finally, click on "Check file" and, if a message is displayed showing no errors in the configuration file, click on "Run Workflow".
+
+
+        \
+
+        .. note:: BiaPy's GUI requires that all data and configuration files reside on the same machine where the GUI is being executed.
+
+
+        .. tip:: If you need additional help with the parameters of the GUI, watch BiaPy's `GUI walkthrough video <https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB>`__.
+        
 
 
 Citation
