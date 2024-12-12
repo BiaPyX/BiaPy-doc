@@ -306,7 +306,7 @@ Assuming you named your job ``cartocell`` (set with the ``job_name`` variable in
             │   └── .tif files
             ├── per_image_instances
             │   └── .tif files  
-            ├── per_image_instances_voronoi
+            ├── per_image_post_processing
             │   └── .tif files                          
             └── watershed
                 ├── seed_map.tif
@@ -342,7 +342,7 @@ Where:
 
     * ``per_image``:
 
-      * ``.tif files``: reconstructed images from patches.   
+      * ``.tif files``: reconstructed channel images from patches.   
 
     * ``per_image_instances``: 
  
@@ -722,9 +722,9 @@ Again, **BiaPy** offers different options to run the **CartoCell** testing (also
 Results
 *******
 
-Assuming you named your training job ``cartocell_training``, the results of the execution of the workflow should be stored in the folder you defined as result directory, containing a directory tree similar to this: ::
+**Training results**. Assuming you named your training job ``cartocell_training``, the results of the execution of the workflow should be stored in the folder you defined as result directory, containing a directory tree similar to this: ::
 
-    cartocell/
+    cartocell_training/
     ├── config_files/
     │   └── cartocell_training_latest.yaml
     ├── checkpoints
@@ -732,7 +732,7 @@ Assuming you named your training job ``cartocell_training``, the results of the 
     ├── train_logs
     │   └── cartocell_training_latest_1_log_....txt
     └── results
-        └── cartocell_training_latest_1
+        └── cartocell_training_1
             ├── aug
             │   └── .tif files
             ├── charts
@@ -748,7 +748,7 @@ Where:
 
 * ``config_files``: directory where the .yaml filed used in the experiment is stored. 
 
-  * ``cartocell_training_latest.yaml``: the YAML configuration file used for inference. 
+  * ``cartocell_training_latest.yaml``: the YAML configuration file used for training. 
 
 * ``checkpoints``: directory where model's weights are stored.
 
@@ -772,6 +772,51 @@ Where:
 
     * ``tensorboard``: TensorBoard visualization related files.
 
+
+**Testing results**. Assuming you named your testing job ``cartocell_inference``, the results of the execution of the workflow should be stored in the folder you defined as result directory, containing a directory tree similar to this: ::
+
+    cartocell_inference/
+    ├── config_files/
+    │   └── cartocell_inference_latest.yaml
+    └── results
+        └── cartocell_inference_1
+            ├── per_image
+            │   └── .tif files
+            ├── per_image_instances
+            │   └── .tif files  
+            ├── per_image_post_processing
+            │   └── .tif files                          
+            └── instance_associations
+                ├── .tif files
+                └── .csv files
+
+
+Where:
+
+* ``config_files``: directory where the .yaml filed used in the experiment is stored. 
+
+  * ``cartocell_inference_latest.yaml``: the YAML configuration file used for inference. 
+
+* ``results``: directory where all the generated checks and results will be stored. There, one folder per each run are going to be placed.
+
+  * ``cartocell_inference_1``: folder corresponding to the results of the experiment 1. 
+
+    * ``per_image``:
+
+      * ``.tif files``: predicted channel images reconstructed from patches.   
+
+    * ``per_image_instances``: 
+ 
+      * ``.tif files``: result instance images after watershed.
+
+    * ``per_image_post_processing``: 
+
+      * ``.tif files``: same as ``per_image_instances`` but applied Voronoi, which has been the unique post-proccessing applied here. 
+
+    * ``instance-associations``:
+
+      * ``.csv files``: six files per test sample summarizing the matches and associations between the predicted instances and the ground truth (if available) with at IoU of 0.3, 0.5 and 0.75. 
+      * ``.tif files``: one image per test sample showing in colors the different types of matches between the predicted instances and the ground truth (if available) with an IoU of 0.3. 
 
 
 
