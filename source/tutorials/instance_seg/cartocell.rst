@@ -383,7 +383,8 @@ Model training
           :show_controls:
           :show_captions_below:
           :data-bs-interval: false
-          :show_indicators:    
+          :show_indicators:
+          :show_dark:
 
           .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-load-and-modify-workflow.png
 
@@ -555,7 +556,8 @@ Again, **BiaPy** offers different options to run the **CartoCell** testing (also
           :show_controls:
           :show_captions_below:
           :data-bs-interval: false
-          :show_indicators:    
+          :show_indicators:
+          :show_dark:
 
           .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-load-and-modify-workflow.png
 
