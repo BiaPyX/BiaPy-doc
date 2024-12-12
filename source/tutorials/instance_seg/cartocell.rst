@@ -460,7 +460,7 @@ Model training
           # Set the folder path where results will be saved
           result_dir=/home/user/exp_results  
           # Assign a job name to identify this experiment
-          job_name=my_cartocell_training
+          job_name=cartocell_training
           # Set an execution count for tracking repetitions (start with 1)
           job_counter=1
           # Set the ID of the GPU to run the job in (according to 'nvidia-smi' command)
@@ -494,7 +494,7 @@ Model training
           # Set the folder path where results will be saved
           result_dir=/home/user/exp_results  
           # Assign a job name to identify this experiment
-          job_name=my_cartocell_training
+          job_name=cartocell_training
           # Set an execution count for tracking repetitions (start with 1)
           job_counter=1
           # Set the ID of the GPU to run the job in (according to 'nvidia-smi' command)
@@ -608,7 +608,114 @@ Again, **BiaPy** offers different options to run the **CartoCell** testing (also
 
 
         .. tip:: If you need additional help with the parameters of the GUI, watch BiaPy's `GUI walkthrough video <https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB>`__.
-        
+    
+    .. tab:: Google Colab 
+    
+      .. |cartocell_inference_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+          :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/CartoCell/CartoCell%20-%20Inference%20workflow%20(Phase%205)%20-%20BiaPy's%20latest%20version.ipynb
+      
+      Open our code-free notebook in Google Colab and follow its instructions to perform the testing phases as in the **CartoCell** pipeline: |cartocell_train_colablink|
+
+      .. tip:: If you need additional help, watch BiaPy's `Notebook walkthrough video <https://youtu.be/KEqfio-EnYw>`__.
+    
+
+    .. tab:: Docker     
+      
+      First, download CartoCell's testing configuration file (`cartocell_inference_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/templates/instance_segmentation/CartoCell_paper/cartocell_inference_latest.yaml>`__) and our M2 pretrained model (`cartocell_M2-checkpoint-best.pth <https://github.com/BiaPyX/BiaPy/raw/refs/heads/master/notebooks/instance_segmentation/CartoCell/model_weights/cartocell_M2-checkpoint-best.pth>`__).
+      
+      Next edit the configuration file to set the correct paths to the test data folders (i.e., ``DATA.TEST.PATH`` and ``DATA.TEST.GT_PATH``) and the pretrained model (``PATHS.CHECKPOINT_FILE``).
+
+      Then, `open a terminal <../../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation` and execute the following commands: 
+
+      .. code-block:: bash                                                                                                    
+
+          # Set the path to your edited CartoCell inference configuration file
+          job_cfg_file=/home/user/cartocell_inference_latest.yaml
+          # Set the path to the data directory
+          data_dir=/home/user/data
+          # Set the folder path where results will be saved
+          result_dir=/home/user/exp_results  
+          # Assign a job name to identify this experiment
+          job_name=cartocell_inference
+          # Set an execution count for tracking repetitions (start with 1)
+          job_counter=1
+          # Set the ID of the GPU to run the job in (according to 'nvidia-smi' command)
+          gpu_number=0            
+
+          docker run --rm \
+              --gpus "device=$gpu_number" \
+              --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
+              --mount type=bind,source=$result_dir,target=$result_dir \
+              --mount type=bind,source=$data_dir,target=$data_dir \
+              biapyx/biapy:latest-11.8 \
+                  --config $job_cfg_file \
+                  --result_dir $result_dir \
+                  --name $job_name \
+                  --run_id $job_counter \
+                  --gpu "$gpu_number"
+
+      .. note:: 
+          Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only test in this example, ``DATA.TEST.PATH`` and ``DATA.TEST.GT_PATH`` could be ``/home/user/data/test/x`` and ``/home/user/data/test/y`` respectively. 
+
+    .. tab:: Command line
+
+      First, download CartoCell's testing configuration file (`cartocell_inference_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/templates/instance_segmentation/CartoCell_paper/cartocell_inference_latest.yaml>`__) and our M2 pretrained model (`cartocell_M2-checkpoint-best.pth <https://github.com/BiaPyX/BiaPy/raw/refs/heads/master/notebooks/instance_segmentation/CartoCell/model_weights/cartocell_M2-checkpoint-best.pth>`__).
+      
+      Next edit the configuration file to set the correct paths to the test data folders (i.e., ``DATA.TEST.PATH`` and ``DATA.TEST.GT_PATH``) and the pretrained model (``PATHS.CHECKPOINT_FILE``).
+
+      Next, run the following commands `from a terminal <../../get_started/faq.html#opening-a-terminal>`__:
+
+      .. code-block:: bash
+          
+          # Set the path to your edited CartoCell inference configuration file
+          job_cfg_file=/home/user/cartocell_inference_latest.yaml
+          # Set the folder path where results will be saved
+          result_dir=/home/user/exp_results  
+          # Assign a job name to identify this experiment
+          job_name=cartocell_inference
+          # Set an execution count for tracking repetitions (start with 1)
+          job_counter=1
+          # Set the ID of the GPU to run the job in (according to 'nvidia-smi' command)
+          gpu_number=0                   
+
+          # Activate the BiaPy environment
+          conda activate BiaPy_env
+          
+          biapy \
+                --config $job_cfg_file \
+                --result_dir $result_dir  \ 
+                --name $job_name    \
+                --run_id $job_counter  \
+                --gpu "$gpu_number"  
+
+      For multi-GPU training you can call BiaPy as follows:
+
+      .. code-block:: bash
+          
+          # First check where is your biapy command (you need it in the below command)
+          # $ which biapy
+          # > /home/user/anaconda3/envs/BiaPy_env/bin/biapy
+
+          gpu_number="0, 1, 2"
+          python -u -m torch.distributed.run \
+              --nproc_per_node=3 \
+              /home/user/anaconda3/envs/BiaPy_env/bin/biapy \
+              --config $job_cfg_file \
+              --result_dir $result_dir  \ 
+              --name $job_name    \
+              --run_id $job_counter  \
+              --gpu "$gpu_number"  
+
+      Before running the command, make sure to update the following parameters:
+
+        * ``job_cfg_file``: Full path to CartoCell inference configuration file.
+        * ``result_dir``: Full path to the folder where results will be stored. **Note**: A new subfolder will be created within this folder for each run.
+        * ``job_name``: A name for your experiment. This helps distinguish it from other experiments. **Tip**: Avoid using hyphens ("-") or spaces in the name.
+        * ``job_counter``: A number to identify each execution of your experiment. Start with 1, and increase it if you run the experiment multiple times.
+
+      Additionally, replace ``/home/user/anaconda3/envs/BiaPy_env/bin/biapy`` with the correct path to your `biapy` binary, which you can find using the `which biapy` command.
+
+      .. note:: Make sure to set **`nproc_per_node`** to match the number of GPUs you are using.
 
 
 Citation
