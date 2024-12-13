@@ -40,6 +40,18 @@ Train questions
 
         <iframe width="560" height="315" src="https://www.youtube.com/embed/wxahMOKpLKM?si=aU1eNutnVN3NVOQq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
+* **Can I run my worklow on a smaller subset of the input data for just a few epochs, to give an early indication of how things are working?**
+
+    Regarding the use of less input data, while there is no option to automatically tell BiaPy to use less training data (apart from using a larger validation set), you could simply **create a new folder with the subset of the data** you wish to use and change the input path so the workflow uses that folder instead of the original.
+
+    To get an early indicating of the workflow's performance, you can
+    
+    #. **Set the number of epochs to a small value** (anything between 1 and 10, for example).
+    #. **Change the learning rate scheduler to "One cycle"**.
+    #. **Set the learning rate to a higher-than-usual value** (something between 0.0005 and 0.001).
+    
+    The `one-cycle learning rate scheduler <https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.OneCycleLR.html>`__ is a way of very fast training of neural networks using large learning rates, also known as "`super-convergence <https://arxiv.org/abs/1708.07120>`__". The idea behind is to start with a very small learning rate, progressively rise it to a maximum value (which you define) and bring it back down.
+
 
 * **My training is too slow. What should I do?**
 
