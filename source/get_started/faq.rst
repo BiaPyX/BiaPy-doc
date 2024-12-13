@@ -50,7 +50,15 @@ Train questions
     #. **Change the learning rate scheduler to "One cycle"**.
     #. **Set the learning rate to a higher-than-usual value** (something between 0.0005 and 0.001).
     
-    The `one-cycle learning rate scheduler <https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.OneCycleLR.html>`__ is a way of very fast training of neural networks using large learning rates, also known as "`super-convergence <https://arxiv.org/abs/1708.07120>`__". The idea behind is to start with a very small learning rate, progressively rise it to a maximum value (which you define) and bring it back down.
+    The `one-cycle learning rate scheduler <https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.OneCycleLR.html>`__ is a way of very fast training of neural networks using large learning rates, also known as "`super-convergence <https://arxiv.org/abs/1708.07120>`__". The idea behind is to start with a very small learning rate, progressively rise it to a maximum value (which you define) and bring it back down:
+    
+    .. figure:: ../img/schel/one-cycle-lr-schedule.png
+        :align: center                  
+        :width: 450px
+
+        **One-cycle learning rate scheduler**. Over the course of a training run, the learning rate will be inversely scaled from its minimum to its maximum value and then back again, while the inverse will occur with the momentum.
+
+
 
 
 * **My training is too slow. What should I do?**
