@@ -135,7 +135,7 @@ More specifically, the data you need on each phase is as follows:
 
 * **Phases 3 and 4**: folder `train_M2 <https://zenodo.org/records/10973241>`__ (293 volumes) to be segmented with **model M1** (phase 3) and then train **model M2** (phase 4).
 
-* **Phase 5**: `test <https://zenodo.org/records/10973241>`__ (122 volumes) to run the inference using our pretrained **model M2** on unseen data.
+* **Phase 5**: `test <https://zenodo.org/records/10973241>`__ (60 volumes) to run the inference using our pretrained **model M2** on unseen data.
 
 Reproducing published results (legacy version)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
