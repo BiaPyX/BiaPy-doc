@@ -366,7 +366,7 @@ Where:
 
 Executing CartoCell with the latest BiaPy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-If you want to replicate the **CartoCell** steps using the current version of **BiaPy**, make sure your **BiaPy** is up to date. You can follow the general `installation instructions <../../get_started/installation>`__ provided within this documentation.
+If you want to replicate the **CartoCell** steps using the current version of **BiaPy**, make sure your **BiaPy** is up to date. You can follow the general `installation instructions <../../get_started/installation.html>`__ provided within this documentation.
 
 Model training
 **************
