@@ -19,7 +19,7 @@ Installation
             :align: center                  
             :width: 350px
 
-    This is a `known issue <https://support.apple.com/en-gb/guide/mac-help/mchleab3a043/mac>`__ that can be easily bypassed by following these steps:
+    This is a `known issue <https://support.apple.com/en-gb/guide/mac-help/mchleab3a043/mac>`__ that can be easily bypassed by following a `few simple steps depending on the macOS version <https://support.apple.com/en-gb/guide/mac-help/mchleab3a043/mac>`__. For instance, in macOS Sequoia 15 the process is as follows:
 
     #. On your Mac, choose Apple menu > System Settings, then click Privacy & Security in the sidebar. (You may need to scroll down.)
 
