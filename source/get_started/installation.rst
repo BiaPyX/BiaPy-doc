@@ -1,5 +1,8 @@
 .. _installation:
 
+.. role:: raw-html(raw)
+    :format: html
+
 Installation
 ------------
 
@@ -85,7 +88,17 @@ Choose your installation method
 
                 You need to install `Docker Desktop <https://docs.docker.com/desktop/install/mac-install/>`__. 
 
-        Then, the only thing you need to do is double-click on the BiaPy binary (application) file you downloaded.
+        Then, the only thing you need to do is **double-click on the BiaPy binary** (application) file you downloaded.
+
+        In the latest versions of macOS, you may run into a message telling you that *"BiaPy-macOS" can't be opened because Apple cannot check it for malicious software*. In that case, follow these  :ref:`instructions <macos_malicious_error>` to be able to run **BiaPy** in your Mac.
+
+        .. figure:: ../img/gui/macOS-security-error-malicious-software.png
+               :align: center                  
+               :width: 350px
+
+               **Security error message when executing BiaPy app in macOS**. :raw-html:`<br />` To bypass it, follow these :ref:`instructions <macos_malicious_error>`.
+
+
 
         .. note::  
                Whenever you want to run BiaPy's GUI you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
