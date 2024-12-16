@@ -131,13 +131,13 @@ To ensure the proper operation of the workflow, the directory tree should be som
     
   dataset/
   ├── train
-  │   └── x
+  │   └── raw
   │       ├── training-0001.tif
   │       ├── training-0002.tif
   │       ├── . . .
   │       └── training-9999.tif   
   └── test
-      └── x
+      └── raw
           ├── testing-0001.tif
           ├── testing-0002.tif
           ├── . . .
@@ -145,7 +145,7 @@ To ensure the proper operation of the workflow, the directory tree should be som
 
 \
 
-In this example, the training images are under ``dataset/train/x/``, while the test images are under ``dataset/test/x/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
+In this example, the training images are under ``dataset/train/raw/``, while the test images are under ``dataset/test/raw/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
 
 Minimal configuration
 ~~~~~~~~~~~~~~~~~~~~~
