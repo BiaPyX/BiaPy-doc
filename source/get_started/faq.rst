@@ -33,6 +33,8 @@ Installation
 
         This button is available for about an hour after you try to open the app.
 
+    #. Enter your login password, then click OK.
+
     #. A new window will appear similar to the first one, then click Open.
 
         .. image:: ../img/gui/macOS-security-error-malicious-software-open.png
