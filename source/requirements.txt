@@ -132,3 +132,4 @@ yacs==0.1.8
 zarr==2.16.1
 zipp==3.17.0
 sphinx_carousel==1.2.0
+sphinxcontrib-googleanalytics
