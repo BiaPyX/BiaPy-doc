@@ -55,9 +55,11 @@ extensions = [
     'sphinx_tabs.tabs',
     'sphinx_toolbox.collapse',
     "sphinx_carousel.carousel",
-    'numpydoc'
+    'numpydoc',
+    "sphinxcontrib.googleanalytics",
 ]
 
+googleanalytics_id = "G-N5K8QZNCY2"
 sphinx_tabs_disable_tab_closing = True
 
 napoleon_google_docstring = False
