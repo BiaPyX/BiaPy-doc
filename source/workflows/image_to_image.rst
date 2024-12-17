@@ -193,7 +193,7 @@ To ensure the proper operation of the library, the data directory tree should be
   │   │   ├── training-0002.tif
   │   │   ├── . . .
   │   │   └── training-9999.tif
-  │   └── label
+  │   └── target
   │       ├── training_groundtruth-0001.tif
   │       ├── training_groundtruth-0002.tif
   │       ├── . . .
@@ -204,7 +204,7 @@ To ensure the proper operation of the library, the data directory tree should be
       │   ├── testing-0002.tif
       │   ├── . . .
       │   └── testing-9999.tif
-      └── label
+      └── target
           ├── testing_groundtruth-0001.tif
           ├── testing_groundtruth-0002.tif
           ├── . . .
@@ -212,7 +212,7 @@ To ensure the proper operation of the library, the data directory tree should be
 
 \
 
-In this example, the raw training images are under ``dataset/train/raw/`` and their corresponding target images are under ``dataset/train/label/``, while the raw test images are under ``dataset/test/raw/`` and their corresponding target images are under ``dataset/test/label/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
+In this example, the raw training images are under ``dataset/train/raw/`` and their corresponding target images are under ``dataset/train/target/``, while the raw test images are under ``dataset/test/raw/`` and their corresponding target images are under ``dataset/test/target/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
 
 .. note:: Make sure that raw and target images are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example).
 
