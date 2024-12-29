@@ -40,7 +40,7 @@ Execution methods
 
 BiaPy offers several execution methods, designed to accommodate a range of expertise levels, from beginner to advanced:
 
-* **Graphical User Interface (GUI)**: With a user-friendly wizard, ideal for beginners. Have a look at our quick GUI walksthrough video:
+* **Graphical User Interface (GUI)**: With a user-friendly wizard, ideal for beginners. Have a look at our quick GUI walkthrough video:
 
     .. raw:: html
 
