@@ -216,30 +216,30 @@ To ensure the proper operation of the library, the data directory tree should be
     
   dataset/
   ├── train
-  │   ├── x
+  │   ├── raw
   │   │   ├── training-0001.tif
   │   │   ├── training-0002.tif
   │   │   ├── . . .
   │   │   └── training-9999.tif
-  │   └── y
+  │   └── label
   │       ├── training-0001.csv
   │       ├── training-0002.csv
   │       ├── . . .
   │       └── training-9999.csv
   └── test
-      ├── x
+      ├── raw
       │   ├── testing-0001.tif
       │   ├── testing-0002.tif
       │   ├── . . .
       │   └── testing-9999.tif
-      └── y
+      └── label
           ├── testing-0001.csv
           ├── testing-0002.csv
           ├── . . .
           └── testing-9999.csv
 
 
-In this example, the raw training images are under ``dataset/train/x/`` and their corresponding CSV files are under ``dataset/train/y/``, while the raw test images are under ``dataset/test/x/`` and their corresponding CSV files are under ``dataset/test/y/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
+In this example, the raw training images are under ``dataset/train/raw/`` and their corresponding CSV files are under ``dataset/train/label/``, while the raw test images are under ``dataset/test/raw/`` and their corresponding CSV files are under ``dataset/test/label/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
 
 .. note:: In this workflow the name of each input file (with extension **.tif** in the example above) and its corresponding CSV file must be the same. 
 

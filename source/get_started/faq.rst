@@ -9,6 +9,42 @@ Frequently asked questions
 Installation
 ~~~~~~~~~~~~
 
+.. _macos_malicious_error:
+
+* **When I try to open the BiaPy application In macOS, I get the following error: "BiaPy-macOS" can't be opened because Apple cannot check it for malicious software.**
+
+    In some versions of macOS, you might get a security error when trying to execute the BiaPy application for the first time:
+
+    .. image:: ../img/gui/macOS-security-error-malicious-software.png
+            :align: center                  
+            :width: 350px
+
+    This is a `known issue <https://support.apple.com/en-gb/guide/mac-help/mchleab3a043/mac>`__ that can be easily bypassed by following a `few simple steps depending on the macOS version <https://support.apple.com/en-gb/guide/mac-help/mchleab3a043/mac>`__. For instance, in macOS Sequoia 15 the process is as follows:
+
+    #. On your Mac, choose Apple menu > System Settings, then click Privacy & Security in the sidebar. (You may need to scroll down.)
+
+    #. Go to Security, then you'll see a message indicating that BiaPy-macOS was blocked:
+
+        .. image:: ../img/gui/macOS-privacy-settings-app-blocked.png
+                :align: center                  
+                :width: 500px
+    
+    #. Click Open Anyway.
+
+        This button is available for about an hour after you try to open the app.
+
+    #. Enter your login password, then click OK.
+
+    #. A new window will appear similar to the first one, then click Open.
+
+        .. image:: ../img/gui/macOS-security-error-malicious-software-open.png
+                :align: center                  
+                :width: 350px
+
+    After this, you should be able to open BiaPy normally by simply double-clicking on its app.
+
+
+
 * **If double-clicking the BiaPy binary doesn't initiate the program**, attempt starting it via the `terminal <faq.html#opening-a-terminal>`__ to display any potential errors. For Linux users encountering a glibc error (something like ``version `GLIBC_2.34' not found``), particularly on Ubuntu ``20.04``, you can try the following: ::
 
     sudo apt update
@@ -198,7 +234,15 @@ In case you have troubles with BiaPy's GUI, you can find instructions on how to 
      
      In short, you can remove the quarantine attribute through `terminal <faq.html#opening-a-terminal>`__: ::
 
-         xattr -d com.apple.quarantine BiaPy.app  
+         xattr -d com.apple.quarantine BiaPy.app
+
+     In some versions of macOS, you might also get this other security error when trying to execute the BiaPy application for the first time:
+
+     .. image:: ../img/gui/macOS-security-error-malicious-software.png
+            :align: center                  
+            :width: 350px
+
+     This is a `known issue <https://support.apple.com/en-gb/guide/mac-help/mchleab3a043/mac>`__ that can be easily bypassed by following these :ref:`instructions <macos_malicious_error>`.
 
 * When running BiaPy, as it is starting and after downloading you may get the following error: 
 

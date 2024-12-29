@@ -202,8 +202,8 @@ The training of **model M1** and **model M2** is essentially the same, only the 
             git clone git@github.com:BiaPyX/BiaPy.git
             # Move to BiaPy's folder
             cd BiaPy
-            # Checkout BiaPy's version at the time of publication
-            git checkout 2bfa7508c36694e0977fdf2c828e3b424011e4b1
+            # Checkout BiaPy's version at the time of publication (tagged as "cartocell")
+            git checkout cartocell
 
             # Load the environment (created in the previous section)
             conda activate CartoCell_env
@@ -259,8 +259,8 @@ Once trained, the models can be applied to the test image volumes as follows:
             git clone git@github.com:BiaPyX/BiaPy.git
             # Move to BiaPy's folder
             cd BiaPy
-            # Checkout BiaPy's version at the time of publication
-            git checkout 2bfa7508c36694e0977fdf2c828e3b424011e4b1
+            # Checkout BiaPy's version at the time of publication (tagged as "cartocell")
+            git checkout cartocell
 
             # Load the environment (created in the previous section)
             conda activate CartoCell_env
