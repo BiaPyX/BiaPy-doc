@@ -193,6 +193,12 @@ Test/Inference questions
     .. warning ::
         Be aware of enabling ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` option as it will require to load the prediction entirely in order to save it.
 
+Importing pretrained models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* **Why are not all the models available in the BioImage Model Zoo for my task compatible with BiaPy?**
+
+    For technical reasons, BiaPy only supports importing models that were exported in the `PyTorch <https://pytorch.org/>`__ format using a `PyTorch state dictionary <https://pytorch.org/tutorials/recipes/recipes/what_is_state_dict.html#:~:text=A%20state_dict%20is%20an%20integral,to%20PyTorch%20models%20and%20optimizers.>`__. This requirement means not all models available in the BioImage Model Zoo will be compatible with BiaPy.
+
 Troubleshooting
 ***************
 
