@@ -77,6 +77,13 @@ In the graphical user interface (GUI), there are two locations where you can exp
 
         Click on "Check models" and select a model from the pop-up list by double-clicking on it
 
+  You can also check our video tutorial on how to import a BMZ model in the GUI using as example the 2D instance segmentation workflow:
+
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/Zq50Ew1s8ag?si=ejnhoKM8cb83NlQx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  
+
 Export
 ******
 
