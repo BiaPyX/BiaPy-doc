@@ -1,7 +1,13 @@
 BioImage Model Zoo
 ------------------
 
-BiaPy is a Community Partner of the `BioImage Model Zoo (BMZ) <https://bioimage.io/#/>`__ initiative, which means it is capable of consuming, fine-tuning, and exporting models in BMZ format. Depending on how you're using BiaPy, you can access these models in the following ways:
+BiaPy is proud to be a Community Partner of the `BioImage Model Zoo (BMZ) <https://bioimage.io/#/>`__, an initiative that facilitates the sharing and reuse of deep learning models for bioimage analysis. As part of this partnership, BiaPy can import, fine-tune, and export models in the BMZ format, enabling seamless integration with this ecosystem.
+
+.. note:: 
+   BiaPy supports importing models that are exported in the `PyTorch <https://pytorch.org/>`__ format using a `PyTorch state dictionary <https://pytorch.org/tutorials/recipes/recipes/what_is_state_dict.html#:~:text=A%20state_dict%20is%20an%20integral,to%20PyTorch%20models%20and%20optimizers.>`__. Please note that this requirement means not all models available in the BioImage Model Zoo will be compatible with BiaPy.
+
+
+Depending on how you're using BiaPy, you can access these models in the following ways:
 
 Graphical user interface
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -173,7 +179,7 @@ Command line
 Import
 ******
 
-To use a BMZ model via the command line, you need to set the ``MODEL.SOURCE`` parameter to ``"bmz"`` and specify the model with ``MODEL.BMZ.SOURCE_MODEL_ID``. This field can either be the DOI of the model or its nickname, such as `"affable-shark" <https://bioimage.io/#/?id=10.5281%2Fzenodo.5764892>`__. BiaPy supports consuming models exported in `PyTorch <https://pytorch.org/>`__ using a `PyTorch state dict <https://pytorch.org/tutorials/recipes/recipes/what_is_state_dict.html#:~:text=A%20state_dict%20is%20an%20integral,to%20PyTorch%20models%20and%20optimizers.>`__.
+To use a BMZ model via the command line, you need to set the ``MODEL.SOURCE`` parameter to ``"bmz"`` and specify the model with ``MODEL.BMZ.SOURCE_MODEL_ID``. This field can either be the DOI of the model or its nickname, such as `"affable-shark" <https://bioimage.io/#/?id=10.5281%2Fzenodo.5764892>`__.
 
 Export
 ******
