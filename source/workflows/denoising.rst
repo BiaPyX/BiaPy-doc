@@ -145,6 +145,26 @@ To ensure the proper operation of the workflow, the directory tree should be som
 
 In this example, the training images are under ``dataset/train/``, while the test images are under ``dataset/test/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
 
+Example datasets
+****************
+Below is a list of publicly available datasets that are ready to be used in BiaPy for image denoising:
+
+.. list-table::
+  :widths: auto
+  :header-rows: 1
+  :align: center
+
+  * - Example dataset
+    - Image dimensions
+    - Link to data
+  * - `Noise2void Convallaria 2D (by B. Schroth-Diez) <https://github.com/juglab/n2v>`__
+    - 2D
+    - `convallaria2D.zip <https://drive.google.com/file/d/1TFvOySOiIgVIv9p4pbHdEbai-d2YGDvV/view?usp=drive_link>`__
+  * - `Noise2void Flywing 3D (by R. Piscitello) <https://github.com/juglab/n2v>`__
+    - 3D
+    - `flywing3D.zip <https://drive.google.com/file/d/1OIjnUoJKdnbClBlpzk7V5R8wtoLont-r/view?usp=drive_link>`__
+
+
 Minimal configuration
 ~~~~~~~~~~~~~~~~~~~~~
 Apart from the input and output folders, there are a few basic parameters that always need to be specified in order to run an denoising workflow in BiaPy. **These parameters can be introduced either directly in the GUI, the code-free notebooks or by editing the YAML configuration file**.

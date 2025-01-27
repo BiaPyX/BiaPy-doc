@@ -102,7 +102,7 @@ Upon successful execution, a directory will be generated with the results of the
 .. _self-supervision_data_prep:
 
 Data structure
-~~~~~~~~~~~~~~
+**************
 
 To ensure the proper operation of the workflow, the data directory tree should be something like this: 
 
@@ -123,6 +123,27 @@ To ensure the proper operation of the workflow, the data directory tree should b
 \
 
 In this example, the (pre-)training images are under ``dataset/pre-train/``, while the test images are under ``dataset/test/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
+
+Example datasets
+****************
+Below is a list of publicly available datasets that are ready to be used in BiaPy for self-supervised learning:
+
+.. list-table::
+  :widths: auto
+  :header-rows: 1
+  :align: center
+
+  * - Example dataset
+    - Image dimensions
+    - Link to data
+  * - `Electron Microscopy Dataset (EPFL - CVLAB) <https://www.epfl.ch/labs/cvlab/data/data-em/>`__
+    - 2D
+    - `fibsem_epfl.zip <https://drive.google.com/file/d/1DfUoVHf__xk-s4BWSKbkfKYMnES-9RJt/view?usp=drive_link>`__
+  * - `Electron Microscopy Dataset (EPFL - CVLAB) <https://www.epfl.ch/labs/cvlab/data/data-em/>`__
+    - 3D
+    - `lucchi3D.zip <https://drive.google.com/file/d/10Cf11PtERq4pDHCJroekxu_hf10EZzwG/view?usp=sharing>`__
+
+
 
 Minimal configuration
 ~~~~~~~~~~~~~~~~~~~~~

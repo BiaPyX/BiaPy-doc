@@ -191,6 +191,29 @@ Each image category is obtained from the sub-folder name in which that image res
 
 The **sub-folder names can be any number or string**. They will be considered as the class names. Regarding the test, if you have no classes it doesn't matter if the images are separated in several folders or are all in one folder.
 
+Example datasets
+****************
+Below is a list of publicly available datasets that are ready to be used in BiaPy for image classification:
+
+.. list-table::
+  :widths: auto
+  :header-rows: 1
+  :align: center
+
+  * - Example dataset
+    - Image dimensions
+    - Link to data
+  * - `DermaMNIST <https://www.nature.com/articles/s41597-022-01721-8>`__
+    - 2D
+    - `DermaMNIST.zip <https://drive.google.com/file/d/15_pnH4_tJcwhOhNqFsm26NQuJbNbFSIN/view?usp=drive_link>`__
+  * - `OrganMNIST3D <https://medmnist.com/>`__
+    - 3D
+    - `organMNIST3D.zip <https://drive.google.com/file/d/1pypWJ4Z9sRLPlVHbG6zpwmS6COkm3wUg/view?usp=drive_link>`__
+  * - `Butterfly Image Classification <https://www.kaggle.com/datasets/phucthaiv02/butterfly-image-classification>`__
+    - 2D
+    - `butterfly_data.zip <https://drive.google.com/file/d/1m4_3UAgUsZ8FDjB4HyfA50Sht7_XkfdB/view?usp=drive_link>`__
+
+
 Minimal configuration
 ~~~~~~~~~~~~~~~~~~~~~
 Apart from the input and output folders, there are a few basic parameters that always need to be specified in order to run an image classification workflow in BiaPy. **These parameters can be introduced either directly in the GUI, the code-free notebooks or by editing the YAML configuration file**.

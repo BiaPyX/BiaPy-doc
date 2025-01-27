@@ -208,7 +208,7 @@ Upon successful execution, a directory will be generated with the detection resu
 .. _detection_data_prep:
 
 Data structure
-~~~~~~~~~~~~~~
+**************
 
 To ensure the proper operation of the library, the data directory tree should be something like this: 
 
@@ -242,6 +242,25 @@ To ensure the proper operation of the library, the data directory tree should be
 In this example, the raw training images are under ``dataset/train/raw/`` and their corresponding CSV files are under ``dataset/train/label/``, while the raw test images are under ``dataset/test/raw/`` and their corresponding CSV files are under ``dataset/test/label/``. **This is just an example**, you can name your folders as you wish as long as you set the paths correctly later.
 
 .. note:: In this workflow the name of each input file (with extension **.tif** in the example above) and its corresponding CSV file must be the same. 
+
+Example datasets
+****************
+Below is a list of publicly available datasets that are ready to be used in BiaPy for object detection:
+
+.. list-table::
+  :widths: auto
+  :header-rows: 1
+  :align: center
+
+  * - Example dataset
+    - Image dimensions
+    - Link to data
+  * - `Stardist V2 (detection) <https://zenodo.org/record/3715492#.Y4m7FjPMJH6>`__
+    - 2D
+    - `Stardist_v2_detection.zip <https://drive.google.com/file/d/1pWqQhcWY15b5fVLZDkPS-vnE-RU6NlYf/view?usp=drive_link>`__
+  * - `NucMM-Z <https://arxiv.org/abs/2107.05840>`__
+    - 3D
+    - `NucMM-Z_training.zip <https://drive.google.com/file/d/19P4AcvBPJXeW7QRj92Jh1keunGa5fi8d/view?usp=drive_link>`__
 
 
 Minimal configuration

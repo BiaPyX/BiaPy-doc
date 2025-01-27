@@ -218,6 +218,27 @@ In this example, the LR training images are under ``dataset/train/LR/`` and thei
 
 .. note:: Ensure that the LR and HR images are sorted in the same way. A common approach is to give the same name to each LR image and its corresponding HR image, or to fill with zeros the image number added to the filenames (as in the example). 
 
+Example datasets
+****************
+Below is a list of publicly available datasets that are ready to be used in BiaPy for single image super-resolution:
+
+.. list-table::
+  :widths: auto
+  :header-rows: 1
+  :align: center
+
+  * - Example dataset
+    - Image dimensions
+    - Link to data
+  * - `F-actin dataset (ZeroCostDL4Mic) <https://github.com/HenriquesLab/ZeroCostDL4Mic/wiki>`__
+    - 2D
+    - `f_actin_sr_2d.zip <https://drive.google.com/file/d/1rtrR_jt8hcBEqvwx_amFBNR7CMP5NXLo/view?usp=drive_link>`__
+  * - `Confocal 2 STED - Nuclear Pore complex <https://zenodo.org/records/4624364#.YF3jsa9Kibg>`__
+    - 3D
+    - `Nuclear_Pore_complez_3D.zip <https://drive.google.com/file/d/1TfQVK7arJiRAVmKHRebsfi8NEas8ni4s/view?usp=drive_link>`__
+
+
+
 Minimal configuration
 ~~~~~~~~~~~~~~~~~~~~~
 Apart from the input and output folders, there are a few basic parameters that always need to be specified in order to run an super-resolution workflow in BiaPy. **These parameters can be introduced either directly in the GUI, the code-free notebooks or by editing the YAML configuration file**.

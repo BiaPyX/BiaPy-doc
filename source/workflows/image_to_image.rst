@@ -216,6 +216,27 @@ In this example, the raw training images are under ``dataset/train/raw/`` and th
 
 .. note:: Make sure that raw and target images are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example).
 
+Example datasets
+****************
+
+Below is a list of publicly available datasets that are ready to be used in BiaPy for image-to-image translation:
+
+.. list-table::
+  :widths: auto
+  :header-rows: 1
+  :align: center
+
+  * - Example dataset
+    - Image dimensions
+    - Link to data
+  * - `lifeact-RFP and sir-DNA dataset <https://zenodo.org/records/3941889#.XxrkzWMzaV4>`__
+    - 2D
+    - `Dapi_dataset.zip <https://drive.google.com/file/d/1L8AXNjh0_updVI3-v1duf6CbcZb8uZK7/view?usp=drive_link>`__
+  * - `Nucleoli Dataset (Allen Institute) <https://downloads.allencell.org/publication-data/label-free-prediction/index.html>`__
+    - 3D
+    - `label-free-allen-nucleoli-3D.zip <https://drive.google.com/file/d/18vD7vDAx_lQfSD6uCMEwHIPn1BBhUGQq/view?usp=drive_link>`__
+
+
 
 Minimal configuration
 ~~~~~~~~~~~~~~~~~~~~~

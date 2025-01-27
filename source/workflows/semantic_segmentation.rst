@@ -228,6 +228,24 @@ In this example, the raw training images are under ``dataset/train/raw/`` and th
 
 .. note:: Ensure that images and their corresponding masks are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example).
 
+Example datasets
+****************
+Below is a list of publicly available datasets that are ready to be used in BiaPy for semantic segmentation:
+
+.. list-table::
+  :widths: auto
+  :header-rows: 1
+  :align: center
+
+  * - Example dataset
+    - Image dimensions
+    - Link to data
+  * - `Electron Microscopy Dataset (EPFL - CVLAB) <https://www.epfl.ch/labs/cvlab/data/data-em/>`__
+    - 2D
+    - `fibsem_epfl.zip <https://drive.google.com/file/d/1DfUoVHf__xk-s4BWSKbkfKYMnES-9RJt/view?usp=drive_link>`__
+  * - `Electron Microscopy Dataset (EPFL - CVLAB) <https://www.epfl.ch/labs/cvlab/data/data-em/>`__
+    - 3D
+    - `lucchi3D.zip <https://drive.google.com/file/d/10Cf11PtERq4pDHCJroekxu_hf10EZzwG/view?usp=sharing>`__
 
 Minimal configuration
 ~~~~~~~~~~~~~~~~~~~~~

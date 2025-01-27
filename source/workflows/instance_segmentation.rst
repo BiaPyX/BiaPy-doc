@@ -223,6 +223,27 @@ In this example, the raw training images are under ``dataset/train/raw/`` and th
 
 .. note:: Ensure that images and their corresponding masks are sorted in the same way. A common approach is to fill with zeros the image number added to the filenames (as in the example).
 
+Example datasets
+****************
+Below is a list of publicly available datasets that are ready to be used in BiaPy for instance segmentation:
+
+.. list-table::
+  :widths: auto
+  :header-rows: 1
+  :align: center
+
+  * - Example dataset
+    - Image dimensions
+    - Link to data
+  * - `Stardist V2 <https://www.nature.com/articles/s41597-022-01721-8>`__
+    - 2D
+    - `Stardist_v2.zip <https://drive.google.com/file/d/1b7_WDDGEEaEoIpO_1EefVr0w0VQaetmg/view?usp=drive_link>`__
+  * - `3D demo (from StarDist 0.3.0 release) <https://github.com/mpicbg-csbd/stardist/releases/download/0.3.0/demo3D.zip>`__
+    - 3D
+    - `demo3D.zip <https://drive.google.com/file/d/1pypWJ4Z9sRLPlVHbG6zpwmS6COkm3wUg/view?usp=drive_link>`__
+  * - `CartoCell dataset <https://zenodo.org/records/10973241>`__
+    - 3D
+    - `CartoCell.zip <https://drive.google.com/file/d/1eScAB6mpmPeQcirR5xK6Rkz4AAobsG_X/view?usp=share_link>`__
 
 Minimal configuration
 ~~~~~~~~~~~~~~~~~~~~~
