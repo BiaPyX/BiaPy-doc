@@ -64,7 +64,34 @@ Opening a terminal
 General usage
 ~~~~~~~~~~~~~
 
-* When using Docker or BiaPy GUI on Windows, issues can arise with containers accessing network-mounted paths. If you encounter problems where certain paths are not detected, despite being accessible on your machine, consider using local paths instead.
+* **Why do network-mounted paths cause issues with Docker or BiaPy GUI on Windows?**
+
+    When using Docker or the BiaPy GUI on Windows, certain issues may arise with containers accessing network-mounted paths. If you experience problems where specific paths are not detected despite being accessible on your machine, **consider using local paths instead** to resolve the issue.
+
+* **Is there a log of my execution when using the GUI?**
+
+    Yes, every execution of the BiaPy GUI generates a log file named ``biapy_%date%-%time%``, where ``%date%`` and ``%time%`` correspond to the numerical date and time of execution. These log files are saved in the ``logs`` folder within the directory where BiaPy stores user data and configuration. The specific location of this directory varies depending on your operating system and is determined by the `platformdirs library <https://pypi.org/project/platformdirs/>`__.
+
+    Below are the default locations for each platform:
+
+    * On macOS:
+
+      .. code-block:: bash
+
+          ~/Library/Caches/biapy/
+
+    * On Windows:
+
+      .. code-block:: bash
+
+          C:\\Users\\<your username>\\AppData\\Local\\biapy\\Cache
+
+    * On Linux:
+
+      .. code-block:: bash
+
+          ~/.cache/biapy/
+
 
 Train questions
 ~~~~~~~~~~~~~~~
@@ -166,6 +193,7 @@ Train questions
                 raise RuntimeError(f'DataLoader worker (pid(s) {pids_str}) exited unexpectedly') from e
             RuntimeError: DataLoader worker (pid(s) 1285) exited unexpectedly
             ERROR conda.cli.main_run:execute(124): `conda run python3 -u /installations/BiaPy/main.py --config /BiaPy_files/input.yaml --result_dir /C/Users/Pille/Desktop/training/BiaPy/U-Net_new --name u-net_test2_df --run_id 1 --dist_backend gloo --gpu "cuda:0"` failed. (See above for error)
+
 
 Test/Inference questions
 ~~~~~~~~~~~~~~~~~~~~~~~~
