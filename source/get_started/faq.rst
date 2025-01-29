@@ -223,6 +223,16 @@ In case you have troubles with BiaPy's GUI, you can find instructions on how to 
 
 \
 
+* **Can't I resize the GUI?**
+
+    The GUI is currently not resizable, but you can move it by dragging the logo or the blank area at the top (see red rectangles in the figure):
+
+    .. image:: ../img/gui/biapy-gui-drag-areas.png
+            :align: center 
+
+    \
+
+
 * Running the GUI for the first time:
 
     * **Windows**: once you donwload the Windows binary an error may arise when running it: ``Windows protected your PC``. This message occurs if an application is unrecognized by Microsoft. In this situation you can click in ``More info`` button and ``Run anyway``.
