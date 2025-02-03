@@ -220,7 +220,7 @@ Choose your installation method
                               
                Ultimately, it is necessary to install additional dependencies that rely on the `Pytorch <https://pytorch.org/get-started/locally/>`__ installation; therefore, they must be installed last: ::
 
-                    pip install timm pytorch-msssim torchmetrics[image]
+                    pip install timm pytorch-msssim torchmetrics[image]==1.4.*
 
                .. note:: 
 
@@ -309,7 +309,7 @@ Choose your installation method
 
                               # Install Pytorch 2.4.0 + CUDA 11.8
                               pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu118 
-                              pip install timm pytorch-msssim torchmetrics[image]
+                              pip install timm pytorch-msssim torchmetrics[image]==1.4.*
 
                     .. tab:: CUDA 10.2
 
@@ -320,7 +320,7 @@ Choose your installation method
 
                               # Install Pytorch 1.12.1 + CUDA 10.2  
                               conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=10.2 -c pytorch
-                              pip install timm pytorch-msssim torchmetrics[image]
+                              pip install timm pytorch-msssim torchmetrics[image]==1.4.*
 
 
      \ 
