@@ -221,6 +221,11 @@ Test/Inference questions
     .. warning ::
         Be aware of enabling ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` option as it will require to load the prediction entirely in order to save it.
 
+* **Is 16-bit precision inference supported?**
+
+    Yes, 16-bit precision inference is supported. You can enable it by setting ``TEST.REDUCE_MEMORY`` to ``True``, which will generate float16 predictions and help reduce memory usage.
+ 
+
 Importing pretrained models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * **Why are not all the models available in the BioImage Model Zoo for my task compatible with BiaPy?**
