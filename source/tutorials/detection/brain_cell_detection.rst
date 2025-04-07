@@ -61,7 +61,7 @@ During **training**, BiaPy loads random patches from the training Zarr file, so 
 Testing Phase
 ~~~~~~~~~~~~~
 
-For **testing**, BiaPy uses a unique approach to multi-GPU inference, designed to handle very large images. Instead of distributing each image across all GPUs, BiaPy splits the image into patches with overlap, allowing each GPU to process a section of the image without loading it all into memory. This setup avoids memory bottlenecks and speeds up large-image processing. To enable this feature, set ``TEST.BY_CHUNKS.ENABLE`` to ``True`` and configure ``TEST.BY_CHUNKS.INPUT_IMG_AXES_ORDER`` for proper image handling.
+For **testing**, BiaPy uses a unique approach to multi-GPU inference, designed to handle very large images. Instead of distributing each image across all GPUs, BiaPy splits the image into patches with overlap, allowing each GPU to process a section of the image without loading it all into memory. This setup avoids memory bottlenecks and speeds up large-image processing. To enable this feature, set ``TEST.BY_CHUNKS.ENABLE`` to ``True`` and configure ``DATA.TEST.INPUT_IMG_AXES_ORDER`` for proper image handling.
 
 .. figure:: ../../img/detection/zarr_multigpu_trucks.png
   :align: center                  
@@ -210,9 +210,11 @@ Here’s a breakdown of the contents:
       
     * ``per_image_local_max_check``: 
 
-      * ``*_points.csv files``: Contains point locations for each test chunk. 
-
      * ``*_all_points.csv files``: Aggregates points from all chunks for each test Zarr/H5 sample.
+
+    * ``peak_local_max_post_proc``: 
+
+     * ``*_all_points.csv files``: Aggregates points from all chunks for each test Zarr/H5 sample after applying post-processing.
 
     * ``point_associations``:
 

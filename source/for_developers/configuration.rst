@@ -233,13 +233,19 @@ Different loss functions can be set depending on the workflow:
 
 * Super-resolution:
 
-    * ``"MAE"`` (default): `Mean Absolute Error <https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html#torch.nn.L1Loss>`__. 
-    * ``"MSE"``: `Mean Square Error <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__. 
+    * ``"MAE"`` (default): `Mean Absolute Error (MAE) <https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html#torch.nn.L1Loss>`__. 
+    * ``"MSE"``: `Mean Square Error (MSE) <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__. 
+    * ``"SSIM"``: `structural similarity index measure (SSIM) <https://lightning.ai/docs/torchmetrics/stable/image/structural_similarity.html#torchmetrics.image.StructuralSimilarityIndexMeasure>`__.
+    * ``"W_MAE_SSIM_loss"``: ``MAE`` and ``SSIM`` (with a weight term on each one that must sum ``1``). The weights are set with ``LOSS.WEIGHTS``. 
+    * ``"W_MSE_SSIM_loss"``: ``MSE`` and ``SSIM`` (with a weight term on each one that must sum ``1``). The weights are set with ``LOSS.WEIGHTS``. 
 
 * Self-supervision. These losses can only be set when ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK`` is ``"crappify"``. Otherwise it will be automatically set to ``"MSE"``, i.e when ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK`` is ``"masking"``. The options are:
 
-    * ``"MAE"`` (default): `Mean Absolute Error <https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html#torch.nn.L1Loss>`__.
-    * ``"MSE"``: `Mean Square Error <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__. 
+    * ``"MAE"`` (default): `Mean Absolute Error (MAE) <https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html#torch.nn.L1Loss>`__.
+    * ``"MSE"``: `Mean Square Error (MSE) <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__. 
+    * ``"SSIM"``: `structural similarity index measure (SSIM) <https://lightning.ai/docs/torchmetrics/stable/image/structural_similarity.html#torchmetrics.image.StructuralSimilarityIndexMeasure>`__.
+    * ``"W_MAE_SSIM_loss"``: ``MAE`` and ``SSIM`` (with a weight term on each one that must sum ``1``). The weights are set with ``LOSS.WEIGHTS``. 
+    * ``"W_MSE_SSIM_loss"``: ``MSE`` and ``SSIM`` (with a weight term on each one that must sum ``1``). The weights are set with ``LOSS.WEIGHTS``. 
 
 * Classification:
 
@@ -247,8 +253,11 @@ Different loss functions can be set depending on the workflow:
 
 * Image to image:
 
-    * ``"MAE"`` (default): `Mean Absolute Error <https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html#torch.nn.L1Loss>`__.
-    * ``"MSE"``: `Mean Square Error <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__. 
+    * ``"MAE"`` (default): `Mean Absolute Error (MAE) <https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html#torch.nn.L1Loss>`__.
+    * ``"MSE"``: `Mean Square Error (MSE) <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__. 
+    * ``"SSIM"``: `structural similarity index measure (SSIM) <https://lightning.ai/docs/torchmetrics/stable/image/structural_similarity.html#torchmetrics.image.StructuralSimilarityIndexMeasure>`__.
+    * ``"W_MAE_SSIM_loss"``: ``MAE`` and ``SSIM`` (with a weight term on each one that must sum ``1``). The weights are set with ``LOSS.WEIGHTS``. 
+    * ``"W_MSE_SSIM_loss"``: ``MSE`` and ``SSIM`` (with a weight term on each one that must sum ``1``). The weights are set with ``LOSS.WEIGHTS``. 
 
 ``LOSS.CLASS_REBALANCE`` can be used to adjust the loss function based on the imbalance between classes. This can be used when ``LOSS.TYPE`` is ``"CE"`` detection and semantic segmentation, or if using ``'B'``, ``'C'``, ``'M'``, ``'P'`` or ``'A'`` channels in instance segmentation workflow, as those are are binary channels.
 
@@ -275,7 +284,7 @@ To initiate the testing phase, also referred to as inference or prediction, one 
 
 - When each test image can not fit into memory (scalable solution):
 
-  BiaPy offers to use `H5 <https://docs.h5py.org/en/stable/#:~:text=HDF5%20lets%20you%20store%20huge,they%20were%20real%20NumPy%20arrays.>`__ or `Zarr <https://zarr.readthedocs.io/en/stable/>`__ files to generate predictions by configuring ``TEST.BY_CHUNKS`` variable. In this setting, ``TEST.BY_CHUNKS.FORMAT`` decides which files are you working with and ``TEST.BY_CHUNKS.INPUT_IMG_AXES_ORDER`` sets the axis order (all the test images need to be order in the same way). This way, BiaPy enables multi-GPU processing per image by chunking large images into patches with overlap and padding to mitigate artifacts at the edges. Each GPU processes a chunk of the large image, storing the patch in its designated location using Zarr or H5 file formats. This is possible because these file formats facilitate reading and storing data chunks without requiring the entire file to be loaded into memory. Consequently, our approach allows the generation of predictions for large images, overcoming potential memory bottlenecks.
+  BiaPy offers to use `H5 <https://docs.h5py.org/en/stable/#:~:text=HDF5%20lets%20you%20store%20huge,they%20were%20real%20NumPy%20arrays.>`__ or `Zarr <https://zarr.readthedocs.io/en/stable/>`__ files to generate predictions by configuring ``TEST.BY_CHUNKS`` variable. In this setting, ``TEST.BY_CHUNKS.FORMAT`` decides which files are you working with and ``DATA.TEST.INPUT_IMG_AXES_ORDER`` sets the axis order (all the test images need to be order in the same way). This way, BiaPy enables multi-GPU processing per image by chunking large images into patches with overlap and padding to mitigate artifacts at the edges. Each GPU processes a chunk of the large image, storing the patch in its designated location using Zarr or H5 file formats. This is possible because these file formats facilitate reading and storing data chunks without requiring the entire file to be loaded into memory. Consequently, our approach allows the generation of predictions for large images, overcoming potential memory bottlenecks.
   
   .. warning::
 
