@@ -207,12 +207,10 @@ Here’s a breakdown of the contents:
     * ``per_image``:
 
       * ``.zarr files (or.h5)``: Reconstructed images from patches.  
-      
-    * ``per_image_local_max_check``: 
 
-     * ``*_all_points.csv files``: Aggregates points from all chunks for each test Zarr/H5 sample.
+    * ``per_image_local_max_check_post_proc``: 
 
-    * ``peak_local_max_post_proc``: 
+     * ``*_points.csv files``: Contains point locations for each test chunk after applying post-processing. 
 
      * ``*_all_points.csv files``: Aggregates points from all chunks for each test Zarr/H5 sample after applying post-processing.
 

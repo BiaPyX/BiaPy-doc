@@ -766,9 +766,11 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
               │   └── .tif files
               ├── per_image_local_max_check
               │   ├── .tif files  
+              │   ├── *_points.csv files  
               │   └── *_all_points.csv files
-              ├── peak_local_max_post_proc
+              ├── per_image_local_max_check_post_proc
               │   ├── .tif files  
+              │   ├── *_points.csv files  
               │   └── *_all_points.csv files
               ├── point_associations
               │   ├── .tif files
@@ -818,15 +820,13 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
 
     * ``per_image_local_max_check``, can contain:
 
-      * ``.tif files``, *optional*: same as ``per_image`` but with the final detected points in tif format. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``False`` or when ``TEST.BY_CHUNKS.ENABLE`` is ``True`` but ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` is ``True``.  
+      * ``.tif files``, *optional*: same as ``per_image`` but with the final detected points in tif format. Created when no post-processing is applied.  
 
-      * ``*_all_points.csv files``, *optional*: all points of all chunks together for each test Zarr/H5 sample (only created if ``TEST.BY_CHUNKS.ENABLE``).
+      * ``*_points.csv files``, *optional*: Contains point locations for each test chunk. 
 
-    * ``peak_local_max_post_proc``, same as ``per_image_local_max_check`` but once the post-processing is applied. Can contain:
+      * ``*_all_points.csv files``, *optional*: all points of all chunks together for each test Zarr/H5 sample. Created if ``TEST.BY_CHUNKS.ENABLE`` is ``True`` and no post-processing is applied.
 
-      * ``.tif files``, *optional*: same as ``per_image`` but with the final detected points in tif format. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``False`` or when ``TEST.BY_CHUNKS.ENABLE`` is ``True`` but ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` is ``True``.  
-
-      * ``*_all_points.csv files``, *optional*: all points of all chunks together for each test Zarr/H5 sample (only created if ``TEST.BY_CHUNKS.ENABLE``).
+    * ``per_image_local_max_check_post_proc``, same as ``per_image_local_max_check`` but once the post-processing is applied.
 
     * ``point_associations``, *optional*: only if ground truth was provided by setting ``DATA.TEST.LOAD_GT``. Can contain:
 
