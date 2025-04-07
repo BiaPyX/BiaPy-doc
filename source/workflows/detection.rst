@@ -766,7 +766,9 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
               │   └── .tif files
               ├── per_image_local_max_check
               │   ├── .tif files  
-              │   ├── *_points.csv files  
+              │   └── *_all_points.csv files
+              ├── peak_local_max_post_proc
+              │   ├── .tif files  
               │   └── *_all_points.csv files
               ├── point_associations
               │   ├── .tif files
@@ -818,7 +820,11 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
 
       * ``.tif files``, *optional*: same as ``per_image`` but with the final detected points in tif format. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``False`` or when ``TEST.BY_CHUNKS.ENABLE`` is ``True`` but ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` is ``True``.  
 
-      * ``*_points.csv files``: final point list for each test sample or test chunk (only created if ``TEST.BY_CHUNKS.ENABLE`` is ``True``). 
+      * ``*_all_points.csv files``, *optional*: all points of all chunks together for each test Zarr/H5 sample (only created if ``TEST.BY_CHUNKS.ENABLE``).
+
+    * ``peak_local_max_post_proc``, same as ``per_image_local_max_check`` but once the post-processing is applied. Can contain:
+
+      * ``.tif files``, *optional*: same as ``per_image`` but with the final detected points in tif format. Created when ``TEST.BY_CHUNKS.ENABLE`` is ``False`` or when ``TEST.BY_CHUNKS.ENABLE`` is ``True`` but ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` is ``True``.  
 
       * ``*_all_points.csv files``, *optional*: all points of all chunks together for each test Zarr/H5 sample (only created if ``TEST.BY_CHUNKS.ENABLE``).
 
