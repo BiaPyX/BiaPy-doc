@@ -100,11 +100,62 @@ The ``DATA.PATCH_SIZE`` variable is used to specify the shape of the images that
 
         For more information regarding the test data management go to :ref:`config_test`.
 
-For all data types (training, validation, and test), the parameters ``DATA.TRAIN.FILTER_SAMPLES``, ``DATA.VAL.FILTER_SAMPLES``, and ``DATA.TEST.FILTER_SAMPLES`` can be used to specify which samples should be included. In each case, the option ``DATA.*.FILTER_SAMPLES.ENABLE`` must be set to ``True``. After enabling, you need to configure ``DATA.*.FILTER_SAMPLES.PROPS``, ``DATA.*.FILTER_SAMPLES.VALUES``, and ``DATA.*.FILTER_SAMPLES.SIGNS`` to define the filtering criteria. Currently, the available properties for filtering are: ``'foreground'``, ``'mean'``, ``'min'``, and ``'max'``. The ``DATA.FILTER_BY_IMAGE`` parameter determines how the filtering is applied: if set to ``True``, the entire image is processed (this is always the case if ``DATA.EXTRACT_RANDOM_PATCH`` is ``True``); if set to ``False``, the filtering is performed on a patch-by-patch basis.
+Data filtering
+**************
+
+For all data types (training, validation, and test), the parameters ``DATA.TRAIN.FILTER_SAMPLES``, ``DATA.VAL.FILTER_SAMPLES``, and ``DATA.TEST.FILTER_SAMPLES`` can be used to specify which samples should be included. In each case, the option ``DATA.*.FILTER_SAMPLES.ENABLE`` must be set to ``True``. After enabling, you need to configure ``DATA.*.FILTER_SAMPLES.PROPS``, ``DATA.*.FILTER_SAMPLES.VALUES``, and ``DATA.*.FILTER_SAMPLES.SIGNS`` to define the filtering criteria. 
+
+With ``DATA.*.FILTER_SAMPLES.PROPS``, we define the property to look at to establish the condition. Currently, the available properties for filtering are: 
+
+* ``'foreground'`` is defined as the percentage of pixels/voxels corresponding to the foreground mask. This option is only valid for ``SEMANTIC_SEG``, ``INSTANCE_SEG`` and ``DETECTION``.
+
+* ``'mean'`` is defined as the mean intensity value of the raw image inputs.
+
+* ``'min'`` is defined as the min intensity value of the raw image inputs.
+
+* '``max'`` is defined as the max intensity value of the raw image inputs.
+
+* ``'diff'`` is defined as the difference between ground truth and raw images. Available for all workflows but ``SELF_SUPERVISED`` and ``DENOISING``. 
+
+* ``'diff_by_min_max_ratio'`` is defined as the difference between ground truth and raw images multiplied by the ratio between raw image max and min. Available for all workflows but ``SELF_SUPERVISED`` and ``DENOISING``. 
+
+* ``'target_mean'`` is defined as the mean intensity value of the raw image targets. Available for all workflows but ``SELF_SUPERVISED`` and ``DENOISING``.
+
+* ``'target_min'`` is defined as the min intensity value of the raw image targets. Available for all workflows but ``SELF_SUPERVISED`` and ``DENOISING``. 
+
+* ``'target_max'`` is defined as the max intensity value of the raw image targets. Available for all workflows but ``SELF_SUPERVISED`` and ``DENOISING``.  
+
+* ``'diff_by_target_min_max_ratio'`` is defined as the difference between ground truth and raw images multiplied by the ratio between ground truth image max and min. Available for all workflows but ``SELF_SUPERVISED`` and ``DENOISING``. 
+
+With ``DATA.*.FILTER_SAMPLES.VALUES`` and ``DATA.*.FILTER_SAMPLES.SIGNS``, we define the specific values and the comparison operators of each property, respectively. The available operators are: ``'gt'``, ``'ge'``, ``'lt'`` and ``'le'``, that corresponds to "greather than" (or ">"), "greather equal" (or ">="), "less than" (or "<"), and "less equal"  (or "<=").
+          
+For example, if you want to remove those samples that have intensity values lower than ``0.00001`` and a mean average greater than ``100`` you should declare the above three variables as follows (notice you need to know the image data type in advance):
+
+.. code-block:: bash
+
+  DATA.TRAIN.FILTER_SAMPLES.PROPS = [['foreground','mean']]
+  DATA.TRAIN.FILTER_SAMPLES.VALUES = [[0.00001, 100]]
+  DATA.TRAIN.FILTER_SAMPLES.SIGNS = [['lt', 'gt']]
+
+You can also concatenate more restrictions and they will be applied in order. For instance, if you want to filter those
+samples with a maximum intensity value greater than ``1000``, and do that before the condition described above, you can define the
+variables this way:
+
+.. code-block:: bash
+
+  DATA.TRAIN.FILTER_SAMPLES.PROPS = [['max'], ['foreground','mean']]
+  DATA.TRAIN.FILTER_SAMPLES.VALUES = [[1000], [0.00001, 100]]
+  DATA.TRAIN.FILTER_SAMPLES.SIGNS = [['gt'], ['lt', 'gt']]
+
+The ``DATA.FILTER_BY_IMAGE`` parameter determines how the filtering is applied: if set to ``True``, the entire image is processed (this is always the case if ``DATA.EXTRACT_RANDOM_PATCH`` is ``True``); if set to ``False``, the filtering is performed on a patch-by-patch basis.
 
 .. seealso::
 
     For test data, even if ``DATA.FILTER_BY_IMAGE`` is set to ``False``, indicating that filtering will be applied on a patch-by-patch basis, no patches are discarded to ensure the complete image can be reconstructed. These patches are flagged and are not processed by the model, resulting in a black patch prediction.
+
+.. seealso::
+
+    You can use ``DATA.TRAIN.FILTER_SAMPLES.NORM_BEFORE`` to control whether the normalization is applied before the filtering, which can help you deciding the values for the filtering. 
 
 .. _data_norm:
 
@@ -116,8 +167,10 @@ Previous to normalization, you can choose to do a percentile clipping to remove 
 The data normalization type is controlled by ``DATA.NORMALIZATION.TYPE`` and a few options are available:
 
 * ``'div'`` (default): normalizes the data to ``[0-1]`` range. The division is done using the maximum value of the data type. i.e. 255 for uint8 or 65535 if uint16.
-* ``'custom'``: custom normalization using a specified mean (``DATA.NORMALIZATION.CUSTOM_MEAN``) and standard deviation (``DATA.NORMALIZATION.CUSTOM_STD``). If the mean and standard deviation are both set to ``-1``, which is the default, they will be calculated based on the training data. These values will be stored in the job's folder to be used at the inference phase, so that the test images are normalized using the same values. If specific values for mean and standard deviation are provided, those values will be used for normalization.
+* ``'zero_mean_unit_variance'``: normalization substracting the mean and divide by std. The mean and std can be specified with ``DATA.NORMALIZATION.ZERO_MEAN_UNIT_VAR.MEAN_VAL`` and ``DATA.NORMALIZATION.ZERO_MEAN_UNIT_VAR.MEAN_VAL`` respectively.
 * ``'scale_range'``: normalizes the data to ``[0-1]`` range but, instead of dividing by the maximum value of the data type as in ``'div'``, it divides by the maximum value of each image.
+
+The normalization or clipping values can be derived either from the entire image or from individual patches. This behavior is controlled by the variable ``DATA.NORMALIZATION.MEASURE_BY``, which accepts either ``'image'`` or ``'patch'`` as its value.
 
 Pre-processing
 ~~~~~~~~~~~~~~
