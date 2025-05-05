@@ -58,7 +58,7 @@ The image classification workflows in BiaPy expect a series of **folders** as in
 
         Under *Workflow*, select *Image classification*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
 
-        .. image:: ../img/classification/GUI-general-options.png
+        .. image:: ../img/classification/GUI-train-general-options.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
@@ -277,7 +277,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *General options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train proportion for validation**:
+          Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train prop. for validation**:
 
           .. image:: ../img/GUI-validation-percentage.png
             :align: center
@@ -302,7 +302,7 @@ To define such set, there are two options:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
+        Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
 
         .. image:: ../img/classification/GUI-validation-paths.png
           :align: center
@@ -358,7 +358,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *Workflow specific options* > *Train data options*, and edit the field **Number of classes**:
+            Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *Workflow specific options* > *Extra options*, and edit the field **Number of classes**:
 
             .. image:: ../img/classification/GUI-workflow-specific-options.png
               :align: center
@@ -382,7 +382,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *General options* > *Train data*, edit the last value of the field **Data patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
+            Under *Workflow*, select *Image classification*, click once on *Continue*, and under *General options*, edit the last value of the field **Patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
 
             .. image:: ../img/classification/GUI-general-options.png
               :align: center
@@ -406,7 +406,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
+            Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
 
             .. image:: ../img/classification/GUI-basic-training-params.png
               :align: center
@@ -430,7 +430,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
+            Under *Workflow*, select *Image classification*, click twice on *Continue*, and under *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
 
             .. image:: ../img/classification/GUI-basic-training-params.png
               :align: center
