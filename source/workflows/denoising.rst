@@ -33,7 +33,7 @@ The denoising workflows in BiaPy expect a series of **folders** as input:
 
         Under *Workflow*, select *Image denoising*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
 
-        .. image:: ../img/denoising/GUI-general-options.png
+        .. image:: ../img/denoising/GUI-train-general-options.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
@@ -227,7 +227,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *General options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train proportion for validation**:
+          Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train prop. for validation**:
 
           .. image:: ../img/GUI-validation-percentage.png
             :align: center
@@ -252,7 +252,7 @@ To define such set, there are two options:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *General options* > *Advanced otions* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
+        Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *Advanced otions* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
 
         .. image:: ../img/denoising/GUI-validation-paths.png
           :align: center
@@ -301,7 +301,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
+            Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
 
             .. image:: ../img/denoising/GUI-basic-training-params.png
               :align: center
@@ -324,7 +324,7 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
+            Under *Workflow*, select *Image denoising*, click twice on *Continue*, and under *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
 
             .. image:: ../img/denoising/GUI-basic-training-params.png
               :align: center
