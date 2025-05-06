@@ -50,9 +50,9 @@ The instance segmentation workflows in BiaPy expect a series of **folders** as i
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Instance Segmentation*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
+        Under *Workflow*, select *Instance Segmentation*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder** and select the folder with your training raw images:
 
-        .. image:: ../img/GUI-general-options.png
+        .. image:: ../img/instance-seg/GUI-train-general-options.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
@@ -76,9 +76,9 @@ The instance segmentation workflows in BiaPy expect a series of **folders** as i
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Instance Segmentation*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input label folder**:
+        Under *Workflow*, select *Instance Segmentation*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input label folder** and select the folder with your training label images:
 
-        .. image:: ../img/GUI-general-options.png
+        .. image:: ../img/instance-seg/GUI-train-general-options.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
@@ -104,9 +104,9 @@ The instance segmentation workflows in BiaPy expect a series of **folders** as i
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Instance Segmentation*, three times *Continue*, under *General options* > *Test data*, click on the *Browse* button of **Input raw image folder**:
+        Under *Workflow*, select *Instance Segmentation*, three times *Continue*, under *General options* > *Test data*, click on the *Browse* button of **Input raw image folder** and select the folder with your test raw images:
 
-        .. image:: ../img/GUI-test-data.png
+        .. image:: ../img/instance-seg/GUI-test-data.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
@@ -130,9 +130,9 @@ The instance segmentation workflows in BiaPy expect a series of **folders** as i
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Instance Segmentation*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the *Do you have test labels?* field, and then click on the *Browse* button of **Input label folder**:
+        Under *Workflow*, select *Instance Segmentation*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the *Do you have test labels?* field, and then click on the *Browse* button of **Input label folder** and select the folder with your test label images:
 
-        .. image:: ../img/GUI-test-data-gt.png
+        .. image:: ../img/instance-seg/GUI-test-data-gt.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
@@ -307,7 +307,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Instance Segmentation*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train proportion for validation**:
+          Under *Workflow*, select *Instance Segmentation*, click twice on *Continue*, and under *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train proportion for validation**:
 
           .. image:: ../img/GUI-validation-percentage.png
             :align: center
@@ -411,9 +411,9 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Instance Segmentation*, click twice on *Continue*, and under *General options* > *Train data*, edit the last value of the field **Data patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
+            Under *Workflow*, select *Instance Segmentation*, click twice on *Continue*, and under *General options*, edit the last value of the field **Patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
 
-            .. image:: ../img/GUI-general-options.png
+            .. image:: ../img/instance-seg/GUI-general-options.png
               :align: center
 
           .. tab:: Google Colab / Notebooks
@@ -435,11 +435,10 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Instance Segmentation*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
+            Under *Workflow*, select *Instance Segmentation*, click twice on *Continue*, and under *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
 
             .. image:: ../img/instance-seg/GUI-basic-training-params.png
               :align: center
-              :width: 75%
 
           .. tab:: Google Colab / Notebooks
             
@@ -460,11 +459,10 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Instance Segmentation*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
+            Under *Workflow*, select *Instance Segmentation*, click twice on *Continue*, and under *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
 
             .. image:: ../img/instance-seg/GUI-basic-training-params.png
               :align: center
-              :width: 75%
 
           .. tab:: Google Colab / Notebooks
             
