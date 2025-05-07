@@ -1,7 +1,7 @@
 .. _super-resolution:
 
-Super-resolution
-----------------
+Single image super-resolution
+-----------------------------
 
 Description of the task
 ~~~~~~~~~~~~~~~~~~~~~~~

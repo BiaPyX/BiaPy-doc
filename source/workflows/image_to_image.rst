@@ -1,7 +1,7 @@
 .. _image-to-image:
 
-Image to image
---------------
+Image-to-image translation
+--------------------------
 
 Description of the task
 ~~~~~~~~~~~~~~~~~~~~~~~
