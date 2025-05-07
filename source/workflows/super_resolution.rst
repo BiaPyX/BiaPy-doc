@@ -43,9 +43,9 @@ The super-resolution workflows in BiaPy expect a series of **folders** as input:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Super-resolution*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder**:
+        Under *Workflow*, select *Super-resolution*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder** and select the folder with your trraining low-resultion images:
 
-        .. image:: ../img/super-resolution/GUI-general-options.png
+        .. image:: ../img/super-resolution/GUI-train-general-options.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
@@ -69,9 +69,9 @@ The super-resolution workflows in BiaPy expect a series of **folders** as input:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Super-resolution*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input high-resolution image folder**:
+        Under *Workflow*, select *Super-resolution*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input high-resolution image folder** and select the folder with your training high-resolution images:
 
-        .. image:: ../img/super-resolution/GUI-general-options.png
+        .. image:: ../img/super-resolution/GUI-train-general-options.png
           :align: center
 
       .. tab:: Google Colab / Notebooks
@@ -95,7 +95,7 @@ The super-resolution workflows in BiaPy expect a series of **folders** as input:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Super-resolution*, three times *Continue*, under *General options* > *Test data*, click on the *Browse* button of **Input raw image folder**:
+        Under *Workflow*, select *Super-resolution*, three times *Continue*, under *General options* > *Test data*, click on the *Browse* button of **Input raw image folder** and select the folder with your test low-resolution images:
 
         .. image:: ../img/super-resolution/GUI-test-data.png
           :align: center
@@ -121,7 +121,7 @@ The super-resolution workflows in BiaPy expect a series of **folders** as input:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Super-resolution*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the *Do you have high-resolution test data?* field, and then click on the *Browse* button of **Input high-resolution image folder**:
+        Under *Workflow*, select *Super-resolution*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the *Do you have high-resolution test data?* field, and then click on the *Browse* button of **Input high-resolution image folder** and select the folder with your test high-resolution images:
 
         .. image:: ../img/super-resolution/GUI-test-data-gt.png
           :align: center
@@ -301,7 +301,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train proportion for validation**:
+          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train prop. for validation**:
 
           .. image:: ../img/GUI-validation-percentage.png
             :align: center
@@ -327,7 +327,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw (LR) images:
+          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw (LR) images:
 
           .. image:: ../img/super-resolution/GUI-validation-paths.png
             :align: center
@@ -347,7 +347,7 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options* > *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input high-resolution image folder** and select the folder containing your validation HR images:
+          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input high-resolution image folder** and select the folder containing your validation HR images:
 
           .. image:: ../img/super-resolution/GUI-validation-paths.png
             :align: center
@@ -403,11 +403,10 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options* > *Train data*, edit the last value of the field **Data patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
+            Under *Workflow*, select *Super-resolution*, click on *Continue*, and under *General options*, edit the last value of the field **Data patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
 
             .. image:: ../img/super-resolution/GUI-general-options.png
               :align: center
-              :width: 75%
 
           .. tab:: Google Colab / Notebooks
             
@@ -432,7 +431,6 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
 
             .. image:: ../img/super-resolution/GUI-workflow-specific-options.png
               :align: center
-              :width: 50%
 
           .. tab:: Google Colab / Notebooks
             
@@ -460,11 +458,10 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
+            Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
 
             .. image:: ../img/super-resolution/GUI-basic-training-params.png
               :align: center
-              :width: 75%
 
           .. tab:: Google Colab / Notebooks
             
@@ -485,11 +482,10 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *General options*, click on *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
+            Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
 
             .. image:: ../img/super-resolution/GUI-basic-training-params.png
               :align: center
-              :width: 75%
 
           .. tab:: Google Colab / Notebooks
             
