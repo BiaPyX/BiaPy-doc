@@ -530,48 +530,97 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
         `From a terminal <../get_started/faq.html#opening-a-terminal>`__, you can use the `2d_classification.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/classification/2d_classification.yaml>`__ template file (or your own file), and run the workflow as follows:
 
-        .. code-block:: bash
-            
-            # Configuration file
-            job_cfg_file=/home/user/2d_classification.yaml       
-            # Where the experiment output directory should be created
-            result_dir=/home/user/exp_results  
-            # Just a name for the job
-            job_name=my_2d_classification      
-            # Number that should be increased when one need to run the same job multiple times (reproducibility)
-            job_counter=1
-            # Number of the GPU to run the job in (according to 'nvidia-smi' command)
-            gpu_number=0                   
+        .. tabs::
 
-            # Load the environment
-            conda activate BiaPy_env
-            
-            biapy \
-                --config $job_cfg_file \
-                --result_dir $result_dir  \ 
-                --name $job_name    \
-                --run_id $job_counter  \
-                --gpu "$gpu_number"  
+          .. tab:: Linux (bash)
+              
+              .. code-block:: bash
+                    
+                  # Configuration file
+                  job_cfg_file=/home/user/2d_classification.yaml       
+                  # Where the experiment output directory should be created
+                  result_dir=/home/user/exp_results  
+                  # Just a name for the job
+                  job_name=my_2d_classification      
+                  # Number that should be increased when one need to run the same job multiple times (reproducibility)
+                  job_counter=1
+                  # Number of the GPU to run the job in (according to 'nvidia-smi' command)
+                  gpu_number=0                   
 
-        For multi-GPU training you can call BiaPy as follows:
+                  # Load the environment
+                  conda activate BiaPy_env
+                  
+                  biapy \
+                      --config $job_cfg_file \
+                      --result_dir $result_dir  \ 
+                      --name $job_name    \
+                      --run_id $job_counter  \
+                      --gpu "$gpu_number"  
 
-        .. code-block:: bash
-            
-            # First check where is your biapy command (you need it in the below command)
-            # $ which biapy
-            # > /home/user/anaconda3/envs/BiaPy_env/bin/biapy
+              For multi-GPU training you can call BiaPy as follows:
 
-            gpu_number="0, 1, 2"
-            python -u -m torch.distributed.run \
-                --nproc_per_node=3 \
-                /home/user/anaconda3/envs/BiaPy_env/bin/biapy \
-                --config $job_cfg_file \
-                --result_dir $result_dir  \ 
-                --name $job_name    \
-                --run_id $job_counter  \
-                --gpu "$gpu_number"  
+              .. code-block:: bash
+                  
+                  # First check where is your biapy command (you need it in the below command)
+                  # $ which biapy
+                  # > /home/user/anaconda3/envs/BiaPy_env/bin/biapy
 
-        ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+                  gpu_number="0, 1, 2"
+                  python -u -m torch.distributed.run \
+                      --nproc_per_node=3 \
+                      /home/user/anaconda3/envs/BiaPy_env/bin/biapy \
+                      --config $job_cfg_file \
+                      --result_dir $result_dir  \ 
+                      --name $job_name    \
+                      --run_id $job_counter  \
+                      --gpu "$gpu_number"  
+
+              ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
+
+          .. tab:: Windows (batch)
+              
+              .. code-block:: bat
+                  
+                  REM Configuration file
+                  set job_cfg_file=C:\home\user\2d_classification.yaml       
+                  REM Where the experiment output directory should be created
+                  set result_dir=C:\home\user\exp_results  
+                  REM Just a name for the job
+                  setjob_name=my_2d_classification      
+                  REM Number that should be increased when one need to run the same job multiple times (reproducibility)
+                  set job_counter=1
+                  REM Number of the GPU to run the job in (according to 'nvidia-smi' command)
+                  set gpu_number=0                   
+
+                  REM Load the environment
+                  call conda activate BiaPy_env
+                  
+                  biapy ^
+                      --config %job_cfg_file% ^
+                      --result_dir %result_dir%  ^
+                      --name %job_name%    ^
+                      --run_id %job_counter%  ^
+                      --gpu "%gpu_number%"  
+
+              For multi-GPU training you can call BiaPy as follows:
+
+              .. code-block:: bat
+                  
+                  REM First check where is your biapy command (you need it in the below command)
+                  REM $ where biapy
+                  REM > C:\home\user\anaconda3\envs\BiaPy_env\bin\biapy
+
+                  set gpu_number="0, 1, 2"
+                  python -u -m torch.distributed.run ^
+                      --nproc_per_node=3 ^
+                      C:\home\user\anaconda3\envs\BiaPy_env\bin\biapy ^
+                      --config %job_cfg_file% ^
+                      --result_dir %result_dir%  ^
+                      --name %job_name%    ^
+                      --run_id %job_counter%  ^
+                      --gpu "%gpu_number%"  
+
+              ``nproc_per_node`` needs to be equal to the number of GPUs you are using (e.g. ``gpu_number`` length).
 
 
 
