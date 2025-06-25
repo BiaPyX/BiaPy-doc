@@ -84,6 +84,6 @@ Please note that BiaPy is based on a publication. If you use it successfully for
    Franco-Barranco, D., Andrés-San Román, J.A., Hidalgo-Cenalmor, I.,
    Backová, L., González-Marfil, A., Caporal, C., Chessel, A., Gómez-Gálvez, P.,
    Escudero, L.M., Wei, D., Muñoz-Barrutia, A. and Arganda-Carreras, I.
-   BiaPy: accessible deep learning on bioimages. Nat Methods (2025).
+   BiaPy: accessible deep learning on bioimages. Nat Methods 22, 1124-1126 (2025).
    https://doi.org/10.1038/s41592-025-02699-y
   
