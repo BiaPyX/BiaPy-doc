@@ -26,7 +26,7 @@ email_validator==2.2.0
 fasteners==0.19
 fastremap==1.14.0
 filelock==3.12.4
-fill_voids=2.1.0
+fill_voids==2.1.0
 fire==0.6.0
 fonttools==4.58.5
 fsspec==2023.9.1
