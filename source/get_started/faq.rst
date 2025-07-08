@@ -224,6 +224,17 @@ Test/Inference questions
 * **Is 16-bit precision inference supported?**
 
     Yes, 16-bit precision inference is supported. You can enable it by setting ``TEST.REDUCE_MEMORY`` to ``True``, which will generate float16 predictions and help reduce memory usage.
+
+* **How can I reduce memory usage during inference? What is the purpose of ``TEST.REDUCE_MEMORY`` and ``TEST.REUSE_PREDICTION``?**
+
+    If you're working with large images or limited hardware resources, BiaPy offers two options that can help you manage memory usage and avoid repeating computations:
+
+    - ``TEST.REDUCE_MEMORY``: This option reduces the amount of memory used during the prediction (inference) step. It does so by simplifying how image patches are processed and by using a more memory-efficient data format. Please note that enabling this option might slightly slow down the inference and reduce precision, but it's useful when working with large datasets or limited RAM. It is especially helpful when ``TEST.BY_CHUNKS`` is also activated, although in that case only the data format change has an effect.
+
+    - ``TEST.REUSE_PREDICTION``: If you've already generated predictions for your dataset and saved them to disk, you can enable this option to reuse those saved results instead of re-running the model again. This is particularly useful when testing different post-processing settings without needing to recompute predictions each time, saving time and resources.
+
+    Together, these options help make BiaPy more flexible and efficient across different computational setups.
+
  
 
 Importing pretrained models
