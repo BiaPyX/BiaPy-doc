@@ -6,7 +6,6 @@ asciitree==0.3.3
 autodocsumm==0.2.14
 babel==2.17.0
 beautifulsoup4==4.13.4
--e git+ssh://git@github.com/BiaPyX/BiaPy.git@66618df84fd1b7d23b4c7c233529e786523e2831#egg=biapy
 bioimageio.core==0.8.0
 bioimageio.spec==0.5.4.1
 CacheControl==0.14.3
