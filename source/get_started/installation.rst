@@ -109,13 +109,8 @@ Choose your installation method
 
    .. tab:: Docker
 
-        We provide two Docker containers for running BiaPy, one compatible with current NVIDIA driver versions and another for older drivers:
+        We provide a Docker container for running BiaPy called ``biapyx/biapy:latest-11.8`` (`link to the container <https://hub.docker.com/layers/biapyx/biapy/latest-11.8/images/sha256-86cf198ab05a953ba950bb96fb74b18045d2ed7318afb8fa9b212c97c41be904?context=repo>`__.). It is based on Ubuntu ``22.04`` with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``2.4.0`` and CUDA ``11.8`` support.
 
-            * ``biapyx/biapy:latest-11.8``: Based on Ubuntu ``22.04`` with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``2.4.0`` and CUDA ``11.8`` support. `Link to container <https://hub.docker.com/layers/biapyx/biapy/latest-11.8/images/sha256-86cf198ab05a953ba950bb96fb74b18045d2ed7318afb8fa9b212c97c41be904?context=repo>`__.
-            * ``biapyx/biapy:latest-10.2``: Based on Ubuntu ``20.04`` with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``1.12.1`` and CUDA ``10.2`` support. `Link to container <https://hub.docker.com/layers/biapyx/biapy/latest-10.2/images/sha256-c437972cfe30909879085ffd1769666d11875f0ff239df3100fa04ea056d09ab?context=repo>`__.
-
-        To determine the appropriate container for your system, check which CUDA version your NVIDIA driver supports. You can do this by running the command ``nvidia-smi`` in Linux/macOS, or by using the ``NVIDIA Control Panel`` in Windows. The driver information will indicate the maximum CUDA version supported. Choose the container accordingly. For example, if your driver supports CUDA ``12.0``, use the ``biapyx/biapy:latest-11.8`` container. 
-        
         To install `Docker <https://docs.docker.com/>`__ in your operating system, you can follow these steps:
 
         .. tabs::
@@ -294,34 +289,14 @@ Choose your installation method
 
                     git clone https://github.com/BiaPyX/BiaPy.git
 
-               This will create a folder called ``BiaPy`` that contains all the files of the `library's official repository <https://github.com/BiaPyX/BiaPy>`__. Then you need to create a ``conda`` environment and install the dependencies.
+               This will create a folder called ``BiaPy`` that contains all the files of the `library's official repository <https://github.com/BiaPyX/BiaPy>`__. Then you need to create a ``conda`` environment and install the dependencies as follows: ::
 
-               You need to check the CUDA version that you NVIDIA driver can handle. You can do that with ``nvidia-smi`` command in Linux/macOS or by running ``NVIDIA Control Panel`` in Windows. The driver information will tell you the maximum CUDA version it can handle. We here provide two stable installations, one based in CUDA ``11.8`` and another one with an older version of `Pytorch <https://pytorch.org/get-started/locally/>`__ and with CUDA ``10.2`` (BiaPy will work anyway). Once you have checked it, proceed with the installation depending on the CUDA version: 
+                    cd BiaPy
+                    pip install --editable .
 
-               .. tabs::
-
-                    .. tab:: CUDA 11.8
-
-                         ::
-
-                              cd BiaPy
-                              pip install --editable .
-
-                              # Install Pytorch 2.4.0 + CUDA 11.8
-                              pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu118 
-                              pip install timm==1.0.14 pytorch-msssim torchmetrics[image]==1.4.*
-
-                    .. tab:: CUDA 10.2
-
-                         ::
-                              
-                              cd BiaPy
-                              pip install --editable .
-
-                              # Install Pytorch 1.12.1 + CUDA 10.2  
-                              conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=10.2 -c pytorch
-                              pip install timm==1.0.14 pytorch-msssim torchmetrics[image]==1.4.*
-
+                    # Install Pytorch 2.4.0 + CUDA 11.8
+                    pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu118 
+                    pip install timm==1.0.14 pytorch-msssim torchmetrics[image]==1.4.*
 
      \ 
 
