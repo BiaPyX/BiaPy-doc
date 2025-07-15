@@ -439,7 +439,7 @@ Model training
     .. tab:: Google Colab 
     
       .. |cartocell_train_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-          :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/CartoCell/CartoCell%20-%20Training%20workflow%20(Phases%202%20and%204)%20-%20BiaPy's%20latest%20version.ipynb
+          :target: "https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/CartoCell/CartoCell_Training_workflow_(Phases_2_and_4)_BiaPy's_latest_version.ipynb"
       
       Open our code-free notebook in Google Colab and follow its instructions to perform the training phases as in the **CartoCell** pipeline: |cartocell_train_colablink|
 
@@ -614,7 +614,7 @@ Again, **BiaPy** offers different options to run the **CartoCell** testing (also
     .. tab:: Google Colab 
     
       .. |cartocell_inference_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-          :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/CartoCell/CartoCell%20-%20Inference%20workflow%20(Phase%205)%20-%20BiaPy's%20latest%20version.ipynb
+          :target: "https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/CartoCell/CartoCell_Inference_workflow_(Phase_5)_BiaPy's_latest_version.ipynb"
       
       Open our code-free notebook in Google Colab and follow its instructions to perform the testing phases as in the **CartoCell** pipeline: |cartocell_train_colablink|
 
