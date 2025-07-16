@@ -15,9 +15,9 @@ Here is a minimal example of how to run BiaPy programmatically from Python:
     # Set up your parameters
     config_path = "/path/to/config.yaml"            # Path to your YAML configuration file
     result_dir = "/path/to/results"                 # Directory to store the results
-    job_name = "my_biap_job"                        # Name of the job
-    run_id = 1                                       # Run ID for logging/versioning
-    gpu = "0"                                        # GPU to use (as string, e.g., "0")
+    job_name = "my_biapy_ob"                        # Name of the job
+    run_id = 1                                      # Run ID for logging/versioning
+    gpu = "0"                                       # GPU to use (as string, e.g., "0")
 
     # Create and run the BiaPy job
     biapy = BiaPy(config_path, result_dir=result_dir, name=job_name, run_id=run_id, gpu=gpu)
