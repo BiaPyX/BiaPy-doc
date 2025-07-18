@@ -191,11 +191,7 @@ Choose your installation method
                     conda create -n BiaPy_env python=3.10
                     conda activate BiaPy_env
 
-               Then you will need to install `BiaPy package <https://pypi.org/project/biapy/>`__: ::
-
-                    pip install biapy
-
-               Afterwards you need to install `Pytorch <https://pytorch.org/get-started/locally/>`__:
+               First, you need to install `Pytorch <https://pytorch.org/get-started/locally/>`__:
                
                .. tabs::
 
@@ -204,18 +200,18 @@ Choose your installation method
                          :: 
 
                               # Then install Pytorch 2.4.0 + CUDA 11.8
-                              pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu118 
+                              pip install torch==2.4.0 torchvision==0.19.0 --index-url https://download.pytorch.org/whl/cu118 
                          
                     .. tab:: CPU only support
 
                          :: 
 
                               # Then install Pytorch 2.4.0 + CUDA 11.8
-                              pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cpu 
-                              
-               Ultimately, it is necessary to install additional dependencies that rely on the `Pytorch <https://pytorch.org/get-started/locally/>`__ installation; therefore, they must be installed last: ::
+                              pip install torch==2.4.0 torchvision==0.19.0 --index-url https://download.pytorch.org/whl/cpu 
 
-                    pip install timm==1.0.14 pytorch-msssim torchmetrics[image]==1.4.*
+               Afterwards, you will need to install `BiaPy package <https://pypi.org/project/biapy/>`__: ::
+
+                    pip install biapy
 
                .. note:: 
 
@@ -247,15 +243,11 @@ Choose your installation method
 
                * Now you need to install `Pytorch <https://pytorch.org/get-started/locally/>`__ and related packages. Double check `Pytorch's official page <https://pytorch.org/get-started/locally/>`__ for its specific installation. For example, to install the last version of `Pytorch <https://pytorch.org/get-started/locally/>`__ with ``conda`` installation in Windows OS under cuda 12.1: ::
 
-                    mamba install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
+                    mamba install pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
 
                  Alternatively, for macOS it would be like this: ::
 
-                    mamba install pytorch::pytorch torchvision torchaudio -c pytorch
-
-               * Then, add extra pytorch related packages: ::
-
-                    mamba install timm==1.0.14 torchmetrics
+                    mamba install pytorch::pytorch torchvision -c pytorch
 
                * Install BiaPy Dependencies: ::
                     
@@ -291,12 +283,12 @@ Choose your installation method
 
                This will create a folder called ``BiaPy`` that contains all the files of the `library's official repository <https://github.com/BiaPyX/BiaPy>`__. Then you need to create a ``conda`` environment and install the dependencies as follows: ::
 
+                    # Install Pytorch 2.4.0 + CUDA 11.8
+                    pip install torch==2.4.0 torchvision==0.19.0 --index-url https://download.pytorch.org/whl/cu118
+
                     cd BiaPy
                     pip install --editable .
-
-                    # Install Pytorch 2.4.0 + CUDA 11.8
-                    pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu118 
-                    pip install timm==1.0.14 pytorch-msssim torchmetrics[image]==1.4.*
+                     
 
      \ 
 
