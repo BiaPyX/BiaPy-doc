@@ -181,44 +181,17 @@ Choose your installation method
 
        .. tabs::
 
-          .. tab:: Conda + pip
+          .. tab:: Conda
 
-               .. _installation_command_line_condapip:
+               .. _installation_command_line_conda:
 
                To use BiaPy via the command line, you will need to set up a ``conda`` environment. To do this, you will first need to install `Conda <https://docs.conda.io/projects/conda/en/stable/>`__. Then you need to create a ``conda`` environment through a `terminal <faq.html#opening-a-terminal>`__: ::
 
                     # Create and activate the environment
-                    conda create -n BiaPy_env python=3.10
+                    conda create -n biapy-env -c conda-forge biapy
                     conda activate BiaPy_env
 
-               First, you need to install `Pytorch <https://pytorch.org/get-started/locally/>`__:
-               
-               .. tabs::
-
-                    .. tab:: GPU support
-
-                         :: 
-
-                              # Then install Pytorch 2.4.0 + CUDA 11.8
-                              pip install torch==2.4.0 torchvision==0.19.0 --index-url https://download.pytorch.org/whl/cu118 
-                         
-                    .. tab:: CPU only support
-
-                         :: 
-
-                              # Then install Pytorch 2.4.0 + CUDA 11.8
-                              pip install torch==2.4.0 torchvision==0.19.0 --index-url https://download.pytorch.org/whl/cpu 
-
-               Afterwards, you will need to install `BiaPy package <https://pypi.org/project/biapy/>`__: ::
-
-                    pip install biapy
-
-               .. note:: 
-
-                    The PyPI package does not install `Pytorch <https://pytorch.org/get-started/locally/>`__ because there is no option to build that package specifying exactly the CUDA version you want to use. There are a few solutions to set up ``pyproject.toml`` with poetry and specify the CUDA version, as discussed `here <https://github.com/python-poetry/poetry/issues/6409>`__, but then PyPI package can not be built (as stated `here <https://peps.python.org/pep-0440/#direct-references>`__).
-
-
-          .. tab:: Mamba + pip
+          .. tab:: Mamba
 
                .. _installation_command_line_mamba:
 
@@ -236,34 +209,10 @@ Choose your installation method
 
                               conda install mamba -n base -c conda-forge
 
-               * Create a new `Conda <https://docs.conda.io/projects/conda/en/stable/>`__ environment with Python 3.10: ::
+               * Create a new environment with BiaPy: ::
 
-                    mamba create -n BiaPy_env python=3.10
+                    mamba create -n biapy-env -c conda-forge biapy
                     mamba activate BiaPy_env
-
-               * Now you need to install `Pytorch <https://pytorch.org/get-started/locally/>`__ and related packages. Double check `Pytorch's official page <https://pytorch.org/get-started/locally/>`__ for its specific installation. For example, to install the last version of `Pytorch <https://pytorch.org/get-started/locally/>`__ with ``conda`` installation in Windows OS under cuda 12.1: ::
-
-                    mamba install pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
-
-                 Alternatively, for macOS it would be like this: ::
-
-                    mamba install pytorch::pytorch torchvision -c pytorch
-
-               * Install BiaPy Dependencies: ::
-                    
-                    mamba install pytz asciitree tzdata typer tqdm torchinfo tifffile threadpoolctl
-                    mamba install six Shapely scipy ruamel.yaml.clib pyparsing protobuf numcodecs lazy_loader kiwisolver
-                    mamba install joblib h5py fonttools fastremap fasteners cycler contourpy zarr=2.16.1 scikit-learn=1.4.0
-                    mamba install scikit-image ruamel.yaml python-dateutil pydot=1.4.2 pandas matplotlib xarray imgaug
-                    mamba install bioimageio.spec bioimageio.core=0.7.0
-
-               * Install packages not available on conda-forge, so install it via pip: ::
-                    
-                    pip install fill-voids pytorch_msssim opencv-python opencv-python-headless imagecodecs==2024.1.1 numpy==1.25.2 pooch==1.8.1 tensorboardX==2.6.2.2 yacs==0.1.8 edt==2.3.2
-
-               * Install BiaPy: ::
-
-                    pip install --no-deps biapy
 
           .. tab:: Developer
 
