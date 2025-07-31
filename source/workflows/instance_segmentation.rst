@@ -675,7 +675,7 @@ In a further step the multi-channel data information will be used to create the 
 
    .. tab:: ``BC``, ``BCM``, ``BD`` and ``BCD``
         
-      * First, seeds are created based on ``B``, ``C`` and ``D`` (notice that depending on the configuration selected not all of them will be present). For that, each channel is binarized using different thresholds: ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_BINARY_MASK`` for ``B`` channel, ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_CONTOUR`` for ``C`` and ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_DISTANCE`` for ``D``. The M is a combination of B and C, used to apply some post-proccessing after the instances are created (find an example in :doc:`CartoCell tutorial <..\tutorials\instance_seg\cartocell.rst>`). These thresholds will decide whether a point is labeled as a class or not. This way, the seeds are created following this formula: :: 
+      * First, seeds are created based on ``B``, ``C`` and ``D`` (notice that depending on the configuration selected not all of them will be present). For that, each channel is binarized using different thresholds: ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_BINARY_MASK`` for ``B`` channel, ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_CONTOUR`` for ``C`` and ``PROBLEM.INSTANCE_SEG.DATA_MW_TH_DISTANCE`` for ``D``. The M is a combination of B and C, used to apply some post-proccessing after the instances are created (find an example in `CartoCell tutorial <../tutorials/instance_seg/cartocell.html>`). These thresholds will decide whether a point is labeled as a class or not. This way, the seeds are created following this formula: :: 
 
           seed_mask = (B > DATA_MW_TH_BINARY_MASK) * (D > DATA_MW_TH_DISTANCE) * (C < DATA_MW_TH_CONTOUR)  
 
