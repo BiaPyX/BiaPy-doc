@@ -63,9 +63,10 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
    :glob:
 
    for_developers/configuration
+   for_developers/library_examples
+   for_developers/api
    for_developers/cpu_vs_gpu
    for_developers/contribute
-   for_developers/api
 
 .. toctree::
    :maxdepth: 1
