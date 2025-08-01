@@ -32,7 +32,7 @@ This will execute the workflow specified in the `YAML configuration file <config
 
 Data loading example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Besides running a full workflow, you can use many useful methods available in BiaPy's :ref:`API Overview`. For example, here is a short Python script that loads 3D raw and label images into memory:
+Besides running a full workflow, you can use many useful methods available in `BiaPy's API Overview <api.html>`. For example, here is a short Python script that loads 3D raw and label images into memory:
 
 .. code-block:: python
 
