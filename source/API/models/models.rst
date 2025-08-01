@@ -21,7 +21,7 @@ This section contains the main, high-level model architectures.
    multiresunet
    rcan
    resunet
-   resunet++
+   resunet_plus_plus
    resunet_se
    seunet
    simple_cnn
