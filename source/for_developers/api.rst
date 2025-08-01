@@ -1,7 +1,7 @@
 .. _api-reference:
 
-BiaPy API Reference
-===================
+API Reference
+=============
 
 This section provides a comprehensive overview of the BiaPy library's public API, automatically generated from the source code's docstrings. The documentation is organized by the main modules of the project, covering everything from configuration and data handling to deep learning models and utility functions.
 
