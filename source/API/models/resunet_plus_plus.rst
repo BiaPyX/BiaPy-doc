@@ -1,5 +1,5 @@
 ResUNet++ Model
-
+=====================================
 .. py:module:: resunet_plus_plus
 :noindex:
 
@@ -7,15 +7,11 @@ This module implements the ResUNet++ architecture, a deep learning model tailore
 
 The implementation is flexible to support tasks like:
 
-Semantic segmentation
-
-Instance segmentation (with multi-head output)
-
-Point detection
-
-Super-resolution
-
-Contrastive learning
+* Semantic segmentation
+* Instance segmentation (with multi-head output)
+* Point detection
+* Super-resolution
+* Contrastive learning
 
 Reference:
 ResUNet++: An Advanced Architecture for Medical Image Segmentation
@@ -24,3 +20,4 @@ https://arxiv.org/pdf/1911.07067.pdf
 .. autoclass:: resunet_plus_plus.ResUNetPlusPlus
 :members:
 :show-inheritance:
+
