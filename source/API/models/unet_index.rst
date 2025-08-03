@@ -7,6 +7,9 @@ U-Net like models
 
   unet
   resunet
-  att_unet
+  attention_unet
   seunet
   multiresunet
+  resunet_se
+  unext_v1
+  unext_v2
