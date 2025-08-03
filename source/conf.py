@@ -98,6 +98,8 @@ html_show_sourcelink = False
 
 autodoc_member_order = 'bysource'
 
+autodoc_mock_imports = ['resunet++']
+
 # The master toctree document.
 master_doc = 'index'
 
