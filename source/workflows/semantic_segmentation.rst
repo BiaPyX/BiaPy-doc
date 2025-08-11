@@ -785,10 +785,6 @@ Following the example, you should see that the directory ``/home/user/exp_result
     * ``full_image_binarized``: 
 
       * ``.tif files``: Same as ``full_image`` but with the image binarized.
-
-    * ``full_image_post_processing``, *optional*: only created if ``TEST.FULL_IMG`` is ``True`` and a post-proccessing is enabled. Can contain:
-
-      * ``.tif files``: same as ``full_image_instances`` but applied post-processing. 
     
     * ``tensorboard``: Tensorboard logs.
 
