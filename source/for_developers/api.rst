@@ -23,7 +23,7 @@ Explore the functions and classes for loading, manipulating, and preparing bioim
 
    ../API/data/data
 
-biapy.egine
+biapy.engine
 -----------
 The core of BiaPy's functionality for defining and running training and prediction workflows. This section details the engine classes for various tasks like semantic segmentation, instance segmentation, and denoising.
 
