@@ -1,5 +1,5 @@
-Init
-----
+biapy.data.generators
+---------------------
 
 .. automodule:: biapy.data.generators
     :members:

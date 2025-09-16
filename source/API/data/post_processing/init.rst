@@ -1,5 +1,5 @@
-Init
-----
+biapy.data.post_processing
+--------------------------
 
 .. automodule:: biapy.data.post_processing
     :members:

@@ -1,5 +1,5 @@
-Init
-----
+biapy.models
+------------
 
 .. automodule:: biapy.models
     :members:
