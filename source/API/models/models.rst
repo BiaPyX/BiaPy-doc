@@ -5,10 +5,6 @@ biapy.models
 
 This section provides an auto-generated API reference for the deep learning models and associated utility modules available in BiaPy.
 
-Core Model Architectures
-------------------------
-This section contains the main, high-level model architectures.
-
 .. toctree::
    :maxdepth: 2
 
@@ -31,14 +27,6 @@ This section contains the main, high-level model architectures.
    unext_v2
    vit
    wdsr
-
-Model Utilities and Building Blocks
------------------------------------
-This section documents reusable components, custom layers, and helper functions used to construct the models.
-
-.. toctree::
-   :maxdepth: 2
-
    blocks
    bmz_utils
    memory_bank
