@@ -1,5 +1,5 @@
-3D Data manipulation
---------------------
+biapy.data.data_3D_manipulation
+-------------------------------
 
 .. automodule:: biapy.data.data_3D_manipulation
     :members:

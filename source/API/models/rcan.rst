@@ -1,5 +1,5 @@
-RCAN
-~~~~
+biapy.models.rcan
+~~~~~~~~~~~~~~~~~
                                                                                 
 .. automodule:: biapy.models.rcan
     :members:                                                                   

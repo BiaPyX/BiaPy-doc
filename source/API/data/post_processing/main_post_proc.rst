@@ -1,5 +1,5 @@
-post_processing
----------------
+biapy.data.post_processing
+--------------------------
 
 .. toctree::
    :maxdepth: 1

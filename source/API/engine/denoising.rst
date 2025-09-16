@@ -1,5 +1,5 @@
-Denoising Workflow
-------------------
+biapy.engine.denoising
+----------------------
 
 .. automodule:: biapy.engine.denoising
     :members:                                                                   

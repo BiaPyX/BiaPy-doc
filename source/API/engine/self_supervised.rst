@@ -1,5 +1,5 @@
-Self Supervised Workflow
-------------------------
+biapy.engine.self_supervised
+----------------------------
 
 .. automodule:: biapy.engine.self_supervised
     :members:                                                                   

@@ -1,5 +1,5 @@
-3D single generator
-===================
+biapy.data.generators.single_data_3D_generator
+==============================================
 
 .. automodule:: biapy.data.generators.single_data_3D_generator
     :members:

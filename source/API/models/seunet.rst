@@ -1,5 +1,5 @@
-SE U-Net 
-~~~~~~~~
+biapy.models.seunet
+~~~~~~~~~~~~~~~~~~~
                                                                                 
 .. automodule:: biapy.models.seunet
     :members:                                                                   

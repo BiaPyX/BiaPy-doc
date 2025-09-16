@@ -1,5 +1,5 @@
-UNETR
-~~~~~
+biapy.models.unetr
+~~~~~~~~~~~~~~~~~~
                                                                                 
 .. automodule:: biapy.models.unetr
     :members:                                                                   

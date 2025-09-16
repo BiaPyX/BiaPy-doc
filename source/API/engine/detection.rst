@@ -1,5 +1,5 @@
-Detection Workflow
-------------------
+biapy.engine.detection
+----------------------
 
 .. automodule:: biapy.engine.detection
     :members:                                                                   

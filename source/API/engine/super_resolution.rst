@@ -1,5 +1,5 @@
-Super Resolution Workflow
--------------------------
+biapy.engine.super_resolution
+-----------------------------
 
 .. automodule:: biapy.engine.super_resolution
     :members:                                                                   

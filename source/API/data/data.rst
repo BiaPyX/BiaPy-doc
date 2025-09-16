@@ -1,5 +1,5 @@
-data
-----
+biapy.data
+----------
 
 .. toctree::
    :maxdepth: 1

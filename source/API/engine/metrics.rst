@@ -1,5 +1,5 @@
-Metrics
--------
+biapy.engine.metrics
+--------------------
 
 .. automodule:: biapy.engine.metrics
     :members:                                                                   

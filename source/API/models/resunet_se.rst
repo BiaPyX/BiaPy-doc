@@ -1,5 +1,5 @@
-Residual U-Net with Squeeze-and-Excitation blocks
-=================================================
+biapy.models.resunet_se
+=======================
 
 .. automodule:: biapy.models.resunet_se
    :members:

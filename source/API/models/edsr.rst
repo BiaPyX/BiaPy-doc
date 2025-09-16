@@ -1,5 +1,5 @@
-EDSR
-~~~~
+biapy.models.edsr
+~~~~~~~~~~~~~~~~~
                                                                                 
 .. automodule:: biapy.models.edsr
     :members:                                                                   

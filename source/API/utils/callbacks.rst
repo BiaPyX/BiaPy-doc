@@ -1,5 +1,5 @@
-Callbacks
----------
+biapy.utils.callbacks
+---------------------
 
 .. automodule:: biapy.utils.callbacks
     :members:

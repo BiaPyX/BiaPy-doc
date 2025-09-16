@@ -1,5 +1,5 @@
-BioImage Model Zoo Utils
-========================
+biapy.models.bmz_utils
+======================
 
 .. automodule:: biapy.models.bmz_utils
    :members:

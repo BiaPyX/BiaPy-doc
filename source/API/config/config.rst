@@ -1,5 +1,5 @@
-config
-------
+biapy.config
+------------
 
 .. automodule:: biapy.config.config
     :members:

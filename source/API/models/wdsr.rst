@@ -1,5 +1,5 @@
-WDSR
-~~~~
+biapy.models.wdsr
+~~~~~~~~~~~~~~~~~
                                                                                 
 .. automodule:: biapy.models.wdsr
     :members:                                                                   

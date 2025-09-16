@@ -1,5 +1,5 @@
-DFCAN
-~~~~~
+biapy.models.dfcan
+~~~~~~~~~~~~~~~~~~
                                                                                 
 .. automodule:: biapy.models.dfcan
     :members:                                                                   

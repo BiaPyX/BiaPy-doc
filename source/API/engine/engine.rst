@@ -1,5 +1,5 @@
-engine
-------
+biapy.engine
+------------
 
 .. toctree::
    :maxdepth: 1

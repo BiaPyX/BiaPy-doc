@@ -1,5 +1,5 @@
-MultiResUNet
-~~~~~~~~~~~~
+biapy.models.multiresunet
+~~~~~~~~~~~~~~~~~~~~~~~~~
                                                                                 
 .. automodule:: biapy.models.multiresunet
     :members:                                                                   

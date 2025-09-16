@@ -1,7 +1,7 @@
 .. _models-reference:
 
-Deep Learning Models and Utility Blocks
-=======================================
+biapy.models
+============
 
 This section provides an auto-generated API reference for the deep learning models and associated utility modules available in BiaPy.
 

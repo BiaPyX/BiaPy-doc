@@ -1,5 +1,5 @@
-Classification Workflow
------------------------
+biapy.engine.classification
+---------------------------
 
 .. automodule:: biapy.engine.classification
     :members:                                                                   

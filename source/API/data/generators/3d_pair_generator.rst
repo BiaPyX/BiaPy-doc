@@ -1,5 +1,5 @@
-3D pair generator
-=================
+biapy.data.generators.pair_data_3D_generator
+============================================
 
 .. automodule:: biapy.data.generators.pair_data_3D_generator
     :members:

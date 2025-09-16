@@ -1,5 +1,5 @@
-Augmentors
-~~~~~~~~~~
+biapy.data.generators.augmentors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. automodule:: biapy.data.generators.augmentors
     :members:

@@ -1,5 +1,5 @@
-utils
------
+biapy.utils
+-----------
 
 .. toctree::
    :maxdepth: 1

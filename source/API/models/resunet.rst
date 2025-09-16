@@ -1,5 +1,5 @@
-Residual U-Net
-~~~~~~~~~~~~~~
+biapy.models.resunet
+~~~~~~~~~~~~~~~~~~~~
                                                                                 
 .. automodule:: biapy.models.resunet
     :members:                                                                   

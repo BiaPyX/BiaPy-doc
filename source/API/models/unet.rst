@@ -1,5 +1,5 @@
-U-Net 
-~~~~~
+biapy.models.unet
+~~~~~~~~~~~~~~~~~
                                                                                 
 .. automodule:: biapy.models.unet
     :members:                                                                   

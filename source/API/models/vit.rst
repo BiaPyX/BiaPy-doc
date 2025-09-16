@@ -1,5 +1,5 @@
-ViT
-~~~
+biapy.models.vit
+~~~~~~~~~~~~~~~~
                                                                                 
 .. automodule:: biapy.models.vit
     :members:                                                                   

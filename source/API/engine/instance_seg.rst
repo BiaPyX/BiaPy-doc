@@ -1,5 +1,5 @@
-Instance Segmentation Workflow
-------------------------------
+biapy.engine.instance_seg
+-------------------------
 
 .. automodule:: biapy.engine.instance_seg
     :members:                                                                   

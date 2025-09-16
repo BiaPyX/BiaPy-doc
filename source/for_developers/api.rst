@@ -5,8 +5,8 @@ API Reference
 
 This section provides a comprehensive overview of the BiaPy library's public API, automatically generated from the source code's docstrings. The documentation is organized by the main modules of the project, covering everything from configuration and data handling to deep learning models and utility functions.
 
-Configuration and Core
-----------------------
+biapy.config
+------------
 This module contains the main `BiaPy` class and the configuration parsing logic. It is the entry point for defining and running entire analysis workflows.
 
 .. toctree::
@@ -14,8 +14,8 @@ This module contains the main `BiaPy` class and the configuration parsing logic.
 
    ../API/config/config
 
-Data Handling and Preprocessing
--------------------------------
+biapy.data
+----------
 Explore the functions and classes for loading, manipulating, and preparing bioimages for training and inference. This includes data augmentation, normalization, and different data generators.
 
 .. toctree::
@@ -23,8 +23,8 @@ Explore the functions and classes for loading, manipulating, and preparing bioim
 
    ../API/data/data
 
-Training and Workflow Engines
------------------------------
+biapy.egine
+-----------
 The core of BiaPy's functionality for defining and running training and prediction workflows. This section details the engine classes for various tasks like semantic segmentation, instance segmentation, and denoising.
 
 .. toctree::
@@ -32,8 +32,8 @@ The core of BiaPy's functionality for defining and running training and predicti
 
    ../API/engine/engine
 
-Deep Learning Models
---------------------
+biapy.models
+------------
 A collection of custom and pre-built deep learning models available in BiaPy, including implementations of U-Net, ResNet, and various attention-based architectures.
 
 .. toctree::
@@ -41,8 +41,8 @@ A collection of custom and pre-built deep learning models available in BiaPy, in
 
    ../API/models/models
 
-Utility Functions and Helpers
------------------------------
+biapy.utils
+-----------
 Miscellaneous functions that assist in various tasks across the library, such as file handling, metric calculation, and environment setup.
 
 .. toctree::

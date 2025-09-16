@@ -1,5 +1,5 @@
-Semantic Segmentation Workflow
-------------------------------
+biapy.engine.semantic_seg
+-------------------------
 
 .. automodule:: biapy.engine.semantic_seg
     :members:                                                                   

@@ -1,5 +1,5 @@
-Model Building Blocks
-=====================
+biapy.models.blocks
+===================
 
 .. automodule:: biapy.models.blocks
    :members:

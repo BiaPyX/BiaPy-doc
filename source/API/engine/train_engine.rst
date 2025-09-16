@@ -1,5 +1,5 @@
-Train Engine
-------------
+biapy.engine.train_engine
+-------------------------
 
 .. automodule:: biapy.engine.train_engine
     :members:                                                                   

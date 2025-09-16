@@ -1,5 +1,5 @@
-Smooth tiled predictions
-------------------------
+biapy.data.post_processing.smooth_tiled_predictions
+---------------------------------------------------
                                                                                 
 .. automodule:: biapy.data.post_processing.smooth_tiled_predictions
     :members:                                                                   

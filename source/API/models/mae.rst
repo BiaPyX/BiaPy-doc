@@ -1,5 +1,5 @@
-MAE
-~~~
+biapy.models.mae
+~~~~~~~~~~~~~~~~
                                                                                 
 .. automodule:: biapy.models.mae
     :members:                                                                   

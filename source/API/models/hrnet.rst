@@ -1,5 +1,5 @@
-High-Resolution Network (HRNet)
-=====================================
+biapy.models.hrnet
+==================
 
 .. automodule:: biapy.models.hrnet
    :members:

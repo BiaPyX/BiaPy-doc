@@ -1,5 +1,5 @@
-schedulers
-----------
+biapy.engine.schedulers
+-----------------------
 
 .. toctree::
    :maxdepth: 1

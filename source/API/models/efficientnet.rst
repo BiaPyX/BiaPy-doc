@@ -1,5 +1,5 @@
-EfficientNet
-~~~~~~~~~~~~
+biapy.models.efficientnet
+~~~~~~~~~~~~~~~~~~~~~~~~~
                                                                                 
 .. automodule:: biapy.models.efficientnet
     :members:                                                                   

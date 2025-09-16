@@ -1,5 +1,5 @@
-U-NeXt v2
-=========
+biapy.models.unext_v2
+=====================
 
 .. automodule:: biapy.models.unext_v2
    :members:

@@ -1,5 +1,5 @@
-generators
-----------
+biapy.data.generators
+---------------------
 
 .. toctree::
    :maxdepth: 1

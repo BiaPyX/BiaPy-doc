@@ -1,5 +1,5 @@
-Misc
-----
+biapy.utils.misc
+----------------
 
 .. automodule:: biapy.utils.misc
     :members:
