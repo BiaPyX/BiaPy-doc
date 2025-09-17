@@ -1,8 +1,7 @@
 biapy.engine.schedulers
 -----------------------
 
-.. toctree::
-   :maxdepth: 1
-   :glob:
-
-   *
+.. automodule:: biapy.engine.schedulers
+   :members:
+   :undoc-members:
+   :show-inheritance:
