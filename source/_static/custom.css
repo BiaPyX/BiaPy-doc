@@ -1,0 +1,6 @@
+/* Allow list-table cells to wrap */
+.docutils .list-table td,
+.docutils .list-table th {
+    white-space: normal !important;
+    word-break: break-word;
+}
