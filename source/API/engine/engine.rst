@@ -1,18 +1,20 @@
 biapy.engine
 ------------
 
-The ``biapy.engine`` package provides the core training and inference
-workflows, as well as utilities such as metrics, optimizers, and
-schedulers.
+.. automodule:: biapy.engine
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
-   :widths: 20 80
+   :widths: 25 75
 
    * - Module
      - Description
-   * - :mod:`biapy.engine`
-     - Core engine package containing workflows and utilities for different tasks.
    * - :mod:`biapy.engine.base_workflow`
      - Base workflow class that provides the main structure and utility methods for building training and inference workflows in BiaPy.
    * - :mod:`biapy.engine.check_configuration`
