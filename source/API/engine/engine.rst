@@ -11,6 +11,8 @@ biapy.engine
      - Core engine package containing workflows and utilities for different tasks.
    * - :mod:`biapy.engine.base_workflow`
      - Base workflow class that provides the main structure and utility methods for building training and inference workflows in BiaPy.
+   * - :mod:`biapy.engine.check_configuration`
+     - Configuration checking utilities for BiaPy.
    * - :mod:`biapy.engine.classification`
      - Engine for image classification workflows.
    * - :mod:`biapy.engine.denoising`
@@ -21,6 +23,10 @@ biapy.engine
      - Engine for instance segmentation workflows.
    * - :mod:`biapy.engine.metrics`
      - Metrics and evaluation utilities for model training and validation.
+   * - :mod:`biapy.engine.schedulers`
+     - Learning rate schedulers and related utilities.
+   * -     :mod:`biapy.engine.schedulers.warmup_cosine_decay`
+     - Warmup cosine decay learning rate scheduler.
    * - :mod:`biapy.engine.self_supervised`
      - Engines for self-supervised learning workflows (pre-training).
    * - :mod:`biapy.engine.semantic_seg`
@@ -29,5 +35,3 @@ biapy.engine
      - Engine for single image super-resolution workflows.
    * - :mod:`biapy.engine.train_engine`
      - Training and evaluation engine for BiaPy.
-   * - :mod:`biapy.engine.schedulers`
-     - Learning rate schedulers and related utilities.
