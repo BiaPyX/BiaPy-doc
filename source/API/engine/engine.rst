@@ -1,19 +1,9 @@
 biapy.engine
 ------------
 
-.. automodule:: biapy.engine
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Overview
-~~~~~~~~
-
 The ``biapy.engine`` package provides the core training and inference
 workflows, as well as utilities such as metrics, optimizers, and
 schedulers.
-
-The following table summarizes the available submodules:
 
 .. list-table::
    :header-rows: 1
@@ -65,3 +55,4 @@ The following table summarizes the available submodules:
    super_resolution
    train_engine
    schedulers/schedulers
+   schedulers/warmup_cosine_decay
