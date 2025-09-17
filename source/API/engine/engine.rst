@@ -29,5 +29,5 @@ biapy.engine
      - Engine for single image super-resolution workflows.
    * - :mod:`biapy.engine.train_engine`
      - Training and evaluation engine for BiaPy.
-   * - :doc:`biapy.engine.schedulers <schedulers/schedulers>`
+   * - :mod:`biapy.engine.schedulers`
      - Learning rate schedulers and related utilities.
