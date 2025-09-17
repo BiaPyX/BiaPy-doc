@@ -1,6 +1,20 @@
 biapy.engine
 ------------
 
+.. automodule:: biapy.engine
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Overview
+~~~~~~~~
+
+The ``biapy.engine`` package provides the core training and inference
+workflows, as well as utilities such as metrics, optimizers, and
+schedulers.
+
+The following table summarizes the available submodules:
+
 .. list-table::
    :header-rows: 1
    :widths: 20 80
@@ -35,3 +49,19 @@ biapy.engine
      - Engine for single image super-resolution workflows.
    * - :mod:`biapy.engine.train_engine`
      - Training and evaluation engine for BiaPy.
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   base_workflow
+   classification
+   denoising
+   detection
+   instance_seg
+   metrics
+   self_supervised
+   semantic_seg
+   super_resolution
+   train_engine
+   schedulers/schedulers
