@@ -47,6 +47,7 @@ Submodules
    :hidden:
 
    base_workflow
+   check_configuration
    classification
    denoising
    detection
