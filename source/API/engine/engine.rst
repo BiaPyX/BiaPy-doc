@@ -7,6 +7,8 @@ biapy.engine
 
    * - Module
      - Description
+   * - :mod:`biapy.engine`
+     - Core engine package containing workflows and utilities for different tasks.
    * - :mod:`biapy.engine.base_workflow`
      - Base workflow class that provides the main structure and utility methods for building training and inference workflows in BiaPy.
    * - :mod:`biapy.engine.classification`
