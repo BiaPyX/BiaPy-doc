@@ -15,9 +15,9 @@ Submodules
 
    * - Module
      - Description
-   * - :mod:`biapy.data.data_2d_manipulation`
+   * - :mod:`biapy.data.data_2D_manipulation`
      - Functions for manipulating 2D image data, including resizing, cropping, and augmentations.
-   * - :mod:`biapy.data.data_3d_manipulation`
+   * - :mod:`biapy.data.data_3D_manipulation`
      - Functions for manipulating 3D image data, including resizing, cropping, and augmentations.
    * - :mod:`biapy.data.data_manipulation`
      - General data manipulation functions that work for both 2D and 3D images.
@@ -36,8 +36,8 @@ Submodules
    :maxdepth: 1
    :hidden:
 
-   data_2d_manipulation
-   data_3d_manipulation
+   data_2D_manipulation
+   data_3D_manipulation
    data_manipulation
    dataset
    norm
