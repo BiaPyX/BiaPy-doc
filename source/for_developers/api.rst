@@ -5,47 +5,35 @@ API Reference
 
 This section provides a comprehensive overview of the BiaPy library's public API, automatically generated from the source code's docstrings. The documentation is organized by the main modules of the project, covering everything from configuration and data handling to deep learning models and utility functions.
 
-biapy.config
-------------
-This module contains the main `BiaPy` class and the configuration parsing logic. It is the entry point for defining and running entire analysis workflows.
+.. list-table::
+   :header-rows: 1
+   :widths: 25 75
+
+   * - Module
+     - Description
+   * - :mod:`biapy.config`
+     - Main configuration module. Contains the core ``BiaPy`` class and logic for parsing 
+       and managing configuration files. Entry point for defining and running workflows.
+   * - :mod:`biapy.data`
+     - Data handling tools. Provides functions and classes for loading, manipulating, 
+       and preparing bioimages for training and inference, including augmentation, 
+       normalization, and dataset generators.
+   * - :mod:`biapy.engine`
+     - Core execution engine. Defines and runs training and prediction workflows for tasks 
+       such as semantic segmentation, instance segmentation, and denoising.
+   * - :mod:`biapy.models`
+     - Collection of deep learning models. Includes implementations of U-Net variants, 
+       ResNet-based architectures, and attention-based networks used in bioimage analysis.
+   * - :mod:`biapy.utils`
+     - General-purpose utilities. Provides helper functions for file handling, 
+       metric calculation, environment setup, callbacks, and more.
 
 .. toctree::
    :maxdepth: 1
+   :hidden:
 
    ../API/config/config
-
-biapy.data
-----------
-Explore the functions and classes for loading, manipulating, and preparing bioimages for training and inference. This includes data augmentation, normalization, and different data generators.
-
-.. toctree::
-   :maxdepth: 1
-
    ../API/data/data
-
-biapy.engine
-------------
-The core of BiaPy's functionality for defining and running training and prediction workflows. This section details the engine classes for various tasks like semantic segmentation, instance segmentation, and denoising.
-
-.. toctree::
-   :maxdepth: 1
-
    ../API/engine/engine
-
-biapy.models
-------------
-A collection of custom and pre-built deep learning models available in BiaPy, including implementations of U-Net, ResNet, and various attention-based architectures.
-
-.. toctree::
-   :maxdepth: 1
-
    ../API/models/models
-
-biapy.utils
------------
-Miscellaneous functions that assist in various tasks across the library, such as file handling, metric calculation, and environment setup.
-
-.. toctree::
-   :maxdepth: 1
-
    ../API/utils/utils
