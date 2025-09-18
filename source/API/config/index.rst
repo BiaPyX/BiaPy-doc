@@ -22,4 +22,4 @@ Submodules
    :maxdepth: 1
    :titlesonly:
 
-   config/config
+   config
