@@ -22,4 +22,4 @@ Submodules
    :maxdepth: 1
    :hidden:
 
-   config
+   config/config
