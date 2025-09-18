@@ -20,9 +20,9 @@ Submodules
    * - :mod:`biapy.data.generators.pair_base_data_generator`
      - Base class for generators that handle paired data (2D and 3D).
    * - :mod:`biapy.data.generators.pair_data_2D_generator`
-     - Data generator for paired 2D images (e.g., input-target pairs).
-     * - :mod:`biapy.data.generators.pair_data_3D_generator`
-     - Data generator for paired 3D volumes (e.g., input-target pairs).
+     - Data generator for paired 2D images (e.g., input–target pairs).
+   * - :mod:`biapy.data.generators.pair_data_3D_generator`
+     - Data generator for paired 3D volumes (e.g., input–target pairs).
    * - :mod:`biapy.data.generators.single_base_data_generator`
      - Base class for generators that handle single-input data (2D and 3D).
    * - :mod:`biapy.data.generators.single_data_2D_generator`
