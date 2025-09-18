@@ -34,10 +34,10 @@ Submodules
    :maxdepth: 1
    :hidden:
 
-   2d_single_generator
-   2d_pair_generator
-   3d_single_generator
-   3d_pair_generator
    augmentors
    pair_base_data_generator
+   pair_data_2D_generator
+   pair_data_3D_generator
    single_base_data_generator
+   single_data_2D_generator
+   single_data_3D_generator
