@@ -36,4 +36,4 @@ This section provides a comprehensive overview of the BiaPy library's public API
    ../API/data/data
    ../API/engine/engine
    ../API/models/models
-   ../API/utils/index
+   ../API/utils/utils

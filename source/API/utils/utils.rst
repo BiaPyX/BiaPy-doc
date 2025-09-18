@@ -20,7 +20,7 @@ miscellaneous tools.
 
 .. toctree::
    :maxdepth: 1
-   :hidden:
+   :titlesonly:
 
    callbacks
    misc
