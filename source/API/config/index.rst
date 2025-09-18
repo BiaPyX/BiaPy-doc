@@ -20,6 +20,6 @@ Submodules
 
 .. toctree::
    :maxdepth: 1
-   :hidden:
+   :titlesonly:
 
    config/config
