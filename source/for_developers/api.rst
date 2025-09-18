@@ -32,7 +32,7 @@ This section provides a comprehensive overview of the BiaPy library's public API
    :maxdepth: 1
    :hidden:
 
-   ../API/config/index
+   ../API/config/config
    ../API/data/data
    ../API/engine/engine
    ../API/models/models

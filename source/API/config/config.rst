@@ -1,9 +1,10 @@
 biapy.config
 ------------
 
-The ``biapy.config`` package provides the main configuration logic for BiaPy.  
-It contains the core :class:`~biapy.config.BiaPy` class and the parsing utilities 
-for defining and managing complete analysis workflows.
+.. automodule:: biapy.config
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 Submodules
 ~~~~~~~~~~
@@ -14,12 +15,11 @@ Submodules
 
    * - Module
      - Description
-   * - :mod:`biapy.config.config`
-     - Main configuration module. Defines the ``BiaPy`` class and 
-       handles parsing of configuration files and workflow setup.
+   * - :mod:`biapy.config.config
+     - Main configuration module. Defines the BiaPy class and handles parsing of configuration files and workflow setup.
 
 .. toctree::
    :maxdepth: 1
    :hidden:
 
-   config/config
+   config
