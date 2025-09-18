@@ -7,7 +7,7 @@ biapy.data
     :show-inheritance:
 
 Submodules
-----------
+~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
