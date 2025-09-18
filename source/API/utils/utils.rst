@@ -1,9 +1,13 @@
 biapy.utils
 -----------
 
-The ``biapy.utils`` package provides general-purpose utilities that support 
-different parts of BiaPy, including callbacks, helper functions, and 
-miscellaneous tools.
+.. automodule:: biapy.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Submodules
+~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
@@ -12,15 +16,16 @@ miscellaneous tools.
    * - Module
      - Description
    * - :mod:`biapy.utils.callbacks`
-     - Custom callbacks for training workflows (e.g., learning rate scheduling, early stopping).
+     - Callback utilities for training and evaluation.
    * - :mod:`biapy.utils.misc`
-     - Miscellaneous utility functions used across BiaPy.
+     - Miscellaneous helper functions.
    * - :mod:`biapy.utils.util`
-     - Core helper functions for I/O, logging, and common operations.
+     - Core utility functions.
+
 
 .. toctree::
    :maxdepth: 1
-   :titlesonly:
+   :hidden:
 
    callbacks
    misc
