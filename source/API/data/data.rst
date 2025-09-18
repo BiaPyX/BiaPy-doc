@@ -1,11 +1,13 @@
 biapy.data
 ----------
-BiaPy data package.
 
-This package provides modules and utilities for data loading, normalization, pre-processing, and manipulation for deep learning workflows in BiaPy.
+.. automodule:: biapy.data
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 Submodules
-~~~~~~~~~~
+----------
 
 .. list-table::
    :header-rows: 1

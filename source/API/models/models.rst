@@ -3,8 +3,13 @@
 biapy.models
 ============
 
-This section provides an API reference for the deep learning models and 
-associated utility modules available in BiaPy.
+.. automodule:: biapy.models
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Submodules
+----------
 
 .. list-table::
    :header-rows: 1
