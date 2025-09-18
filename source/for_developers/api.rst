@@ -30,7 +30,7 @@ This section provides a comprehensive overview of the BiaPy library's public API
 
 .. toctree::
    :maxdepth: 1
-   :hidden:
+   :titlesonly:
 
    ../API/config/index
    ../API/data/data
