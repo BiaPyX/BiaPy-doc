@@ -28,6 +28,9 @@ This section provides a comprehensive overview of the BiaPy library's public API
      - General-purpose utilities. Provides helper functions for file handling, 
        metric calculation, environment setup, callbacks, and more.
 
+
+**Links to package modules:**
+
 .. toctree::
    :maxdepth: 1
    :titlesonly:

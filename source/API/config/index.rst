@@ -18,6 +18,8 @@ Submodules
    * - :mod:`biapy.config.config`
      - Main configuration module. Defines the BiaPy class and handles parsing of configuration files and workflow setup.
 
+**Links to package submodules:**
+
 .. toctree::
    :maxdepth: 1
    :titlesonly:
