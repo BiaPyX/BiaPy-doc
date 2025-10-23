@@ -846,6 +846,8 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
         
     * ``tensorboard``: tensorboard logs.
 
+    * ``test_results_metrics.csv``: a CSV file containing all the evaluation metrics obtained on each file of the test set if ground truth was provided.
+
 .. note:: 
 
   Here, for visualization purposes, only ``my_2d_detection_1`` has been described but ``my_2d_detection_2``, ``my_2d_detection_3``, ``my_2d_detection_4`` and ``my_2d_detection_5`` will follow the same structure.

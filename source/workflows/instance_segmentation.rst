@@ -935,6 +935,8 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
 
     * ``tensorboard``: tensorboard logs.
 
+    * ``test_results_metrics.csv``: a CSV file containing all the evaluation metrics obtained on each file of the test set if ground truth was provided.
+
 .. note:: 
 
   Here, for visualization purposes, only ``my_3d_instance_segmentation_1`` has been described but ``my_3d_instance_segmentation_2``, ``my_3d_instance_segmentation_3``, ``my_3d_instance_segmentation_4`` and ``my_3d_instance_segmentation_5`` will follow the same structure.

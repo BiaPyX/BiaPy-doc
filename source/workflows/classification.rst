@@ -724,6 +724,8 @@ All files are placed in ``results`` folder under ``--result_dir`` directory with
 
     * ``tensorboard``: tensorboard logs.
 
+    * ``test_results_metrics.csv``: a CSV file containing all the evaluation metrics obtained on each file of the test set if ground truth was provided.
+
 .. note:: 
 
   Here, for visualization purposes, only ``my_2d_classification_1`` has been described but ``my_2d_classification_2``, ``my_2d_classification_3``, ``my_2d_classification_4`` and ``my_2d_classification_5`` directories will follow the same structure.

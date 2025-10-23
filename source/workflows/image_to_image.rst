@@ -714,6 +714,8 @@ Following the example, you should see that the directory ``/home/user/exp_result
 
     * ``tensorboard``: tensorboard logs.
 
+    * ``test_results_metrics.csv``: a CSV file containing all the evaluation metrics obtained on each file of the test set if ground truth was provided.
+
 .. note:: 
    Here, for visualization purposes, only ``my_2d_image_to_image_1`` has been described but ``my_2d_image_to_image_2``, ``my_2d_image_to_image_3``, ``my_2d_image_to_image_4`` and ``my_2d_image_to_image_5`` will follow the same structure.
 

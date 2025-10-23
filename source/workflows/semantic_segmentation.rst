@@ -789,6 +789,8 @@ Following the example, you should see that the directory ``/home/user/exp_result
     * ``tensorboard``: Tensorboard logs.
 
     * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
+
+    * ``test_results_metrics.csv``: a CSV file containing all the evaluation metrics obtained on each file of the test set if ground truth was provided.
         
 .. note:: 
    Here, for visualization purposes, only ``my_2d_semantic_segmentation_1`` has been described but ``my_2d_semantic_segmentation_2``, ``my_2d_semantic_segmentation_3``, ``my_2d_semantic_segmentation_4`` and ``my_2d_semantic_segmentation_5`` will follow the same structure.
