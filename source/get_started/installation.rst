@@ -265,6 +265,6 @@ Choose your installation method
        
           * `Library examples <https://biapy.readthedocs.io/en/latest/for_developers/library_examples.html>`__ that show how to use BiaPy as a library in your own Python scripts.
 
-          * `API documentation <https://biapyx.github.io/BiaPy/api/index.html>`__ for more information on how to use BiaPy as a library in your own Python scripts.  
+          * `API documentation <https://biapy.readthedocs.io/en/latest/for_developers/api.html>`__ for more information on how to use BiaPy as a library in your own Python scripts.  
 
 The next step consists in `selecting the specific workflow <select_workflow.html>`_ that aligns with your intended use.
