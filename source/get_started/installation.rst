@@ -261,9 +261,9 @@ Choose your installation method
 
             import biapy
 
-        You can find more information in hte following sections:
+        You can find more information in the following sections:
        
-          * `Library examples https://biapy.readthedocs.io/en/latest/for_developers/library_examples.html`__ that show how to use BiaPy as a library in your own Python scripts.
+          * `Library examples <https://biapy.readthedocs.io/en/latest/for_developers/library_examples.html>`__ that show how to use BiaPy as a library in your own Python scripts.
 
           * `API documentation <https://biapyx.github.io/BiaPy/api/index.html>`__ for more information on how to use BiaPy as a library in your own Python scripts.  
 
