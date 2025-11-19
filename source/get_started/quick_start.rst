@@ -40,21 +40,41 @@ Execution methods
 
 BiaPy offers several execution methods, designed to accommodate a range of expertise levels, from beginner to advanced:
 
-* **Graphical User Interface (GUI)**: With a user-friendly wizard, ideal for beginners. Have a look at our quick GUI walkthrough video:
+.. tabs::
+   .. tab:: GUI
 
-    .. raw:: html
+    **Graphical User Interface (GUI)**: A user-friendly, wizard-based interface ideal for beginners. Explore the main features in our quick GUI walkthrough video:
 
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        .. raw:: html
 
-* **Jupyter Code-free Notebooks**: Can be run locally or through Google Colab. More details are available in our quick notebooks walkthrough video:
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-    .. raw:: html
-        
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/KEqfio-EnYw?si=eu8nfOjjV1ioY32q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        .. note::  
+               The GUI shown in the video corresponds to an earlier version of BiaPy. The current interface may differ slightly in appearance and functionality.
 
-* **Docker Containers**: For portable and reproducible environments.
-* **Command-Line Interface (CLI)**: For advanced users comfortable with terminal commands.
+   .. tab:: Google Colab
 
+    **Jupyter Code-free Notebooks** in Google Colab: Run workflows either locally or directly in Google Colab. Learn more in our quick notebook walkthrough video:
+
+        .. raw:: html
+            
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/KEqfio-EnYw?si=eu8nfOjjV1ioY32q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+   .. tab:: Galaxy
+
+    **BiaPy integration into the Galaxy project**: Available as a dedicated tool within the Galaxy ecosystem.
+
+   .. tab:: Docker
+
+    **Docker Containers**: Provide portable, consistent, and fully reproducible environments using Docker.
+
+   .. tab:: CLI
+
+    **Command-Line Interface (CLI)**: Designed for advanced users who prefer working directly with terminal commands.
+
+   .. tab:: API
+
+    **BiaPy's API**: Enables advanced users to integrate BiaPy functionalities seamlessly into their own codebases.
 
 Limitations
 ***********
