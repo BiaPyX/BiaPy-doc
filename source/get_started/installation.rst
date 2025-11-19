@@ -9,7 +9,7 @@ Installation
 BiaPy can be installed and run locally on any Linux, Windows, or macOS system using `Docker <https://www.docker.com/>`__, or via the command line using a package manager like `Conda <https://docs.conda.io/projects/conda/en/stable/>`__, `Mamba <https://mamba.readthedocs.io/en/latest/>`__, and `Git <https://git-scm.com/>`__ or `pip <https://pypi.org/project/pip/>`__. Additionally, BiaPy can be seamlessly installed and used on `Google Colab <https://colab.research.google.com/>`__ through our **code-free notebooks**. Each of these approaches is designed to cater to different user experience levels, so choose the installation method that best fits your expertise.
 
 .. image:: ../img/how_to_run.svg
-   :width: 80%
+   :width: 100%
    :align: center
 
 |
@@ -107,6 +107,10 @@ Choose your installation method
 
         No special setup is required other than a browser on your PC. To run any of the BiaPy workflows, simply click the "Open in Colab" button in the "How to run" section of the corresponding workflow configuration page. All available workflows are listed in the menu on the left.
 
+   .. tab:: Galaxy
+
+          BiaPy is available as a tool in the `Galaxy <https://galaxyproject.org/>`__ platform, enabling users to run biomedical image analysis workflows through an intuitive, web-based interface without requiring any local installation. The tool can be accessed directly from the Galaxy ToolShed at this `link <https://imaging.usegalaxy.eu/?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fbiapy%2Fbiapy%2F3.6.5%2Bgalaxy0&version=latest>`__, and it can also be found by searching for 'biapy' in the Galaxy ToolShed interface here `here <https://usegalaxy.eu/>`__.
+
    .. tab:: Docker
 
         We provide a Docker container for running BiaPy called ``biapyx/biapy:latest-11.8`` (`link to the container <https://hub.docker.com/layers/biapyx/biapy/latest-11.8/images/sha256-86cf198ab05a953ba950bb96fb74b18045d2ed7318afb8fa9b212c97c41be904?context=repo>`__.). It is based on Ubuntu ``22.04`` with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``2.4.0`` and CUDA ``11.8`` support.
@@ -177,7 +181,7 @@ Choose your installation method
         .. note::  
                Whenever you want to run BiaPy through Docker you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
 
-   .. tab:: Command line
+   .. tab:: CLI
 
        .. tabs::
 
@@ -238,15 +242,29 @@ Choose your installation method
                     cd BiaPy
                     pip install --editable .
                      
+   .. tab:: API
 
-     \ 
-
-     Verify installation: ::
-
-          python -c 'import torch; print(torch.__version__)'
-          >>> 2.4.0
-          python -c 'import torch; print(torch.cuda.is_available())'
-          >>> True
+        If you want to use BiaPy as a library in your own Python scripts, you can install it via `pip <https://pypi.org/project/pip/>`__: ::
           
+            pip install biapy
+
+        or via `conda <https://docs.conda.io/projects/conda/en/stable/>`__ : ::
+          
+            conda install -c conda-forge biapy
+     
+        Once installed you will need to install `Pytorch <https://pytorch.org/get-started/locally/>`__ as follows: ::
+     
+            # Install Pytorch 2.4.0 + CUDA 11.8
+            pip install torch==2.4.0 torchvision==0.19.0 --index-url https://download.pytorch.org/whl/cu118
+
+        After that you can import BiaPy in your Python scripts: ::
+
+            import biapy
+
+        You can find more information in hte following sections:
+       
+          * `Library examples https://biapy.readthedocs.io/en/latest/for_developers/library_examples.html`__ that show how to use BiaPy as a library in your own Python scripts.
+
+          * `API documentation <https://biapyx.github.io/BiaPy/api/index.html>`__ for more information on how to use BiaPy as a library in your own Python scripts.  
 
 The next step consists in `selecting the specific workflow <select_workflow.html>`_ that aligns with your intended use.
