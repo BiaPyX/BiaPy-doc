@@ -279,8 +279,14 @@ In case you have troubles with BiaPy's GUI, you can find instructions on how to 
 
 * Running the GUI for the first time:
 
-    * **Windows**: once you donwload the Windows binary an error may arise when running it: ``Windows protected your PC``. This message occurs if an application is unrecognized by Microsoft. In this situation you can click in ``More info`` button and ``Run anyway``.
+    * **Windows**: once you donwload the Windows binary an error may arise when running it: ``Windows protected your PC``. This message occurs if an application is unrecognized by Microsoft. In this situation you can click in ``More info`` button and ``Run anyway``. These steps are depicted in the figure below:
     
+     .. figure:: ../img/gui/windows-unrecognized-app.png
+            :align: center                  
+
+            How to bypass the security error message when executing BiaPy app in Windows.
+
+
     * **Linux**: once you donwload the Linux binary you need to grant execution permission to it by typing the following command in a `terminal <faq.html#opening-a-terminal>`__: ::
 
         chmod +x BiaPy

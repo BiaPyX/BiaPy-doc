@@ -71,6 +71,16 @@ Choose your installation method
 
                   .. tip:: If you're using a GPU, check the official documentation on `GPU support in Docker Desktop <https://docs.docker.com/desktop/gpu/>`__ for additional setup instructions.
 
+                Then, the only thing you need to do is **double-click on the BiaPy binary** (application) file you downloaded.
+  
+                You may run into a message telling you that "BiaPy" is an unrecognized app when running it. This message occurs if an application is unrecognized by Microsoft. In this situation you can click in ``More info`` button and ``Run anyway``. These steps are depicted in the figure below:
+
+                .. figure:: ../img/gui/windows-unrecognized-app.png
+                          :align: center                  
+
+                          How to bypass the security error message when executing BiaPy app in Windows.
+
+
            .. tab:: Linux  
 
                 You need to install either `Docker Desktop <https://docs.docker.com/desktop/install/linux-install/>`__ (friendlier but not open source) or `Docker Engine <https://docs.docker.com/engine/install/>`__ (open source but command line only).
@@ -83,25 +93,29 @@ Choose your installation method
                 To grant execution permission to the binary, enter the following command in a `terminal <faq.html#opening-a-terminal>`__: ::
 
                     chmod +x BiaPy
+                
+                Then, simply run it: ::
+                    
+                    ./BiaPy
 
            .. tab:: macOS 
 
                 You need to install `Docker Desktop <https://docs.docker.com/desktop/install/mac-install/>`__. 
 
-        Then, the only thing you need to do is **double-click on the BiaPy binary** (application) file you downloaded.
+                Then, the only thing you need to do is **double-click on the BiaPy binary** (application) file you downloaded.
 
-        In the latest versions of macOS, you may run into a message telling you that *"BiaPy-macOS" can't be opened because Apple cannot check it for malicious software*. In that case, follow these  :ref:`instructions <macos_malicious_error>` to be able to run **BiaPy** in your Mac.
+                In the latest versions of macOS, you may run into a message telling you that *"BiaPy-macOS" can't be opened because Apple cannot check it for malicious software*. In that case, follow these  :ref:`instructions <macos_malicious_error>` to be able to run **BiaPy** in your Mac.
 
-        .. figure:: ../img/gui/macOS-security-error-malicious-software.png
-               :align: center                  
-               :width: 350px
+                .. figure:: ../img/gui/macOS-security-error-malicious-software.png
+                          :align: center                  
+                          :width: 350px
 
-               **Security error message when executing BiaPy app in macOS**. :raw-html:`<br />` To bypass it, follow these :ref:`instructions <macos_malicious_error>`.
+                          **Security error message when executing BiaPy app in macOS**. :raw-html:`<br />` To bypass it, follow these :ref:`instructions <macos_malicious_error>`.
 
-
+        \ 
 
         .. note::  
-               Whenever you want to run BiaPy's GUI you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
+              Whenever you want to run BiaPy's GUI you need to `start Docker Desktop <https://docs.docker.com/desktop/install/windows-install/#start-docker-desktop>`__ first. 
 
    .. tab:: Google Colab
 
