@@ -42,7 +42,7 @@ In the figure below a few examples of this workflow's **input** are depicted:
          :align: center
          :width: 50
 
-Each of these examples are of a different class and were obtained from `MedMNIST v2 <https://medmnist.com/>`__ (:cite:p:`yang2021medmnist`), concretely from DermaMNIST dataset which is a large collection of multi-source dermatoscopic images of common
+Each of these examples are of a different class and were obtained from `MedMNIST v2 <https://medmnist.com/>`__ (:cite:p:`yang2023medmnist`), concretely from DermaMNIST dataset which is a large collection of multi-source dermatoscopic images of common
 pigmented skin lesions.
 
 Inputs and outputs
