@@ -48,7 +48,7 @@ author = u'Daniel Franco-Barranco'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.imgmath',
+    'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
     'sphinxcontrib.bibtex',
@@ -66,8 +66,6 @@ napoleon_google_docstring = False
 napoleon_use_param = False
 napoleon_use_ivar = True
 
-imgmath_image_format = 'svg'
-
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -79,6 +77,7 @@ exclude_patterns = []
 pygments_style = 'friendly'
 
 bibtex_bibfiles = ['refs.bib']
+bibtex_default_style = 'plain'
 
 # -- Options for HTML output -------------------------------------------------
 
