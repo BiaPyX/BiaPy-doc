@@ -47,14 +47,14 @@ Problem specification
 
 To specify the type of workflow, use the ``PROBLEM.TYPE`` option and select one of the following options: ``SEMANTIC_SEG``, ``INSTANCE_SEG``, ``DETECTION``, ``DENOISING``, ``SUPER_RESOLUTION``, ``SELF_SUPERVISED``, or ``CLASSIFICATION``.
 
-To specify whether the data is ``2D`` or ``3D``, use the ``PROBLEM.NDIM`` option and select either ``2D`` or ``3D``.
+To specify whether the data is 2D or 3D, use the ``PROBLEM.NDIM`` option and select either 2D or 3D.
 
 .. _data_management:
 
 Data management
 ~~~~~~~~~~~~~~~
 
-The ``DATA.PATCH_SIZE`` variable is used to specify the shape of the images that will be used in the workflow. The order of the dimensions for ``2D`` images is ``(y,x,c)`` and for ``3D`` images it is ``(z,y,x,c)``. To ensure all images have a minimum size of ``DATA.PATCH_SIZE`` you can use ``DATA.REFLECT_TO_COMPLETE_SHAPE`` to ``True`` and those images smaller in any dimension will be padded with reflect. 
+The ``DATA.PATCH_SIZE`` variable is used to specify the shape of the images that will be used in the workflow. The order of the dimensions for 2D images is ``(y,x,c)`` and for 3D images it is ``(z,y,x,c)``. To ensure all images have a minimum size of ``DATA.PATCH_SIZE`` you can use ``DATA.REFLECT_TO_COMPLETE_SHAPE`` to ``True`` and those images smaller in any dimension will be padded with reflect. 
 
 .. tabs::
 
@@ -185,7 +185,7 @@ There are a few pre-processing functions  (controlled by ``DATA.PREPROCESS``) th
 
 * **CLAHE** (controlled by ``DATA.PREPROCESS.CLAHE``): to apply a `contrast limited adaptive histogram equalization <https://en.wikipedia.org/wiki/Adaptive_histogram_equalization#Contrast_Limited_AHE>`__.
 
-* **Canny** (controlled by ``DATA.PREPROCESS.CANNY``): to apply `Canny <https://en.wikipedia.org/wiki/Canny_edge_detector>`__ or edge detection (only for ``2D`` images, grayscale or RGB).
+* **Canny** (controlled by ``DATA.PREPROCESS.CANNY``): to apply `Canny <https://en.wikipedia.org/wiki/Canny_edge_detector>`__ or edge detection (only for 2D images, grayscale or RGB).
 
 Check out our pre-processing notebook showcasing all these transformations that can be applied to the data: |preprocessing_notebook_colablink|
 
@@ -224,7 +224,7 @@ BiaPy offers three different backends to be used to choose a model (controlled b
 
   For ``unet``, ``resunet``, ``resunet++``, ``resunet_se``, ``attention_unet`` and ``seunet`` architectures you can set ``MODEL.FEATURE_MAPS`` to determine the feature maps to use on each network level. In the same way, ``MODEL.DROPOUT_VALUES`` can be set for each level in those networks. For ``unetr`` and ``vit`` networks only the first value of those variables will be taken into account.
 
-  The ``MODEL.BATCH_NORMALIZATION`` variable can be used to enable batch normalization on the ``unet``, ``resunet``, ``resunet++``, ``resunet_se``, ``attention_unet``, ``seunet`` and ``unetr`` models. For the ``3D`` versions of these networks (except for ``unetr``), the ``MODEL.Z_DOWN`` option can also be used to avoid downsampling in the z-axis, which is typically beneficial for anisotropic data.
+  The ``MODEL.BATCH_NORMALIZATION`` variable can be used to enable batch normalization on the ``unet``, ``resunet``, ``resunet++``, ``resunet_se``, ``attention_unet``, ``seunet`` and ``unetr`` models. For the 3D versions of these networks (except for ``unetr``), the ``MODEL.Z_DOWN`` option can also be used to avoid downsampling in the z-axis, which is typically beneficial for anisotropic data.
 
   The ``MODEL.N_CLASSES`` variable can be used to specify the number of classes for the classification problem, excluding the background class (labeled as ``0``). If the number of classes is set to ``1`` or ``2``, the problem is considered binary, and the behavior is the same. For more than ``2`` classes, the problem is considered multi-class, and the output of the models will have the corresponding number of channels.
 
@@ -325,9 +325,9 @@ To initiate the testing phase, also referred to as inference or prediction, one 
   
   - First option, and the default, is where each test image is divided into patches of size ``DATA.PATCH_SIZE`` and passed through the network individually. Then, the original image will be reconstructed. Apart from this, it will automatically calculate performance metrics per patch and per reconstructed image if the ground truth is available (enabled by ``DATA.TEST.LOAD_GT``).
 
-  - Second option is to enable ``TEST.FULL_IMG``, to pass entire images through the model without cropping them. This option requires enough GPU memory to fit the images into, so to prevent possible errors it is only available for ``2D`` images.
+  - Second option is to enable ``TEST.FULL_IMG``, to pass entire images through the model without cropping them. This option requires enough GPU memory to fit the images into, so to prevent possible errors it is only available for 2D images.
 
-  In both options described above you can also use test-time augmentation by setting ``TEST.AUGMENTATION`` to ``True``, which will create multiple augmented copies of each patch, or image if ``TEST.FULL_IMG`` selected, by all possible rotations (``8`` copies in ``2D`` and ``16`` in ``3D``). This will slow down the inference process, but it will return more robust predictions.
+  In both options described above you can also use test-time augmentation by setting ``TEST.AUGMENTATION`` to ``True``, which will create multiple augmented copies of each patch, or image if ``TEST.FULL_IMG`` selected, by all possible rotations (``8`` copies in 2D and ``16`` in 3D). This will slow down the inference process, but it will return more robust predictions.
 
   You can use also use ``DATA.REFLECT_TO_COMPLETE_SHAPE`` to ensure that the patches can be made as pointed out in :ref:`data_management`. 
 
@@ -385,7 +385,7 @@ Post-processing
 
 BiaPy is equipped with several post-processing methods that are primarily applied in two distinct stages:
 
-1. After the network's prediction. These post-processing methods are common among workflows that return probabilities from their models, e.g. semantic/instance segmentation and detection. These post-processing methods aim to improve the resulting probabilities. Currently, these post-processing methods are only avaialable for ``3D`` images (e.g. ``PROBLEM.NDIM`` is ``3D`` or ``PROBLEM.NDIM`` is ``2D`` but ``TEST.ANALIZE_2D_IMGS_AS_3D_STACK`` is ``True``):
+1. After the network's prediction. These post-processing methods are common among workflows that return probabilities from their models, e.g. semantic/instance segmentation and detection. These post-processing methods aim to improve the resulting probabilities. Currently, these post-processing methods are only avaialable for 3D images (e.g. ``PROBLEM.NDIM`` is 3D or ``PROBLEM.NDIM`` is 2D but ``TEST.ANALIZE_2D_IMGS_AS_3D_STACK`` is ``True``):
 
   * ``TEST.POST_PROCESSING.APPLY_MASK``: a binary mask is applied to remove anything not contained within the mask. For this, the ``DATA.TEST.BINARY_MASKS`` path needs to be set.
   * ``TEST.POST_PROCESSING.MEDIAN_FILTER``: to apply a median filtering. This variable expects a list of median filters to apply. They are going to be applied in the list order. This can only be used in ``'SEMANTIC_SEG'``, ``'INSTANCE_SEG'`` and ``'DETECTION'`` workflows. There are multiple options to compose the list:

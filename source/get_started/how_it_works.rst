@@ -57,7 +57,7 @@ Post-processing
 
 Once a deep learning model has been trained and the inference phase has been completed, it is often necessary to perform post-processing on the model's output to achieve the desired results. BiaPy, a Python library for bioimage analysis, provides a variety of post-processing methods to aid in this process.
 
-For semantic segmentation tasks, simple binarization is often used to convert the model's output into a binary image, where each pixel is classified as belonging to a specific class or not. For ``3D`` data, z-filtering is often used to remove noise and improve the overall quality of the output.
+For semantic segmentation tasks, simple binarization is often used to convert the model's output into a binary image, where each pixel is classified as belonging to a specific class or not. For 3D data, z-filtering is often used to remove noise and improve the overall quality of the output.
 
 In instance segmentation tasks, marker-controlled watershed and Voronoi tessellation are commonly used post-processing methods. These methods help to separate individual objects within the image and create precise boundaries between them. For object detection tasks, close point suppression is often used to eliminate multiple detections of the same object.
 
