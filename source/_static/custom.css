@@ -7,3 +7,13 @@
 .wy-table-responsive table td, .wy-table-responsive table th {
     white-space: normal;
 }
+/* Class for the 'literal' role, which is what ``text`` uses */
+.rst-content tt.literal,
+.rst-content .literal {
+    /* This is the key property: it allows the browser to break the word */
+    word-break: break-all;
+    /* Older browsers sometimes need this */
+    word-wrap: break-word;
+    /* Keep the inline code from scrolling horizontally */
+    white-space: pre-wrap;
+}
