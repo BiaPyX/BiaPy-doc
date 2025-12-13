@@ -251,7 +251,7 @@ Choose your installation method
                This will create a folder called ``BiaPy`` that contains all the files of the `library's official repository <https://github.com/BiaPyX/BiaPy>`__. Then you need to create a ``conda`` environment and install the dependencies as follows: ::
 
                     # Install Pytorch 2.4.0 + CUDA 11.8
-                    pip install torch==2.4.0 torchvision==0.19.0 --index-url https://download.pytorch.org/whl/cu118
+                    pip install torch==2.9.1 torchvision==0.24.1 --index-url https://download.pytorch.org/whl/cu118
 
                     cd BiaPy
                     pip install --editable .
@@ -269,7 +269,7 @@ Choose your installation method
         Once installed you will need to install `Pytorch <https://pytorch.org/get-started/locally/>`__ as follows: ::
      
             # Install Pytorch 2.4.0 + CUDA 11.8
-            pip install torch==2.4.0 torchvision==0.19.0 --index-url https://download.pytorch.org/whl/cu118
+            pip install torch==2.9.1 torchvision==0.24.1 --index-url https://download.pytorch.org/whl/cu118
 
         After that you can import BiaPy in your Python scripts: ::
 
