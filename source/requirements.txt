@@ -129,7 +129,6 @@ tomli==2.2.1
 torch==2.9.1
 torchvision==0.24.1
 tqdm==4.67.1
-triton==3.0.0
 typing-inspection==0.4.1
 typing_extensions==4.14.1
 tzdata==2025.2
