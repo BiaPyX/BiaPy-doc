@@ -219,7 +219,7 @@ You can use the pretrained SpineDL-Neuron model to predict new images using seve
                   --run_id $job_counter \
                   --gpu "$gpu_number"
 
-         This will generate the results in ``/home/user/exp_results/my_spinedl_neuron_test/my_spinedl_neuron_test_1/results``. Specifically, in that folder you will find the predicted masks for the test images under ``per_image_instances`` and the post-processed images under ``per_image_instances_post_processing``. 
+         This will generate the results in ``/home/user/exp_results/my_spinedl_neuron_test/my_spinedl_neuron_test_1/results``. Specifically, in that folder you will find the predicted masks for the test images under ``per_image_instances`` and the post-processed images under ``per_image_post_processing``. 
 
    .. tab:: CLI
 
@@ -262,7 +262,7 @@ You can use the pretrained SpineDL-Neuron model to predict new images using seve
                   --run_id $job_counter  \
                   --gpu "$gpu_number"
          
-         This will generate the results in ``/home/user/exp_results/my_spinedl_neuron_test/my_spinedl_neuron_test_1/results``. Specifically, in that folder you will find the predicted masks for the test images under ``per_image_instances`` and the post-processed images under ``per_image_instances_post_processing``. 
+         This will generate the results in ``/home/user/exp_results/my_spinedl_neuron_test/my_spinedl_neuron_test_1/results``. Specifically, in that folder you will find the predicted masks for the test images under ``per_image_instances`` and the post-processed images under ``per_image_post_processing``. 
 
    .. tab:: API
 
@@ -297,7 +297,7 @@ You can use the pretrained SpineDL-Neuron model to predict new images using seve
             biapy = BiaPy(config_path, result_dir=result_dir, name=job_name, run_id=run_id, gpu=gpu)
             biapy.run_job()
 
-         This will generate the results in ``/home/user/exp_results/my_spinedl_neuron_test/my_spinedl_neuron_test_1/results``. Specifically, in that folder you will find the predicted masks for the test images under ``per_image_instances`` and the post-processed images under ``per_image_instances_post_processing``. 
+         This will generate the results in ``/home/user/exp_results/my_spinedl_neuron_test/my_spinedl_neuron_test_1/results``. Specifically, in that folder you will find the predicted masks for the test images under ``per_image_instances`` and the post-processed images under ``per_image_post_processing``. 
          
 
 Reproducing SpineDL-Neuron from scratch
@@ -346,14 +346,14 @@ If you want to reproduce the results of SpineDL-Neuron using the provided datase
             --run_id $job_counter  \
             --gpu "$gpu_number"
    
-   This will generate the results in ``/home/user/exp_results/my_spinedl_neuron_from_scratch/my_spinedl_neuron_from_scratch_1/results``. Specifically, in that folder you will find the predicted masks for the test images under ``per_image_instances`` and the post-processed images under ``per_image_instances_post_processing``.  
+   This will generate the results in ``/home/user/exp_results/my_spinedl_neuron_from_scratch/my_spinedl_neuron_from_scratch_1/results``. Specifically, in that folder you will find the predicted masks for the test images under ``per_image_instances`` and the post-processed images under ``per_image_post_processing``.  
 
 #. Finally, you can evaluate the predictions for test images using `this script <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/SpineDL_paper/agreement_manual_points_vs_SpineDL-neuron_instances.py>`__. You will need to provide the path to the predicted masks and the root folder containing the expert annotations for the test set. For example:
 
    .. code-block:: bash
             
       python -u agreement_manual_points_vs_SpineDL-neuron_instances.py \
-         --pred_folder "/home/user/exp_results/my_spinedl_neuron_from_scratch/my_spinedl_neuron_from_scratch_1/results/per_image_instances/" \
+         --pred_folder "/home/user/exp_results/my_spinedl_neuron_from_scratch/my_spinedl_neuron_from_scratch_1/results/per_image_post_processing/" \
          --manual_annotation_dir "/home/user/Neuron identification/test/label" \
 
 
@@ -364,6 +364,6 @@ If you want to reproduce the results of SpineDL-Neuron using the provided datase
    .. code-block:: bash
 
       python -u agreement_manual_points_vs_SpineDL-neuron_vs_CellSense_instances.py \ 
-         --spinedl_pred_folder "/home/user/exp_results/my_spinedl_neuron_from_scratch/my_spinedl_neuron_from_scratch_1/results/per_image_instances/" \ 
+         --spinedl_pred_folder "/home/user/exp_results/my_spinedl_neuron_from_scratch/my_spinedl_neuron_from_scratch_1/results/per_image_post_processing/" \ 
          --cellsense_pred_folder "/home/user/cellSense" \
          --manual_annotation_dir "/home/user/Neuron identification/test/label"
