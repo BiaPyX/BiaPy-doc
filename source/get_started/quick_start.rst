@@ -30,7 +30,7 @@ Find a visual guide of these steps below:
 
         Step 2: Under GET STARTED > Select workflow, find the description of a workflow that best matches your task.
 
-    .. figure:: ../img/how-to-run.svg
+    .. figure:: ../img/how_to_run.svg
 
         Step 3: Under WORKFLOW CONFIGURATION, click on the workflow you selected in the previous step and follow the instructions under "How to run".
 
