@@ -462,10 +462,27 @@ BiaPy offers different options to run workflows depending on your degree of comp
 .. tabs::
    .. tab:: GUI
 
-        In the BiaPy GUI, navigate to *Workflow*, then select *Image classification* and follow the on-screen instructions:
+        In the BiaPy GUI, click on the *Wizard*, then follow the next instructions to select the image classification workflow:
 
-        .. image:: ../img/gui/biapy_gui_classification.png
-            :align: center
+        .. carousel::
+          :show_controls:
+          :show_captions_below:
+          :data-bs-interval: false
+          :show_dark:
+          :show_indicators:    
+
+          .. figure:: ../img/gui/GUI-select-configuration-folder-and-filename.png
+
+              Step 1: Choose a folder and file name to store your workflow configuration file, then click "Start".
+
+          .. figure:: ../img/gui/GUI-select-image-dimensions.png
+
+              Step 2: Under Question 1, select the answer that best fits with your data dimensionality.
+
+          .. figure:: ../img/gui/GUI-select-image-classification.png
+
+              Step 3: Under Question 2, select the answer "Assign a label to each image".
+
         
         \
 
