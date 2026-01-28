@@ -262,7 +262,7 @@ Choose your installation method
                
                Install PyTorch first, choosing GPU if available. Use the official `PyTorch selector <https://pytorch.org/get-started/locally/>`__ for your platform (CUDA / ROCm / CPU). Example (CUDA, just as an example-use the selector’s exact command): ::
                
-                    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+                    pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
                
                Install BiaPy in editable mode: ::
 
@@ -281,7 +281,7 @@ Choose your installation method
      
         Once installed you will need to install PyTorch, choosing GPU if available. Use the official `PyTorch selector <https://pytorch.org/get-started/locally/>`__ for your platform (CUDA / ROCm / CPU). Example (CUDA, just as an example—use the selector’s exact command): ::
                
-          pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
 
         After that you can import BiaPy in your Python scripts: ::
 
