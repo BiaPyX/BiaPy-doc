@@ -529,12 +529,13 @@ BiaPy offers different options to run workflows depending on your degree of comp
             # Number of the GPU to run the job in (according to 'nvidia-smi' command)
             gpu_number=0
 
-            sudo docker run --rm \
+            docker run --rm \
                 --gpus "device=$gpu_number" \
                 --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
                 --mount type=bind,source=$result_dir,target=$result_dir \
                 --mount type=bind,source=$data_dir,target=$data_dir \
                 biapyx/biapy:latest-11.8 \
+                    biapy \
                     --config $job_cfg_file \
                     --result_dir $result_dir \
                     --name $job_name \
@@ -543,6 +544,22 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
         .. note:: 
             Note that ``data_dir`` must contain all the paths ``DATA.*.PATH`` and ``DATA.*.GT_PATH`` so the container can find them. For instance, if you want to only train in this example ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` could be ``/home/user/data/train/x`` and ``/home/user/data/train/y`` respectively. 
+
+        For container versions prior to ``3.6.8``, the ``biapy`` prefix is not required. You can execute the command directly as follows:
+
+        .. code-block:: bash  
+
+          docker run --rm \
+              --gpus "device=$gpu_number" \
+              --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
+              --mount type=bind,source=$result_dir,target=$result_dir \
+              --mount type=bind,source=$data_dir,target=$data_dir \
+              biapyx/biapy:3.6.7-11.8 \
+                  --config $job_cfg_file \
+                  --result_dir $result_dir \
+                  --name $job_name \
+                  --run_id $job_counter \
+                  --gpu "$gpu_number"
 
    .. tab:: Command line
 

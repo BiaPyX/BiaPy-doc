@@ -213,6 +213,7 @@ You can use the pretrained SpineDL-Neuron model to predict new images using seve
                --mount type=bind,source=$result_dir,target=$result_dir \
                --mount type=bind,source=$data_dir,target=$data_dir \
                biapyx/biapy:latest-11.8 \
+                  biapy \
                   --config $job_cfg_file \
                   --result_dir $result_dir \
                   --name $job_name \
@@ -256,11 +257,11 @@ You can use the pretrained SpineDL-Neuron model to predict new images using seve
             conda activate BiaPy_env
 
             biapy \
-                  --config $job_cfg_file \
-                  --result_dir $result_dir  \
-                  --name $job_name    \
-                  --run_id $job_counter  \
-                  --gpu "$gpu_number"
+               --config $job_cfg_file \
+               --result_dir $result_dir  \
+               --name $job_name    \
+               --run_id $job_counter  \
+               --gpu "$gpu_number"
          
          This will generate the results in ``/home/user/exp_results/my_spinedl_neuron_test/my_spinedl_neuron_test_1/results``. Specifically, in that folder you will find the predicted masks for the test images under ``per_image_instances`` and the post-processed images under ``per_image_post_processing``. 
 
