@@ -33,14 +33,14 @@ Submodules
      - Post-processing functions for processing model outputs, including thresholding and morphological operations.
 
 .. toctree::
-   :maxdepth: 1
-   :hidden:
+  :hidden:
+  :maxdepth: 1
 
-   data_2D_manipulation
-   data_3D_manipulation
-   data_manipulation
-   dataset
-   norm
-   pre_processing
-   generators/generators
-   post_processing/post_processing
+  data_2D_manipulation
+  data_3D_manipulation
+  data_manipulation
+  dataset
+  norm
+  pre_processing
+  generators/generators
+  post_processing/main_post_proc
