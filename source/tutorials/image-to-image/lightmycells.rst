@@ -174,17 +174,17 @@ Then, you can train by you own those models or you can use directly our checkpoi
 
                 .. code-block:: bash  
 
-                docker run --rm \
-                    --gpus "device=$gpu_number" \
-                    --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
-                    --mount type=bind,source=$result_dir,target=$result_dir \
-                    --mount type=bind,source=$data_dir,target=$data_dir \
-                    biapyx/biapy:3.6.7-11.8 \
-                        --config $job_cfg_file \
-                        --result_dir $result_dir \
-                        --name $job_name \
-                        --run_id $job_counter \
-                        --gpu "$gpu_number"
+                    docker run --rm \
+                        --gpus "device=$gpu_number" \
+                        --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
+                        --mount type=bind,source=$result_dir,target=$result_dir \
+                        --mount type=bind,source=$data_dir,target=$data_dir \
+                        biapyx/biapy:3.6.7-11.8 \
+                            --config $job_cfg_file \
+                            --result_dir $result_dir \
+                            --name $job_name \
+                            --run_id $job_counter \
+                            --gpu "$gpu_number"
 
    .. tab:: Train by your own
 

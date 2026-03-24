@@ -666,12 +666,12 @@ Again, **BiaPy** offers different options to run the **CartoCell** testing (also
 
       .. code-block:: bash  
 
-      docker run --rm \
-          --gpus "device=$gpu_number" \
-          --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
-          --mount type=bind,source=$result_dir,target=$result_dir \
-          --mount type=bind,source=$data_dir,target=$data_dir \
-          biapyx/biapy:3.6.7-11.8 \
+          docker run --rm \
+            --gpus "device=$gpu_number" \
+            --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
+            --mount type=bind,source=$result_dir,target=$result_dir \
+            --mount type=bind,source=$data_dir,target=$data_dir \
+            biapyx/biapy:3.6.7-11.8 \
               --config $job_cfg_file \
               --result_dir $result_dir \
               --name $job_name \
