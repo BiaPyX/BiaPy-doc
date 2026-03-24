@@ -3,7 +3,7 @@ biapy.data.post_processing
 
 .. toctree::
    :maxdepth: 1
-   :glob:
 
    init
-   *
+   post_processing
+   smooth_tiled_predictions
