@@ -17,6 +17,12 @@
 import sys
 import os
 import datetime
+import warnings
+
+warnings.filterwarnings(
+    "ignore",
+    message=r"The str interface for _JavaScript objects is deprecated.*",
+)
 
 # Clone
 from git import Repo
@@ -105,4 +111,14 @@ autodoc_mock_imports = ['resunet++']
 
 # The master toctree document.
 master_doc = 'index'
+
+
+def _ensure_node_classes_attribute(app, doctree, docname):
+    for node in doctree.traverse():
+        if hasattr(node, "attributes") and "classes" not in node.attributes:
+            node.attributes["classes"] = []
+
+
+def setup(app):
+    app.connect("doctree-resolved", _ensure_node_classes_attribute)
 
