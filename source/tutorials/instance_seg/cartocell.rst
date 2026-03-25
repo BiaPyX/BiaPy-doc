@@ -394,29 +394,13 @@ Model training
 
               Step 2: Click on "OK".
 
-          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-instance-segmentation.png
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-modify-configuration-file.png
 
-              Step 3: Click on "Continue".
-
-          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-generic-options.png
-
-              Step 4: Under "Generic options", you should see the directory and name of the configuration file already selected. Click on "Continue".
-
-          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-train-options.png
-
-              Step 5: Under "Train > General options", input the paths to the training raw and label images by clicking on the "Browse" buttons of "Input raw image folder" and "Input label folder" respectively, and then click on "Continue".
-
-          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-test-options.png
-
-              Step 6: Under "Test", leave the "Enable test phase" option as "No", and click on "Create configuration file".
-
-          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-overwrite-yaml.png
-
-              Step 7: Click on "Yes" to overwrite the configuration file.
+              Step 3: Introduce the corresponding paths to your training and validation data (for both raw and label images) and a name for your modified configuration file. Click on "Save file".
 
           .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-yaml-created.png
 
-              Step 8: You should see an information window indicating the files has been created. Click on "OK".
+              Step 4: You should see an information window indicating the file has been created. Click on "OK".
 
           .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-results-folder-and-job-name-train.png
 
