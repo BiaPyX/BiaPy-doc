@@ -404,11 +404,11 @@ Model training
 
           .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-results-folder-and-job-name-train.png
 
-              Step 9: Input the folder you wish to use to store the results of the workflow by clicking on the "Browse" button of "Output folder to save the results" and type a name for your experiment in the "Job name" field.
+              Step 5: Input the folder you wish to use to store the results of the workflow by clicking on the "Browse" button of "Output folder to save the results" and type a name for your experiment in the "Job name" field.
               
           .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-no-errors-train.png
 
-              Step 10: Finally, click on "Check file" and, if a message is displayed showing no errors in the configuration file, click on "Run Workflow".
+              Step 6: Finally, click on "Check file" and, if a message is displayed showing no errors in the configuration file, click on "Run Workflow".
 
 
         \
@@ -553,41 +553,21 @@ Again, **BiaPy** offers different options to run the **CartoCell** testing (also
 
               Step 2: Click on "OK".
 
-          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-instance-segmentation.png
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-modify-configuration-file-inference.png
 
-              Step 3: Click on "Continue".
-
-          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-generic-options-inference.png
-
-              Step 4: Under "Generic options", you should see the directory and name of the configuration file already selected. Click on the "Browse" button of "Model file" and select the .pth file you downloaded.
-
-          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-checkpoint-configuration.png
-
-              Step 5: You should see the path to 'cartocell_M2-checkpoint-best.pth' in the "Model file" field. Click on "Continue".
-
-          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-train-options-inference.png
-
-              Step 6: Under "Train", leave the "Perform training" option as "No", and click on "Continue".
-
-          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-test-options-inference.png
-
-              Step 7:  Under "Test > Test data", input the paths to the test raw and (optionally) label images by clicking on the "Browse" buttons of "Input raw image folder" and "Input label folder" respectively, and click on "Create configuration file".
-
-          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-overwrite-yaml-inference.png
-
-              Step 8: Click on "Yes" to overwrite the configuration file.
+              Step 3: Introduce the corresponding paths to your test data (for both raw and label images), the 'cartocell_M2-checkpoint-best.pth' in the "Model file" field and a name for your modified configuration file. Click on "Save file".
 
           .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-yaml-created-inference.png
 
-              Step 9: You should see an information window indicating the files has been created. Click on "OK".
+              Step 4: You should see an information window indicating the file has been created. Click on "OK".
 
           .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-results-folder-and-job-name-inference.png
 
-              Step 10: Input the folder you wish to use to store the results of the workflow by clicking on the "Browse" button of "Output folder to save the results" and type a name for your experiment in the "Job name" field.
+              Step 5: Input the folder you wish to use to store the results of the workflow by clicking on the "Browse" button of "Output folder to save the results" and type a name for your experiment in the "Job name" field.
               
-          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-no-errors-inference.png
+          .. figure:: ../../img/tutorials/instance-segmentation/cartocell/GUI-no-errors-train.png
 
-              Step 11: Finally, click on "Check file" and, if a message is displayed showing no errors in the configuration file, click on "Run Workflow".
+              Step 6: Finally, click on "Check file" and, if a message is displayed showing no errors in the configuration file, click on "Run Workflow".
 
 
         \
