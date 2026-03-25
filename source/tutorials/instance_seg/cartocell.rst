@@ -803,6 +803,108 @@ Where:
 
 
 
+
+
+Pre-trained models in the BioImage Model Zoo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Six **model M2** variants produced during the **CartoCell** pipeline are publicly available in the `BioImage Model Zoo <https://bioimage.io/#/models>`__ (BMZ) — a community-driven repository of ready-to-use deep learning models for bioimage analysis. You can find them by `searching for "CartoCell" on the BMZ website <https://bioimage.io/#/models?q=CartoCell>`__.
+
+.. figure:: ../../img/tutorials/instance-segmentation/cartocell/BMZ-CartoCell-models.png
+    :align: center
+    :width: 680px
+
+    The six CartoCell M2 models available in the `BioImage Model Zoo <https://bioimage.io/#/models?q=CartoCell>`__.
+
+These models were evaluated on the CartoCell test set (60 images). The table below ranks them by their mean performance across key segmentation metrics. Three pixel-level **IoU** (Intersection over Union) scores measure how well the predicted channel images match the ground truth — higher values are better. The instance-level metrics are computed at two IoU matching thresholds — **0.5** (standard) and **0.75** (strict) — and include:
+
+* **F1**: harmonic mean of detection precision and recall (higher is better).
+* **PQ** (Panoptic Quality): a single score that combines how accurately cells are detected *and* how well their shapes are segmented (higher is better).
+* **MTS** (Mean True Score): average IoU of correctly matched cell instances (higher is better).
+
+.. list-table:: Mean performance of the six CartoCell M2 models on the test set (60 images), sorted by F1 @ IoU threshold 0.5.
+   :header-rows: 1
+   :align: center
+   :widths: 5 20 10 12 10 9 9 9 9 9
+
+   * - Rank
+     - Model
+     - IoU (fg)
+     - IoU (contour)
+     - IoU (mask)
+     - F1 @0.5
+     - PQ @0.5
+     - MTS @0.5
+     - F1 @0.75
+     - PQ @0.75
+   * - 1
+     - `happy-honeybee <https://bioimage.io/#/models?q=CartoCell>`__
+     - 0.867
+     - 0.542
+     - 0.915
+     - **0.985**
+     - **0.814**
+     - **0.819**
+     - **0.904**
+     - **0.758**
+   * - 2
+     - `venomous-swan <https://bioimage.io/#/models?q=CartoCell>`__
+     - 0.835
+     - 0.475
+     - 0.878
+     - 0.937
+     - 0.747
+     - 0.773
+     - 0.765
+     - 0.629
+   * - 3
+     - `idealistic-turtle <https://bioimage.io/#/models?q=CartoCell>`__
+     - 0.861
+     - 0.494
+     - 0.891
+     - 0.914
+     - 0.731
+     - 0.766
+     - 0.748
+     - 0.616
+   * - 4
+     - `heroic-otter <https://bioimage.io/#/models?q=CartoCell>`__
+     - 0.806
+     - 0.474
+     - 0.858
+     - 0.895
+     - 0.713
+     - 0.748
+     - 0.732
+     - 0.604
+   * - 5
+     - `intelligent-lion <https://bioimage.io/#/models?q=CartoCell>`__
+     - 0.849
+     - 0.483
+     - 0.874
+     - 0.861
+     - 0.687
+     - 0.752
+     - 0.717
+     - 0.589
+   * - 6
+     - `merry-water-buffalo <https://bioimage.io/#/models?q=CartoCell>`__
+     - 0.837
+     - 0.422
+     - 0.864
+     - 0.578
+     - 0.423
+     - 0.579
+     - 0.279
+     - 0.222
+
+.. note::
+
+   **happy-honeybee** consistently outperforms all other models across every metric, making it the recommended choice for processing new data. **merry-water-buffalo** achieves competitive pixel-level IoU scores but considerably lower instance-level metrics, suggesting it may struggle to correctly separate individual cells.
+
+   All models can be downloaded and run directly through **BiaPy** or any other BMZ-compatible tool. Visit the `BioImage Model Zoo <https://bioimage.io/#/models?q=CartoCell>`__ to explore and use them.
+
+
 Citation
 ~~~~~~~~
 Please note that **CartoCell** is based on a publication. If you use it successfully for your research please be so kind to cite our work:
