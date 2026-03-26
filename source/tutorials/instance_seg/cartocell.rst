@@ -3,10 +3,14 @@
 CartoCell, a high-throughput pipeline for accurate 3D image analysis (Paper)
 ----------------------------------------------------------------------------
 
-Task overview
-~~~~~~~~~~~~~
+About this tutorial
+~~~~~~~~~~~~~~~~~~~
 
 This tutorial describes how to create a custom 3D instance segmentation workflow to reproduce the results published in `"CartoCell, a high-content pipeline for 3D image analysis, unveils cell morphology patterns in epithelia" (Cell Report Methods, 2023) <https://doi.org/10.1016/j.crmeth.2023.100597>`__ using **BiaPy**.
+
+.. note::
+
+  If you are mainly interested in applying CartoCell's pretrained models (without reproducing all training phases), go directly to :ref:`Model testing in the latest BiaPy workflow <cartocell_latest_model_testing>`.
 
 .. figure:: https://ars.els-cdn.com/content/image/1-s2.0-S2667237523002497-fx1_lrg.jpg
     :align: center                  
@@ -14,7 +18,7 @@ This tutorial describes how to create a custom 3D instance segmentation workflow
 
     Graphical abstract of `CartoCell (2023) <https://doi.org/10.1016/j.crmeth.2023.100597>`__.
 
-The target of the workflow are **3D epithelial cysts** acquired with confocal microscopy, whose segmented cells need to be in direct contact to study their packaging and organization.
+This workflow targets **3D epithelial cysts** acquired with confocal microscopy. The segmented cells need to be in direct contact to study their packaging and organization.
 
 .. list-table:: 
   :align: center
@@ -370,7 +374,7 @@ If you want to replicate the **CartoCell** steps using the current version of **
 
 Model training
 **************
-**BiaPy** offers different options to run the **CartoCell** training workflow depending on your degree of computer expertise. Select whichever is more approppriate for you:
+**BiaPy** offers different options to run the **CartoCell** training workflow depending on your level of computer expertise. Select the one that is most appropriate for you:
 
 .. tabs::
     .. tab:: GUI
@@ -527,9 +531,11 @@ Model training
       .. note:: Make sure to set **`nproc_per_node`** to match the number of GPUs you are using.
 
 
+.. _cartocell_latest_model_testing:
+
 Model testing
 **************
-Again, **BiaPy** offers different options to run the **CartoCell** testing (also called *inference*) workflow depending on your degree of computer expertise. Select whichever is more approppriate for you:
+Again, **BiaPy** offers different options to run the **CartoCell** testing (also called *inference*) workflow depending on your level of computer expertise. Select the one that is most appropriate for you:
 
 .. tabs::
     .. tab:: GUI
