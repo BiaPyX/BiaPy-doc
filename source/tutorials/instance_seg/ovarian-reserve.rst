@@ -3,10 +3,16 @@
 Ovarian Reserve: 3D Instance Segmentation of Oocytes
 -----------------------------------------------------
 
-This tutorial explains how to use **BiaPy** for **3D instance segmentation of oocytes** in whole-mount mouse ovary images, as described in :cite:`ovarianreserve2025`. The workflow automatically detects and delineates individual oocytes in 3D fluorescence volumes stained for **DDX4** (a germ-cell-specific marker) and acquired by light-sheet (SPIM) microscopy.
+About this tutorial
+~~~~~~~~~~~~~~~~~~~
 
-.. role:: raw-html(raw)
-    :format: html
+This tutorial explains how to use **BiaPy** for **3D instance segmentation of oocytes** in whole-mount mouse ovaries, based on :cite:`ovarianreserve2025`.
+
+The goal is to make this workflow accessible to all BiaPy users (GUI, notebook, Galaxy, Docker, CLI, or API), even if this is your first time working with 3D instance segmentation.
+
+.. note::
+
+   The pretrained model checkpoint will be published as soon as possible (BioImage Model Zoo and direct PyTorch file).
 
 .. list-table::
   :align: center
@@ -24,435 +30,234 @@ This tutorial explains how to use **BiaPy** for **3D instance segmentation of oo
 
          Paper Figure 2 from :cite:`ovarianreserve2025`: age-resolved ovarian reserve quantification enabled by 3D oocyte segmentation.
 
-.. note::
 
-   The pretrained model will be made available in the `BioImage Model Zoo <https://bioimage.io>`__ and as a **PyTorch** checkpoint file as soon as possible. Stay tuned for updates.
+Data preparation
+~~~~~~~~~~~~~~~~
+
+This tutorial uses two datasets:
+
+* **Inference dataset (Zenodo)**: seven full 3D ovaries (5, 10, 22, 31, 40, 50, and 60 weeks) in TIFF format: `Zenodo link <https://zenodo.org/records/19085211>`__.
+
+  .. collapse:: Expand to see the Zenodo directory structure
+
+     .. code-block::
+
+        raw_ovary/
+        ├── w5_134934.tif
+        ├── w10_112648.tif
+        ├── w22_090202.tif
+        ├── w31_084030.tif
+        ├── w40_094116.tif
+        ├── w50_142422.tif
+        └── w60_155112.tif
+
+* **Training dataset (sample)**: ``oocyte_training.zip`` with paired raw/label slices for training or fine-tuning: `Google Drive link <https://drive.google.com/file/d/1xA2b9nY1KuIGC-ZjYg--MXQ8r8GSyOwP/view?usp=sharing>`__.
+
+  .. collapse:: Expand to see the training sample directory structure
+
+     .. code-block::
+
+        oocyte_training/
+        ├── raw/
+        │   ├── 10W_100330_frame70.tif
+        │   ├── 10W_105114_1.tif
+        │   ├── ...
+        │   └── 5W_150806_frame54.tif
+        └── label/
+            ├── 10W_100330_frame70.tif
+            ├── 10W_105114_1.tif
+            ├── ...
+            └── 5W_150806_frame54.tif
+
+Training sample preview
+************************
+
+The GIF below shows one **raw training sample** and its **matching label** side by side (animation across Z):
+
+.. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/oocyte_train_sample.gif
+   :align: center
+   :figwidth: 700px
+
+   Left: raw DDX4 image stack. Right: corresponding instance-label stack.
 
 
-Dataset
-~~~~~~~
+Quick start for non-expert users
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Two datasets are associated with this tutorial:
+If you only want to run inference with minimal setup:
 
-**Inference dataset (Zenodo)**
-   A representative subset of the full dataset is publicly available on `Zenodo <https://zenodo.org/records/19085211>`__ :cite:`ovarianreserve2025`. It contains **seven whole-mount ovarian samples** from mice of different ages (**5, 10, 22, 30, 40, 50,** and **60 weeks**) imaged by SPIM microscopy and stained for **DDX4**. Download and extract the archive; after extraction the folder will look like this:
+#. Download the Zenodo dataset and unzip it.
+#. Download the inference YAML file from this tutorial (link below).
+#. Edit only two fields in the YAML: ``DATA.TEST.PATH`` and ``PATHS.CHECKPOINT_FILE``.
+#. Run BiaPy using your preferred interface (GUI is usually the easiest first option).
 
-   .. collapse:: Expand to see the directory structure
+Image and data requirements
+***************************
 
-      .. code-block::
+* Input images must be **3D TIFF** volumes.
+* Typical axis order is ``ZYX`` (single channel).
+* Expected physical resolution is approximately ``(5.0, 0.867, 0.867)`` µm in ``(Z, Y, X)``.
+* If your data use a different resolution, resampling to this scale is recommended for best results.
 
-         raw_ovary/
-         ├── w5_134934.tif
-         ├── w10_112648.tif
-         ├── w22_090202.tif
-         ├── w31_084030.tif
-         ├── w40_094116.tif
-         ├── w50_142422.tif
-         └── w60_155112.tif
 
-**Training dataset (Google Drive)**
-   A curated set of annotated 2D image slices extracted from the 3D volumes, suitable for training or fine-tuning the model, is available for download `here <https://drive.google.com/file/d/1xA2b9nY1KuIGC-ZjYg--MXQ8r8GSyOwP/view?usp=sharing>`__ (``oocyte_training.zip``). After extracting it you will find two folders, ``raw`` (fluorescence images) and ``label`` (corresponding instance masks):
+Inference configuration
+~~~~~~~~~~~~~~~~~~~~~~~
 
-   .. collapse:: Expand to see the directory structure
+You can download the ready-to-edit YAML file here:
 
-      .. code-block::
+* :download:`ovarian-reserve-inference.yaml <ovarian-reserve-inference.yaml>`
 
-         oocyte_training/
-         ├── raw/
-         │   ├── 5W_130858_frame206.tif
-         │   ├── 5W_130858_frame277.tif
-         │   ├── 10W_100330_frame70.tif
-         │   └── ...   (75 TIFF slices in total, covering ages 5–40 weeks)
-         └── label/
-             ├── 5W_130858_frame206.tif
-             ├── 5W_130858_frame277.tif
-             ├── 10W_100330_frame70.tif
-             └── ...   (matching instance-label TIFFs)
+.. collapse:: Expand to preview ovarian-reserve-inference.yaml
 
-   The full annotated 3D training dataset will be made publicly available upon final publication of the paper.
+   .. literalinclude:: ovarian-reserve-inference.yaml
+      :language: yaml
 
-\ 
+The two mandatory edits are:
 
-How to run inference with the pretrained model
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ``DATA.TEST.PATH`` → folder containing your TIFF test volumes.
+* ``PATHS.CHECKPOINT_FILE`` → path to the pretrained model checkpoint.
 
-Follow these steps to segment oocytes in your own images using the pretrained model.
 
-#. **Prepare your images.** The model expects:
-
-   * **3D grayscale TIFF files** with a single DDX4 fluorescence channel, in ``ZYX`` order.
-   * Image resolution of approximately ``5.0 × 0.867 × 0.867`` µm/pixel (Z × Y × X). If your images have a different pixel size, rescale them to this resolution before running inference for optimal results.
-   * Any standard bit-depth (``float32``, ``uint16``, etc.) is accepted. BiaPy applies zero-mean unit-variance normalisation internally.
-   * Large whole-ovary volumes are fully supported: BiaPy processes them in chunks and saves results as TIFF.
-
-   You can use the images from the `Zenodo dataset <https://zenodo.org/records/19085211>`__ to test the model directly. For questions about image preparation, contact us through the `Image.sc Forum <https://forum.image.sc/>`__ (tag ``biapy``) or `GitHub issues <https://github.com/BiaPyX/BiaPy/issues>`__.
-
-#. **Choose how to run BiaPy.** BiaPy supports six interfaces: GUI, Jupyter/Colab, Galaxy, Docker, CLI, and API. Install BiaPy following the :ref:`installation` instructions for your chosen method.
-
-#. **Get the inference configuration file.** Download it from the `Boke-Lab GitHub repository <https://github.com/Boke-Lab/ovarian_reserve/tree/main/ByaPy_YAML>`__, or copy the YAML below into a file called ``ovarian-reserve-inference.yaml``:
-
-   .. code-block:: yaml
-
-      SYSTEM:
-        NUM_WORKERS: 5
-
-      PROBLEM:
-        TYPE: INSTANCE_SEG
-        NDIM: 3D
-        INSTANCE_SEG:
-          DATA_CHANNELS: BCD
-          DATA_MW_TH_TYPE: manual
-          DATA_MW_TH_BINARY_MASK: 0.5
-          DATA_MW_TH_CONTOUR: 0.2
-          DATA_MW_TH_DISTANCE: 1.0
-          DATA_REMOVE_SMALL_OBJ_BEFORE: 10
-          DATA_REMOVE_BEFORE_MW: true
-          DISTANCE_CHANNEL_MASK: true
-
-      DATA:
-        NORMALIZATION:
-          TYPE: zero_mean_unit_variance
-        PATCH_SIZE: (40,128,128,1)
-        REFLECT_TO_COMPLETE_SHAPE: true
-        EXTRACT_RANDOM_PATCH: false
-        TEST:
-          PATH: "/home/user/raw_ovary/"      # <-- set this to your images folder
-          LOAD_GT: false
-          IN_MEMORY: false
-          RESOLUTION: (5,0.867,0.867)
-          OVERLAP: (0,0,0)
-          PADDING: (10,50,50)
-
-      MODEL:
-        ARCHITECTURE: resunet
-        FEATURE_MAPS: [48, 64, 80, 96]
-        Z_DOWN: [1, 1, 1]
-        DROPOUT_VALUES: [0, 0, 0, 0]
-        LOAD_CHECKPOINT: true
-
-      PATHS:
-        CHECKPOINT_FILE: "/home/user/ovarian_reserve_model.pt"  # <-- set this to your checkpoint
-
-      LOSS:
-        TYPE: CE
-
-      TRAIN:
-        ENABLE: false
-
-      TEST:
-        ENABLE: true
-        REDUCE_MEMORY: true
-        BY_CHUNKS:
-          ENABLE: true
-          FORMAT: zarr
-          SAVE_OUT_TIF: true
-          INPUT_IMG_AXES_ORDER: ZYXC
-          WORKFLOW_PROCESS:
-            ENABLE: true
-            TYPE: entire_pred
-        POST_PROCESSING:
-          MEASURE_PROPERTIES:
-            ENABLE: true
-            REMOVE_BY_PROPERTIES:
-              ENABLE: true
-              PROPS: [["npixels"], ["sphericity", "npixels"]]
-              VALUES: [[150], [0.01, 2000]]
-              SIGNS: [["le"], ["lt", "lt"]]
-
-   The two lines you **must** edit are:
-
-   * ``DATA.TEST.PATH`` — folder containing your input TIFF images.
-   * ``PATHS.CHECKPOINT_FILE`` — path to the downloaded pretrained model weights.
-
-#. **Download the pretrained model checkpoint** (available soon — follow updates on the `BioImage Model Zoo <https://bioimage.io>`__ or the `Boke-Lab GitHub repository <https://github.com/Boke-Lab/ovarian_reserve>`__).
-
-#. **Run BiaPy** using your preferred interface:
+Run inference
+~~~~~~~~~~~~~
 
 .. tabs::
 
    .. tab:: GUI
 
-      Follow these steps in the BiaPy Graphical User Interface (GUI, version ``1.2.2`` or later):
-
-      #. Click ``"Load and modify workflow"`` and load the YAML configuration file.
-      #. If any paths are invalid you will be redirected to a window to fix them — update ``DATA.TEST.PATH`` and ``PATHS.CHECKPOINT_FILE`` as needed.
-      #. Confirm or rename the configuration file and click ``"Save file"``.
-      #. In the ``"Run Workflow"`` window, select an output folder for the results.
-      #. Optionally click ``"Check file"`` to validate the configuration before running.
-      #. Click ``"Run"`` to start the workflow.
+      #. Open BiaPy GUI (v1.2.2 or newer).
+      #. Click ``"Load and modify workflow"`` and select ``ovarian-reserve-inference.yaml``.
+      #. Fix invalid paths if prompted (especially ``DATA.TEST.PATH`` and ``PATHS.CHECKPOINT_FILE``).
+      #. Choose an output folder and click ``"Run"``.
 
       .. figure:: ../../img/gui/GUI_load_yaml_generic.png
          :align: center
          :figwidth: 500px
 
-         Click on ``"Load and modify workflow"`` and load the YAML configuration file.
+         Load the YAML, verify paths, and run.
 
    .. tab:: Jupyter/Colab
 
       #. Open the BiaPy inference notebook `here <https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/BiaPy_Inference.ipynb>`__.
-      #. Upload the YAML configuration file and the pretrained model checkpoint to the Colab environment as explained in the notebook.
-      #. Follow the notebook instructions to run inference.
+      #. Upload the inference YAML file.
+      #. Upload the model checkpoint.
+      #. Run the notebook cells.
 
    .. tab:: Galaxy
 
-      #. Open the BiaPy tool in Galaxy ToolShed at this `link <https://imaging.usegalaxy.eu/?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fbiapy%2Fbiapy%2F3.6.5%2Bgalaxy0&version=latest>`__. New to Galaxy? Check the `Galaxy tutorials <https://training.galaxyproject.org/training-material/topics/introduction/>`__.
-      #. Upload your images, the YAML file, and the checkpoint to Galaxy.
-      #. For ``"Do you have a configuration file?"`` select ``"Yes, I already have one and I want to run BiaPy directly"``.
-      #. Select your configuration file under ``"Select a configuration file"``.
-      #. Select your checkpoint under ``"Select the model checkpoint (if needed)"``.
-      #. Leave ``"If train is enabled, select the training images"`` empty.
-      #. Under ``"If test is enabled, select the test images"``, choose the images you want to predict.
-      #. In the output section, select ``"Test predictions (if exist)"`` and ``"Post-processed test predictions (if exist)"``.
-      #. Run the job.
+      #. Open BiaPy in Galaxy: `launch link <https://imaging.usegalaxy.eu/?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fbiapy%2Fbiapy%2F3.6.5%2Bgalaxy0&version=latest>`__.
+      #. Upload your TIFF images, the YAML file, and the model checkpoint.
+      #. Select: ``Yes, I already have one and I want to run BiaPy directly``.
+      #. Select your config and checkpoint files.
+      #. Run the job and download test predictions.
 
    .. tab:: Docker
 
-      #. Edit the configuration file to set the two required paths:
+      .. code-block:: bash
 
-         .. code-block:: yaml
+         job_cfg_file=/home/user/ovarian-reserve-inference.yaml
+         data_dir=/home/user/raw_ovary
+         result_dir=/home/user/exp_results
+         job_name=my_ovarian_reserve_test
+         job_counter=1
+         gpu_number=0
 
-            DATA:
-              TEST:
-                PATH: "/home/user/raw_ovary/"
-            PATHS:
-              CHECKPOINT_FILE: "/home/user/ovarian_reserve_model.pt"
-
-      #. Requires BiaPy version ``3.6.8`` or newer. Run:
-
-         .. code-block:: bash
-
-            job_cfg_file=/home/user/ovarian-reserve-inference.yaml
-            data_dir=/home/user/raw_ovary
-            result_dir=/home/user/exp_results
-            job_name=my_ovarian_reserve_test
-            job_counter=1
-            gpu_number=0
-
-            docker run --rm \
-               --gpus "device=$gpu_number" \
-               --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
-               --mount type=bind,source=$result_dir,target=$result_dir \
-               --mount type=bind,source=$data_dir,target=$data_dir \
-               biapyx/biapy:latest-11.8 \
-                  biapy \
-                  --config $job_cfg_file \
-                  --result_dir $result_dir \
-                  --name $job_name \
-                  --run_id $job_counter \
-                  --gpu "$gpu_number"
-
-         Results will be saved to ``/home/user/exp_results/my_ovarian_reserve_test/my_ovarian_reserve_test_1/results``: instance masks under ``per_image_instances``, post-processed outputs under ``per_image_post_processing``.
+         docker run --rm \
+            --gpus "device=$gpu_number" \
+            --mount type=bind,source=$job_cfg_file,target=$job_cfg_file \
+            --mount type=bind,source=$result_dir,target=$result_dir \
+            --mount type=bind,source=$data_dir,target=$data_dir \
+            biapyx/biapy:latest-11.8 \
+               biapy \
+               --config $job_cfg_file \
+               --result_dir $result_dir \
+               --name $job_name \
+               --run_id $job_counter \
+               --gpu "$gpu_number"
 
    .. tab:: CLI
 
-      #. Edit the configuration file to set the two required paths:
+      .. code-block:: bash
 
-         .. code-block:: yaml
+         job_cfg_file=/home/user/ovarian-reserve-inference.yaml
+         result_dir=/home/user/exp_results
+         job_name=my_ovarian_reserve_test
+         job_counter=1
+         gpu_number=0
 
-            DATA:
-              TEST:
-                PATH: "/home/user/raw_ovary/"
-            PATHS:
-              CHECKPOINT_FILE: "/home/user/ovarian_reserve_model.pt"
+         conda activate BiaPy_env
 
-      #. Requires BiaPy version ``3.6.8`` or newer. Run:
-
-         .. code-block:: bash
-
-            job_cfg_file=/home/user/ovarian-reserve-inference.yaml
-            result_dir=/home/user/exp_results
-            job_name=my_ovarian_reserve_test
-            job_counter=1
-            gpu_number=0
-
-            conda activate BiaPy_env
-
-            biapy \
-               --config $job_cfg_file \
-               --result_dir $result_dir  \
-               --name $job_name    \
-               --run_id $job_counter  \
-               --gpu "$gpu_number"
-
-         Results will be saved to ``/home/user/exp_results/my_ovarian_reserve_test/my_ovarian_reserve_test_1/results``: instance masks under ``per_image_instances``, post-processed outputs under ``per_image_post_processing``.
+         biapy \
+            --config $job_cfg_file \
+            --result_dir $result_dir \
+            --name $job_name \
+            --run_id $job_counter \
+            --gpu "$gpu_number"
 
    .. tab:: API
 
-      #. Edit the configuration file to set the two required paths:
+      .. code-block:: python
 
-         .. code-block:: yaml
+         from biapy import BiaPy
 
-            DATA:
-              TEST:
-                PATH: "/home/user/raw_ovary/"
-            PATHS:
-              CHECKPOINT_FILE: "/home/user/ovarian_reserve_model.pt"
+         config_path = "/home/user/ovarian-reserve-inference.yaml"
+         result_dir = "/home/user/exp_results"
+         job_name = "my_ovarian_reserve_test"
 
-      #. Requires BiaPy version ``3.6.8`` or newer. Add the following to your Python script:
-
-         .. code-block:: python
-
-            from biapy import BiaPy
-
-            config_path = "/home/user/ovarian-reserve-inference.yaml"
-            result_dir  = "/home/user/exp_results"
-            job_name    = "my_ovarian_reserve_test"
-            run_id      = 1
-            gpu         = "0"
-
-            biapy = BiaPy(config_path, result_dir=result_dir, name=job_name, run_id=run_id, gpu=gpu)
-            biapy.run_job()
-
-         Results will be saved to ``/home/user/exp_results/my_ovarian_reserve_test/my_ovarian_reserve_test_1/results``: instance masks under ``per_image_instances``, post-processed outputs under ``per_image_post_processing``.
-
-After obtaining the segmented oocyte instances, you can analyse the results further using the scripts in the `Boke-Lab GitHub repository <https://github.com/Boke-Lab/ovarian_reserve>`__:
-
-* **Oocyte density** (``oocyte density`` folder): counts oocytes per unit volume across the ovary.
-* **Radial quantification** (``radial quantification`` folder): maps the spatial distribution of oocytes along the radial axis of the ovary.
-
-These scripts require: ``pandas``, ``numpy``, ``matplotlib``, ``seaborn``, ``scipy``, and ``vedo``.
+         biapy = BiaPy(config_path, result_dir=result_dir, name=job_name, run_id=1, gpu="0")
+         biapy.run_job()
 
 
-Training the model from scratch
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Training or fine-tuning from scratch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you want to train the model from scratch — for example to reproduce the results of :cite:`ovarianreserve2025`, to fine-tune on your own data, or to experiment with different hyperparameters — follow the steps below. We assume you have already :ref:`installed BiaPy <installation>` and are comfortable running commands from a terminal.
+You can train a model using ``oocyte_training.zip`` and test it on the Zenodo 3D volumes.
 
-#. **Download the training dataset.** Download ``oocyte_training.zip`` from `Google Drive <https://drive.google.com/file/d/1xA2b9nY1KuIGC-ZjYg--MXQ8r8GSyOwP/view?usp=sharing>`__ and extract it. You will obtain a folder with two sub-directories:
+Download the training YAML file here:
 
-   * ``raw/`` — 75 2D TIFF image slices extracted from 3D ovary volumes (ages 5–40 weeks).
-   * ``label/`` — corresponding instance-label TIFFs (each oocyte has a unique integer ID).
+* :download:`ovarian-reserve-training.yaml <ovarian-reserve-training.yaml>`
 
-   A 10% validation split is created automatically from the training data at runtime (``VAL.FROM_TRAIN: true``), so no manual split is needed.
+.. collapse:: Expand to preview ovarian-reserve-training.yaml
 
-   For the test set, use the whole-ovary volumes from Zenodo (``raw_ovary/`` folder) as described in the `Dataset`_ section above.
+   .. literalinclude:: ovarian-reserve-training.yaml
+      :language: yaml
 
-#. **Get the training configuration file.** Download it from the `Boke-Lab GitHub repository <https://github.com/Boke-Lab/ovarian_reserve/tree/main/ByaPy_YAML>`__, or copy the YAML below into a file called ``ovarian-reserve-training.yaml``. Then set the four paths marked with ``<--``:
+Before running training, update at least these paths:
 
-   .. code-block:: yaml
+* ``DATA.TRAIN.PATH`` → ``.../oocyte_training/raw/``
+* ``DATA.TRAIN.GT_PATH`` → ``.../oocyte_training/label/``
+* ``DATA.TEST.PATH`` → ``.../raw_ovary/`` (Zenodo test set)
 
-      SYSTEM:
-        NUM_WORKERS: 5
+.. note::
 
-      PROBLEM:
-        TYPE: INSTANCE_SEG
-        NDIM: 3D
-        INSTANCE_SEG:
-          DATA_CHANNELS: BCD
-          DATA_MW_TH_TYPE: manual
-          DATA_MW_TH_BINARY_MASK: 0.5
-          DATA_MW_TH_CONTOUR: 0.2
-          DATA_MW_TH_DISTANCE: 1.0
-          DATA_REMOVE_SMALL_OBJ_BEFORE: 10
-          DATA_REMOVE_BEFORE_MW: true
+   The test data are TIFF volumes (not Zarr input files). The provided YAML is already configured for TIFF input axis order.
 
-      DATA:
-        NORMALIZATION:
-          TYPE: zero_mean_unit_variance
-        PATCH_SIZE: (40,128,128,1)
-        REFLECT_TO_COMPLETE_SHAPE: true
-        CHECK_GENERATORS: false
-        EXTRACT_RANDOM_PATCH: false
-        TRAIN:
-          PATH: "/home/user/oocyte_training/raw/"     # <-- path to training raw images
-          GT_PATH: "/home/user/oocyte_training/label/" # <-- path to training label images
-          IN_MEMORY: true
-        VAL:
-          FROM_TRAIN: true
-          SPLIT_TRAIN: 0.1
-        TEST:
-          PATH: "/home/user/raw_ovary/"               # <-- path to Zenodo test images
-          LOAD_GT: false
-          RESOLUTION: (5,0.867,0.867)
-          CHECK_DATA: false
-          PADDING: (10,50,50)
-          OVERLAP: (0,0,0)
-          FILTER_SAMPLES:
-            ENABLE: true
-            PROPS: [["mean"]]
-            VALUES: [[50.0]]
-            SIGNS: [["lt"]]
+Run training (CLI):
 
-      AUGMENTOR:
-        ENABLE: true
-        DA_PROB: 0.5
-        RANDOM_ROT: true
-        VFLIP: true
-        HFLIP: true
-        ZFLIP: true
-        AFFINE_MODE: reflect
-        GRIDMASK: true
-        GRID_RATIO: 0.7
-        ELASTIC: true
+.. code-block:: bash
 
-      MODEL:
-        ARCHITECTURE: resunet
-        FEATURE_MAPS: [48, 64, 80, 96]
-        Z_DOWN: [1, 1, 1]
-        DROPOUT_VALUES: [0, 0, 0, 0]
-        LOAD_CHECKPOINT: false              # <-- set to true to fine-tune from a checkpoint
+   job_cfg_file=/home/user/ovarian-reserve-training.yaml
+   result_dir=/home/user/exp_results
+   job_name=my_ovarian_reserve_training
+   job_counter=1
+   gpu_number=0
 
-      LOSS:
-        TYPE: CE
+   conda activate BiaPy_env
 
-      TRAIN:
-        ENABLE: true
-        OPTIMIZER: ADAMW
-        LR: 1.0e-4
-        BATCH_SIZE: 4
-        EPOCHS: 800
-        PATIENCE: 100
-        LR_SCHEDULER:
-          NAME: reduceonplateau
-          MIN_LR: 1.0e-6
-          REDUCEONPLATEAU_PATIENCE: 80
+   biapy \
+      --config $job_cfg_file \
+      --result_dir $result_dir \
+      --name $job_name \
+      --run_id $job_counter \
+      --gpu "$gpu_number"
 
-      TEST:
-        ENABLE: true
-        REDUCE_MEMORY: true
-        REUSE_PREDICTIONS: false
-        BY_CHUNKS:
-          ENABLE: true
-          FORMAT: zarr
-          SAVE_OUT_TIF: true
-          INPUT_IMG_AXES_ORDER: ZYXC
-          WORKFLOW_PROCESS:
-            ENABLE: true
-            TYPE: entire_pred
-        POST_PROCESSING:
-          MEASURE_PROPERTIES:
-            ENABLE: true
-            REMOVE_BY_PROPERTIES:
-              ENABLE: true
-              PROPS: [["npixels"], ["sphericity", "npixels"]]
-              VALUES: [[150], [0.01, 2000]]
-              SIGNS: [["le"], ["lt", "lt"]]
 
-#. **Run BiaPy** using the CLI:
+Post-analysis scripts
+~~~~~~~~~~~~~~~~~~~~~
 
-   .. code-block:: bash
+After segmentation, you can run the analysis scripts from the `Boke-Lab ovarian_reserve repository <https://github.com/Boke-Lab/ovarian_reserve>`__:
 
-      job_cfg_file=/home/user/ovarian-reserve-training.yaml
-      result_dir=/home/user/exp_results
-      job_name=my_ovarian_reserve_training
-      job_counter=1
-      gpu_number=0
+* **oocyte density**: quantifies oocytes per volume.
+* **radial quantification**: measures the radial spatial distribution of oocytes.
 
-      conda activate BiaPy_env
-
-      biapy \
-            --config $job_cfg_file \
-            --result_dir $result_dir  \
-            --name $job_name    \
-            --run_id $job_counter  \
-            --gpu "$gpu_number"
-
-   Results will be saved to ``/home/user/exp_results/my_ovarian_reserve_training/my_ovarian_reserve_training_1/results``. Test-set instance masks are under ``per_image_instances`` and post-processed outputs under ``per_image_post_processing``.
-
-#. **Analyse the results** using the scripts in the `Boke-Lab GitHub repository <https://github.com/Boke-Lab/ovarian_reserve>`__:
-
-   * **Oocyte density** (``oocyte density`` folder): computes the number of oocytes per unit volume.
-   * **Radial quantification** (``radial quantification`` folder): maps the spatial distribution of oocytes from the ovarian surface to the core.
-
-   These scripts reproduce the quantitative analyses presented in :cite:`ovarianreserve2025`.
-
+These scripts reproduce the quantitative analyses described in :cite:`ovarianreserve2025`.
