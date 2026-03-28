@@ -10,9 +10,28 @@ This tutorial explains how to use **BiaPy** for **3D instance segmentation of oo
 
 The goal is to make this workflow accessible to all BiaPy users (GUI, notebook, Galaxy, Docker, CLI, or API), even if this is your first time working with 3D instance segmentation.
 
+.. list-table::
+  :align: center
+
+  * - .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/oocyte_train_sample.gif
+         :align: center
+         :scale: 100%
+
+         Left: raw DDX4 image stack. Right: corresponding instance-label stack.
+
+
 .. note::
 
-   The pretrained model checkpoint will be published as soon as possible (BioImage Model Zoo and direct PyTorch file).
+   The pretrained model checkpoint will be published as soon as possible (BioImage Model Zoo and direct PyTorch file). In the meantime, you can train your own model using the provided training dataset and YAML file (see below).
+
+Paper overview
+~~~~~~~~~~~~~~
+
+Our publication :cite:`ovarianreserve2025` presents a pipeline to map the entire ovarian reserve in 3D by imaging intact mouse ovaries with **light-sheet fluorescence microscopy (SPIM)** and segmenting every individual oocyte with a deep learning model. The key steps of the pipeline are:
+
+#. **Whole-ovary SPIM imaging**: intact ovaries are cleared and imaged at single-cell resolution across the full organ, yielding large 3D fluorescence volumes (DDX4 channel marking oocyte cytoplasm).
+#. **3D instance segmentation with BiaPy**: a 3D residual U-Net (*ResU-Net*) is trained on manually curated oocyte labels using the **BCD** channel representation (Binary mask + Contour + Distance), followed by marker-controlled watershed to recover individual instances.
+#. **Age-resolved quantification**: segmented oocyte counts and spatial distributions are compared across seven age groups (5–60 weeks), revealing the dynamics of ovarian reserve decline.
 
 .. list-table::
   :align: center
@@ -68,18 +87,6 @@ This tutorial uses two datasets:
         ├── 10W_105114_1.tif
         ├── ...
         └── 5W_150806_frame54.tif
-
-Training sample preview
-************************
-
-The GIF below shows one **raw training sample** and its **matching label** side by side (animation across Z):
-
-.. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/oocyte_train_sample.gif
-   :align: center
-   :figwidth: 700px
-
-   Left: raw DDX4 image stack. Right: corresponding instance-label stack.
-
 
 Quick start for non-expert users
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
