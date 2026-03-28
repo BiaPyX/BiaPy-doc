@@ -43,7 +43,7 @@ MODEL:
 
 # Path configuration
 PATHS:
-  CHECKPOINT_FILE: "/home/user/ovarian_reserve_model.pt"  # Full path to the pretrained model checkpoint
+  CHECKPOINT_FILE: "/home/user/ovarian_reserve_model.pth"  # Full path to the pretrained model checkpoint
 
 # Loss function (kept for compatibility even when only doing inference)
 LOSS:
