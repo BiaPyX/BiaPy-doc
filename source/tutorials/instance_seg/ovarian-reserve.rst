@@ -6,7 +6,7 @@ Ovarian Reserve: 3D Instance Segmentation of Oocytes
 About this tutorial
 ~~~~~~~~~~~~~~~~~~~
 
-This tutorial explains how to use **BiaPy** for **3D instance segmentation of oocytes** in whole-mount mouse ovaries, based on :cite:`ovarianreserve2025`.
+This tutorial explains how to use **BiaPy** for **3D instance segmentation of oocytes** in whole-mount mouse ovaries, based on `"3D Mapping of Intact Ovaries Reveals the Aging Dynamics of the Ovarian Reserve" (bioRxiv, 2025) <https://doi.org/10.1101/2025.11.07.686728>`_ :cite:`ovarianreserve2025`.
 
 The goal is to make this workflow accessible to all BiaPy users (GUI, notebook, Galaxy, Docker, CLI, or API), even if this is your first time working with 3D instance segmentation.
 
@@ -494,3 +494,16 @@ After segmentation, you can run the analysis scripts from the `Boke-Lab ovarian_
 * **radial quantification**: measures the radial spatial distribution of oocytes.
 
 These scripts reproduce the quantitative analyses described in :cite:`ovarianreserve2025`.
+
+
+Citation
+~~~~~~~~
+
+Please note that this tutorial is based on a publication. If you use it successfully for your research, please cite our work:
+
+.. code-block:: text
+
+   3D Mapping of Intact Ovaries Reveals the Aging Dynamics of the Ovarian Reserve
+   Arturo D'Angelo, Daniel Franco-Barranco, Marco Musy, James Sharpe, Ignacio Arganda-Carreras,
+   Elvan Böke
+   bioRxiv 2025.11.07.686728; doi: https://doi.org/10.1101/2025.11.07.686728
