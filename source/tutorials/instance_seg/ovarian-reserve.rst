@@ -36,7 +36,7 @@ Data preparation
 
 This tutorial uses two datasets:
 
-* **Inference dataset (Zenodo)**: seven full 3D ovaries (5, 10, 22, 31, 40, 50, and 60 weeks) in TIFF format: `Zenodo link <https://zenodo.org/records/19085211>`__.
+* **Inference dataset (Zenodo)**: ``raw_ovary.rar`` (13.0 GB) with seven full 3D ovaries (5, 10, 22, 31, 40, 50, and 60 weeks) in TIFF format: `Zenodo link <https://zenodo.org/records/19085211>`__.
 
   .. collapse:: Expand to see the Zenodo directory structure
 
@@ -51,7 +51,7 @@ This tutorial uses two datasets:
         ├── w50_142422.tif
         └── w60_155112.tif
 
-* **Training dataset (sample)**: ``oocyte_training.zip`` with paired raw/label slices for training or fine-tuning: `Google Drive link <https://drive.google.com/file/d/1xA2b9nY1KuIGC-ZjYg--MXQ8r8GSyOwP/view?usp=sharing>`__.
+* **Training dataset (sample)**: ``oocyte_training.zip`` (240.9 MB) with paired raw/label slices for training or fine-tuning: `Google Drive link <https://drive.google.com/file/d/1xA2b9nY1KuIGC-ZjYg--MXQ8r8GSyOwP/view?usp=sharing>`__.
 
   .. collapse:: Expand to see the training sample directory structure
 
