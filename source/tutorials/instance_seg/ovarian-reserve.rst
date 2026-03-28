@@ -38,36 +38,36 @@ This tutorial uses two datasets:
 
 * **Inference dataset (Zenodo)**: ``raw_ovary.rar`` (13.0 GB) with seven full 3D ovaries (5, 10, 22, 31, 40, 50, and 60 weeks) in TIFF format: `Zenodo link <https://zenodo.org/records/19085211>`__.
 
-  .. collapse:: Expand to see the Zenodo directory structure
+  Once unrared, you should find the following directory tree:
 
-     .. code-block::
+  .. code-block::
 
-        raw_ovary/
-        ├── w5_134934.tif
-        ├── w10_112648.tif
-        ├── w22_090202.tif
-        ├── w31_084030.tif
-        ├── w40_094116.tif
-        ├── w50_142422.tif
-        └── w60_155112.tif
+    raw_ovary/
+    ├── w5_134934.tif
+    ├── w10_112648.tif
+    ├── w22_090202.tif
+    ├── w31_084030.tif
+    ├── w40_094116.tif
+    ├── w50_142422.tif
+    └── w60_155112.tif
 
 * **Training dataset (sample)**: ``oocyte_training.zip`` (240.9 MB) with paired raw/label slices for training or fine-tuning: `Google Drive link <https://drive.google.com/file/d/1xA2b9nY1KuIGC-ZjYg--MXQ8r8GSyOwP/view?usp=sharing>`__.
 
-  .. collapse:: Expand to see the training sample directory structure
+  Once unzipped, you should find the following directory tree:
 
-     .. code-block::
+  .. code-block::
 
-        oocyte_training/
-        ├── raw/
-        │   ├── 10W_100330_frame70.tif
-        │   ├── 10W_105114_1.tif
-        │   ├── ...
-        │   └── 5W_150806_frame54.tif
-        └── label/
-            ├── 10W_100330_frame70.tif
-            ├── 10W_105114_1.tif
-            ├── ...
-            └── 5W_150806_frame54.tif
+    oocyte_training/
+    ├── raw/
+    │   ├── 10W_100330_frame70.tif
+    │   ├── 10W_105114_1.tif
+    │   ├── ...
+    │   └── 5W_150806_frame54.tif
+    └── label/
+        ├── 10W_100330_frame70.tif
+        ├── 10W_105114_1.tif
+        ├── ...
+        └── 5W_150806_frame54.tif
 
 Training sample preview
 ************************
