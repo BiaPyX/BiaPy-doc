@@ -99,7 +99,7 @@ If this is your first time here and you simply want to apply the pretrained mode
 #. **Prepare your data** — use your own 3D TIFF ovary images, or, if you do not have your own data yet, download the provided test dataset: ``raw_ovary.rar`` (13.0 GB) from `Zenodo <https://zenodo.org/records/19085211>`__ and unrar it to obtain the ``raw_ovary/`` folder (see `Data preparation`_ above for the expected directory layout).
 #. **Download the prediction configuration file**: :download:`ovarian-reserve-inference.yaml <ovarian-reserve-inference.yaml>`.
 #. **Edit two paths** in the YAML: set ``DATA.TEST.PATH`` to your ``raw_ovary/`` folder and ``PATHS.CHECKPOINT_FILE`` to the pretrained model checkpoint (see the `Inference configuration`_ section for details).
-#. **Run BiaPy** using the interface of your choice — step-by-step instructions for every option (GUI, Colab, Galaxy, Docker, CLI, API) are in the `Run inference`_ section below.
+#. **Run BiaPy** using the interface of your choice — step-by-step instructions for every option (GUI, Colab, Galaxy, Docker, Command line, API) are in the `Run predictions on new images`_ section below.
 
 Image and data requirements
 ***************************
@@ -128,40 +128,85 @@ The two mandatory edits are:
 * ``PATHS.CHECKPOINT_FILE`` → path to the pretrained model checkpoint.
 
 
-Run inference
-~~~~~~~~~~~~~
+Run predictions on new images
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Again, **BiaPy** offers different options to run this prediction workflow (also called *inference*) depending on your level of computer expertise. Select the one that is most appropriate for you:
 
 .. tabs::
 
    .. tab:: GUI
 
-      #. Open BiaPy GUI (v1.2.2 or newer).
-      #. Click ``"Load and modify workflow"`` and select ``ovarian-reserve-inference.yaml``.
-      #. Fix invalid paths if prompted (especially ``DATA.TEST.PATH`` and ``PATHS.CHECKPOINT_FILE``).
-      #. Choose an output folder and click ``"Run"``.
+     First, download the prediction configuration file :download:`ovarian-reserve-inference.yaml <ovarian-reserve-inference.yaml>` and prepare the pretrained model checkpoint (or your own trained checkpoint).
 
-      .. figure:: ../../img/gui/GUI_load_yaml_generic.png
-         :align: center
-         :figwidth: 500px
+     Next, in BiaPy's GUI, follow the following instructions:
 
-         Load the YAML, verify paths, and run.
+     .. carousel::
+      :show_controls:
+      :show_captions_below:
+      :data-bs-interval: false
+      :show_indicators:
+      :show_dark:
 
-   .. tab:: Jupyter/Colab
+      .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/GUI-load-and-modify-workflow.png
 
-      #. Open the BiaPy inference notebook `here <https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/BiaPy_Inference.ipynb>`__.
-      #. Upload the inference YAML file.
-      #. Upload the model checkpoint.
-      #. Run the notebook cells.
+         Step 1: Click on "Load and modify workflow" and select the ``ovarian-reserve-inference.yaml`` file you just downloaded.
+
+      .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/GUI-load-information.png
+
+         Step 2: Click on "OK".
+
+      .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/GUI-modify-configuration-file-inference.png
+
+         Step 3: Introduce the corresponding paths to your test data (raw images), a pretrained ``.pth`` model file, and a name for your modified configuration file (red boxes indicate missing information).
+
+      .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/GUI-modify-configuration-file-inference-filled.png
+
+         Step 4: Once that information is correctly introduced, click on "Save File".
+
+      .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/GUI-modify-configuration-file-inference-success.png
+
+         Step 5: A success window should appear. Click on "OK".
+
+      .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/GUI-results-folder-and-job-name-inference.png
+
+         Step 6: Input the folder you wish to use to store the results of the workflow by clicking on the "Browse" button of "Output folder to save the results".
+
+      .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/GUI-results-folder-and-job-name-inference-filled.png
+
+         Step 7: Once filled, click on "Check File".
+
+      .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/GUI-results-folder-and-job-name-inference-success.png
+
+         Step 8: A success window should appear. Click on "OK" and then on "Run Workflow".
+
+
+     \
+
+     .. note:: BiaPy's GUI requires that all data and configuration files reside on the same machine where the GUI is being executed.
+
+
+     .. tip:: If you need additional help with the parameters of the GUI, watch BiaPy's `GUI walkthrough video <https://www.youtube.com/embed/vY7aBh5FUNk?si=yvVolBnu5APNeHwB>`__.
+
+   .. tab:: Google Colab
+
+     Open the BiaPy inference notebook `here <https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/BiaPy_Inference.ipynb>`__ and follow its instructions to run the prediction workflow.
+
+     .. tip:: If you need additional help, watch BiaPy's `Notebook walkthrough video <https://youtu.be/KEqfio-EnYw>`__.
 
    .. tab:: Galaxy
 
-      #. Open BiaPy in Galaxy: `launch link <https://imaging.usegalaxy.eu/?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fbiapy%2Fbiapy%2F3.6.5%2Bgalaxy0&version=latest>`__.
-      #. Upload your TIFF images, the YAML file, and the model checkpoint.
-      #. Select: ``Yes, I already have one and I want to run BiaPy directly``.
-      #. Select your config and checkpoint files.
-      #. Run the job and download test predictions.
+     Open BiaPy in Galaxy using this `launch link <https://imaging.usegalaxy.eu/?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fbiapy%2Fbiapy%2F3.6.5%2Bgalaxy0&version=latest>`__.
+
+     Then upload your TIFF images, the YAML configuration file, and the model checkpoint. Select ``Yes, I already have one and I want to run BiaPy directly``, choose your configuration and checkpoint files, and run the job to download the predictions.
 
    .. tab:: Docker
+
+     First, download the prediction configuration file :download:`ovarian-reserve-inference.yaml <ovarian-reserve-inference.yaml>` and prepare the pretrained model checkpoint (or your own trained checkpoint).
+
+     Next edit the configuration file to set the correct path to your test data folder (``DATA.TEST.PATH``) and the pretrained model (``PATHS.CHECKPOINT_FILE``).
+
+     Then, open a terminal as described in :ref:`installation` and execute the following commands:
 
       .. code-block:: bash
 
@@ -185,7 +230,16 @@ Run inference
                --run_id $job_counter \
                --gpu "$gpu_number"
 
-   .. tab:: CLI
+      .. note::
+          Note that ``data_dir`` must contain the folder pointed to by ``DATA.TEST.PATH`` so the container can find it. For instance, in this example ``DATA.TEST.PATH`` could be ``/home/user/raw_ovary``.
+
+   .. tab:: Command line
+
+      First, download the prediction configuration file :download:`ovarian-reserve-inference.yaml <ovarian-reserve-inference.yaml>` and prepare the pretrained model checkpoint (or your own trained checkpoint).
+
+      Next edit the configuration file to set the correct path to your test data folder (``DATA.TEST.PATH``) and the pretrained model (``PATHS.CHECKPOINT_FILE``).
+
+      Next, run the following commands from a terminal:
 
       .. code-block:: bash
 
@@ -204,7 +258,16 @@ Run inference
             --run_id $job_counter \
             --gpu "$gpu_number"
 
+      Before running the command, make sure to update the following parameters:
+
+        * ``job_cfg_file``: full path to the ovarian reserve prediction configuration file.
+        * ``result_dir``: full path to the folder where results will be stored. A new subfolder will be created within this folder for each run.
+        * ``job_name``: a name for your experiment. Tip: avoid using hyphens (``-``) or spaces in the name.
+        * ``job_counter``: a number to identify each execution of your experiment. Start with ``1`` and increase it if you run the experiment multiple times.
+
    .. tab:: API
+
+      If you prefer to integrate the workflow into your own Python code, you can run the same prediction setup through the **BiaPy** API once ``DATA.TEST.PATH`` and ``PATHS.CHECKPOINT_FILE`` are correctly defined in ``ovarian-reserve-inference.yaml``.
 
       .. code-block:: python
 
