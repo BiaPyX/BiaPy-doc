@@ -53,24 +53,11 @@ Our publication :cite:`ovarianreserve2025` presents a pipeline to map the entire
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-This tutorial uses two datasets:
+This tutorial uses two datasets. Note that they represent a **small but representative subset** of the full data described in :cite:`ovarianreserve2025` — the complete study involved many more labeled slices and full-ovary volumes. These subsets have been selected so that both training and inference can be completed in a **reasonable amount of time** on a standard GPU workstation.
 
-* **Inference dataset (Zenodo)**: ``raw_ovary.rar`` (13.0 GB) with seven full 3D ovaries (5, 10, 22, 31, 40, 50, and 60 weeks) in TIFF format: `Zenodo link <https://zenodo.org/records/19085211>`__.
+The datasets are presented in the natural order of the workflow: first the training data (used to learn the model), then the test data (used to evaluate it).
 
-  Once unrared, you should find the following directory tree:
-
-  .. code-block::
-
-    raw_ovary/
-    ├── w5_134934.tif
-    ├── w10_112648.tif
-    ├── w22_090202.tif
-    ├── w31_084030.tif
-    ├── w40_094116.tif
-    ├── w50_142422.tif
-    └── w60_155112.tif
-
-* **Training dataset (sample)**: ``oocyte_training.zip`` (240.9 MB) with paired raw/label slices for training or fine-tuning: `Google Drive link <https://drive.google.com/file/d/1xA2b9nY1KuIGC-ZjYg--MXQ8r8GSyOwP/view?usp=sharing>`__.
+* **Training dataset (sample)**: ``oocyte_training.zip`` (240.9 MB) containing a curated set of paired 2D raw and label slices extracted from 3D oocyte image stacks, sufficient to train or fine-tune the segmentation model: `Google Drive link <https://drive.google.com/file/d/1xA2b9nY1KuIGC-ZjYg--MXQ8r8GSyOwP/view?usp=sharing>`__.
 
   Once unzipped, you should find the following directory tree:
 
@@ -87,6 +74,21 @@ This tutorial uses two datasets:
         ├── 10W_105114_1.tif
         ├── ...
         └── 5W_150806_frame54.tif
+
+* **Test dataset (Zenodo)**: ``raw_ovary.rar`` (13.0 GB) containing seven full 3D ovary volumes covering a range of ages (5, 10, 22, 31, 40, 50, and 60 weeks) in TIFF format. These are a subset of the ovaries analyzed in the paper and serve as the held-out test set: `Zenodo link <https://zenodo.org/records/19085211>`__.
+
+  Once unrared, you should find the following directory tree:
+
+  .. code-block::
+
+    raw_ovary/
+    ├── w5_134934.tif
+    ├── w10_112648.tif
+    ├── w22_090202.tif
+    ├── w31_084030.tif
+    ├── w40_094116.tif
+    ├── w50_142422.tif
+    └── w60_155112.tif
 
 Quick start for non-expert users
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
