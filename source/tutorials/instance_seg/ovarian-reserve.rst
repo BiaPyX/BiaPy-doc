@@ -53,7 +53,7 @@ Our publication :cite:`ovarianreserve2025` presents a pipeline to map the entire
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-This tutorial uses two datasets. Note that they represent a **small but representative subset** of the full data described in :cite:`ovarianreserve2025` — the complete study involved many more labeled slices and full-ovary volumes. These subsets have been selected so that both training and inference can be completed in a **reasonable amount of time** on a standard GPU workstation.
+This tutorial uses two datasets. Note that they represent a **small but representative subset** of the full data described in :cite:`ovarianreserve2025` — the complete study involved many more labeled slices and full-ovary volumes. These subsets have been selected so that both training and inference (applying the model to new images to produce segmentations) can be completed in a **reasonable amount of time** on a standard GPU workstation.
 
 The datasets are presented in the natural order of the workflow: first the training data (used to learn the model), then the test data (used to evaluate it).
 
@@ -90,15 +90,16 @@ The datasets are presented in the natural order of the workflow: first the train
     ├── w50_142422.tif
     └── w60_155112.tif
 
-Quick start for non-expert users
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Quick start: run predictions on your own data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you only want to run inference with minimal setup:
+If this is your first time here and you simply want to apply the pretrained model to the provided data (a process called **inference**) with minimal setup, follow these steps:
 
-#. Download the Zenodo dataset and unzip it.
-#. Download the inference YAML file from this tutorial (link below).
-#. Edit only two fields in the YAML: ``DATA.TEST.PATH`` and ``PATHS.CHECKPOINT_FILE``.
-#. Run BiaPy using your preferred interface (GUI is usually the easiest first option).
+#. **Install BiaPy** if you have not done so yet. Follow the :ref:`installation guide <installation>` to set up your preferred interface (GUI, Docker, CLI, etc.). First-time users will find the **GUI** the easiest option. The pipeline described in :cite:`ovarianreserve2025` was developed using **BiaPy 3.6.3**; the steps in this tutorial should work with any version from 3.6.3 onwards.
+#. **Prepare your data** — use your own 3D TIFF ovary images, or, if you do not have your own data yet, download the provided test dataset: ``raw_ovary.rar`` (13.0 GB) from `Zenodo <https://zenodo.org/records/19085211>`__ and unrar it to obtain the ``raw_ovary/`` folder (see `Data preparation`_ above for the expected directory layout).
+#. **Download the prediction configuration file**: :download:`ovarian-reserve-inference.yaml <ovarian-reserve-inference.yaml>`.
+#. **Edit two paths** in the YAML: set ``DATA.TEST.PATH`` to your ``raw_ovary/`` folder and ``PATHS.CHECKPOINT_FILE`` to the pretrained model checkpoint (see the `Inference configuration`_ section for details).
+#. **Run BiaPy** using the interface of your choice — step-by-step instructions for every option (GUI, Colab, Galaxy, Docker, CLI, API) are in the `Run inference`_ section below.
 
 Image and data requirements
 ***************************
