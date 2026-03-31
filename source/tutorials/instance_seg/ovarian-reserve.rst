@@ -59,23 +59,33 @@ This tutorial uses two datasets. Note that they represent a **small but represen
 
 The datasets are presented in the natural order of the workflow: first the training data (used to learn the model), then the test data (used to evaluate it).
 
-* **Training dataset (sample)**: ``oocyte_training.zip`` (240.9 MB) containing a curated set of paired 3D raw and label image volumes, sufficient to train or fine-tune the segmentation model: `Google Drive link <https://drive.google.com/file/d/1xA2b9nY1KuIGC-ZjYg--MXQ8r8GSyOwP/view?usp=sharing>`__.
+* **Training dataset (sample)**: ``oocyte_training.zip`` (240.9 MB) containing a curated set of paired 3D raw and label image volumes split into training and validation subsets, sufficient to train or fine-tune the segmentation model: `OneDrive link <https://upvehueus-my.sharepoint.com/:u:/g/personal/ignacio_arganda_ehu_eus/IQBlTg1-y8MlSqwgDpLZuPAgAU5oE0HOqc6vjDK7vVh_xBM?e=MMgzZf&download=1>`__.
 
   Once unzipped, you should find the following directory tree:
 
   .. code-block::
 
     oocyte_training/
-    ├── raw/
-    │   ├── 10W_100330_frame70.tif
-    │   ├── 10W_105114_1.tif
-    │   ├── ...
-    │   └── 5W_150806_frame54.tif
-    └── label/
-        ├── 10W_100330_frame70.tif
-        ├── 10W_105114_1.tif
-        ├── ...
-        └── 5W_150806_frame54.tif
+    ├── train/
+    │   ├── raw/
+    │   │   ├── 10W_100330_frame70.tif
+    │   │   ├── 10W_105114_1.tif
+    │   │   ├── ...
+    │   │   └── 5W_150806_frame54.tif
+    │   └── label/
+    │       ├── 10W_100330_frame70.tif
+    │       ├── 10W_105114_1.tif
+    │       ├── ...
+    │       └── 5W_150806_frame54.tif
+    └── val/
+        ├── raw/
+        │   ├── 10W_100330_fram195.tif
+        │   ├── ...
+        │   └── 5W_130858_frame89.tif
+        └── label/
+            ├── 10W_100330_fram195.tif
+            ├── ...
+            └── 5W_130858_frame89.tif
 
 * **Test dataset (Zenodo)**: ``raw_ovary.rar`` (13.0 GB) containing seven full 3D ovary volumes covering a range of ages (5, 10, 22, 31, 40, 50, and 60 weeks) in TIFF format. These are a subset of the ovaries analyzed in the paper and serve as the held-out test set: `Zenodo link <https://zenodo.org/records/19085211>`__.
 
@@ -108,15 +118,15 @@ Model training
 
 Again, **BiaPy** offers different options to run this training workflow depending on your level of computer expertise. Select the one that is most appropriate for you:
 
-This training setup uses the **Google Drive sample dataset** (``oocyte_training.zip``) as training data and the **Zenodo ovary volumes** (``raw_ovary.rar``) as the test set (see `Data preparation`_).
+This training setup uses the **OneDrive sample dataset** (``oocyte_training.zip``) as training data and the **Zenodo ovary volumes** (``raw_ovary.rar``) as the test set (see `Data preparation`_).
 
 Download the training YAML file here:
 
-* :download:`ovarian-reserve-training.yaml <ovarian-reserve-training.yaml>`
+* :download:`ovarian_reserve_training.yaml <ovarian_reserve_training.yaml>`
 
-.. collapse:: Expand to preview ovarian-reserve-training.yaml
+.. collapse:: Expand to preview ovarian_reserve_training.yaml
 
-   .. literalinclude:: ovarian-reserve-training.yaml
+   .. literalinclude:: ovarian_reserve_training.yaml
       :language: yaml
 
 .. raw:: html
@@ -131,7 +141,7 @@ Download the training YAML file here:
 
    .. tab:: GUI
 
-      First, download the training configuration file :download:`ovarian-reserve-training.yaml <ovarian-reserve-training.yaml>`.
+      First, download the training configuration file :download:`ovarian_reserve_training.yaml <ovarian_reserve_training.yaml>`.
 
       Next, in BiaPy's GUI, follow the following instructions:
 
@@ -144,7 +154,7 @@ Download the training YAML file here:
 
         .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/GUI-load-and-modify-workflow.png
 
-            Step 1: Click on "Load and modify workflow" and select the ``ovarian-reserve-training.yaml`` file you just downloaded.
+            Step 1: Click on "Load and modify workflow" and select the ``ovarian_reserve_training.yaml`` file you just downloaded.
 
         .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/GUI-load-information.png
 
@@ -152,7 +162,7 @@ Download the training YAML file here:
 
         .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/GUI-modify-configuration-file-train.png
 
-            Step 3: Introduce the paths to your training raw and label data from ``oocyte_training/`` (Google Drive sample dataset), set the test path to ``raw_ovary/`` (Zenodo), and type a name for your modified configuration file (see `Data preparation`_; red boxes indicate missing information).
+            Step 3: Introduce the paths to your training raw and label data (``oocyte_training/train/raw/`` and ``oocyte_training/train/label/``), validation data (``oocyte_training/val/raw/`` and ``oocyte_training/val/label/``), set the test path to ``raw_ovary/`` (Zenodo), and type a name for your modified configuration file (see `Data preparation`_; red boxes indicate missing information).
 
         .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/GUI-modify-configuration-file-train-filled.png
 
@@ -184,7 +194,7 @@ Download the training YAML file here:
 
    .. tab:: Google Colab
 
-      For now, you can use the `BiaPy 3D Instance Segmentation notebook <https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_3D_Instance_Segmentation.ipynb>`__ in Google Colab and match its existing options to the same setup defined in :download:`ovarian-reserve-training.yaml <ovarian-reserve-training.yaml>` (training data from ``oocyte_training/`` and test data from ``raw_ovary/``; see `Data preparation`_).
+      For now, you can use the `BiaPy 3D Instance Segmentation notebook <https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_3D_Instance_Segmentation.ipynb>`__ in Google Colab and match its existing options to the same setup defined in :download:`ovarian_reserve_training.yaml <ovarian_reserve_training.yaml>` (training data from ``oocyte_training/train/``, validation data from ``oocyte_training/val/``, and test data from ``raw_ovary/``; see `Data preparation`_).
 
       .. tip:: If you need additional help, watch BiaPy's `Notebook walkthrough video <https://youtu.be/KEqfio-EnYw>`__.
 
@@ -192,17 +202,17 @@ Download the training YAML file here:
 
       Open BiaPy in Galaxy using this `launch link <https://imaging.usegalaxy.eu/?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fbiapy%2Fbiapy%2F3.6.5%2Bgalaxy0&version=latest>`__.
 
-      Then upload your training raw/label images from ``oocyte_training/``, upload the test volumes from ``raw_ovary/`` (see `Data preparation`_), select :download:`ovarian-reserve-training.yaml <ovarian-reserve-training.yaml>` as configuration file, and run the job.
+      Then upload your training raw/label images from ``oocyte_training/train/``, validation raw/label images from ``oocyte_training/val/``, upload the test volumes from ``raw_ovary/`` (see `Data preparation`_), select :download:`ovarian_reserve_training.yaml <ovarian_reserve_training.yaml>` as configuration file, and run the job.
 
    .. tab:: Docker
 
-      First, download the training configuration file :download:`ovarian-reserve-training.yaml <ovarian-reserve-training.yaml>` and edit it to set the correct paths to the training data and labels from ``oocyte_training/`` and the test set from ``raw_ovary/`` (see `Data preparation`_).
+      First, download the training configuration file :download:`ovarian_reserve_training.yaml <ovarian_reserve_training.yaml>` and edit it to set the correct paths to ``oocyte_training/train/raw/``, ``oocyte_training/train/label/``, ``oocyte_training/val/raw/``, ``oocyte_training/val/label/`` and the test set from ``raw_ovary/`` (see `Data preparation`_).
 
       Then, open a terminal as described in :ref:`installation` and execute the following commands:
 
       .. code-block:: bash
 
-         job_cfg_file=/home/user/ovarian-reserve-training.yaml
+         job_cfg_file=/home/user/ovarian_reserve_training.yaml
          data_dir=/home/user/data
          result_dir=/home/user/exp_results
          job_name=my_ovarian_reserve_training
@@ -223,17 +233,17 @@ Download the training YAML file here:
                --gpu "$gpu_number"
 
       .. note::
-          Note that ``data_dir`` must contain all the paths referenced by ``DATA.TRAIN.PATH``, ``DATA.TRAIN.GT_PATH`` and ``DATA.TEST.PATH`` so the container can find them.
+          Note that ``data_dir`` must contain all the paths referenced by ``DATA.TRAIN.PATH``, ``DATA.TRAIN.GT_PATH``, ``DATA.VAL.PATH``, ``DATA.VAL.GT_PATH`` and ``DATA.TEST.PATH`` so the container can find them.
 
    .. tab:: Command line
 
-      First, download the training configuration file :download:`ovarian-reserve-training.yaml <ovarian-reserve-training.yaml>` and edit it to set the correct paths to the training data and labels from ``oocyte_training/`` and the test set from ``raw_ovary/`` (see `Data preparation`_).
+      First, download the training configuration file :download:`ovarian_reserve_training.yaml <ovarian_reserve_training.yaml>` and edit it to set the correct paths to ``oocyte_training/train/raw/``, ``oocyte_training/train/label/``, ``oocyte_training/val/raw/``, ``oocyte_training/val/label/`` and the test set from ``raw_ovary/`` (see `Data preparation`_).
 
       Next, run the following commands from a terminal:
 
       .. code-block:: bash
 
-         job_cfg_file=/home/user/ovarian-reserve-training.yaml
+         job_cfg_file=/home/user/ovarian_reserve_training.yaml
          result_dir=/home/user/exp_results
          job_name=my_ovarian_reserve_training
          job_counter=1
@@ -257,13 +267,13 @@ Download the training YAML file here:
 
    .. tab:: API
 
-      If you prefer to integrate the workflow into your own Python code, you can run the same training setup through the **BiaPy** API once ``DATA.TRAIN.PATH``, ``DATA.TRAIN.GT_PATH`` and ``DATA.TEST.PATH`` are correctly defined in :download:`ovarian-reserve-training.yaml <ovarian-reserve-training.yaml>` (see `Data preparation`_).
+      If you prefer to integrate the workflow into your own Python code, you can run the same training setup through the **BiaPy** API once ``DATA.TRAIN.PATH``, ``DATA.TRAIN.GT_PATH``, ``DATA.VAL.PATH``, ``DATA.VAL.GT_PATH`` and ``DATA.TEST.PATH`` are correctly defined in :download:`ovarian_reserve_training.yaml <ovarian_reserve_training.yaml>` (see `Data preparation`_).
 
       .. code-block:: python
 
          from biapy import BiaPy
 
-         config_path = "/home/user/ovarian-reserve-training.yaml"
+         config_path = "/home/user/ovarian_reserve_training.yaml"
          result_dir = "/home/user/exp_results"
          job_name = "my_ovarian_reserve_training"
 
@@ -278,11 +288,11 @@ Again, **BiaPy** offers different options to run this prediction workflow (also 
 
 Download the prediction YAML file here:
 
-* :download:`ovarian-reserve-inference.yaml <ovarian-reserve-inference.yaml>`
+* :download:`ovarian_reserve_inference.yaml <ovarian_reserve_inference.yaml>`
 
-.. collapse:: Expand to preview ovarian-reserve-inference.yaml
+.. collapse:: Expand to preview ovarian_reserve_inference.yaml
 
-   .. literalinclude:: ovarian-reserve-inference.yaml
+   .. literalinclude:: ovarian_reserve_inference.yaml
       :language: yaml
 
 .. raw:: html
@@ -297,7 +307,7 @@ Download the prediction YAML file here:
 
    .. tab:: GUI
 
-      First, download the prediction configuration file :download:`ovarian-reserve-inference.yaml <ovarian-reserve-inference.yaml>` and prepare a pretrained ``.pth`` model checkpoint (either your own from `Model training`_ or a future official release).
+      First, download the prediction configuration file :download:`ovarian_reserve_inference.yaml <ovarian_reserve_inference.yaml>` and prepare a pretrained ``.pth`` model checkpoint (either your own from `Model training`_ or a future official release).
 
       Next, in BiaPy's GUI, follow the following instructions:
 
@@ -310,7 +320,7 @@ Download the prediction YAML file here:
 
         .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/GUI-load-and-modify-workflow.png
 
-            Step 1: Click on "Load and modify workflow" and select the ``ovarian-reserve-inference.yaml`` file you just downloaded.
+            Step 1: Click on "Load and modify workflow" and select the ``ovarian_reserve_inference.yaml`` file you just downloaded.
 
         .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/GUI-load-information.png
 
@@ -350,7 +360,7 @@ Download the prediction YAML file here:
 
    .. tab:: Google Colab
 
-      Open the BiaPy inference notebook `here <https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/BiaPy_Inference.ipynb>`__ and follow its instructions to run the prediction workflow with :download:`ovarian-reserve-inference.yaml <ovarian-reserve-inference.yaml>`.
+      Open the BiaPy inference notebook `here <https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/BiaPy_Inference.ipynb>`__ and follow its instructions to run the prediction workflow with :download:`ovarian_reserve_inference.yaml <ovarian_reserve_inference.yaml>`.
 
       .. tip:: If you need additional help, watch BiaPy's `Notebook walkthrough video <https://youtu.be/KEqfio-EnYw>`__.
 
@@ -358,17 +368,17 @@ Download the prediction YAML file here:
 
       Open BiaPy in Galaxy using this `launch link <https://imaging.usegalaxy.eu/?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fbiapy%2Fbiapy%2F3.6.5%2Bgalaxy0&version=latest>`__.
 
-      Then upload your TIFF images from ``raw_ovary/`` (see `Data preparation`_), upload :download:`ovarian-reserve-inference.yaml <ovarian-reserve-inference.yaml>`, provide the checkpoint file, and run the job to download the predictions.
+      Then upload your TIFF images from ``raw_ovary/`` (see `Data preparation`_), upload :download:`ovarian_reserve_inference.yaml <ovarian_reserve_inference.yaml>`, provide the checkpoint file, and run the job to download the predictions.
 
    .. tab:: Docker
 
-      First, download the prediction configuration file :download:`ovarian-reserve-inference.yaml <ovarian-reserve-inference.yaml>` and prepare a pretrained checkpoint. Next edit the configuration file to set the correct path to your test data folder from ``raw_ovary/`` (``DATA.TEST.PATH``) and the pretrained model (``PATHS.CHECKPOINT_FILE``).
+      First, download the prediction configuration file :download:`ovarian_reserve_inference.yaml <ovarian_reserve_inference.yaml>` and prepare a pretrained checkpoint. Next edit the configuration file to set the correct path to your test data folder from ``raw_ovary/`` (``DATA.TEST.PATH``) and the pretrained model (``PATHS.CHECKPOINT_FILE``).
 
       Then, open a terminal as described in :ref:`installation` and execute the following commands:
 
       .. code-block:: bash
 
-         job_cfg_file=/home/user/ovarian-reserve-inference.yaml
+         job_cfg_file=/home/user/ovarian_reserve_inference.yaml
          data_dir=/home/user/raw_ovary
          result_dir=/home/user/exp_results
          job_name=my_ovarian_reserve_test
@@ -393,13 +403,13 @@ Download the prediction YAML file here:
 
    .. tab:: Command line
 
-      First, download the prediction configuration file :download:`ovarian-reserve-inference.yaml <ovarian-reserve-inference.yaml>` and prepare a pretrained checkpoint. Next edit the configuration file to set the correct path to your test data folder from ``raw_ovary/`` (``DATA.TEST.PATH``) and the pretrained model (``PATHS.CHECKPOINT_FILE``; see `Data preparation`_).
+      First, download the prediction configuration file :download:`ovarian_reserve_inference.yaml <ovarian_reserve_inference.yaml>` and prepare a pretrained checkpoint. Next edit the configuration file to set the correct path to your test data folder from ``raw_ovary/`` (``DATA.TEST.PATH``) and the pretrained model (``PATHS.CHECKPOINT_FILE``; see `Data preparation`_).
 
       Next, run the following commands from a terminal:
 
       .. code-block:: bash
 
-         job_cfg_file=/home/user/ovarian-reserve-inference.yaml
+         job_cfg_file=/home/user/ovarian_reserve_inference.yaml
          result_dir=/home/user/exp_results
          job_name=my_ovarian_reserve_test
          job_counter=1
@@ -423,13 +433,13 @@ Download the prediction YAML file here:
 
    .. tab:: API
 
-      If you prefer to integrate the workflow into your own Python code, you can run the same prediction setup through the **BiaPy** API once ``DATA.TEST.PATH`` and ``PATHS.CHECKPOINT_FILE`` are correctly defined in :download:`ovarian-reserve-inference.yaml <ovarian-reserve-inference.yaml>` (see `Data preparation`_).
+      If you prefer to integrate the workflow into your own Python code, you can run the same prediction setup through the **BiaPy** API once ``DATA.TEST.PATH`` and ``PATHS.CHECKPOINT_FILE`` are correctly defined in :download:`ovarian_reserve_inference.yaml <ovarian_reserve_inference.yaml>` (see `Data preparation`_).
 
       .. code-block:: python
 
          from biapy import BiaPy
 
-         config_path = "/home/user/ovarian-reserve-inference.yaml"
+         config_path = "/home/user/ovarian_reserve_inference.yaml"
          result_dir = "/home/user/exp_results"
          job_name = "my_ovarian_reserve_test"
 
@@ -444,7 +454,7 @@ Results
 
     my_ovarian_reserve_training/
     ├── config_files/
-    │   └── ovarian-reserve-training.yaml
+    │   └── ovarian_reserve_training.yaml
     ├── checkpoints/
     │   └── my_ovarian_reserve_training_1-checkpoint-best.pth
     ├── train_logs/
@@ -467,7 +477,7 @@ Where:
 
     my_ovarian_reserve_test/
     ├── config_files/
-    │   └── ovarian-reserve-inference.yaml
+    │   └── ovarian_reserve_inference.yaml
     └── results/
         └── my_ovarian_reserve_test_1/
             ├── per_image/
