@@ -24,7 +24,7 @@ If you still need to install BiaPy, follow the :ref:`installation guide <install
 
 .. note::
 
-   The pretrained model checkpoint will be published as soon as possible (BioImage Model Zoo and direct PyTorch file). In the meantime, you can train your own model using the provided training dataset and YAML file (see below).
+   A **pretrained model** is now available for download. You can download it from `this SharePoint link <https://upvehueus-my.sharepoint.com/:u:/g/personal/ignacio_arganda_ehu_eus/IQBqhycRQT1zTakayPKsyJLqAXzibIJSV_xIKADXYnLP3zM?e=0LVuyn>`__. This allows you to directly apply the model to your own ovary images without training from scratch. Alternatively, you can train your own model using the provided training dataset and YAML file (see below).
 
 Paper overview
 ~~~~~~~~~~~~~~
@@ -194,9 +194,14 @@ Download the training YAML file here:
 
    .. tab:: Google Colab
 
-      For now, you can use the `BiaPy 3D Instance Segmentation notebook <https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/BiaPy_3D_Instance_Segmentation.ipynb>`__ in Google Colab and match its existing options to the same setup defined in :download:`ovarian_reserve_training.yaml <ovarian_reserve_training.yaml>` (training data from ``oocyte_training/train/``, validation data from ``oocyte_training/val/``, and test data from ``raw_ovary/``; see `Data preparation`_).
+         .. |ovarian_reserve_train_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+               :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/Ovarian_Reserve/Ovarian_Reserve_Training_workflow.ipynb
 
-      .. tip:: If you need additional help, watch BiaPy's `Notebook walkthrough video <https://youtu.be/KEqfio-EnYw>`__.
+         Open the ovarian reserve training notebook in Google Colab: |ovarian_reserve_train_colablink|
+
+         This notebook is tailored to this tutorial and guides you through training in a step-by-step way, including where to place your training (``oocyte_training/train/``), validation (``oocyte_training/val/``), and test data (``raw_ovary/``).
+
+         .. tip:: If you need additional help, watch BiaPy's `Notebook walkthrough video <https://youtu.be/KEqfio-EnYw>`__.
 
    .. tab:: Galaxy
 
@@ -301,13 +306,13 @@ Download the prediction YAML file here:
 
 .. note::
 
-   If you do not have a checkpoint yet, you can generate one by following `Model training`_.
+   If you do not have a checkpoint yet, you can download the pretrained model from `this SharePoint link <https://upvehueus-my.sharepoint.com/:u:/g/personal/ignacio_arganda_ehu_eus/IQBqhycRQT1zTakayPKsyJLqAXzibIJSV_xIKADXYnLP3zM?e=0LVuyn>`__. You can also generate your own checkpoint by following `Model training`_.
 
 .. tabs::
 
    .. tab:: GUI
 
-      First, download the prediction configuration file :download:`ovarian_reserve_inference.yaml <ovarian_reserve_inference.yaml>` and prepare a pretrained ``.pth`` model checkpoint (either your own from `Model training`_ or a future official release).
+      First, download the prediction configuration file :download:`ovarian_reserve_inference.yaml <ovarian_reserve_inference.yaml>` and prepare a pretrained ``.pth`` model checkpoint (either your own from `Model training`_ or the provided pretrained model from the SharePoint link above).
 
       Next, in BiaPy's GUI, follow the following instructions:
 
@@ -360,9 +365,14 @@ Download the prediction YAML file here:
 
    .. tab:: Google Colab
 
-      Open the BiaPy inference notebook `here <https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/BiaPy_Inference.ipynb>`__ and follow its instructions to run the prediction workflow with :download:`ovarian_reserve_inference.yaml <ovarian_reserve_inference.yaml>`.
+         .. |ovarian_reserve_inference_colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
+               :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/notebooks/instance_segmentation/Ovarian_Reserve/Ovarian_Reserve_Inference_workflow.ipynb
 
-      .. tip:: If you need additional help, watch BiaPy's `Notebook walkthrough video <https://youtu.be/KEqfio-EnYw>`__.
+         Open the ovarian reserve inference notebook in Google Colab: |ovarian_reserve_inference_colablink|
+
+         This notebook is focused on prediction (inference). You will load your ovary images, provide a model checkpoint (for example, the pretrained model linked above), and generate the oocyte instance segmentations.
+
+         .. tip:: If you need additional help, watch BiaPy's `Notebook walkthrough video <https://youtu.be/KEqfio-EnYw>`__.
 
    .. tab:: Galaxy
 
