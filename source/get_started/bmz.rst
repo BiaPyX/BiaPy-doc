@@ -15,80 +15,57 @@ Graphical user interface
 Import
 ******
 
-In the graphical user interface (GUI), there are two locations where you can explore and **import** compatible models.
+In the graphical user interface (GUI), you can explore and **import** compatible models through the Wizard. From the home screen, you can start the Wizard by clicking on the **Wizard** tab on the left side of the GUI, or by clicking the **Wizard** button at the bottom of the screen (displaying a **"Let me help you out!"** message).
 
-* **From the Wizard**:
+Once in the Wizard, follow these steps:
 
-  #. Specify the image dimensions.
-  #. Select the workflow you want to create.
-  #. You'll encounter the **"Model source"** prompt. Select the third option: **"Yes, I want to check if there is a pretrained model I can use"**.
-  #. This will trigger a follow-up question, prompting you to search for pretrained models, including those from the BioImage Model Zoo. Click on the **"Check models"** button to initiate the search for models compatible with BiaPy. The search process requires an internet connection and may take a few minutes.
-  #. Once the search is complete, a **new window** will display a list of models available for use in BiaPy, filtered by the selected workflow and image dimensions.
+#. Specify the path and name of your configuration file and click on **"Start"**.
+#. Answer whether your images are in 3D.
+#. Select the workflow you want to create.
+#. You'll encounter the **"Do you want to use a pre-trained model?"** prompt. Select **"Yes, I want to check if there is a pretrained model I can use"**.
+#. Click on the **"Check models"** button to initiate the search for models compatible with BiaPy. The search process requires an internet connection and may take a few minutes.
+#. Once the search is complete, a **new window** will display a list of models available for use in BiaPy, filtered by the selected workflow and image dimensions. Double-click on a model to select it.
 
-  Find a depiction of these steps below:
+Find a depiction of these steps below:
 
-  .. carousel::
-    :show_controls:
-    :show_captions_below:
-    :data-bs-interval: false
-    :show_indicators:
-    :show_dark:
+.. carousel::
+  :show_controls:
+  :show_captions_below:
+  :data-bs-interval: false
+  :show_indicators:
+  :show_dark:
 
-    .. figure:: ../img/bmz/bmz_gui_step1.png
+  .. figure:: ../img/bmz/bmz_gui_step1.png
 
-        Step 0: Specify the path and name of your configuration file
+      Step 0: Specify the path and name of your configuration file and click on "Start".
 
-    .. figure:: ../img/bmz/bmz_gui_step2.png
+  .. figure:: ../img/bmz/bmz_gui_step2.png
 
-        Step 1: Select your image dimensions (2D or 3D)
+      Step 1: Answer whether your images are in 3D.
 
-    .. figure:: ../img/bmz/bmz_gui_step3.png
+  .. figure:: ../img/bmz/bmz_gui_step3.png
 
-        Step 2: Indicate which workflow you want to create
+      Step 2: Select the workflow you want to create.
 
-    .. figure:: ../img/bmz/bmz_gui_step4.png
+  .. figure:: ../img/bmz/bmz_gui_step4.png
 
-        Step 3: Specify you want to look for pretrained models
+      Step 3: Specify you want to look for pretrained models.
 
-    .. figure:: ../img/bmz/bmz_gui_step5.png
+  .. figure:: ../img/bmz/bmz_gui_step5.png
 
-        Step 4: Click on "Check models"
+      Step 4: Click on "Check models".
 
-    .. figure:: ../img/bmz/bmz_gui_step6.png
+  .. figure:: ../img/bmz/bmz_gui_step6.png
 
-        Step 5: Select a model from the list by double-clicking on it
-        
+      Step 5: Select a model from the list by double-clicking on it.
 
-* **Outside of the Wizard**:
+You can also check our video tutorial on how to import a BMZ model in the GUI using as example the 2D instance segmentation workflow:
 
-  #. Go to the **"Generic options"** screen.
-  #. Select **"Yes"** for the **"Load pretrained model"** question.
-  #. Then choose **"I want to check other online sources"** under **"Source of the model"**. This will activate the **"Model ID"** option, where you will see a button labeled **"Check models"**.
-  #. Clicking this button, similar to the Wizard, will begin the search for models compatible with BiaPy. This process requires an internet connection and may take a few minutes. Once complete, a **new window** will show the models available for use in BiaPy based on the selected workflow and image dimensions.
-  
-  Here you have a depiction of the steps you need to follow:
+.. raw:: html
 
-  .. carousel::
-    :show_controls:
-    :show_captions_below:
-    :data-bs-interval: false
-    :show_indicators:
-    :show_dark:
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Zq50Ew1s8ag?si=ejnhoKM8cb83NlQx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-    .. figure:: ../img/bmz/bmz_gui_no_wizard_step1.png
 
-        In *General options* > *Checkpoint configuration* > *Source of the model*, select "I want to check other online sources"
-
-    .. figure:: ../img/bmz/bmz_gui_no_wizard_step2.png
-
-        Click on "Check models" and select a model from the pop-up list by double-clicking on it
-
-  You can also check our video tutorial on how to import a BMZ model in the GUI using as example the 2D instance segmentation workflow:
-
-  .. raw:: html
-
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/Zq50Ew1s8ag?si=ejnhoKM8cb83NlQx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-  
 
 Export
 ******
