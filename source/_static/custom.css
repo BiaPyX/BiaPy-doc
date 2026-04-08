@@ -17,3 +17,8 @@
     /* Keep the inline code from scrolling horizontally */
     white-space: pre-wrap;
 }
+
+/* Style collapse titles like "Expand to see how to configure" */
+details.summary-expand-to-see-how-to-configure > summary {
+    color: #1D5C87;
+}
