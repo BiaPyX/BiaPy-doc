@@ -344,6 +344,16 @@ In case you have troubles with BiaPy's GUI, you can find instructions on how to 
 
      This is a `known issue <https://support.apple.com/en-gb/guide/mac-help/mchleab3a043/mac>`__ that can be easily bypassed by following these :ref:`instructions <macos_malicious_error>`.
 
+* When running BiaPy from the GUI on Windows, none of the Docker containers start and you get an error like this:
+
+    .. code-block:: bash
+
+        docker.errors.APIError: 400 Client Error for http+docker://localnpipe/v1.49/containers/create: Bad Request ("range of CPUs is from 0.01 to 2.00, as there are only 2 CPUs available")
+
+  This usually means that the value configured in the GUI for **Number of CPUs** is higher than the number of CPUs Docker is exposing on that machine. In the GUI, go to **Advanced options** and reduce **Number of CPUs** to a value Docker accepts, for example ``1`` or ``2``.
+
+  This workaround was confirmed for CPU execution on an older Windows workstation where Docker only detected two CPUs, even though the machine had more physical cores available.
+
 * When running BiaPy, as it is starting and after downloading you may get the following error: 
 
     .. code-block:: bash
