@@ -6,4 +6,3 @@ biapy.data.post_processing
 
    init
    post_processing
-   smooth_tiled_predictions
