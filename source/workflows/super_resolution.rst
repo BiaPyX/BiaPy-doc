@@ -43,10 +43,8 @@ The super-resolution workflows in BiaPy expect a series of **folders** as input:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Super-resolution*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder** and select the folder with your trraining low-resultion images:
+        In the current BiaPy GUI, this option is defined through the *Wizard* questions. Alternatively, you can edit the ``DATA.TRAIN.PATH`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-        .. image:: ../img/super-resolution/GUI-train-general-options.png
-          :align: center
 
       .. tab:: Google Colab / Notebooks
         
@@ -69,10 +67,8 @@ The super-resolution workflows in BiaPy expect a series of **folders** as input:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Super-resolution*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input high-resolution image folder** and select the folder with your training high-resolution images:
+        In the current BiaPy GUI, this option is defined through the *Wizard* questions. Alternatively, you can edit the ``DATA.TRAIN.GT_PATH`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-        .. image:: ../img/super-resolution/GUI-train-general-options.png
-          :align: center
 
       .. tab:: Google Colab / Notebooks
         
@@ -95,10 +91,8 @@ The super-resolution workflows in BiaPy expect a series of **folders** as input:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Super-resolution*, three times *Continue*, under *General options* > *Test data*, click on the *Browse* button of **Input raw image folder** and select the folder with your test low-resolution images:
+        In the current BiaPy GUI, this option is defined through the *Wizard* questions. Alternatively, you can edit the ``DATA.TEST.PATH`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-        .. image:: ../img/super-resolution/GUI-test-data.png
-          :align: center
 
       .. tab:: Google Colab / Notebooks
         
@@ -121,10 +115,8 @@ The super-resolution workflows in BiaPy expect a series of **folders** as input:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Super-resolution*, three times *Continue*, under *General options* > *Test data*, select "Yes" in the *Do you have high-resolution test data?* field, and then click on the *Browse* button of **Input high-resolution image folder** and select the folder with your test high-resolution images:
+        In the current BiaPy GUI, this option is defined through the *Wizard* questions. Alternatively, you can edit the ``DATA.TEST.GT_PATH`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-        .. image:: ../img/super-resolution/GUI-test-data-gt.png
-          :align: center
 
       .. tab:: Google Colab / Notebooks
         
@@ -241,7 +233,7 @@ Below is a list of publicly available datasets that are ready to be used in BiaP
 
 Minimal configuration
 ~~~~~~~~~~~~~~~~~~~~~
-Apart from the input and output folders, there are a few basic parameters that always need to be specified in order to run an super-resolution workflow in BiaPy. **These parameters can be introduced either directly in the GUI, the code-free notebooks or by editing the YAML configuration file**.
+Apart from the input and output folders, there are a few basic parameters that always need to be specified in order to run an super-resolution workflow in BiaPy. **Depending on the parameter, they can be defined through the GUI Wizard, in the code-free notebooks, or by editing the YAML configuration file**.
 
 Experiment name
 ***************
@@ -301,10 +293,8 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train prop. for validation**:
+          In the current BiaPy GUI, this option is configured by editing the ``DATA.VAL.SPLIT_TRAIN`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-          .. image:: ../img/GUI-validation-percentage.png
-            :align: center
 
         .. tab:: Google Colab / Notebooks
           
@@ -327,10 +317,8 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw (LR) images:
+          In the current BiaPy GUI, this option is configured by editing the ``DATA.VAL.PATH`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-          .. image:: ../img/super-resolution/GUI-validation-paths.png
-            :align: center
 
         .. tab:: Google Colab / Notebooks
           
@@ -347,10 +335,8 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input high-resolution image folder** and select the folder containing your validation HR images:
+          In the current BiaPy GUI, this option is configured by editing the ``DATA.VAL.GT_PATH`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-          .. image:: ../img/super-resolution/GUI-validation-paths.png
-            :align: center
 
         .. tab:: Google Colab / Notebooks
           
@@ -371,10 +357,8 @@ Do you have HR images for the test set? This is a key question so BiaPy knows if
   .. tabs::
     .. tab:: GUI
 
-      Under *Workflow*, select *Super-resolution*, three times *Continue*, under *General options* > *Test data*, select "Yes" or "No" in the **Do you have high-resolution test data?** field:
+      In the current BiaPy GUI, this option is defined through the *Wizard* questions. Alternatively, you can edit the ``DATA.TEST.LOAD_GT`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-      .. image:: ../img/super-resolution/GUI-test-data.png
-        :align: center
 
     .. tab:: Google Colab / Notebooks
       
@@ -403,10 +387,8 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Super-resolution*, click on *Continue*, and under *General options*, edit the last value of the field **Data patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
+            In the current BiaPy GUI, this option is configured by editing the ``DATA.PATCH_SIZE`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-            .. image:: ../img/super-resolution/GUI-general-options.png
-              :align: center
 
           .. tab:: Google Colab / Notebooks
             
@@ -427,10 +409,8 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *Workflow specific options*, and edit the values of the field **Upscaling** with the scale factor for each dimension. This variable follows a ``(y, x)`` notation in 2D and a ``(z, y, x)`` notation in 3D:
+            In the current BiaPy GUI, this option is configured by editing the ``PROBLEM.SUPER_RESOLUTION.UPSCALING`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-            .. image:: ../img/super-resolution/GUI-workflow-specific-options.png
-              :align: center
 
           .. tab:: Google Colab / Notebooks
             
@@ -458,10 +438,8 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
+            In the current BiaPy GUI, this option is configured by editing the ``TRAIN.EPOCHS`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-            .. image:: ../img/super-resolution/GUI-basic-training-params.png
-              :align: center
 
           .. tab:: Google Colab / Notebooks
             
@@ -482,10 +460,8 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Super-resolution*, click twice on *Continue*, and under *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
+            In the current BiaPy GUI, this option is configured by editing the ``TRAIN.PATIENCE`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-            .. image:: ../img/super-resolution/GUI-basic-training-params.png
-              :align: center
 
           .. tab:: Google Colab / Notebooks
             

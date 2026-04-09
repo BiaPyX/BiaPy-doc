@@ -43,10 +43,8 @@ The self-supervision workflows in BiaPy expect a **folder** as input:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Self-supervised learning*, twice *Continue*, under *General options* > *Train data*, click on the *Browse* button of **Input raw image folder** and select the folder with your (pre-)training raw images:
+        In the current BiaPy GUI, this option is defined through the *Wizard* questions. Alternatively, you can edit the ``DATA.TRAIN.PATH`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-        .. image:: ../img/self-supervised/GUI-train-general-options.png
-          :align: center
 
       .. tab:: Google Colab / Notebooks
         
@@ -147,7 +145,7 @@ Below is a list of publicly available datasets that are ready to be used in BiaP
 
 Minimal configuration
 ~~~~~~~~~~~~~~~~~~~~~
-Apart from the input and output folders, there are a few basic parameters that always need to be specified in order to run a self-supervised learning workflow in BiaPy. **These parameters can be introduced either directly in the GUI, the code-free notebooks or by editing the YAML configuration file**.
+Apart from the input and output folders, there are a few basic parameters that always need to be specified in order to run a self-supervised learning workflow in BiaPy. **Depending on the parameter, they can be defined through the GUI Wizard, in the code-free notebooks, or by editing the YAML configuration file**.
 
 Experiment name
 ***************
@@ -207,10 +205,8 @@ To define such set, there are two options:
       .. tabs::
         .. tab:: GUI
 
-          Under *Workflow*, select *Self-supervised learning*, click twice on *Continue*, and under *Advanced options* > *Validation data*, select "Extract from train (split training)" in **Validation type**, and introduce your value (between 0 and 1) in the **Train prop. for validation**:
+          In the current BiaPy GUI, this option is configured by editing the ``DATA.VAL.SPLIT_TRAIN`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-          .. image:: ../img/GUI-validation-percentage.png
-            :align: center
 
         .. tab:: Google Colab / Notebooks
           
@@ -232,10 +228,8 @@ To define such set, there are two options:
     .. tabs::
       .. tab:: GUI
 
-        Under *Workflow*, select *Self-supervised learning*, click twice on *Continue*, and under *Advanced options* > *Validation data*, select "Not extracted from train (path needed)" in **Validation type**, click on the *Browse* button of **Input raw image folder** and select the folder containing your validation raw images:
+        In the current BiaPy GUI, this option is configured by editing the ``DATA.VAL.PATH`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-        .. image:: ../img/self-supervised/GUI-validation-paths.png
-          :align: center
 
       .. tab:: Google Colab / Notebooks
         
@@ -258,10 +252,8 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Self-supervised learning*, click twice on *Continue*, and under *Workflow specific options* > *Pretext task options*, edit the **Type of task** field by selecting "masking" or "crappify":
+            In the current BiaPy GUI, this option is configured by editing the ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-            .. image:: ../img/self-supervised/GUI-workflow-specific-options.png
-              :align: center
 
           .. tab:: Google Colab / Notebooks
             
@@ -281,10 +273,8 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Self-supervised learning*, click once on *Continue*, and under *General options*, edit the last value of the field **Patch size** with the number of channels. This variable follows a ``(y, x, channels)`` notation in 2D and a ``(z, y, x, channels)`` notation in 3D:
+            In the current BiaPy GUI, this option is configured by editing the ``DATA.PATCH_SIZE`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-            .. image:: ../img/GUI-general-options.png
-              :align: center
 
           .. tab:: Google Colab / Notebooks
             
@@ -304,10 +294,8 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Self-supervised learning*, click twice on *Continue*, and under *Advanced options*, scroll down to *General training parameters*, and edit the field **Number of epochs**:
+            In the current BiaPy GUI, this option is configured by editing the ``TRAIN.EPOCHS`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-            .. image:: ../img/self-supervised/GUI-basic-training-params.png
-              :align: center
 
           .. tab:: Google Colab / Notebooks
             
@@ -327,10 +315,8 @@ At the core of each BiaPy workflow there is a deep learning model. Although we t
         .. tabs::
           .. tab:: GUI
 
-            Under *Workflow*, select *Self-supervised learning*, click twice on *Continue*, and under *Advanced options*, scroll down to *General training parameters*, and edit the field **Patience**:
+            In the current BiaPy GUI, this option is configured by editing the ``TRAIN.PATIENCE`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
 
-            .. image:: ../img/self-supervised/GUI-basic-training-params.png
-              :align: center
 
           .. tab:: Google Colab / Notebooks
             
