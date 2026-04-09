@@ -256,6 +256,40 @@ General errors
   To sort it out increase the number of open files with the command ``ulimit -Sn 10000``. You can check the limits typing ``ulimit -a``. Add it to your ``~/.bashrc`` file to ensure the change it's permanent.
 
 
+* **In Windows, BiaPy running through Docker may stop with a ``Killed`` error when processing large images**
+
+    If you are using Docker Desktop on Windows and BiaPy stops during inference or training of large images with an error similar to this one:
+
+    .. code-block:: bash
+
+        /tmp/tmp8z1ohrf7: line 3: 16 Killed python3 -u /installations/BiaPy/main.py --config /BiaPy_files/input.yaml --result_dir /path/to/results --name input_modified --run_id 1 --dist_backend gloo
+        ERROR conda.cli.main_run:execute(127): conda run python3 -u /installations/BiaPy/main.py --config /BiaPy_files/input.yaml --result_dir /path/to/results --name input_modified --run_id 1 --dist_backend gloo failed. (See above for error)
+
+    the problem may be caused by the WSL2 resource limits used by Docker rather than by the BiaPy configuration itself. In that case, check the file ``C:\Users\<YOUR_USERNAME>\.wslconfig`` and make sure it allocates enough resources to WSL2. For example:
+
+    .. code-block:: ini
+
+        [wsl2]
+        memory=64GB
+        processors=16
+        swap=32GB
+
+    After editing the file, apply the new limits from Windows PowerShell with:
+
+    .. code-block:: powershell
+
+        wsl --shutdown
+
+    Then restart Docker Desktop and verify the available resources inside the container with:
+
+    .. code-block:: bash
+
+        free -h
+        nproc
+
+    If the reported memory or CPU count is much lower than expected, Docker is still running with the previous WSL2 limits.
+
+
 Graphical User interface (GUI)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
