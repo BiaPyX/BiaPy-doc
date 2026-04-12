@@ -70,54 +70,9 @@ You can also check our video tutorial on how to import a BMZ model in the GUI us
 Export
 ******
 
-Since the Wizard is designed for users without a background in computer science or deep learning, the option to export models in BMZ format is intentionally not included. However, BMZ model exportation is supported through the GUI. To access it, navigate to the **"Generic Options"** screen, you can enable this by selecting **"Yes"** for the question **"Export model to BioImage Model Zoo (BMZ) format?"**. Once selected, you have two options:
+In the current GUI, BMZ model export is not configured through dedicated GUI fields. To export to BMZ format when using the GUI, you need to edit the YAML configuration file and set the BMZ export variables there.
 
-.. carousel::
-    :show_controls:
-    :show_captions_below:
-    :data-bs-interval: false
-    :show_indicators:
-    :show_dark:
-
-    .. figure:: ../img/bmz/bmz_gui_no_wizard_export_opt1.png
-
-        Option 1) Provide the necessary information manually. 
-
-    .. figure:: ../img/bmz/bmz_gui_no_wizard_export_opt2.png
-
-        Option 2) Reuse BMZ model data
-
-* **Option 1: Provide the necessary information to export the model manually.** More specifically, you'll need to input the following metadata of the model (in accordance with the `BioImage.IO Model Resource Description File Specifications <https://github.com/bioimage-io/spec-bioimage-io/blob/gh-pages/user_docs/model_descr_latest.md>`__):
-
-    * **Model name**: A human-readable name of the model. It should be no longer than 64 characters and may only contain letter, number, underscore, minus, parentheses and spaces. It is recommended to chose a name that refers to the model's task and image modality.
-
-      Examples: 2D-U-Net-Fluorescence-Cell-Segmentation, 3D_UNETR_Mitochondria_Detection.
-
-    * **Description**: A string containing a brief description.
-      
-      Example: A UNETR-Base model trained to detect the 3D center of mitochondria on electron microscopy images. 
-
-    * **Authors**: The list of authors, i.e., the creators of the model and the primary points of contact. They should be listed as a *sequence* (list of dictionaries in Python) between squared brackets and contain the ``name`` and ``github_user`` keywords.
-      
-      Example: ``[{"name": "Marie Curie", "github_user": "mcurie"}, {"name": "Pierre Curie", "github_user": "pcurie"}]``.
-
-    * **License**: A `SPDX license identifier <https://spdx.org/licenses/>`__. BMZ does not support custom license beyond the SPDX license list, if you need that please `open a GitHub issue <https://github.com/bioimage-io/spec-bioimage-io/issues/new/choose>`__ to discuss your intentions with the community.
-      
-      Examples: CC0-1.0, MIT, BSD-2-Clause.
-
-    * **Tags**: Associated tags.  They should be listed as a *sequence* between squared brackets.
-      
-      Example: ``["unet2d", "pytorch", ""nucleus", "segmentation", "dsb2018"]``.
-      
-      Notice the quotation marks for each tag.
-
-    * **Citations**: The list of references for the BMZ model. They should be listed as a *sequence* (list of dictionaries in Python) between squared brackets and contain the ``text`` (a free text description) and ``doi`` (a digital object identifier, eee https://www.doi.org/ for details) keywords.
-      
-      Example: ``[{"text": "training library", "doi": "10.1101/2024.02.03.576026"}, {"text": "architecture", "doi": "10.1109/LGRS.2018.2802944"}, {"text": "data", "doi": "10.48550/arXiv.1812.06024"}]``.
-
-    * **Documentation**: Path to a ``.md`` extension file with the documentation of the model. If it is not set, the model documentation will point to `BiaPy README.md file <https://github.com/BiaPyX/BiaPy/blob/master/README.md>`__. Take other models in https://bioimage.io/#/ as reference.
-
-* **Option 2: Reuse an existing BMZ model**. The model's metadata can be used to export your model. To enable this, set **"Loading pretrained model"** to **"Yes"** and **"Source of the model"** to **"I want to check other online sources"**. Then, select a BMZ model. After this, the option "**Reuse BMZ model configuration"** will appear, allowing you to choose this feature.
+If you prefer alternatives to editing YAML manually, please use the **Jupyter notebooks** workflow (section below) or the **Command line**/**Python** workflow, where export can be configured directly in notebook cells or Python code.
 
 
 After running the workflow and completing the training and/or testing phases, a ZIP file containing the model in BMZ format will be generated. This file will be saved in the results folder, within a directory named **"BMZ_files"**. The file path will also be displayed in the running window.
