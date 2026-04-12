@@ -8,6 +8,9 @@ Description of the task
 
 The idea of this workflow is to **pretrain** a deep learning model by solving a so-called **pretext task** (denoising, inpainting, etc.) without labels. This way, the model learns a representation that can be later transferred to solve a **downstream task** (segmentation, detection, etc.) in a labeled (and usually smaller) dataset. 
 
+.. note::
+  In the current BiaPy GUI, self-supervised workflows are considered advanced and are **not available through the Wizard**. To run this workflow from the GUI, edit a YAML configuration file (including ``PROBLEM.TYPE: SELF_SUPERVISED``) and load it from **Run Workflow**.
+
 An example of a pretext task is depicted below, with an original image and its corresponding degradated version. The model will be then train using the *clean* original image as target and the degrated image as input:
 
 .. role:: raw-html(raw)
@@ -43,7 +46,7 @@ The self-supervision workflows in BiaPy expect a **folder** as input:
     .. tabs::
       .. tab:: GUI
 
-        In the current BiaPy GUI, this option is defined through the *Wizard* questions. Alternatively, you can edit the ``DATA.TRAIN.PATH`` in your YAML file before clicking *Run Workflow* and loading that YAML file.
+        In the current BiaPy GUI, configure this by editing ``DATA.TRAIN.PATH`` in your YAML file, then click *Run Workflow* and load that YAML file.
 
 
       .. tab:: Google Colab / Notebooks
@@ -145,7 +148,16 @@ Below is a list of publicly available datasets that are ready to be used in BiaP
 
 Minimal configuration
 ~~~~~~~~~~~~~~~~~~~~~
-Apart from the input and output folders, there are a few basic parameters that always need to be specified in order to run a self-supervised learning workflow in BiaPy. **Depending on the parameter, they can be defined through the GUI Wizard, in the code-free notebooks, or by editing the YAML configuration file**.
+Apart from the input and output folders, there are a few basic parameters that always need to be specified in order to run a self-supervised learning workflow in BiaPy. In the current GUI, this workflow is configured through a YAML file loaded from *Run Workflow* (not through the Wizard).
+
+Workflow type
+*************
+Set the workflow type explicitly in your YAML configuration:
+
+.. code-block:: yaml
+
+  PROBLEM:
+    TYPE: SELF_SUPERVISED
 
 Experiment name
 ***************
