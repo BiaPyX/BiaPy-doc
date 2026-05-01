@@ -32,7 +32,7 @@ Paper overview
 Our publication :cite:`ovarianreserve2025` presents a pipeline to map the entire ovarian reserve in 3D by imaging intact mouse ovaries with **light-sheet fluorescence microscopy (SPIM)** and segmenting every individual oocyte with a deep learning model. The key steps of the pipeline are:
 
 #. **Whole-ovary SPIM imaging**: intact ovaries are cleared and imaged at single-cell resolution across the full organ, yielding large 3D fluorescence volumes (DDX4 channel marking oocyte cytoplasm).
-#. **3D instance segmentation with BiaPy**: a 3D residual U-Net (*ResU-Net*) is trained on manually curated oocyte labels using the **BCD** channel representation (Binary mask + Contour + Distance), followed by marker-controlled watershed to recover individual instances.
+#. **3D instance segmentation with BiaPy**: a 3D residual U-Net (*ResU-Net*) is trained on manually curated oocyte labels using the **F + C + Dc** channel representation (Binary mask + Contour + Distance to the center), followed by marker-controlled watershed to recover individual instances.
 #. **Age-resolved quantification**: segmented oocyte counts and spatial distributions are compared across seven age groups (5–60 weeks), revealing the dynamics of ovarian reserve decline.
 
 .. list-table::
@@ -132,10 +132,6 @@ Download the training YAML file here:
 .. raw:: html
 
    <br>
-
-.. note::
-
-   The test data are TIFF volumes, and the provided YAML is already configured for TIFF input axis order. Since these volumes are usually large, they are processed internally in chunks as Zarr for efficiency, while final predictions can still be exported as TIFF.
 
 .. tabs::
 
@@ -307,6 +303,11 @@ Download the prediction YAML file here:
 .. note::
 
    If you do not have a checkpoint yet, you can download the pretrained model from `this SharePoint link <https://upvehueus-my.sharepoint.com/:u:/g/personal/ignacio_arganda_ehu_eus/IQBqhycRQT1zTakayPKsyJLqAXzibIJSV_xIKADXYnLP3zM?e=0LVuyn>`__. You can also generate your own checkpoint by following `Model training`_.
+
+.. note::
+
+   The test data are TIFF volumes, and the provided YAML is already configured for TIFF input axis order. Since these volumes are usually large, they are processed internally in chunks as Zarr for efficiency, while final predictions can still be exported as TIFF (controlled with the ``TEST.BY_CHUNKS.SAVE_OUT_TIF`` parameter).
+
 
 .. tabs::
 
@@ -503,6 +504,21 @@ Where:
 * ``per_image_instances``: final instance segmentations.
 * ``per_image_post_processing``: instance predictions after post-processing.
 * ``instance_associations``: optional CSV/TIFF summaries of instance matching against ground truth (if available).
+
+Pre-trained models in the BioImage Model Zoo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The model produced during this study is publicly available in the `BioImage Model Zoo <https://bioimage.io/#/models>`__ (BMZ) — a community-driven repository of ready-to-use deep learning models for bioimage analysis. It's name is ``plucky-leopard`` and can be found in this link: `https://bioimage.io/#/artifacts/plucky-leopard <https://bioimage.io/#/artifacts/plucky-leopard>`__.
+
+.. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/plucky-leopard.png
+    :align: center
+    :width: 300px
+
+    The oocyte segmentation model (`plucky-leopard <https://bioimage.io/#/artifacts/plucky-leopard>`__).
+
+.. note::
+
+   The model can be downloaded and run directly through **BiaPy** or any other BMZ-compatible tool. Find more information about how to use BMZ models in BiaPy in `BioImage Model Zoo documentation section <https://biapy.readthedocs.io/en/latest/get_started/bmz.html>`__.
 
 
 Post-analysis scripts
