@@ -35,7 +35,7 @@ As an example, a full pipeline for semantic segmentation can be created using th
 
 In order to run BiaPy, a YAML configuration file must be created. Examples for each workflow can be found in the `templates <https://github.com/BiaPyX/BiaPy/tree/master/templates>`__ folder on the BiaPy GitHub repository. If you are unsure about which workflow is most suitable for your data, you can refer to the `Select Workflow <select_workflow.html>`__ page for guidance.
 
-The options for the configuration file can be found in the `config.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/config.py>`_ file on the BiaPy GitHub repository. However, some of the most commonly used options are explained below:
+The options for the configuration file can be found in the `config.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/config.py>`__ file on `the BiaPy GitHub repository <https://github.com/BiaPyX/BiaPy>`__. However, some of the most commonly used options are explained below:
 
 System
 ~~~~~~
@@ -131,21 +131,25 @@ With ``DATA.*.FILTER_SAMPLES.VALUES`` and ``DATA.*.FILTER_SAMPLES.SIGNS``, we de
           
 For example, if you want to remove those samples that have intensity values lower than ``0.00001`` and a mean average greater than ``100`` you should declare the above three variables as follows (notice you need to know the image data type in advance):
 
-.. code-block:: bash
+.. code-block:: yaml
 
-  DATA.TRAIN.FILTER_SAMPLES.PROPS = [['foreground','mean']]
-  DATA.TRAIN.FILTER_SAMPLES.VALUES = [[0.00001, 100]]
-  DATA.TRAIN.FILTER_SAMPLES.SIGNS = [['lt', 'gt']]
+  DATA:
+    TRAIN:
+      FILTER_SAMPLES.PROPS: [['foreground','mean']]
+      FILTER_SAMPLES.VALUES: [[0.00001, 100]]
+      FILTER_SAMPLES.SIGNS: [['lt', 'gt']]
 
 You can also concatenate more restrictions and they will be applied in order. For instance, if you want to filter those
 samples with a maximum intensity value greater than ``1000``, and do that before the condition described above, you can define the
 variables this way:
 
-.. code-block:: bash
+.. code-block:: yaml
 
-  DATA.TRAIN.FILTER_SAMPLES.PROPS = [['max'], ['foreground','mean']]
-  DATA.TRAIN.FILTER_SAMPLES.VALUES = [[1000], [0.00001, 100]]
-  DATA.TRAIN.FILTER_SAMPLES.SIGNS = [['gt'], ['lt', 'gt']]
+  DATA:
+    TRAIN:
+      FILTER_SAMPLES.PROPS: [['max'], ['foreground','mean']]
+      FILTER_SAMPLES.VALUES: [[1000], [0.00001, 100]]
+      FILTER_SAMPLES.SIGNS: [['gt'], ['lt', 'gt']]
 
 The ``DATA.FILTER_BY_IMAGE`` parameter determines how the filtering is applied: if set to ``True``, the entire image is processed (this is always the case if ``DATA.EXTRACT_RANDOM_PATCH`` is ``True``); if set to ``False``, the filtering is performed on a patch-by-patch basis.
 
@@ -162,7 +166,7 @@ The ``DATA.FILTER_BY_IMAGE`` parameter determines how the filtering is applied: 
 Data normalization
 ~~~~~~~~~~~~~~~~~~
 
-Previous to normalization, you can choose to do a percentile clipping to remove outliers (by setting ``DATA.NORMALIZATION.PERC_CLIP`` to ``True``). Lower and upper bound for percentile clip are set with  ``DATA.NORMALIZATION.PERC_LOWER`` and ``DATA.NORMALIZATION.PERC_UPPER`` respectively. 
+Previous to normalization, you can choose to do a percentile clipping to remove outliers (by setting ``DATA.NORMALIZATION.PERC_CLIP.ENABLE`` to ``True``). Lower and upper bound for percentile clip are set with  ``DATA.NORMALIZATION.PERC_LOWER`` and ``DATA.NORMALIZATION.PERC_UPPER`` respectively. 
 
 The data normalization type is controlled by ``DATA.NORMALIZATION.TYPE`` and a few options are available:
 
@@ -170,7 +174,17 @@ The data normalization type is controlled by ``DATA.NORMALIZATION.TYPE`` and a f
 * ``'zero_mean_unit_variance'``: normalization substracting the mean and divide by std. The mean and std can be specified with ``DATA.NORMALIZATION.ZERO_MEAN_UNIT_VAR.MEAN_VAL`` and ``DATA.NORMALIZATION.ZERO_MEAN_UNIT_VAR.MEAN_VAL`` respectively.
 * ``'scale_range'``: normalizes the data to ``[0-1]`` range but, instead of dividing by the maximum value of the data type as in ``'div'``, it divides by the maximum value of each image.
 
-The normalization or clipping values can be derived either from the entire image or from individual patches. This behavior is controlled by the variable ``DATA.NORMALIZATION.MEASURE_BY``, which accepts either ``'image'`` or ``'patch'`` as its value.
+The normalization or clipping values can be derived either from the entire image or from individual patches. This behavior is controlled by the variable ``DATA.NORMALIZATION.MEASURE_BY``, which accepts either ``'image'`` or ``'patch'`` as its value. A very common configuration for normalization can be as follows:
+
+.. code-block:: yaml
+
+  DATA:
+    NORMALIZATION:
+      TYPE: zero_mean_unit_variance
+      PERC_CLIP:
+        ENABLE: True
+        LOWER: 0.1
+        UPPER: 99.8
 
 Pre-processing
 ~~~~~~~~~~~~~~
@@ -199,54 +213,81 @@ The ``AUGMENTOR.ENABLE`` variable must be set to ``True`` to enable data augment
 
 Images generated using data augmentation will be saved in the ``PATHS.DA_SAMPLES`` directory (which is ``aug`` by default). This allows you to check the data augmentation applied to the images. If you want a more exhaustive check, you can save all the augmented training data by enabling ``DATA.CHECK_GENERATORS``. The images will be saved in ``PATHS.GEN_CHECKS`` and ``PATHS.GEN_MASK_CHECKS``. Be aware that this option can consume a large amount of disk space as the training data will be entirely copied.
 
+An example of a common data augmentation configuration is as follows:
+
+.. code-block:: yaml
+
+  AUGMENTOR:
+    ENABLE: True
+    AUG_SAMPLES: True
+    RANDOM_ROT: True
+    VFLIP: True
+    HFLIP: True
+    ZFLIP: True
+    BRIGHTNESS: True
+    BRIGHTNESS_FACTOR: (-0.2, 0.2)
+    CONTRAST: True
+    CONTRAST_FACTOR: (-0.2, 0.2)
+    ELASTIC: True
+    AFFINE_MODE: 'reflect'
+
 Model definition
 ~~~~~~~~~~~~~~~~
 BiaPy offers three different backends to be used to choose a model (controlled by ``MODEL.SOURCE``):
 
-
 - ``biapy``, which uses BiaPy as the backend for the model definition. Use ``MODEL.ARCHITECTURE`` to select the model. Different models for each workflow are implemented:
 
-  * Semantic segmentation: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet``, ``resunet_se``, ``unext_v1``, ``multiresunet`` and ``unetr``. 
+  * Semantic segmentation: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``.
 
-  * Instance segmentation: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet``, ``resunet_se``, ``unext_v1``, ``multiresunet`` and ``unetr``. 
+  * Instance segmentation: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``. 
 
-  * Detection: ``unet``, ``resunet``, ``resunet++``, ``attention_unet`` and ``seunet``.
+  * Detection: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``.
 
-  * Denoising: ``unet``, ``resunet``, ``resunet++``, ``attention_unet`` and ``seunet``.
+  * Denoising: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``.
 
-  * Super-resolution: ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet`` and ``multiresunet``. 
+  * Super-resolution: ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``seunet``, ``resunet_se``, ``attention_unet``, ``multiresunet``, ``unext_v1`` and ``unext_v2``
 
-  * Self-supervision: ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet``, ``resunet_se``, ``unext_v1``, ``multiresunet``, ``unetr``, ``vit`` and ``mae``.
+  * Self-supervision: ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet``, ``resunet_se``, ``unext_v1``, ``unext_v2``, ``multiresunet``, ``unetr``, ``vit`` and ``mae``.
 
   * Classification: ``simple_cnn``, ``efficientnet_b0``, ``efficientnet_b1``, ``efficientnet_b2``, ``efficientnet_b3``, ``efficientnet_b4``, ``efficientnet_b5``, ``efficientnet_b6``, ``efficientnet_b7``, ``vit``. 
 
-  * Image to image: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet``, ``resunet_se``, ``unext_v1``, ``multiresunet``,  ``unetr``, ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet`` and ``multiresunet``. 
+  * Image to image: ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``seunet``, ``resunet_se``, ``attention_unet``, ``unetr``, ``multiresunet``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``  
 
-  For ``unet``, ``resunet``, ``resunet++``, ``resunet_se``, ``attention_unet`` and ``seunet`` architectures you can set ``MODEL.FEATURE_MAPS`` to determine the feature maps to use on each network level. In the same way, ``MODEL.DROPOUT_VALUES`` can be set for each level in those networks. For ``unetr`` and ``vit`` networks only the first value of those variables will be taken into account.
+  An example of a U-Net-like model configuration is as follows:
 
-  The ``MODEL.BATCH_NORMALIZATION`` variable can be used to enable batch normalization on the ``unet``, ``resunet``, ``resunet++``, ``resunet_se``, ``attention_unet``, ``seunet`` and ``unetr`` models. For the 3D versions of these networks (except for ``unetr``), the ``MODEL.Z_DOWN`` option can also be used to avoid downsampling in the z-axis, which is typically beneficial for anisotropic data.
+  .. code-block:: yaml
 
-  The ``MODEL.N_CLASSES`` variable can be used to specify the number of classes for the classification problem, excluding the background class (labeled as ``0``). If the number of classes is set to ``1`` or ``2``, the problem is considered binary, and the behavior is the same. For more than ``2`` classes, the problem is considered multi-class, and the output of the models will have the corresponding number of channels.
+    MODEL:
+      SOURCE: biapy
+      ARCHITECTURE: resunet
+      FEATURE_MAPS: [32, 64, 128, 256]
+      Z_DOWN: [2, 2, 2]
+      NORMALIZATION: "in"
+      KERNEL_SIZE: 3
 
-  Finally, the ``MODEL.LOAD_CHECKPOINT`` variable can be used to load a pre-trained checkpoint of the network (for finetunning).  
+  An example of a STU-Net model configuration is as follows:
 
-- ``torchvision``, which uses models defined in `TorchVision <https://pytorch.org/vision/stable/models.html>`__. Use ``MODEL.TORCHVISION_MODEL_NAME`` to select the model. All the models load pretrained their corresponding default weights. Currently, BiaPy supports the following  models for each workflow: 
+  .. code-block:: yaml
+
+    MODEL:
+      SOURCE: biapy
+      ARCHITECTURE: stunet
+      STUNET:
+        VARIANT: 'base'
+        PRETRAINED: True
+
+- ``bmz``, which uses `Bioimage Model Zoo (bioimage.io) <https://bioimage.io/#/>`__ pretrained models. Use ``MODEL.BMZ.SOURCE_MODEL_ID`` to select the model. More a more models are added to the zoo so please check `Bioimage Model Zoo page <https://bioimage.io/#/>`__ to see available models. BiaPy can only consume models exported with `Pytorch state dict <https://pytorch.org/tutorials/recipes/recipes/what_is_state_dict.html#:~:text=A%20state_dict%20is%20an%20integral,to%20PyTorch%20models%20and%20optimizers.>`__. 
+
+- ``torchvision``, which uses models defined in `TorchVision <https://pytorch.org/vision/stable/models.html>`__. Use ``MODEL.TORCHVISION_MODEL_NAME`` to select the model. Notice that most of the models were trained in natural images (not biomedical) and most of them are for classification. On top of that, some use bounding-box-annotations, which are not supported in BiaPy so only inference/prediction/test can only be done. All the models will load by default the best pretrained weights offered. Currently, BiaPy supports the following models for each workflow: 
 
   * Semantic segmentation (defined `here <https://pytorch.org/vision/stable/models.html#semantic-segmentation>`__): ``deeplabv3_mobilenet_v3_large``, ``deeplabv3_resnet101``, ``deeplabv3_resnet50``, ``fcn_resnet101``, ``fcn_resnet50`` and ``lraspp_mobilenet_v3_large``. 
 
-  * Instance segmentation (defined `here <https://pytorch.org/vision/stable/models.html#object-detection-instance-segmentation-and-person-keypoint-detection>`__): ``maskrcnn_resnet50_fpn`` and ``maskrcnn_resnet50_fpn_v2``. 
+  * Instance segmentation (defined `here <https://pytorch.org/vision/stable/models.html#object-detection-instance-segmentation-and-person-keypoint-detection>`__) but only for inference: ``maskrcnn_resnet50_fpn`` and ``maskrcnn_resnet50_fpn_v2``. 
 
-  * Detection (defined `here <https://pytorch.org/vision/stable/models.html#object-detection-instance-segmentation-and-person-keypoint-detection>`__): ``fasterrcnn_mobilenet_v3_large_320_fpn``, ``fasterrcnn_mobilenet_v3_large_fpn``, ``fasterrcnn_resnet50_fpn``, ``fasterrcnn_resnet50_fpn_v2``, ``fcos_resnet50_fpn``, ``ssd300_vgg16``, ``ssdlite320_mobilenet_v3_large``, ``retinanet_resnet50_fpn``, ``retinanet_resnet50_fpn_v2``.
-
-  * Denoising: no model available with TorchVision backend.
-
-  * Super-resolution: no model available with TorchVision backend. 
-
-  * Self-supervision: no model available with TorchVision backend.
+  * Detection (defined `here <https://pytorch.org/vision/stable/models.html#object-detection-instance-segmentation-and-person-keypoint-detection>`__) but only for inference: ``fasterrcnn_mobilenet_v3_large_320_fpn``, ``fasterrcnn_mobilenet_v3_large_fpn``, ``fasterrcnn_resnet50_fpn``, ``fasterrcnn_resnet50_fpn_v2``, ``fcos_resnet50_fpn``, ``ssd300_vgg16``, ``ssdlite320_mobilenet_v3_large``, ``retinanet_resnet50_fpn`` and ``retinanet_resnet50_fpn_v2``.
 
   * Classification (defined `here <https://pytorch.org/vision/stable/models.html#classification>`__): ``alexnet``, ``convnext_base``, ``convnext_large``, ``convnext_small``, ``convnext_tiny``, ``densenet121``, ``densenet161``, ``densenet169``, ``densenet201``, ``efficientnet_b0``, ``efficientnet_b1``, ``efficientnet_b2``, ``efficientnet_b3``, ``efficientnet_b4``, ``efficientnet_b5``, ``efficientnet_b6``, ``efficientnet_b7``, ``efficientnet_v2_l``, ``efficientnet_v2_m``, ``efficientnet_v2_s``, ``googlenet``, ``inception_v3``, ``maxvit_t``, ``mnasnet0_5``, ``mnasnet0_75``, ``mnasnet1_0``, ``mnasnet1_3``, ``mobilenet_v2``, ``mobilenet_v3_large``, ``mobilenet_v3_small``, ``quantized_googlenet``, ``quantized_inception_v3``, ``quantized_mobilenet_v2``, ``quantized_mobilenet_v3_large``, ``quantized_resnet18``, ``quantized_resnet50``, ``quantized_resnext101_32x8d``, ``quantized_resnext101_64x4d``, ``quantized_shufflenet_v2_x0_5``, ``quantized_shufflenet_v2_x1_0``, ``quantized_shufflenet_v2_x1_5``, ``quantized_shufflenet_v2_x2_0``, ``regnet_x_16gf``, ``regnet_x_1_6gf``, ``regnet_x_32gf``, ``regnet_x_3_2gf``, ``regnet_x_400mf``, ``regnet_x_800mf``, ``regnet_x_8gf``, ``regnet_y_128gf``, ``regnet_y_16gf``, ``regnet_y_1_6gf``, ``regnet_y_32gf``, ``regnet_y_3_2gf``, ``regnet_y_400mf``, ``regnet_y_800mf``, ``regnet_y_8gf``, ``resnet101``, ``resnet152``, ``resnet18``, ``resnet34``, ``resnet50``, ``resnext101_32x8d``, ``resnext101_64x4d``, ``resnext50_32x4d``, ``retinanet_resnet50_fpn``, ``shufflenet_v2_x0_5``, ``shufflenet_v2_x1_0``, ``shufflenet_v2_x1_5``, ``shufflenet_v2_x2_0``, ``squeezenet1_0``, ``squeezenet1_1``, ``swin_b``, ``swin_s``, ``swin_t``, ``swin_v2_b``, ``swin_v2_s``, ``swin_v2_t``, ``vgg11``, ``vgg11_bn``, ``vgg13``, ``vgg13_bn``, ``vgg16``, ``vgg16_bn``, ``vgg19``, ``vit_b_16``, ``vit_b_32``, ``vit_h_14``, ``vit_l_16``, ``vit_l_32``, ``wide_resnet101_2`` and ``wide_resnet50_2``.
 
-- ``bmz``, which uses `Bioimage Model Zoo (bioimage.io) <https://bioimage.io/#/>`__ pretrained models. Use ``MODEL.BMZ.SOURCE_MODEL_ID`` to select the model. More a more models are added to the zoo so please check `Bioimage Model Zoo page <https://bioimage.io/#/>`__ to see available models. BiaPy can only consume models exported with `Pytorch state dict <https://pytorch.org/tutorials/recipes/recipes/what_is_state_dict.html#:~:text=A%20state_dict%20is%20an%20integral,to%20PyTorch%20models%20and%20optimizers.>`__. 
 
 Training phase
 ~~~~~~~~~~~~~~
@@ -274,11 +315,7 @@ Different loss functions can be set depending on the workflow:
 
 * Instance segmentation: automatically set depending on the channels selected (``PROBLEM.INSTANCE_SEG.DATA_CHANNELS``). There is no need to set it.
 
-* Detection:
-
-    * ``"CE"`` (default): `Cross entropy loss <https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html>`__.
-    * ``"DICE"``: `Dice loss <https://www.kaggle.com/code/bigironsphere/loss-function-library-keras-pytorch>`__.
-    * ``"W_CE_DICE"``: ``CE`` and ``Dice`` (with a weight term on each one that must sum ``1``). With ``LOSS.WEIGHTS`` the weights for each of the losses can be configured. `Reference link <https://www.kaggle.com/code/bigironsphere/loss-function-library-keras-pytorch>`__. 
+* Detection: ``"CE"`` always used (`Cross entropy loss <https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html>`__). No other value can be set.
 
 * Denoising:
 
@@ -312,20 +349,51 @@ Different loss functions can be set depending on the workflow:
     * ``"W_MAE_SSIM_loss"``: ``MAE`` and ``SSIM`` (with a weight term on each one that must sum ``1``). The weights are set with ``LOSS.WEIGHTS``. 
     * ``"W_MSE_SSIM_loss"``: ``MSE`` and ``SSIM`` (with a weight term on each one that must sum ``1``). The weights are set with ``LOSS.WEIGHTS``. 
 
-``LOSS.CLASS_REBALANCE`` can be used to adjust the loss function based on the imbalance between classes. This can be used when ``LOSS.TYPE`` is ``"CE"`` detection and semantic segmentation, or if using ``'B'``, ``'C'``, ``'M'``, ``'P'`` or ``'A'`` channels in instance segmentation workflow, as those are are binary channels.
-
 .. _config_test:
+
+
+Weighting options
+~~~~~~~~~~~~~~~~~
+
+This section outlines how to configure weighting across different tasks. Understanding the hierarchy of these variables is essential, as they can be applied at the loss function level, the data channel level, or the class level.
+
+**Global Loss Weighting**. These variables represent the most basic level of configuration, typically introduced in the Semantic Segmentation workflow. They control how individual loss components are merged and how specific pixel values are handled:
+
+  * Combining multiple losses (``LOSS.WEIGHTS``): When using a combined loss (e.g., ``LOSS.TYPE = "W_CE_DICE"``), the library computes a weighted sum of the components. ``LOSS.WEIGHTS`` defines a multiplier for each specific loss. The length of the list must be equal to the number of losses being combined. In the case of ``LOSS.TYPE = "W_CE_DICE"``, the final loss will be: ``LOSS.WEIGHTS[0] * CE + LOSS.WEIGHTS[1] * DICE``.
+  * Excluding data (``LOSS.IGNORE_INDEX``): To exclude certain pixel values from contributing to the loss, you can set ``LOSS.IGNORE_INDEX`` to the desired value. This is particularly useful for ignoring unlabeled regions in semantic segmentation tasks. For instance, if your dataset uses a specific value (e.g., ``-1`` or ``255``) to denote unlabeled pixels, setting ``LOSS.IGNORE_INDEX`` to that value will ensure those pixels do not affect the loss calculation or the evaluation metrics like IoU.
+  * Class rebalancing (``LOSS.CLASS_REBALANCE``): This variable controls how the loss function handles class imbalance. It can be set to ``'none'`` for no rebalancing or ``'manual'`` to use custom weights defined in ``LOSS.CLASS_WEIGHTS``. This is particularly important in scenarios where certain classes are underrepresented in the dataset, as it helps the model learn to focus on those classes.
+
+All of the above options are available mainly for semantic segmentation, but they can also be used in instance segmentation and detection workflows, when they predict a class channel apart from the other data channels. However, in these workflows, there are additional weighting options that can be applied at the data channel level and within channels to address specific challenges associated with these tasks as described below.
+
+**Data Channel Weighting (Instance & Detection)**. In workflows like Instance Segmentation and Detection, the model predicts multiple data channels. A data channel is a specific type of information predicted, such as, the binary mask of the object (denoted as ``F``, Foreground in instance segmentation), the contours of the object (denoted as ``C``), the distance transform (denoted as ``Db``) etc. On top of that, a class channel can also be predicted to determine the class of the object (actually one channel per class). For detection workflow instead, there will be one channel predicting the center of the object, and optionally, one channel per class predicting the class of the object. In these workflows, you can set different weights for each of the output channels of the model with the variable ``PROBLEM.INSTANCE_SEG.DATA_CHANNEL_WEIGHTS`` or ``PROBLEM.DETECTION.DATA_CHANNEL_WEIGHTS``. This allows you to prioritize the accuracy of one type of information over another. For example, in instance segmentation, you might want to prioritize the accuracy of the foreground mask (``F``) over the distance transform (``Db``) by assigning a higher weight to ``F`` in the loss calculation.
+
+**Intra-Channel Balancing**. Within a specific channel, like "Contours" (``C``), the background often heavily outweighs the feature pixels. To address this imbalance, you can apply class rebalancing with ``PROBLEM.INSTANCE_SEG.CLASS_REBALANCE_WITHIN_CHANNELS`` and ``PROBLEM.DETECTION.CLASS_REBALANCE_WITHIN_CHANNELS``, which assigns different weights to the foreground and background classes within that channel. This is particularly useful in scenarios where the foreground objects are significantly smaller than the background, as it helps the model learn to focus on the relevant features. This option is available for the channels that have a binary mask as target, e.g. ``F`` and ``C`` channels in instance segmentation, and the center channel in detection.
+
+Taking into account the above considerations a common configuration for instance segmentation workflow, including class prediction on top of instances, can be as follows:
+
+.. code-block:: yaml
+
+  PROBLEM:
+    INSTANCE_SEG:
+      DATA_CHANNELS: ['F', 'C', 'Db']
+      DATA_CHANNEL_WEIGHTS: [0.6, 0.3, 0.1]
+      CLASS_REBALANCE_WITHIN_CHANNELS: True
+
+  LOSS:
+    IGNORE_INDEX: -1
+    CLASS_REBALANCE: 'manual'
+    CLASS_WEIGHTS: [1, 1.3, 1.8]
 
 Test phase
 ~~~~~~~~~~
 
 To initiate the testing phase, also referred to as inference or prediction, one must set the variable ``TEST.ENABLE`` to ``True`` within the BiaPy framework. BiaPy provides two distinct prediction options contingent upon the dimensions of the test images to be predicted. It is essential to consider that not only must the test image fit into memory, but also the model's prediction, characterized by a data type of ``float32`` (or ``float16`` if ``TEST.REDUCE_MEMORY`` is activated). Moreover, if the test image cannot be accommodated within the GPU memory, a cropping procedure becomes necessary. Typically, this entails cropping into patches with overlap and/or padding to circumvent border effects during the reconstruction of the original shape, albeit at the expense of increased memory usage. Given these considerations, two alternative procedures are available for predicting a test image:
 
-- When each test image can be fit in memory the procedure is the following. In this scenario there are two options:
+#. When each test image **can fit** into memory (non-scalable solution):
   
-  - First option, and the default, is where each test image is divided into patches of size ``DATA.PATCH_SIZE`` and passed through the network individually. Then, the original image will be reconstructed. Apart from this, it will automatically calculate performance metrics per patch and per reconstructed image if the ground truth is available (enabled by ``DATA.TEST.LOAD_GT``).
+  #. First option, and the default, is where each test image is divided into patches of size ``DATA.PATCH_SIZE`` and passed through the network individually. Then, the original image will be reconstructed. Apart from this, it will automatically calculate performance metrics per patch and per reconstructed image if the ground truth is available (enabled by ``DATA.TEST.LOAD_GT``).
 
-  - Second option is to enable ``TEST.FULL_IMG``, to pass entire images through the model without cropping them. This option requires enough GPU memory to fit the images into, so to prevent possible errors it is only available for 2D images.
+  #. Second option is to enable ``TEST.FULL_IMG``, to pass entire images through the model without cropping them. This option requires enough GPU memory to fit the images into, so to prevent possible errors it is only available for 2D images.
 
   In both options described above you can also use test-time augmentation by setting ``TEST.AUGMENTATION`` to ``True``, which will create multiple augmented copies of each patch, or image if ``TEST.FULL_IMG`` selected, by all possible rotations (``8`` copies in 2D and ``16`` in 3D). This will slow down the inference process, but it will return more robust predictions.
 
@@ -335,7 +403,7 @@ To initiate the testing phase, also referred to as inference or prediction, one 
 
     If the test images are large and you experience memory issues during the testing phase, you can set the ``TEST.REDUCE_MEMORY`` variable to ``True``. This will reduce memory usage as much as possible, but it may slow down the inference process.
 
-- When each test image can not fit into memory (scalable solution):
+#. When each test image **can not fit** into memory (scalable solution):
 
   BiaPy offers to use `H5 <https://docs.h5py.org/en/stable/#:~:text=HDF5%20lets%20you%20store%20huge,they%20were%20real%20NumPy%20arrays.>`__ or `Zarr <https://zarr.readthedocs.io/en/stable/>`__ files to generate predictions by configuring ``TEST.BY_CHUNKS`` variable. In this setting, ``TEST.BY_CHUNKS.FORMAT`` decides which files are you working with and ``DATA.TEST.INPUT_IMG_AXES_ORDER`` sets the axis order (all the test images need to be order in the same way). This way, BiaPy enables multi-GPU processing per image by chunking large images into patches with overlap and padding to mitigate artifacts at the edges. Each GPU processes a chunk of the large image, storing the patch in its designated location using Zarr or H5 file formats. This is possible because these file formats facilitate reading and storing data chunks without requiring the entire file to be loaded into memory. Consequently, our approach allows the generation of predictions for large images, overcoming potential memory bottlenecks.
   
