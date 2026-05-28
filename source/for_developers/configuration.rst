@@ -387,36 +387,151 @@ Taking into account the above considerations a common configuration for instance
 Test phase
 ~~~~~~~~~~
 
-To initiate the testing phase, also referred to as inference or prediction, one must set the variable ``TEST.ENABLE`` to ``True`` within the BiaPy framework. BiaPy provides two distinct prediction options contingent upon the dimensions of the test images to be predicted. It is essential to consider that not only must the test image fit into memory, but also the model's prediction, characterized by a data type of ``float32`` (or ``float16`` if ``TEST.REDUCE_MEMORY`` is activated). Moreover, if the test image cannot be accommodated within the GPU memory, a cropping procedure becomes necessary. Typically, this entails cropping into patches with overlap and/or padding to circumvent border effects during the reconstruction of the original shape, albeit at the expense of increased memory usage. Given these considerations, two alternative procedures are available for predicting a test image:
+The test phase, also referred to as inference or prediction, is the stage in which a trained model is applied to unseen images in order to generate the final output predictions. In BiaPy, this phase is enabled by setting ``TEST.ENABLE = True``.
 
-#. When each test image **can fit** into memory (non-scalable solution):
-  
-  #. First option, and the default, is where each test image is divided into patches of size ``DATA.PATCH_SIZE`` and passed through the network individually. Then, the original image will be reconstructed. Apart from this, it will automatically calculate performance metrics per patch and per reconstructed image if the ground truth is available (enabled by ``DATA.TEST.LOAD_GT``).
+During inference, memory usage must be considered carefully. There are two different types of memory constraints that can affect the prediction process:
 
-  #. Second option is to enable ``TEST.FULL_IMG``, to pass entire images through the model without cropping them. This option requires enough GPU memory to fit the images into, so to prevent possible errors it is only available for 2D images.
+* **Machine/workstation RAM memory**: this is the system memory used to load the input test image, store intermediate arrays, keep the model prediction, and reconstruct the final output. Even if the image can be processed by the GPU, the complete image and its corresponding prediction must still fit in RAM at some point. This is especially relevant for large 2D images, 3D volumes, or workflows that require storing probability maps. By default, predictions are stored as ``float32`` arrays, although memory usage can be reduced by enabling ``TEST.REDUCE_MEMORY = True``, which stores predictions as ``float16``.
 
-  In both options described above you can also use test-time augmentation by setting ``TEST.AUGMENTATION`` to ``True``, which will create multiple augmented copies of each patch, or image if ``TEST.FULL_IMG`` selected, by all possible rotations (``8`` copies in 2D and ``16`` in 3D). This will slow down the inference process, but it will return more robust predictions.
+* **GPU memory**: this is the memory available in the graphics card during the forward pass of the model. The GPU must be able to store the input patch, the model activations, and the output prediction for that patch. If the complete test image does not fit in GPU memory, it cannot be inferred in a single forward pass. In that case, the image must be divided into smaller patches.
 
-  You can use also use ``DATA.REFLECT_TO_COMPLETE_SHAPE`` to ensure that the patches can be made as pointed out in :ref:`data_management`. 
+In this phase you can enable test-time augmentation by setting ``TEST.AUGMENTATION = True``, which will create multiple augmented copies of each patch, or image if ``TEST.FULL_IMG = True``, by all possible rotations (``8`` copies in 2D and ``16`` in 3D). This will slow down the inference process, but it will return more robust predictions. Apart from that, you can use also use ``DATA.REFLECT_TO_COMPLETE_SHAPE = True`` to ensure that the patches can be made as pointed out in :ref:`data_management`. 
 
-  .. seealso::
+BiaPy provides two main inference strategies depending on these memory constraints and on the size of the test images.
 
-    If the test images are large and you experience memory issues during the testing phase, you can set the ``TEST.REDUCE_MEMORY`` variable to ``True``. This will reduce memory usage as much as possible, but it may slow down the inference process.
+Inference entire image
+**********************
 
-#. When each test image **can not fit** into memory (scalable solution):
+This option is used when the complete test image can be loaded into the machine/workstation RAM and can also be processed by the GPU in a single forward
+pass (``TEST.FULL_IMG = True``).
 
-  BiaPy offers to use `H5 <https://docs.h5py.org/en/stable/#:~:text=HDF5%20lets%20you%20store%20huge,they%20were%20real%20NumPy%20arrays.>`__ or `Zarr <https://zarr.readthedocs.io/en/stable/>`__ files to generate predictions by configuring ``TEST.BY_CHUNKS`` variable. In this setting, ``TEST.BY_CHUNKS.FORMAT`` decides which files are you working with and ``DATA.TEST.INPUT_IMG_AXES_ORDER`` sets the axis order (all the test images need to be order in the same way). This way, BiaPy enables multi-GPU processing per image by chunking large images into patches with overlap and padding to mitigate artifacts at the edges. Each GPU processes a chunk of the large image, storing the patch in its designated location using Zarr or H5 file formats. This is possible because these file formats facilitate reading and storing data chunks without requiring the entire file to be loaded into memory. Consequently, our approach allows the generation of predictions for large images, overcoming potential memory bottlenecks.
-  
-  .. warning::
+In this mode, the full image is provided directly to the model, and the complete prediction is generated at once. This is the simplest and fastest inference mode
+because no patch extraction or reconstruction step is required. 
 
-    There is also an option to generate a TIFF file from the predictions with ``TEST.BY_CHUNKS.SAVE_OUT_TIF``. However, take into account that this option require to load the entire data into memory, which is sometimes not fleasible. 
+However, this strategy is only possible when both of the following conditions are met:
 
-  After the prediction is generated the variable ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.ENABLE`` controls whether the rest of the workflow process is going to be done or not (as may require large memory consumption depending on the workflow). If enabled, the prediction can be processed in two different ways (controlled by ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.TYPE``):
+* The input image and its corresponding output prediction fit in the machine/workstation RAM.
+* The complete image fits in GPU memory during model inference.
 
-  - ``chunk_by_chunk`` : prediction will be processed by chunks, where each chunk will be considered as an individual image. Select this operation if you have not enough memory to process the entire prediction image with ``entire_pred``.
-  - ``entire_pred``: the predicted image will be loaded in memory at once and processed entirely (be aware of your memory budget).
+This mode is usually suitable for small or medium-sized images, or for models with low memory requirements. It avoids stitching artifacts because the model sees the entire image at once.
 
-  The option ``chunk_by_chunk`` is not trivial depending on the workflow, e.g. in instance segmentation different instances on each chunk need to be merged into one. Three workflows need to post-process the predictions to have a final result, semantic segmentation, instance segmentation and detection. Currently, ``chunk_by_chunk`` is only supported in detection workflow. 
+Prediction fits in RAM but not in GPU memory
+********************************************
+
+This is the most common situation when working with large images or 3D volumes (``TEST.FULL_IMG = False``). The full test image can be loaded into the machine/workstation RAM, and the final prediction can also be stored and reconstructed in RAM. However, the complete image cannot be sent to the GPU at once because the GPU memory is not large enough to store the input image, the model activations, and the output prediction during the forward pass.
+
+To overcome this limitation, BiaPy crops the image into smaller patches. Each patch is processed independently by the model, reducing the amount of GPU memory required at any given moment. Once all patches have been predicted, their outputs are merged to reconstruct the prediction with the same spatial shape as the original image.
+
+Usually, patches are extracted with overlap and/or padding. This is done to reduce border artifacts, since predictions near the borders of a patch may be less accurate than predictions near the center. During reconstruction, overlapping regions are combined to produce a smoother final prediction.
+
+This strategy addresses a **GPU memory limitation**, not a **machine/workstation RAM limitation**. The full image and the final reconstructed prediction are still kept in RAM, so they must fit in the available system memory. If they do not fit in RAM, a different chunked or out-of-memory strategy is needed.
+
+If a CUDA out-of-memory error occurs during this mode, the crop or patch size should be reduced. If GPU memory usage is low, the crop size can be increased to improve inference speed.
+
+Inference by chunks
+*******************
+
+When dealing with volumes that are too large to fit in GPU memory at once, BiaPy can process them in overlapping patches using ``TEST.BY_CHUNKS.ENABLE = True``. The full pipeline is split into two sequential phases: raw model prediction and workflow post-processing.
+
+Phase 1 — Raw model prediction
+==============================
+
+Entry point: ``base_workflow.process_test_sample_by_chunks()`` in `base_workflow.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/engine/base_workflow.py>`__.
+
+A ``chunked_test_pair_data_generator`` (PyTorch ``IterableDataset``) is created from the input `Zarr <https://zarr.readthedocs.io/en/stable/>`__ or `H5/HDF5 <https://docs.h5py.org/en/stable/#:~:text=HDF5%20lets%20you%20store%20huge,they%20were%20real%20NumPy%20arrays.>`__ file. It computes a 3-D grid of overlapping patches:
+
+* Step sizes (distance between consecutive patch origins): ``step_z = crop_shape[0] − 2 × padding[0]``, and equivalently for Y and X.
+* Patch counts: ``vols_per_z = ⌈z_dim / step_z⌉``, and equivalently for Y and X.
+* Total patches: ``vols_per_z × vols_per_y × vols_per_x``.
+
+If ``TEST.BY_CHUNKS.Z_START`` / ``Z_END`` are set, only the corresponding Z-chunk sub-range is processed in this run. The output Zarr is always allocated at the full volume shape, so multiple cluster jobs handling different Z ranges can write to it concurrently without collision (Zarr chunks are aligned to the step sizes, making every write tile non-overlapping).
+
+For each patch, the generator:
+
+#. Extracts the patch from the Zarr/HDF5 source, with padding, clamped to data bounds. Edge patches that extend beyond the data boundary are mirror-padded.
+#. Optionally applies preprocessing and normalization.
+#. Optionally discards the patch based on filter conditions (foreground fraction, mean, min, max) controlled by ``DATA.TEST.FILTER_SAMPLES``.
+
+The main loop in ``process_test_sample_by_chunks()`` then:
+
+#. Passes each patch batch through the model (``predict_batches_in_test``).
+#. Calls the workflow-specific hook ``after_one_chunk_raw_prediction()`` (described per-workflow below).
+#. Strips the padding from the prediction: only the central ``step_z × step_y × step_x`` voxels are kept.
+#. Writes the stripped prediction into the shared output Zarr at the patch's global coordinates (``tgen.insert_patch_in_file()``). The Zarr is created lazily on first write; a race-safe retry loop handles simultaneous creation by multiple workers or ranks.
+#. Detects and discards duplicates produced by the ``DistributedSampler`` padding the last batch.
+
+After all patches are processed, a ``dist.barrier()`` synchronises all ranks. If ``TEST.BY_CHUNKS.SAVE_OUT_TIF = True``, rank 0 loads the full Zarr into memory and saves it as a TIF (the user must ensure the volume fits in RAM so be aware with this option to not blow up the memory).
+
+If ``TEST.REUSE_PREDICTIONS = True``, the entire prediction loop is skipped and the existing Zarr on disk is used directly.
+
+Phase 2 — Workflow post-processing
+==================================
+
+Entry point: ``after_all_chunk_prediction_workflow_process()`` (all ranks) followed by ``after_all_chunk_prediction_workflow_process_master_rank()`` (rank 0 only).
+
+What happens in this phase depends on the workflow and on ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.TYPE``.
+
+Semantic segmentation
+#####################
+
+* During prediction (``after_one_chunk_raw_prediction``): no-op.
+* Post-processing loop (``after_one_chunk_workflow_process``): the base-class implementation creates a second chunked_workflow_process_generator that reads the raw prediction Zarr without overlap (exact tiles). For each tile it binarises the output: simple threshold at 0.5 for binary problems, argmax across the class axis for multi-class problems. The result is written to a new output Zarr.
+* Master-rank step (``after_all_chunk_prediction_workflow_process_master_rank``): no-op; binarisation was done per-chunk.
+
+Detection
+#########
+* During prediction (``after_one_chunk_raw_prediction``): point detection (`peak_local_max <https://scikit-image.org/docs/stable/api/skimage.feature.html#skimage.feature.peak_local_max>`__ or `blob_log <https://scikit-image.org/docs/stable/api/skimage.feature.html#skimage.feature.blob_log>`__) is run immediately on the raw prediction chunk. Points that fall within the padded border are discarded; surviving points are shifted to global volume coordinates and saved to a per-chunk CSV file.
+* Post-processing loop (``after_one_chunk_workflow_process``): no-op; all detection is done in the hook above.
+* Master-rank step (``after_all_chunk_prediction_workflow_process_master_rank``): rank 0 reads all per-chunk CSV files, concatenates them into a single global point list, optionally applies ``REMOVE_CLOSE_POINTS`` post-processing, and runs evaluation if ground truth is available.
+
+Instance segmentation — ``chunk_by_chunk`` mode
+###############################################
+
+This is the most involved path. After the raw probability/channel predictions are fully written to the prediction Zarr (Phase 1), a five-pass algorithm runs to produce a globally consistent instance label map:
+
+**Pass A — Per-chunk watershed (all ranks, base-class loop)**
+
+A second generator (chunked_workflow_process_generator) iterates over the raw prediction Zarr. For each chunk, a halo-extended region is extracted from the prediction Zarr. The halo size is controlled by ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.INSTANCE_SEG_HALO``; when set to ``-1`` (default) it is computed automatically as ``patch_size[axis] // 8`` per axis independently, keeping a small halo for the typically thin Z axis and a larger one for Y/X. The watershed algorithm (``_create_instance_labels``) is run on the extended region, and only the inner block (halo cropped off) is written to the instance label Zarr as ``uint64``. This follows the predict-with-halo pattern, giving each chunk enough context to correctly connect seeds near its boundaries.
+
+**Pass B — Global ID uniquification (all ranks, disjoint chunks)**
+
+At this point every chunk has locally sequential IDs starting from 1, so the same integer can appear in different chunks meaning different cells. Pass B makes all IDs globally unique using prefix sums:
+
+* B1: Each rank reads its assigned chunks and records the maximum label ID in each.
+* All ranks exchange these maxima via ``dist.all_gather_object``.
+* Prefix-sum offsets are computed: ``offset[k] = max_id[0] + max_id[1] + … + max_id[k−1]``. This avoids any hard-coded constant and wastes no ID space.
+* B2: Each rank applies the offset to its chunks: all non-zero labels in chunk k are incremented by ``offset[k]``.
+
+After Pass B the instance Zarr contains globally unique IDs, but cells that cross chunk boundaries are still split into two separate instances with different IDs.
+
+**Pass C — Boundary edge extraction (all ranks, disjoint faces)**
+
+For every pair of spatially adjacent chunks (all Z, Y, and X boundaries), the single-voxel face from each side of the boundary is extracted and compared:
+
+* Co-occurring ``(label_a, label_b)`` pairs at the face are counted.
+* Face IoU is computed: ``intersection / (size_a + size_b − intersection)``. Using IoU rather than ``intersection / min(size_a, size_b)`` prevents a small cell inside a large cell's footprint from being spuriously merged — for that case IoU ≈ 0 while the min-based metric would give 1.0.
+* If IoU > ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.INSTANCE_SEG_MERGE_IOU_TH``, the pair is recorded as a merge edge.
+
+All edges are gathered across ranks via ``dist.all_gather_object``.
+
+**Pass D — Union-Find on rank 0, then broadcast**
+
+Rank 0 runs Union-Find on all collected edges to find connected components. Each component represents one physical cell that was split across chunk boundaries. A remap dictionary is built mapping every non-canonical ID to the canonical one (the smallest ID in the component). The remap is broadcast to all ranks.
+
+**Pass E — Relabelling (all ranks, disjoint chunks)**
+
+Each rank rewrites its chunks, replacing every ID that appears in the remap dict with its canonical global ID. Chunks with no cross-boundary merges are left untouched. After a final ``dist.barrier()``, the instance Zarr holds a globally consistent, contiguous label map.
+
+Instance segmentation — ``entire_pred`` mode
+########################################
+
+In this mode no per-chunk watershed is run. The base-class post-processing loop still exists but is a no-op. Instead, ``after_all_chunk_prediction_workflow_process_master_rank()`` on rank 0 loads the entire raw prediction Zarr into memory and runs the watershed on the full volume at once, then proceeds to standard instance-level post-processing and metrics. This mode requires the full prediction to fit in RAM but avoids the boundary-merging complexity.
+
+Distributed and cluster execution
+=================================
+The ``DistributedSampler`` inside the generator divides the flat patch index space evenly across ``world_size × num_workers`` slots. Each worker processes a disjoint subset of patches. Because Zarr chunk boundaries are aligned to the step size, every worker writes to a non-overlapping region of the output Zarr, making concurrent writes safe without any locking.
+
+For very large volumes that exceed cluster time limits, ``TEST.BY_CHUNKS.Z_START`` and ``TEST.BY_CHUNKS.Z_END`` allow splitting the Z axis across multiple independent jobs. Each job writes to the same shared Zarr (which is always allocated at the full volume shape), and the jobs can run concurrently or sequentially in any order.
 
 .. _config_metric:
 
