@@ -431,107 +431,163 @@ If a CUDA out-of-memory error occurs during this mode, the crop or patch size sh
 Inference by chunks
 *******************
 
-When dealing with volumes that are too large to fit in GPU memory at once, BiaPy can process them in overlapping patches using ``TEST.BY_CHUNKS.ENABLE = True``. The full pipeline is split into two sequential phases: raw model prediction and workflow post-processing.
+When dealing with volumes that are too large to fit in GPU memory at once, BiaPy can process them in overlapping patches using ``TEST.BY_CHUNKS.ENABLE = True``. It splits the volume into patches, processes each patch independently (optionally across multiple GPUs or cluster jobs), and writes results into a shared Zarr store.
+
+The pipeline is split into explicit phases, controlled by the ``TEST.BY_CHUNKS.PHASES`` list. Each cluster job specifies which phases it runs:
+
+.. list-table:: Test-time phases
+   :widths: 25 75
+   :header-rows: 1
+
+   * - Phase name
+     - What it does
+   * - ``prediction``
+     - Runs the model over all patches and writes raw predictions to a Zarr file.
+   * - ``instance_creation``
+     - Post-processes raw predictions patch-by-patch to create per-chunk instance labels. This applies to instance segmentation only.
+   * - ``instance_merging``
+     - Merges per-chunk instance labels across the full volume into globally consistent IDs. This applies to instance segmentation only.
+
+The default is ``PHASES = ["prediction", "instance_creation", "instance_merging"]``, which runs all phases in one job. For large volumes, split phases across jobs (see `cluster_parallel_execution`_ below).
+
 
 Phase 1 — Raw model prediction
 ==============================
 
-Entry point: ``base_workflow.process_test_sample_by_chunks()`` in `base_workflow.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/engine/base_workflow.py>`__.
+**Activated when:** ``"prediction"`` in ``TEST.BY_CHUNKS.PHASES`` and ``TEST.REUSE_PREDICTIONS = False``. If either condition is not met, Phase 1 is skipped entirely.
 
-A ``chunked_test_pair_data_generator`` (PyTorch ``IterableDataset``) is created from the input `Zarr <https://zarr.readthedocs.io/en/stable/>`__ or `H5/HDF5 <https://docs.h5py.org/en/stable/#:~:text=HDF5%20lets%20you%20store%20huge,they%20were%20real%20NumPy%20arrays.>`__ file. It computes a 3-D grid of overlapping patches:
+**Setup.** The data file (Zarr or HDF5) is opened lazily. A patch grid is computed over the volume with step size ``step_z = crop_shape[0] - 2*padding[0]`` (and analogously for Y and X), so adjacent patches overlap by ``2*padding`` voxels. The total number of patches is ``ceil(Z/step_z) * ceil(Y/step_y) * ceil(X/step_x)``.
 
-* Step sizes (distance between consecutive patch origins): ``step_z = crop_shape[0] − 2 × padding[0]``, and equivalently for Y and X.
-* Patch counts: ``vols_per_z = ⌈z_dim / step_z⌉``, and equivalently for Y and X.
-* Total patches: ``vols_per_z × vols_per_y × vols_per_x``.
+**Z sub-range.** Set ``TEST.BY_CHUNKS.Z_START`` and ``TEST.BY_CHUNKS.Z_END`` to restrict Phase 1 to a contiguous block of Z slices. Both values are in voxel coordinates (0-indexed, ``Z_END`` is exclusive). Internally the generator converts them to chunk indices using **ceiling division**:
 
-If ``TEST.BY_CHUNKS.Z_START`` / ``Z_END`` are set, only the corresponding Z-chunk sub-range is processed in this run. The output Zarr is always allocated at the full volume shape, so multiple cluster jobs handling different Z ranges can write to it concurrently without collision (Zarr chunks are aligned to the step sizes, making every write tile non-overlapping).
+.. code-block:: python
 
-For each patch, the generator:
+  z_vol_start = ceil(Z_START / step_z)
+  z_vol_end   = ceil(Z_END   / step_z)
 
-#. Extracts the patch from the Zarr/HDF5 source, with padding, clamped to data bounds. Edge patches that extend beyond the data boundary are mirror-padded.
-#. Optionally applies preprocessing and normalization.
-#. Optionally discards the patch based on filter conditions (foreground fraction, mean, min, max) controlled by ``DATA.TEST.FILTER_SAMPLES``.
+Using ``ceil`` for both boundaries guarantees that adjacent jobs assign their chunks at exactly the same index with no overlap and no gap.
 
-The main loop in ``process_test_sample_by_chunks()`` then:
+**Patch distribution.** A ``DistributedSampler`` divides the patch indices across all GPUs and dataloader workers, so each patch is processed by exactly one worker.
 
-#. Passes each patch batch through the model (``predict_batches_in_test``).
-#. Calls the workflow-specific hook ``after_one_chunk_raw_prediction()`` (described per-workflow below).
-#. Strips the padding from the prediction: only the central ``step_z × step_y × step_x`` voxels are kept.
-#. Writes the stripped prediction into the shared output Zarr at the patch's global coordinates (``tgen.insert_patch_in_file()``). The Zarr is created lazily on first write; a race-safe retry loop handles simultaneous creation by multiple workers or ranks.
-#. Detects and discards duplicates produced by the ``DistributedSampler`` padding the last batch.
+**Per-patch loop.** For each patch:
 
-After all patches are processed, a ``dist.barrier()`` synchronises all ranks. If ``TEST.BY_CHUNKS.SAVE_OUT_TIF = True``, rank 0 loads the full Zarr into memory and saves it as a TIF (the user must ensure the volume fits in RAM so be aware with this option to not blow up the memory).
+* The input patch (plus padding) is loaded from the source Zarr/HDF5.
+* The model runs inference and returns logits or probabilities.
+* The padding region is stripped from the output.
+* The output patch is written into a shared prediction Zarr whose shape always matches the full volume (not just the Z sub-range), so multiple cluster jobs can write concurrently without conflict. Zarr chunk boundaries are aligned to ``(step_z, step_y, step_x, C)``, guaranteeing each write tile is owned by exactly one job.
 
-If ``TEST.REUSE_PREDICTIONS = True``, the entire prediction loop is skipped and the existing Zarr on disk is used directly.
+**Sync and close.** After all patches are processed, a distributed barrier ensures all workers have finished writing before the main process continues. Open file handles are closed.
+
+**TIF export.** If ``TEST.BY_CHUNKS.SAVE_OUT_TIF = True``, the main process converts the prediction Zarr to a TIFF file. This is a single-threaded operation that can be time-consuming for large volumes, so it is optional. Also, be aware that the TIFF format does not support chunking, so the entire prediction must be loaded into memory during export. **If the prediction is too large to fit in RAM, this step will fail.**
 
 Phase 2 — Workflow post-processing
 ==================================
 
-Entry point: ``after_all_chunk_prediction_workflow_process()`` (all ranks) followed by ``after_all_chunk_prediction_workflow_process_master_rank()`` (rank 0 only).
-
-What happens in this phase depends on the workflow and on ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.TYPE``.
+**Activated when:** ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.ENABLE = True``. Post-processing runs after Phase 1 (or independently when Phase 1 is skipped). Its behaviour depends on the workflow type. What happens in this phase depends on the workflow and on ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.TYPE``.
 
 Semantic segmentation
 #####################
 
-* During prediction (``after_one_chunk_raw_prediction``): no-op.
-* Post-processing loop (``after_one_chunk_workflow_process``): the base-class implementation creates a second chunked_workflow_process_generator that reads the raw prediction Zarr without overlap (exact tiles). For each tile it binarises the output: simple threshold at 0.5 for binary problems, argmax across the class axis for multi-class problems. The result is written to a new output Zarr.
-* Master-rank step (``after_all_chunk_prediction_workflow_process_master_rank``): no-op; binarisation was done per-chunk.
+The prediction Zarr is read patch-by-patch and each patch is binarized (or argmaxed for multi-class). The results are written to a new output Zarr aligned to the same tile grid. No cross-patch communication is needed.
 
 Detection
 #########
-* During prediction (``after_one_chunk_raw_prediction``): point detection (`peak_local_max <https://scikit-image.org/docs/stable/api/skimage.feature.html#skimage.feature.peak_local_max>`__ or `blob_log <https://scikit-image.org/docs/stable/api/skimage.feature.html#skimage.feature.blob_log>`__) is run immediately on the raw prediction chunk. Points that fall within the padded border are discarded; surviving points are shifted to global volume coordinates and saved to a per-chunk CSV file.
-* Post-processing loop (``after_one_chunk_workflow_process``): no-op; all detection is done in the hook above.
-* Master-rank step (``after_all_chunk_prediction_workflow_process_master_rank``): rank 0 reads all per-chunk CSV files, concatenates them into a single global point list, optionally applies ``REMOVE_CLOSE_POINTS`` post-processing, and runs evaluation if ground truth is available.
+
+Peak detection runs per chunk; detected point coordinates are accumulated and written to a global CSV file.
 
 Instance segmentation — ``chunk_by_chunk`` mode
 ###############################################
 
-This is the most involved path. After the raw probability/channel predictions are fully written to the prediction Zarr (Phase 1), a five-pass algorithm runs to produce a globally consistent instance label map:
+This is the most complex post-processing path. It runs a 5-pass algorithm to produce globally consistent instance IDs across the full volume. Requires ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.TYPE = "chunk_by_chunk"``.
 
-**Pass A — Per-chunk watershed (all ranks, base-class loop)**
+The passes are split into two phase groups:
 
-A second generator (chunked_workflow_process_generator) iterates over the raw prediction Zarr. For each chunk, a halo-extended region is extracted from the prediction Zarr. The halo size is controlled by ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.INSTANCE_SEG_HALO``; when set to ``-1`` (default) it is computed automatically as ``patch_size[axis] // 8`` per axis independently, keeping a small halo for the typically thin Z axis and a larger one for Y/X. The watershed algorithm (``_create_instance_labels``) is run on the extended region, and only the inner block (halo cropped off) is written to the instance label Zarr as ``uint64``. This follows the predict-with-halo pattern, giving each chunk enough context to correctly connect seeds near its boundaries.
+**"instance_creation" phase — Pass A (per-chunk watershed)**
 
-**Pass B — Global ID uniquification (all ranks, disjoint chunks)**
+Activated when ``"instance_creation"`` in ``TEST.BY_CHUNKS.PHASES``.
 
-At this point every chunk has locally sequential IDs starting from 1, so the same integer can appear in different chunks meaning different cells. Pass B makes all IDs globally unique using prefix sums:
+If this phase is absent the algorithm assumes a completed instance label Zarr already exists on disk (written by a prior cluster job) and skips directly to the merging phases.
 
-* B1: Each rank reads its assigned chunks and records the maximum label ID in each.
-* All ranks exchange these maxima via ``dist.all_gather_object``.
-* Prefix-sum offsets are computed: ``offset[k] = max_id[0] + max_id[1] + … + max_id[k−1]``. This avoids any hard-coded constant and wastes no ID space.
-* B2: Each rank applies the offset to its chunks: all non-zero labels in chunk k are incremented by ``offset[k]``.
+For each tile in the prediction Zarr:
 
-After Pass B the instance Zarr contains globally unique IDs, but cells that cross chunk boundaries are still split into two separate instances with different IDs.
+#. A halo-extended tile is loaded: the tile is expanded by ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.INSTANCE_SEG_HALO`` voxels on each side (clamped to volume boundaries) to provide boundary context.
+#. Watershed (or the configured instance method) is run on the halo-extended tile.
+#. The halo region is stripped and the core tile is written to the instance label Zarr.
 
-**Pass C — Boundary edge extraction (all ranks, disjoint faces)**
+The ``TEST.BY_CHUNKS.Z_START``/``TEST.BY_CHUNKS.Z_END`` restriction applies here too, using the same ``ceil``-based chunk-index mapping. The tile step for Pass A is ``step_z = crop_shape[0]`` (no padding subtracted), so the chunk grid is coarser than Phase 1's.
 
-For every pair of spatially adjacent chunks (all Z, Y, and X boundaries), the single-voxel face from each side of the boundary is extracted and compared:
+**"instance_merging" phase — Passes B–E (global ID stitching)**
 
-* Co-occurring ``(label_a, label_b)`` pairs at the face are counted.
-* Face IoU is computed: ``intersection / (size_a + size_b − intersection)``. Using IoU rather than ``intersection / min(size_a, size_b)`` prevents a small cell inside a large cell's footprint from being spuriously merged — for that case IoU ≈ 0 while the min-based metric would give 1.0.
-* If IoU > ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.INSTANCE_SEG_MERGE_IOU_TH``, the pair is recorded as a merge edge.
+Activated when ``"instance_merging"`` in ``TEST.BY_CHUNKS.PHASES``.
 
-All edges are gathered across ranks via ``dist.all_gather_object``.
+Requires the full instance label Zarr to be complete (all Z sub-ranges written). ``TEST.BY_CHUNKS.Z_START``/``TEST.BY_CHUNKS.Z_END`` are not applied to the merging passes — they always operate over the entire volume.
 
-**Pass D — Union-Find on rank 0, then broadcast**
+* Pass B — Global ID offset (prefix-sum). Each chunk's labels are shifted by the cumulative count of instances in all preceding chunks, making all instance IDs globally unique.
+* Pass C — Boundary-edge IoU extraction. For every pair of adjacent chunks, the touching faces are loaded and intersection-over-union is computed between instances that span the boundary. Pairs exceeding ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.INSTANCE_SEG_MERGE_IOU_TH`` are recorded as merge candidates.
+* Pass D — Union-Find (rank 0 only). All merge candidates are fed into a Union-Find structure on the main process to resolve transitive merges.
+* Pass E — Relabelling. Each chunk is relabelled according to the Union-Find result, producing the final globally consistent instance map.
 
-Rank 0 runs Union-Find on all collected edges to find connected components. Each component represents one physical cell that was split across chunk boundaries. A remap dictionary is built mapping every non-canonical ID to the canonical one (the smallest ID in the component). The remap is broadcast to all ranks.
-
-**Pass E — Relabelling (all ranks, disjoint chunks)**
-
-Each rank rewrites its chunks, replacing every ID that appears in the remap dict with its canonical global ID. Chunks with no cross-boundary merges are left untouched. After a final ``dist.barrier()``, the instance Zarr holds a globally consistent, contiguous label map.
+After Pass E, if ``TEST.BY_CHUNKS.SAVE_OUT_TIF = True``, the completed instance Zarr is converted to TIFF. This is a single-threaded operation that can be time-consuming for large volumes, so it is optional. Also, be aware that the TIFF format does not support chunking, so the entire prediction must be loaded into memory during export. **If the prediction is too large to fit in RAM, this step will fail.**
 
 Instance segmentation — ``entire_pred`` mode
-########################################
+############################################
 
-In this mode no per-chunk watershed is run. The base-class post-processing loop still exists but is a no-op. Instead, ``after_all_chunk_prediction_workflow_process_master_rank()`` on rank 0 loads the entire raw prediction Zarr into memory and runs the watershed on the full volume at once, then proceeds to standard instance-level post-processing and metrics. This mode requires the full prediction to fit in RAM but avoids the boundary-merging complexity.
+The entire prediction volume is loaded into memory after Phase 1 and instance segmentation is run as a single operation. Only suitable for volumes that fit in RAM. The ``TEST.BY_CHUNKS.PHASES`` mechanism has no effect on this mode.
 
-Distributed and cluster execution
-=================================
-The ``DistributedSampler`` inside the generator divides the flat patch index space evenly across ``world_size × num_workers`` slots. Each worker processes a disjoint subset of patches. Because Zarr chunk boundaries are aligned to the step size, every worker writes to a non-overlapping region of the output Zarr, making concurrent writes safe without any locking.
+.. _cluster_parallel_execution:
 
-For very large volumes that exceed cluster time limits, ``TEST.BY_CHUNKS.Z_START`` and ``TEST.BY_CHUNKS.Z_END`` allow splitting the Z axis across multiple independent jobs. Each job writes to the same shared Zarr (which is always allocated at the full volume shape), and the jobs can run concurrently or sequentially in any order.
+Cluster-parallel execution
+==========================
+
+For very large volumes, split the pipeline across multiple cluster jobs using ``TEST.BY_CHUNKS.Z_START``, ``TEST.BY_CHUNKS.Z_END``, and ``TEST.BY_CHUNKS.PHASES``.
+
+Example: two prediction+creation jobs, one merging job.
+
+.. list-table:: Example split of test-time phases across jobs
+   :widths: 20 20 20 40
+   :header-rows: 1
+
+   * - Job
+     - ``Z_START``
+     - ``Z_END``
+     - ``PHASES``
+   * - Job 1
+     - ``0``
+     - ``K``
+     - ``["prediction", "instance_creation"]``
+   * - Job 2
+     - ``K``
+     - ``end of volume``
+     - ``["prediction", "instance_creation"]``
+   * - Job 3
+     - ``not set``
+     - ``not set``
+     - ``["instance_merging"]``
+
+Jobs 1 and 2 can run **in parallel** (they write to non-overlapping Zarr chunks). Job 3 must run **after both** are complete.
+
+**Choosing K.** For fully parallel execution of Phase 1 and Pass A simultaneously (within the same job), K must be a multiple of **crop_shape[0]**. This ensures Phase 1's finer tile grid covers exactly the same Z extent as Pass A's coarser tile grid at the boundary.
+
+If Jobs 1 and 2 run sequentially (one finishes before the other starts), any value of K is safe because Phase 1's smaller step size means it always produces data beyond what Pass A reads up to ``TEST.BY_CHUNKS.Z_END``.
+
+**No-overlap guarantee.** Because both generators use ``ceil(Z_boundary / step_z)`` to convert voxel boundaries to chunk indices, adjacent jobs always split at the same chunk index:
+
+.. code-block:: python
+  
+  job1.z_vol_end   = ceil(K / step_z)
+  job2.z_vol_start = ceil(K / step_z)
+
+There is no duplicated chunk and no missing chunk regardless of whether K falls on a step boundary. 
+
+**Reuse predictions.** Setting ``TEST.REUSE_PREDICTIONS = True`` also skips Phase 1 (equivalent to omitting "prediction" from  ``TEST.BY_CHUNKS.PHASES``). The two mechanisms can be combined: ``TEST.BY_CHUNKS.PHASES = ["instance_creation"]`` with ``REUSE_PREDICTIONS = True`` skips prediction and reruns only Pass A on existing prediction Zarrs.
+
+**Validation.** BiaPy raises a ``ValueError`` at config load time if:
+
+* ``TEST.BY_CHUNKS.PHASES`` is empty or contains an unknown phase name.
+* ``"instance_creation"`` or ``"instance_merging"`` appears in ``TEST.BY_CHUNKS.PHASES`` for a non-instance-segmentation workflow.
+* ``"instance_creation"`` or ``"instance_merging"`` appears in ``TEST.BY_CHUNKS.PHASES`` but ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.ENABLE = False`` or ``TEST.BY_CHUNKS.WORKFLOW_PROCESS.TYPE`` is not ``"chunk_by_chunk"``. 
+* ``TEST.BY_CHUNKS.Z_START >= TEST.BY_CHUNKS.Z_END`` when both are set.
+
 
 .. _config_metric:
 
