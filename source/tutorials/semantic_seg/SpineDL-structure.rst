@@ -5,7 +5,7 @@
 SpineDL-Structure: Anatomical structures of the mouse spinal cord
 -----------------------------------------------------------------
 
-This tutorial shows how to run **SpineDL-Structure**, the *semantic segmentation* model developed in the manuscript :cite:`spinedl2024`. The goal of this workflow is the automatic segmentation of several anatomical structures of the mouse spinal cord from fluorescence images stained with **DAPI** and **NeuN**. Specifically, the model segments the following structures:
+This tutorial shows how to run **SpineDL-Structure**, the *semantic segmentation* model developed in the manuscript :cite:`ruiz2026automated`. The goal of this workflow is the automatic segmentation of several anatomical structures of the mouse spinal cord from fluorescence images stained with **DAPI** and **NeuN**. Specifically, the model segments the following structures:
 
 * Background (0 value) 
 * White matter (1 value)   
@@ -43,7 +43,7 @@ Dataset
 ~~~~~~~
 
 The dataset consists of more than ``160`` confocal images of mouse spinal cord tissue stained with **NeuN** (neuronal somas) and **DAPI** (nuclei). Images were acquired as
-mosaics of Z-stacks and converted to 2-channel TIFF files (channel 1: DAPI, channel 2: NeuN). Find a further description of the dataset, as well as the link to download it, in `Zenodo <https://zenodo.org/records/17829532>`__. 
+mosaics of Z-stacks and converted to 2-channel TIFF files (channel 1: DAPI, channel 2: NeuN). Find a further description of the dataset, as well as the link to download it, in `Zenodo <https://zenodo.org/records/19371462>`__. 
 
 The dataset will contain two directories called ``Structure identification`` and ``Neuron identification``. This tutorial focuses on the former. The directory structure should look like this:
 
@@ -103,9 +103,7 @@ You can use the pretrained SpineDL-Structure model to predict new images using s
 
    * 2D images with 2 channels (channel 1: DAPI, channel 2: NeuN). **The order of the channels is important!**
 
-   * The images are expected to be in ``uint8`` format. If your images are in a different format (e.g., ``uint16`` or ``float``), you should rescale them to the range ``0-255`` and convert them to ``uint8`` before running inference with the model to ensure optimal performance.
-
-   * The expected image resolution is from ``0.445`` to ``0.891`` µm/pixel. If your images have a different pixel size, you should rescale them accordingly before running inference with the model.
+   * The expected image resolution is from ``0.445`` to ``0.891`` µm/pixel. If your images differ from this range, you should rescale them accordingly before running inference with the model.
 
    If you have doubts you can check the dataset provided to see examples of images used in our work. If you have any questions regarding image preparation, please contact us through the `Image.sc Forum <https://forum.image.sc/>`__ , using ``biapy`` tag, or through our `GitHub issues page <https://github.com/BiaPyX/BiaPy/issues>`__.
 
@@ -317,7 +315,7 @@ Reproducing SpineDL-Structure from scratch
 
 If you want to reproduce the results of SpineDL-Structure using the provided dataset, you can follow the steps described below. We assume here some level of expertise so we describe it how to do it using the CLI and also assume you have already :ref:`installed BiaPy <installation>`.
 
-#. Download the dataset from `Zenodo <https://zenodo.org/records/17829532>`__ and extract it to a desired location.
+#. Download the dataset from `Zenodo <https://zenodo.org/records/19371462>`__ and extract it to a desired location.
 #. Download the yaml configuration file for SpineDL-Structure from `here <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/SpineDL_paper/spinedl-structure-training.yaml>`__. Notice that this configuration file is slightly different from the one used for inference, as it is prepared to train the model from scratch.
 #. Modify the configuration file to set the correct paths to the training, validation, and test data included in the dataset. For example, if you extracted the dataset to ``/home/user/SpineDL/``, you will need to set the following paths in the configuration file:
 
@@ -369,4 +367,4 @@ If you want to reproduce the results of SpineDL-Structure using the provided dat
          --experts_root "/home/user/Structure identification/test/label" \
          --output_dir "/home/user/output_dir"
 
-   This script will generate several evaluation metrics comparing the predicted masks with the expert annotations, including IoU scores and agreement maps under ``/home/user/output_dir``. This script was used to generate the results reported in Figure 4 and 5 of the manuscript :cite:`spinedl2024`.
+   This script will generate several evaluation metrics comparing the predicted masks with the expert annotations, including IoU scores and agreement maps under ``/home/user/output_dir``. This script was used to generate the results reported in Figure 4 and 5 of the manuscript :cite:`ruiz2026automated`.

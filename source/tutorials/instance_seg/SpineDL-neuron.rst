@@ -3,7 +3,7 @@
 SpineDL-Neuron: Neuron segmentation in the mouse spinal cord
 ------------------------------------------------------------
 
-This tutorial shows how to run **SpineDL-Neuron**, the *instance segmentation* model developed in the manuscript :cite:`spinedl2024`. The goal of this workflow is the automatic neuron segmentation of the mouse spinal cord from fluorescence images stained with **DAPI** and **NeuN**. 
+This tutorial shows how to run **SpineDL-Neuron**, the *instance segmentation* model developed in the manuscript :cite:`ruiz2026automated`. The goal of this workflow is the automatic neuron segmentation of the mouse spinal cord from fluorescence images stained with **DAPI** and **NeuN**. 
 
 .. role:: raw-html(raw)
     :format: html
@@ -35,7 +35,7 @@ Dataset
 ~~~~~~~
 
 The dataset consists of more than ``160`` confocal images of mouse spinal cord tissue stained with **NeuN** (neuronal somas) and **DAPI** (nuclei). Images were acquired as
-mosaics of Z-stacks and converted to 2-channel TIFF files (channel 1: DAPI, channel 2: NeuN). Find a further description of the dataset, as well as the link to download it, in `Zenodo <https://zenodo.org/records/17829532>`__. 
+mosaics of Z-stacks and converted to 2-channel TIFF files (channel 1: DAPI, channel 2: NeuN). Find a further description of the dataset, as well as the link to download it, in `Zenodo <https://zenodo.org/records/19371462>`__. 
 
 The dataset will contain two directories called ``Structure identification`` and ``Neuron identification``. This tutorial focuses on the latter. The directory neuron should look like this:
 
@@ -92,9 +92,7 @@ You can use the pretrained SpineDL-Neuron model to predict new images using seve
 
    * 2D images with 2 channels (channel 1: DAPI, channel 2: NeuN). **The order of the channels is important!**
 
-   * The images are expected to be in ``uint8`` format. If your images are in a different format (e.g., ``uint16`` or ``float``), you should rescale them to the range ``0-255`` and convert them to ``uint8`` before running inference with the model to ensure optimal performance.
-
-   * The expected image resolution is from ``0.445`` to ``0.891`` µm/pixel. If your images have a different pixel size, you should rescale them accordingly before running inference with the model.
+* The expected image resolution is from ``0.445`` to ``0.891`` µm/pixel. If your images differ from this range, you should rescale them accordingly before running inference with the model.
 
    If you have doubts you can check the dataset provided to see examples of images used in our work. If you have any questions regarding image preparation, please contact us through the `Image.sc Forum <https://forum.image.sc/>`__ , using ``biapy`` tag, or through our `GitHub issues page <https://github.com/BiaPyX/BiaPy/issues>`__.
 
@@ -306,7 +304,7 @@ Reproducing SpineDL-Neuron from scratch
 
 If you want to reproduce the results of SpineDL-Neuron using the provided dataset, you can follow the steps described below. We assume here some level of expertise so we describe it how to do it using the CLI and also assume you have already :ref:`installed BiaPy <installation>`.
 
-#. Download the dataset from `Zenodo <https://zenodo.org/records/17829532>`__ and extract it to a desired location.
+#. Download the dataset from `Zenodo <https://zenodo.org/records/19371462>`__ and extract it to a desired location.
 #. Download the yaml configuration file for SpineDL-Neuron from `here <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/SpineDL_paper/spinedl-neuron-training.yaml>`__. Notice that this configuration file is slightly different from the one used for inference, as it is prepared to train the model from scratch.
 #. Modify the configuration file to set the correct paths to the training, validation, and test data included in the dataset. For example, if you extracted the dataset to ``/home/user/SpineDL/``, you will need to set the following paths in the configuration file:
 
@@ -358,7 +356,7 @@ If you want to reproduce the results of SpineDL-Neuron using the provided datase
          --manual_annotation_dir "/home/user/Neuron identification/test/label" \
 
 
-   This script will generate the Figure 6 of :cite:`spinedl2024` showing the agreement between manual and SpineDL-Neuron identifications with tolerance-aware matching.
+   This script will generate the Figure 6 of :cite:`ruiz2026automated` showing the agreement between manual and SpineDL-Neuron identifications with tolerance-aware matching.
 
 #. If you want to compare the performance of SpineDL-Neuron with CellSense, you can download the CellSense predictions from `here <https://drive.google.com/drive/folders/1fSDqNXJs2L4OSnAXvMHHI7o_O_8Xm0yI?usp=sharing>`__ and run the following `script <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/SpineDL_paper/agreement_manual_points_vs_SpineDL-neuron_vs_CellSense_instances.py>`__.:
 
