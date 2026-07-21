@@ -13,7 +13,7 @@ This page is a task-oriented guide to the ``BiaPy`` class and the ``build_config
 Minimal example
 ~~~~~~~~~~~~~~~
 
-The shortest way to run a workflow: point BiaPy at a `YAML configuration file <configuration.html>`_ and run it.
+The shortest way to run a workflow: give BiaPy a `YAML configuration file <configuration.html>`_ and run it.
 
 .. code-block:: python
 
@@ -55,7 +55,7 @@ Every way of creating a ``BiaPy`` object (Section 1) accepts the same options. T
      - Meaning
    * - ``result_dir``
      - —
-     - Folder where all outputs go (results, checkpoints, logs, config backup). **Required** unless ``save_files=False``.
+     - Folder where all outputs go (results, checkpoints, logs, config backup). If omitted, BiaPy runs ephemerally (nothing is written) and only in-memory prediction is available (Section 9).
    * - ``name`` / ``run_id``
      - ``"unknown_job"`` / ``1``
      - Job identity. Outputs are written under ``result_dir/name/``, and log/config files are tagged with ``run_id``.
@@ -66,8 +66,8 @@ Every way of creating a ``BiaPy`` object (Section 1) accepts the same options. T
      - ``False``
      - If ``True``, mirror BiaPy's build-time messages to the console. Actual runs (``train``/``test``) always print; ``predict`` is quiet unless asked (Section 5).
    * - ``save_files``
-     - ``True``
-     - If ``True``, write the config backup and run log to ``result_dir``. If ``False``, nothing is written to disk (Section 9).
+     - ``auto``
+     - Whether to write files. By default follows ``result_dir``: writes when one is given, ephemeral when not. Force with True (needs a ``result_dir``) or ``False``.
 
 
 1. Instantiate a BiaPy object (three ways)
@@ -129,6 +129,7 @@ A shortcut that builds a **test-ready** BiaPy straight from a trained model, inf
     biapy = BiaPy.load_workflow_from_model("model.pth", result_dir="/out", name="infer", gpu="0")
     biapy = BiaPy.load_workflow_from_model("affable-shark", ...)   # a BMZ id/nickname
 
+- ``result_dir`` is optional here: omit it to load a model and only predict in memory (nothing is written).
 - From a ``.pth``: the workflow is rebuilt from the embedded config (same as constructor form (c)).
 - From a BMZ id/nickname: the workflow and dimensionality are inferred from the model's RDF.
 
@@ -197,17 +198,17 @@ Edit configuration values after construction. By default the workflow is rebuilt
 - ``SYSTEM.*`` (GPUs, CPUs, seed) and the compute device are decided when the object is created and cannot be changed here — build a new ``BiaPy(...)`` for those.
 
 
-9. Ephemeral mode (write nothing) — ``save_files=False``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+9. Ephemeral mode (write nothing)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For pure in-memory inference, disable all disk writes. ``result_dir`` then becomes optional.
+For pure in-memory inference, simply omit ``result_dir``: nothing is written to disk.
 
 .. code-block:: python
 
-    biapy = BiaPy.load_workflow_from_model("model.pth", save_files=False, gpu="0")  # no result_dir needed
+    biapy = BiaPy.load_workflow_from_model("model.pth", gpu="0")  # no result_dir -> ephemeral
     mask = biapy.predict(image)   # nothing is written to disk
 
-- With ``save_files=False`` there is no config backup, no log file, and no output folder is created.
+- With no ``result_dir`` (or ``save_files=False``) there is no config backup, no log file, and no output folder is created.
 - Operations that must write raise a clear error: ``train()``, ``test()``, ``predict(return_prediction=False)``, ``export_model_to_bmz()``, and synapse / ``TEST.BY_CHUNKS`` workflows.
 
 
