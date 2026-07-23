@@ -214,7 +214,7 @@ Choose your installation method
                Verify GPU at runtime: ::
                
                     python -c 'import torch; print(torch.__version__)'
-                    >>> 2.9.1
+                    >>> 2.12.1
                     python -c 'import torch; print(torch.cuda.is_available())'
                     >>> True
 
@@ -238,7 +238,7 @@ Choose your installation method
                Verify GPU at runtime: ::
                
                     python -c 'import torch; print(torch.__version__)'
-                    >>> 2.9.1
+                    >>> 2.12.1
                     python -c 'import torch; print(torch.cuda.is_available())'
                     >>> True
 
@@ -256,19 +256,26 @@ Choose your installation method
                     mamba create -n BiaPy_env -c conda-forge python=3.11
                     mamba activate BiaPy_env
                
-               Clone BiaPy repository: :: 
+               Clone BiaPy repository: ::
 
                     git clone https://github.com/BiaPyX/BiaPy.git
-               
-               Install PyTorch first, choosing GPU if available. Use the official `PyTorch selector <https://pytorch.org/get-started/locally/>`__ for your platform (CUDA / ROCm / CPU). Example (CUDA, just as an example-use the selector’s exact command): ::
-               
-                    pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
-               
+                    cd BiaPy
+
+               .. important::
+                    Do **not** run a bare ``pip install torch torchvision`` before ``pip install -e .``. That installs whatever is newest, which will often fall outside the exact ``torch``/``torchvision`` range pinned in `pyproject.toml <https://github.com/BiaPyX/BiaPy/blob/master/pyproject.toml>`__ and makes pip fail with a ``ResolutionImpossible`` error. Install a matching pinned pair first instead, then let ``pip install -e .`` reuse it.
+
+               Check ``pyproject.toml`` for the exact supported ``torch``/``torchvision`` versions (as of BiaPy 3.6.8: ``torch>=2.12,<2.13`` / ``torchvision>=0.27,<0.28``, i.e. the ``2.12.1`` / ``0.27.1`` pair). Install that exact pair, choosing GPU or CPU. Use the official `PyTorch selector <https://pytorch.org/get-started/locally/>`__ to find the right ``--index-url`` for your CUDA version (the selector always proposes the *latest* torch release, so replace the version-less command it gives you with the pinned versions below), for example: ::
+
+                    # GPU (CUDA 12.6, for example)
+                    pip install torch==2.12.1 torchvision==0.27.1 --index-url https://download.pytorch.org/whl/cu126
+
+                    # CPU only
+                    pip install torch==2.12.1 torchvision==0.27.1 --index-url https://download.pytorch.org/whl/cpu
+
                Install BiaPy in editable mode: ::
 
-                    cd BiaPy
                     pip install -e .
-                     
+
    .. tab:: API
 
         If you want to use BiaPy as a library in your own Python scripts, you can install it via `pip <https://pypi.org/project/pip/>`__: ::
@@ -279,9 +286,12 @@ Choose your installation method
           
             conda install -c conda-forge biapy
      
-        Once installed you will need to install PyTorch, choosing GPU if available. Use the official `PyTorch selector <https://pytorch.org/get-started/locally/>`__ for your platform (CUDA / ROCm / CPU). Example (CUDA, just as an example—use the selector’s exact command): ::
-               
-          pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+        ``pip install biapy`` and ``conda install -c conda-forge biapy`` already pull in a compatible CPU build of PyTorch as part of dependency resolution. If you have an NVIDIA GPU, replace it with a matching CUDA build afterwards: check the ``torch``/``torchvision`` versions pinned in BiaPy's `pyproject.toml <https://github.com/BiaPyX/BiaPy/blob/master/pyproject.toml>`__ (as of BiaPy 3.6.8: ``torch==2.12.1`` / ``torchvision==0.27.1``) and reinstall *that exact pair* through the official `PyTorch selector <https://pytorch.org/get-started/locally/>`__ for your CUDA version, for example: ::
+
+          pip install torch==2.12.1 torchvision==0.27.1 --index-url https://download.pytorch.org/whl/cu126
+
+        .. important::
+             Do not install PyTorch without pinning a version (e.g. plain ``pip install torch torchvision``). It installs the newest release, which is often outside the range BiaPy expects and can break the install or raise a ``ResolutionImpossible`` error.
 
         After that you can import BiaPy in your Python scripts: ::
 
