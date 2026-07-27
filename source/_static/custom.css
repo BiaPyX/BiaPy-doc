@@ -15,8 +15,9 @@
     background-color: #eef5fb;
     border: 1px solid #d4e4f3;
     border-radius: 0.25rem;
-    padding: 0.08rem 0.28rem;
-    font-size: 0.92em;
+    padding: 0.03rem 0.24rem;
+    font-size: 0.88em;
+    line-height: inherit;
 
     /* Keep long YAML variables readable without horizontal scroll. */
     overflow-wrap: anywhere;
