@@ -638,6 +638,26 @@ Advanced parameters
 *******************
 Many workflow-specific knobs for instance segmentation are defined in ``PROBLEM.INSTANCE_SEG`` in `config.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/config.py>`__. Below is a complete summary of those options.
 
+Before going into workflow-specific options, these **general training/inference parameters** are also very useful in practice:
+
+* **Model architecture** (``MODEL.ARCHITECTURE``): Selects the backbone network. For instance segmentation with BiaPy models, currently supported options are ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``. Default in ``config.py``: ``unet``.
+
+* **Batch size** (``TRAIN.BATCH_SIZE``): Number of patches processed per optimization step. Lower values reduce memory usage; larger values can speed up training if memory allows. Default in ``config.py``: ``2``.
+
+* **Patch size** (``DATA.PATCH_SIZE``): Input patch dimensions used for training/inference (2D: ``(y, x, c)``, 3D: ``(z, y, x, c)``). Must be compatible with your image size and GPU memory. Default in ``config.py``: ``(256, 256, 1)``.
+
+* **Optimizer** (``TRAIN.OPTIMIZER``): Optimization algorithm. Supported options are ``SGD``, ``ADAM`` and ``ADAMW``. Default in ``config.py``: ``["SGD"]``.
+
+* **Initial learning rate** (``TRAIN.LR``): Starting learning rate used by the optimizer. Default in ``config.py``: ``[1e-4]``.
+
+* **Learning-rate scheduler** (``TRAIN.LR_SCHEDULER.NAME``): Learning-rate policy across epochs. Supported options are ``warmupcosine``, ``reduceonplateau``, ``onecycle``, ``warmupreduceonplateau``, or empty (no scheduler). Default in ``config.py``: ``""`` (disabled).
+
+* **Test-time augmentation (TTA)** (``TEST.AUGMENTATION``): Enables inference with augmented views and prediction fusion. Default in ``config.py``: ``False``. Related options:
+
+  * ``TEST.AUGMENTATION_MODE``: fusion mode (``mean``, ``min``, ``max``). Default: ``mean``.
+
+  * ``TEST.AUGMENTATION_GROUP``: orientation set (``auto``/``full``, ``flips``, ``none``). Default: ``auto``.
+
 **Core options (all instance-segmentation runs)**
 
 * ``PROBLEM.INSTANCE_SEG.TYPE``: Type of instance data. Options: ``"regular"`` and ``"synapses"``. Default: ``"regular"``.
