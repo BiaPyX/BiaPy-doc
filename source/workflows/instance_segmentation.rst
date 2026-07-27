@@ -636,15 +636,139 @@ In the `templates/instance_segmentation <https://github.com/BiaPyX/BiaPy/tree/ma
 
 Advanced parameters 
 *******************
-Many of the parameters of our workflows are set by default to values that work commonly well. However, it may be needed to tune them to improve the results of the workflow. For instance, you may modify the following parameters
+Many workflow-specific knobs for instance segmentation are defined in ``PROBLEM.INSTANCE_SEG`` in `config.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/config.py>`__. Below is a complete summary of those options.
 
-* **Model architecture**: Select the architecture of the deep neural network used as backbone of the pipeline. Options: U-Net, Residual U-Net, Attention U-Net, SEUNet, MultiResUNet, ResUNet++, UNETR-Mini, UNETR-Small, UNETR-Base, ResUNet SE and U-NeXt V1. Default value: U-Net.
-* **Batch size**: This parameter defines the number of patches seen in each training step. Reducing or increasing the batch size may slow or speed up your training, respectively, and can influence network performance. Common values are 4, 8, 16, etc.
-* **Patch size**: Input the size of the patches use to train your model (length in pixels in X and Y). The value should be smaller or equal to the dimensions of the image. The default value is 256 in 2D, i.e. 256x256 pixels.
-* **Optimizer**: Select the optimizer used to train your model. Options: ADAM, ADAMW, Stochastic Gradient Descent (SGD). ADAM usually converges faster, while ADAMW provides a balance between fast convergence and better handling of weight decay regularization. SGD is known for better generalization. Default value: ADAMW.
-* **Initial learning rate**: Input the initial value to be used as learning rate. If you select ADAM as optimizer, this value should be around 10e-4. 
-* **Learning rate scheduler**: Select to adjust the learning rate between epochs. The current options are "Reduce on plateau", "One cycle", "Warm-up cosine decay" or no scheduler.
-* **Test time augmentation (TTA)**: Select to apply augmentation (flips and rotations) at test time. It usually provides more robust results but uses more time to produce each result. By default, no TTA is peformed.
+**Core options (all instance-segmentation runs)**
+
+* ``PROBLEM.INSTANCE_SEG.TYPE``: Type of instance data. Options: ``"regular"`` and ``"synapses"``. Default: ``"regular"``.
+
+* ``PROBLEM.INSTANCE_SEG.DATA_CHANNELS``: List of channels that define the instance representation (e.g. ``['F', 'C', 'Db']``). Default: ``["B", "C"]``. See :ref:`Problem representation <problem-representation>` for channel definitions and recommended combinations.
+
+* ``PROBLEM.INSTANCE_SEG.DATA_CHANNELS_EXTRA_OPTS``: Per-channel dictionary of extra options (e.g. contour mode, distance transform options, radial rays, embedding options, affinities offsets, gradient-flow strategy). Default: ``[{}]``. See :ref:`Problem representation <problem-representation>` for channel-by-channel details.
+
+* ``PROBLEM.INSTANCE_SEG.DATA_CHANNELS_LOSSES``: Optional list of losses (one per channel/head). If empty, BiaPy auto-selects defaults from the chosen channels. Default: ``[]``.
+
+* ``PROBLEM.INSTANCE_SEG.CLASS_REBALANCE_WITHIN_CHANNELS``: Whether to rebalance classes/pixels within each channel when computing the loss. Default: ``True``.
+
+* ``PROBLEM.INSTANCE_SEG.CHANNELS_PER_HEAD_INFO``: Optional grouping of output channels into model heads. If empty, all channels are predicted in one head. Default: ``[]``.
+
+* ``PROBLEM.INSTANCE_SEG.SEPARATED_DECODERS_PER_HEAD``: Use one decoder per output head (requires multi-head setup and compatible models). Default: ``False``.
+
+* ``PROBLEM.INSTANCE_SEG.DATA_CHANNEL_WEIGHTS``: Weights applied to predicted channels before loss computation. Must match channel count. Default: ``(1, 1)``.
+
+* ``PROBLEM.INSTANCE_SEG.BORDER_EXTRA_WEIGHTS``: Optional extra border weighting map. Options: ``"unet-like"`` or ``""`` (disabled). Default: ``""``.
+
+* ``PROBLEM.INSTANCE_SEG.INSTANCE_CREATION_PROCESS``: Post-processing strategy used to convert predicted channels into instances. Options: ``"watershed"``, ``"gradient-flow"``, ``"stardist"``, ``"embeddings"`` (or empty for automatic selection). Default: ``""``.
+
+**Watershed instance creation**
+
+These are under ``PROBLEM.INSTANCE_SEG.WATERSHED`` and are used by the watershed path explained in :ref:`Problem representation <problem-representation>`:
+
+* ``SEED_CHANNELS``: Channels used to create seeds. Empty means auto-selection from ``DATA_CHANNELS``. Default: ``[]``.
+
+* ``SEED_CHANNELS_THRESH``: Thresholds for ``SEED_CHANNELS`` (floats in ``[0, 1]`` or ``"auto"``). Default: ``[]`` (auto).
+
+* ``TOPOGRAPHIC_SURFACE_CHANNEL``: Channel used as topographic surface for marker-controlled watershed. Empty means auto-selection. Default: ``""``.
+
+* ``GROWTH_MASK_CHANNELS``: Channels used to build the growth mask. Empty means auto-selection. Default: ``[]``.
+
+* ``GROWTH_MASK_CHANNELS_THRESH``: Thresholds for ``GROWTH_MASK_CHANNELS`` (floats in ``[0, 1]`` or ``"auto"``). Default: ``[]`` (auto).
+
+* ``SEED_MORPH_SEQUENCE``: Ordered list of seed morphology operations (``"erode"`` / ``"dilate"``). Default: ``[]``.
+
+* ``SEED_MORPH_RADIUS``: Radii corresponding to ``SEED_MORPH_SEQUENCE``. Default: ``[]``.
+
+* ``ERODE_AND_DILATE_GROWTH_MASK``: If ``True``, applies erosion+dilation to growth mask before watershed. Default: ``False``.
+
+* ``FORE_EROSION_RADIUS``: Erosion radius for growth mask refinement. Default: ``5``.
+
+* ``FORE_DILATION_RADIUS``: Dilation radius for growth mask refinement. Default: ``5``.
+
+* ``DATA_CHECK_MW``: Save intermediate watershed debug images. Default: ``False``.
+
+* ``DATA_REMOVE_SMALL_OBJ_BEFORE``: Minimum size for small-object removal before watershed. Default: ``10``.
+
+* ``DATA_REMOVE_BEFORE_MW``: Enable small-object removal before watershed. Default: ``False``.
+
+* ``BY_2D_SLICES``: In 3D data, run watershed slice-by-slice in 2D. Default: ``False``.
+
+**StarDist-like instance creation**
+
+These are under ``PROBLEM.INSTANCE_SEG.STARDIST`` and apply when using the radial-distance representation (see :ref:`Problem representation <problem-representation>`):
+
+* ``PROB_THRESH``: Probability threshold for candidate instance centers. Default: ``0.4``.
+
+* ``NMS_IOU_THRESH``: IoU threshold for non-maximum suppression of candidate instances. Default: ``0.3``.
+
+* ``GRID``: Per-axis StarDist output stride (empty means all ones for the image dimensionality). Default: ``[]``.
+
+**Gradient-flow instance creation (Cellpose/Omnipose style)**
+
+These apply when using gradient-flow channels (``Gh``, ``Gv``, ``Gz`` in ``DATA_CHANNELS``; see :ref:`Problem representation <problem-representation>`):
+
+* ``PROBLEM.INSTANCE_SEG.CELLPOSE.FG_THRESH``: Foreground threshold for tracing flow trajectories. Default: ``0.5``.
+
+* ``PROBLEM.INSTANCE_SEG.CELLPOSE.FLOW_THRESHOLD``: Flow-consistency filter threshold to discard spurious masks. Default: ``0.4``.
+
+* ``PROBLEM.INSTANCE_SEG.CELLPOSE.N_STEPS``: Euler integration steps (usually derived internally from diameter scaling). Default: ``200``.
+
+* ``PROBLEM.INSTANCE_SEG.CELLPOSE.DIAMETER``: Expected object diameter at test time (``0`` means automatic estimation). Default: ``0.0``.
+
+* ``PROBLEM.INSTANCE_SEG.CELLPOSE.DIAM_MEAN``: Reference training diameter used for scaling. Default: ``30.0``.
+
+* ``PROBLEM.INSTANCE_SEG.CELLPOSE.SCALE_RANGE``: Training-time random scale jitter around diameter normalization. Default: ``0.5``.
+
+* ``PROBLEM.INSTANCE_SEG.CELLPOSE.TEST_DOUBLE_INFERENCE``: When diameter is automatic, run a first pass to estimate it per test image. Default: ``True``.
+
+* ``PROBLEM.INSTANCE_SEG.OMNIPOSE.MASK_THRESHOLD``: Distance-field threshold for tracing Omnipose trajectories. Default: ``0.0``.
+
+* ``PROBLEM.INSTANCE_SEG.OMNIPOSE.FLOW_THRESHOLD``: Flow-consistency filter threshold for Omnipose masks. Default: ``0.4``.
+
+* ``PROBLEM.INSTANCE_SEG.OMNIPOSE.NITER``: Integration steps for Omnipose (``0`` means automatic). Default: ``0``.
+
+**Embedding-based instance creation (EmbedSeg style)**
+
+These are under ``PROBLEM.INSTANCE_SEG.EMBEDSEG`` and apply to the embedding representation (see :ref:`Problem representation <problem-representation>`):
+
+* ``FG_THRESH``: Foreground threshold for pixels considered during clustering. Default: ``0.5``.
+
+* ``SEED_THRESH``: Seediness threshold required to start a new instance cluster. Default: ``0.9``.
+
+* ``MIN_MASK_SUM``: Minimum number of foreground pixels required to perform clustering. Default: ``0``.
+
+* ``MIN_UNCLUSTERED_SUM``: Minimum number of remaining unclustered foreground pixels to continue iterating. Default: ``0``.
+
+* ``GRID_SIZE``: Canonical coordinate-grid size used by both embedding loss and inference (``-1`` means auto from dataset max image size). Default: ``-1``.
+
+**Synapse-specific instance segmentation**
+
+When ``PROBLEM.INSTANCE_SEG.TYPE = "synapses"``, these options are available under ``PROBLEM.INSTANCE_SEG.SYNAPSES``:
+
+* ``POINT_CREATION_FUNCTION``: Point detector. Options: ``"peak_local_max"`` or ``"blob_log"``. Default: ``"peak_local_max"``.
+
+* ``PEAK_LOCAL_MAX_MIN_DISTANCE``: Minimum distance between detected peaks. Default: ``1``.
+
+* ``TH_TYPE``: Thresholding mode. Options: ``"auto"``, ``"manual"``, ``"relative_by_patch"``, ``"relative"``. Default: ``"auto"``.
+
+* ``MIN_TH_TO_BE_PEAK``: Base threshold to consider a point as a peak. Default: ``0.2``.
+
+* ``EXCLUDE_BORDER``: Exclude border regions when detecting peaks/blobs. Default: ``False``.
+
+* ``BLOB_LOG_MIN_SIGMA``: Minimum sigma for ``blob_log`` detector. Default: ``5``.
+
+* ``BLOB_LOG_MAX_SIGMA``: Maximum sigma for ``blob_log`` detector. Default: ``10``.
+
+* ``BLOB_LOG_NUM_SIGMA``: Number of sigma values scanned by ``blob_log``. Default: ``2``.
+
+* ``REMOVE_CLOSE_PRE_POINTS_RADIUS``: Radius used to suppress nearby presynaptic points. Default: ``0``.
+
+* ``REMOVE_CLOSE_POST_POINTS_RADIUS``: Radius used to suppress nearby postsynaptic points. Default: ``0``.
+
+* ``REMOVE_CLOSE_POINTS_RADIUS_BY_MASK``: If ``True``, remove close points only when they belong to the same mask region. Default: ``False``.
+
+For a complete, up-to-date reference of all defaults and comments, check `config.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/config.py>`__.
+
+.. _problem-representation:
 
 Problem representation
 **********************
