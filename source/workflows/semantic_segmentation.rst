@@ -663,16 +663,50 @@ In the `templates/semantic_segmentation <https://github.com/BiaPyX/BiaPy/tree/ma
 
 Advanced Parameters 
 *******************
-Many of the parameters of our workflows are set by default to values that work commonly well. However, it may be needed to tune them to improve the results of the workflow. For instance, you may modify the following parameters
+Many workflow-specific and general knobs can be tuned for semantic segmentation. Below is a practical summary using the current options in `config.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/config.py>`__.
 
-* **Model architecture**: Select the architecture of the deep neural network used as backbone of the pipeline. Options: U-Net, Residual U-Net, Attention U-Net, SEUNet, MultiResUNet, ResUNet++, UNETR-Mini, UNETR-Small, UNETR-Base, ResUNet SE and U-NeXt V1. Default value: U-Net.
-* **Batch size**: This parameter defines the number of patches seen in each training step. Reducing or increasing the batch size may slow or speed up your training, respectively, and can influence network performance. Common values are 4, 8, 16, etc.
-* **Patch size**: Input the size of the patches use to train your model (length in pixels in X and Y). The value should be smaller or equal to the dimensions of the image. The default value is 256 in 2D, i.e. 256x256 pixels.
-* **Optimizer**: Select the optimizer used to train your model. Options: ADAM, ADAMW, Stochastic Gradient Descent (SGD). ADAM usually converges faster, while ADAMW provides a balance between fast convergence and better handling of weight decay regularization. SGD is known for better generalization. Default value: ADAMW.
-* **Initial learning rate**: Input the initial value to be used as learning rate. If you select ADAM as optimizer, this value should be around 10e-4. 
-* **Learning rate scheduler**: Select to adjust the learning rate between epochs. The current options are "Reduce on plateau", "One cycle", "Warm-up cosine decay" or no scheduler.
-* **Test time augmentation (TTA)**: Select to apply augmentation (flips and rotations) at test time. It usually provides more robust results but uses more time to produce each result. By default, no TTA is peformed.
+**General tuning parameters (very useful in practice)**
 
+* **Model architecture** (``MODEL.ARCHITECTURE``): Backbone network. Current options for semantic segmentation are ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``. Default: ``unet``.
+
+* **Batch size** (``TRAIN.BATCH_SIZE``): Number of patches per optimization step. Increasing it can speed up training if memory allows; decreasing it lowers memory usage. Default: ``2``.
+
+* **Patch size** (``DATA.PATCH_SIZE``): Patch shape used by the model. In 2D: ``(y, x, c)``. In 3D: ``(z, y, x, c)``. Default: ``(256, 256, 1)``.
+
+* **Optimizer** (``TRAIN.OPTIMIZER``): Optimizer algorithm. Options: ``SGD``, ``ADAM``, ``ADAMW``. Default: ``["SGD"]``.
+
+* **Initial learning rate** (``TRAIN.LR``): Initial learning-rate value used by the optimizer. Default: ``[1e-4]``.
+
+* **Learning-rate scheduler** (``TRAIN.LR_SCHEDULER.NAME``): How the learning rate is adapted during training. Options: ``warmupcosine``, ``reduceonplateau``, ``onecycle``, ``warmupreduceonplateau``, or empty (disabled). Default: ``""``.
+
+* **Test-time augmentation (TTA)** (``TEST.AUGMENTATION``): Enables prediction-time augmentation and fusion. Default: ``False``. Related options:
+
+  * ``TEST.AUGMENTATION_MODE``: Fusion mode. Options: ``mean``, ``min``, ``max``. Default: ``mean``.
+
+  * ``TEST.AUGMENTATION_GROUP``: Orientation group. Options: ``auto``/``full``, ``flips``, ``none``. Default: ``auto``.
+
+**Semantic-segmentation specific options**
+
+* ``PROBLEM.SEMANTIC_SEG.IGNORE_CLASS_ID``: Class id to ignore in training/metrics (relevant when more than 2 classes are used). Default: ``0``.
+
+* ``LOSS.TYPE``: Loss for semantic segmentation. Options include ``CE`` (default when empty), ``DICE`` and ``W_CE_DICE``. Default in config is empty (automatic semantic default is CE): ``""``.
+
+* ``LOSS.CLASS_REBALANCE`` and ``LOSS.CLASS_WEIGHTS``: Optional class rebalancing (e.g. for imbalanced classes). ``LOSS.CLASS_REBALANCE`` options: ``none`` or ``manual``. Defaults: ``none`` and ``[]``.
+
+* ``DATA.TRAIN.EXTRACT_RANDOM_PATCH``: Enables random patch extraction from training images. Default: ``False``.
+
+* ``DATA.TRAIN.PROBABILITY_MAP``: When random patches are enabled, bias sampling toward foreground-rich regions. Default: ``False``. Related weights: ``DATA.TRAIN.W_FOREGROUND`` (default ``0.94``) and ``DATA.TRAIN.W_BACKGROUND`` (default ``0.06``). See :ref:`Data loading <semantic-data-loading>` for usage context.
+
+* ``TEST.POST_PROCESSING.MEDIAN_FILTER``: Enables median-filter post-processing. Default: ``False``.
+
+* ``TEST.POST_PROCESSING.MEDIAN_FILTER_AXIS`` and ``TEST.POST_PROCESSING.MEDIAN_FILTER_SIZE``: Axis combinations and kernel sizes for post-processing median filters. Defaults: ``[]`` and ``[]``. See :ref:`Post-processing <semantic-post-processing>`.
+
+* ``TEST.POST_PROCESSING.APPLY_MASK``: Applies a binary mask (from ``DATA.TEST.BINARY_MASKS``) to remove predictions outside a valid area. Default: ``False``.
+
+* ``TEST.SAVE_MODEL_RAW_OUTPUT``: Save raw model outputs (probability maps/logits depending on setup) together with processed results. Default: ``True``. See :ref:`Output <semantic-output>`.
+
+
+.. _semantic-output:
 
 Output
 ******
@@ -681,6 +715,8 @@ The **output** of a semantic segmentation workflow can be:
 - Single-channel image, when ``DATA.TEST.ARGMAX_TO_OUTPUT`` is ``True``, with each class labeled with an integer. 
 - Multi-channel image, when ``DATA.TEST.ARGMAX_TO_OUTPUT`` is ``False``, with the same number of channels as classes, and the same pixel in each channel will be the probability (in ``[0-1]`` range) of being of the class that represents that channel number. For instance, with ``3`` classes, e.g. background, mitochondria and contours, the fist channel will represent background, the second mitochondria and the last the contours. 
 
+
+.. _semantic-data-loading:
 
 Data loading
 ************
@@ -695,6 +731,8 @@ During the inference phase the performance of the test data is measured using di
 * **Per patch**: IoU is calculated for each patch separately and then averaged. 
 * **Reconstructed image**: IoU is calculated for each reconstructed image separately and then averaged. Notice that depending on the amount of overlap/padding selected the merged image can be different than just concatenating each patch. 
 * **Full image**: IoU is calculated for each image separately and then averaged. The results may be slightly different from the reconstructed image.
+
+.. _semantic-post-processing:
 
 Post-processing
 ***************

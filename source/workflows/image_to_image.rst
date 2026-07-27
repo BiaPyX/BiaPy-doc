@@ -618,16 +618,37 @@ In the `templates/image-to-image <https://github.com/BiaPyX/BiaPy/tree/master/te
 
 Advanced Parameters 
 *******************
-Many of the parameters of our workflows are set by default to values that work commonly well. However, it may be needed to tune them to improve the results of the workflow. For instance, you may modify the following parameters
+Many workflow-specific and general knobs can be tuned for image-to-image tasks. Below is a practical summary using the current options in `config.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/config.py>`__.
 
-* **Model architecture**: Select the architecture of the deep neural network used as backbone of the pipeline. Options: EDSR, RCAN, WDSR, DFCAN, U-Net, Residual U-Net, Attention U-Net, SEUNet, MultiResUNet, ResUNet++, UNETR-Mini, UNETR-Small, UNETR-Base, ResUNet SE and U-NeXt V1. Safe choice: U-Net.
-* **Batch size**: This parameter defines the number of patches seen in each training step. Reducing or increasing the batch size may slow or speed up your training, respectively, and can influence network performance. Common values are 4, 8, 16, etc.
-* **Patch size**: Input the size of the patches use to train your model (length in pixels in X and Y). The value should be smaller or equal to the dimensions of the image. The default value is 256 in 2D, i.e. 256x256 pixels.
-* **Optimizer**: Select the optimizer used to train your model. Options: ADAM, ADAMW, Stochastic Gradient Descent (SGD). ADAM usually converges faster, while ADAMW provides a balance between fast convergence and better handling of weight decay regularization. SGD is known for better generalization. Default value: ADAMW.
-* **Initial learning rate**: Input the initial value to be used as learning rate. If you select ADAM as optimizer, this value should be around 10e-4. 
-* **Learning rate scheduler**: Select to adjust the learning rate between epochs. The current options are "Reduce on plateau", "One cycle", "Warm-up cosine decay" or no scheduler.
-* **Test time augmentation (TTA)**: Select to apply augmentation (flips and rotations) at test time. It usually provides more robust results but uses more time to produce each result. By default, no TTA is peformed.
-* **Multiple raw inputs**. If each training sample is composed by several images, e.g. transformed versions of the sample, you need to set ``PROBLEM.IMAGE_TO_IMAGE.MULTIPLE_RAW_ONE_TARGET_LOADER``. Find an example of this configuration in the `LightMyCells tutorial <https://biapy.readthedocs.io/en/latest/tutorials/image-to-image/lightmycells.html>`__. 
+**General tuning parameters (very useful in practice)**
+
+* **Model architecture** (``MODEL.ARCHITECTURE``): Backbone network. Current options for image-to-image are ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``seunet``, ``resunet_se``, ``attention_unet``, ``unetr``, ``multiresunet``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``. Default: ``unet``.
+
+* **Batch size** (``TRAIN.BATCH_SIZE``): Number of patches per optimization step. Increasing it can speed up training if memory allows; decreasing it lowers memory usage. Default: ``2``.
+
+* **Patch size** (``DATA.PATCH_SIZE``): Patch shape used by the model. In 2D: ``(y, x, c)``. In 3D: ``(z, y, x, c)``. Default: ``(256, 256, 1)``.
+
+* **Optimizer** (``TRAIN.OPTIMIZER``): Optimizer algorithm. Options: ``SGD``, ``ADAM``, ``ADAMW``. Default: ``["SGD"]``.
+
+* **Initial learning rate** (``TRAIN.LR``): Initial learning-rate value used by the optimizer. Default: ``[1e-4]``.
+
+* **Learning-rate scheduler** (``TRAIN.LR_SCHEDULER.NAME``): How the learning rate is adapted during training. Options: ``warmupcosine``, ``reduceonplateau``, ``onecycle``, ``warmupreduceonplateau``, or empty (disabled). Default: ``""``.
+
+* **Test-time augmentation (TTA)** (``TEST.AUGMENTATION``): Enables prediction-time augmentation and fusion. Default: ``False``. Related options are ``TEST.AUGMENTATION_MODE`` (``mean``, ``min``, ``max``; default ``mean``) and ``TEST.AUGMENTATION_GROUP`` (``auto``/``full``, ``flips``, ``none``; default ``auto``).
+
+**Image-to-image specific options**
+
+* ``PROBLEM.IMAGE_TO_IMAGE.OUTPUT_CHANNELS``: Number of channels to predict at the output. Default: ``1``.
+
+* ``PROBLEM.IMAGE_TO_IMAGE.OUTPUT_CHANNEL_ACT``: Optional per-output-channel activation settings. Default: ``[]``.
+
+* ``PROBLEM.IMAGE_TO_IMAGE.CHANNELS_PER_HEAD_INFO``: Optional grouping of output channels into model heads. Default: ``[]``.
+
+* ``PROBLEM.IMAGE_TO_IMAGE.SEPARATED_DECODERS_PER_HEAD``: Use a separate decoder per output head when working with multi-head outputs. Default: ``False``.
+
+* ``PROBLEM.IMAGE_TO_IMAGE.MULTIPLE_RAW_ONE_TARGET_LOADER``: Enable multi-input loaders when each sample has multiple raw inputs for one target. Default: ``False``. Find an example in the `LightMyCells tutorial <https://biapy.readthedocs.io/en/latest/tutorials/image-to-image/lightmycells.html>`__.
+
+* ``LOSS.TYPE``: Image-to-image loss. Supported options include ``MAE`` (automatic default when empty), ``MSE``, ``SSIM``, ``W_MAE_SSIM`` and ``W_MSE_SSIM``. Default in config: ``""`` (automatic selection).
 
 
 Metrics

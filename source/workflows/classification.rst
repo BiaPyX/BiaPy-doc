@@ -655,15 +655,35 @@ In the `templates/classification <https://github.com/BiaPyX/BiaPy/tree/master/te
 
 Advanced Parameters 
 *******************
-Many of the parameters of our workflows are set by default to values that work commonly well. However, it may be needed to tune them to improve the results of the workflow. For instance, you may modify the following parameters
+Many workflow-specific and general knobs can be tuned for classification. Below is a practical summary using the current options in `config.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/config.py>`__.
 
-* **Model architecture**: Select the architecture of the deep neural network used as backbone of the pipeline. ViT, EfficientNetB0, EfficientNetB1, EfficientNetB2, EfficientNetB3, EfficientNetB4, EfficientNetB5, EfficientNetB6, EfficientNetB7 and simple CNN. Default value: ViT.
-* **Batch size**: This parameter defines the number of patches seen in each training step. Reducing or increasing the batch size may slow or speed up your training, respectively, and can influence network performance. Common values are 4, 8, 16, etc.
-* **Patch size**: Input the size of the patches use to train your model (length in pixels in X and Y). The value should be smaller or equal to the dimensions of the image. The default value is 256 in 2D, i.e. 256x256 pixels.
-* **Optimizer**: Select the optimizer used to train your model. Options: ADAM, ADAMW, Stochastic Gradient Descent (SGD). ADAM usually converges faster, while ADAMW provides a balance between fast convergence and better handling of weight decay regularization. SGD is known for better generalization. Default value: ADAMW.
-* **Initial learning rate**: Input the initial value to be used as learning rate. If you select ADAM as optimizer, this value should be around 10e-4. 
-* **Learning rate scheduler**: Select to adjust the learning rate between epochs. The current options are "Reduce on plateau", "One cycle", "Warm-up cosine decay" or no scheduler.
-* **Test time augmentation (TTA)**: Select to apply augmentation (flips and rotations) at test time. It usually provides more robust results but uses more time to produce each result. By default, no TTA is peformed.
+**General tuning parameters (very useful in practice)**
+
+* **Model architecture** (``MODEL.ARCHITECTURE``): Backbone network. For classification, current options are ``simple_cnn``, ``vit`` and ``efficientnet_b0`` to ``efficientnet_b7`` (EfficientNet variants are available for 2D). Global default in ``config.py`` is ``unet``, but workflow templates typically set a classification backbone explicitly.
+
+* **Batch size** (``TRAIN.BATCH_SIZE``): Number of patches/images per optimization step. Increasing it can speed up training if memory allows; decreasing it lowers memory usage. Default: ``2``.
+
+* **Patch size** (``DATA.PATCH_SIZE``): Patch shape used by the model. In 2D: ``(y, x, c)``. In 3D: ``(z, y, x, c)``. Default: ``(256, 256, 1)``.
+
+* **Optimizer** (``TRAIN.OPTIMIZER``): Optimizer algorithm. Options: ``SGD``, ``ADAM``, ``ADAMW``. Default: ``["SGD"]``.
+
+* **Initial learning rate** (``TRAIN.LR``): Initial learning-rate value used by the optimizer. Default: ``[1e-4]``.
+
+* **Learning-rate scheduler** (``TRAIN.LR_SCHEDULER.NAME``): How the learning rate is adapted during training. Options: ``warmupcosine``, ``reduceonplateau``, ``onecycle``, ``warmupreduceonplateau``, or empty (disabled). Default: ``""``.
+
+* **Test-time augmentation (TTA)** (``TEST.AUGMENTATION``): Enables prediction-time augmentation and fusion. Default: ``False``. Related options are ``TEST.AUGMENTATION_MODE`` (``mean``, ``min``, ``max``; default ``mean``) and ``TEST.AUGMENTATION_GROUP`` (``auto``/``full``, ``flips``, ``none``; default ``auto``).
+
+**Classification-specific options**
+
+* ``DATA.N_CLASSES``: Number of classes to predict (including background when applicable). Default: ``2``.
+
+* ``MODEL.SOURCE``: Model source. Options: ``biapy``, ``bmz``, ``torchvision``. Default: ``biapy``.
+
+* ``MODEL.VIT_MODEL``: ViT preset when using ``MODEL.ARCHITECTURE = vit``. Options: ``custom``, ``vit_base_patch16``, ``vit_large_patch16``, ``vit_huge_patch16``. Default: ``custom``.
+
+* ``LOSS.TYPE``: Classification loss. Semantic option for this workflow is ``CE`` (automatic when ``LOSS.TYPE`` is empty). Default in config: ``""`` (automatic selection).
+
+* ``LOSS.CLASS_REBALANCE`` and ``LOSS.CLASS_WEIGHTS``: Optional class rebalancing for class-imbalanced datasets. ``LOSS.CLASS_REBALANCE`` options: ``none`` or ``manual``. Defaults: ``none`` and ``[]``.
 
 Metrics
 *******

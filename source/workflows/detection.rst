@@ -647,15 +647,49 @@ In the `templates/detection <https://github.com/BiaPyX/BiaPy/tree/master/templat
 
 Advanced Parameters 
 *******************
-Many of the parameters of our workflows are set by default to values that work commonly well. However, it may be needed to tune them to improve the results of the workflow. For instance, you may modify the following parameters
+Many workflow-specific and general knobs can be tuned for detection. Below is a practical summary using the current options in `config.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/config.py>`__.
 
-* **Model architecture**: Select the architecture of the deep neural network used as backbone of the pipeline. Options: U-Net, Residual U-Net, Attention U-Net, SEUNet, MultiResUNet, ResUNet++, UNETR-Mini, UNETR-Small, UNETR-Base, ResUNet SE and U-NeXt V1. Safe choice: Residual U-Net.
-* **Batch size**: This parameter defines the number of patches seen in each training step. Reducing or increasing the batch size may slow or speed up your training, respectively, and can influence network performance. Common values are 4, 8, 16, etc.
-* **Patch size**: Input the size of the patches use to train your model (length in pixels in X and Y). The value should be smaller or equal to the dimensions of the image. The default value is 256 in 2D, i.e. 256x256 pixels.
-* **Optimizer**: Select the optimizer used to train your model. Options: ADAM, ADAMW, Stochastic Gradient Descent (SGD). ADAM usually converges faster, while ADAMW provides a balance between fast convergence and better handling of weight decay regularization. SGD is known for better generalization. Default value: ADAMW.
-* **Initial learning rate**: Input the initial value to be used as learning rate. If you select ADAM as optimizer, this value should be around 10e-4. 
-* **Learning rate scheduler**: Select to adjust the learning rate between epochs. The current options are "Reduce on plateau", "One cycle", "Warm-up cosine decay" or no scheduler.
-* **Test time augmentation (TTA)**: Select to apply augmentation (flips and rotations) at test time. It usually provides more robust results but uses more time to produce each result. By default, no TTA is peformed.
+**General tuning parameters (very useful in practice)**
+
+* **Model architecture** (``MODEL.ARCHITECTURE``): Backbone network. Current options for detection are ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``. Default: ``unet``.
+
+* **Batch size** (``TRAIN.BATCH_SIZE``): Number of patches per optimization step. Increasing it can speed up training if memory allows; decreasing it lowers memory usage. Default: ``2``.
+
+* **Patch size** (``DATA.PATCH_SIZE``): Patch shape used by the model. In 2D: ``(y, x, c)``. In 3D: ``(z, y, x, c)``. Default: ``(256, 256, 1)``.
+
+* **Optimizer** (``TRAIN.OPTIMIZER``): Optimizer algorithm. Options: ``SGD``, ``ADAM``, ``ADAMW``. Default: ``["SGD"]``.
+
+* **Initial learning rate** (``TRAIN.LR``): Initial learning-rate value used by the optimizer. Default: ``[1e-4]``.
+
+* **Learning-rate scheduler** (``TRAIN.LR_SCHEDULER.NAME``): How the learning rate is adapted during training. Options: ``warmupcosine``, ``reduceonplateau``, ``onecycle``, ``warmupreduceonplateau``, or empty (disabled). Default: ``""``.
+
+* **Test-time augmentation (TTA)** (``TEST.AUGMENTATION``): Enables prediction-time augmentation and fusion. Default: ``False``. Related options are ``TEST.AUGMENTATION_MODE`` (``mean``, ``min``, ``max``; default ``mean``) and ``TEST.AUGMENTATION_GROUP`` (``auto``/``full``, ``flips``, ``none``; default ``auto``).
+
+**Detection-specific options**
+
+* ``PROBLEM.DETECTION.CENTRAL_POINT_DILATION``: Radius/shape used to dilate GT central points when creating training masks. Default: ``[2]``.
+
+* ``PROBLEM.DETECTION.CHECK_POINTS_CREATED``: Validate generated point masks and stop on problematic annotations. Default: ``True``.
+
+* ``PROBLEM.DETECTION.DATA_CHECK_MW``: Save watershed-check intermediate files for debugging detection point extraction. Default: ``False``.
+
+* ``PROBLEM.DETECTION.CLASS_REBALANCE_WITHIN_CHANNELS``: Rebalance underrepresented pixels/classes within detection channels during loss computation. Default: ``True``.
+
+* ``PROBLEM.DETECTION.DATA_CHANNEL_WEIGHTS``: Per-channel weights for detection outputs. Default: ``(1, 1)``.
+
+* ``TEST.DET_POINT_CREATION_FUNCTION``: Function used to convert probability maps into points. Options: ``peak_local_max`` and ``blob_log``. Default: ``peak_local_max``.
+
+* ``TEST.DET_TH_TYPE`` and ``TEST.DET_MIN_TH_TO_BE_PEAK``: Threshold mode (``auto`` or ``manual``) and minimum threshold for accepted points. Defaults: ``manual`` and ``0.2``.
+
+* ``TEST.DET_PEAK_LOCAL_MAX_MIN_DISTANCE``: Minimum distance between detected peaks for ``peak_local_max``. Default: ``1``.
+
+* ``TEST.DET_EXCLUDE_BORDER``: Exclude border area when detecting points/blobs. Default: ``False``.
+
+* ``TEST.DET_BLOB_LOG_MIN_SIGMA``, ``TEST.DET_BLOB_LOG_MAX_SIGMA``, ``TEST.DET_BLOB_LOG_NUM_SIGMA``: Blob detector scale range settings for ``blob_log``. Defaults: ``5``, ``10`` and ``2``.
+
+* ``TEST.DET_TOLERANCE``: Maximum GT-to-predicted-point distance to count a true positive in point-level metrics. Default: ``10``.
+
+* ``TEST.DET_IGNORE_POINTS_OUTSIDE_BOX``: Optional exclusion margins when computing detection metrics. Default: ``[]``.
 
 Problem resolution
 ******************
