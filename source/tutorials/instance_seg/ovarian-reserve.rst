@@ -6,7 +6,7 @@ Ovarian Reserve: 3D Instance Segmentation of Oocytes
 About this tutorial
 ~~~~~~~~~~~~~~~~~~~
 
-This tutorial explains how to use **BiaPy** for **3D instance segmentation of oocytes** in whole-mount mouse ovaries, based on `"3D Mapping of Intact Ovaries Reveals the Aging Dynamics of the Ovarian Reserve" (bioRxiv, 2025) <https://doi.org/10.1101/2025.11.07.686728>`_ :cite:`ovarianreserve2025`.
+This tutorial explains how to use **BiaPy** for **3D instance segmentation of oocytes** in whole-mount mouse ovaries, based on `"Three-dimensional mapping of intact ovaries reveals the aging dynamics of the ovarian reserve"` (Nature Aging, 2026) <https://doi.org/10.1038/s43587-026-01178-z>`_ :cite:`ovarianreserve2026`.
 
 The goal is to make this workflow accessible to all BiaPy users (GUI, notebook, Galaxy, Docker, CLI, or API), even if this is your first time working with 3D instance segmentation.
 
@@ -29,7 +29,7 @@ If you still need to install BiaPy, follow the :ref:`installation guide <install
 Paper overview
 ~~~~~~~~~~~~~~
 
-Our publication :cite:`ovarianreserve2025` presents a pipeline to map the entire ovarian reserve in 3D by imaging intact mouse ovaries with **light-sheet fluorescence microscopy (SPIM)** and segmenting every individual oocyte with a deep learning model. The key steps of the pipeline are:
+Our publication :cite:`ovarianreserve2026` presents a pipeline to map the entire ovarian reserve in 3D by imaging intact mouse ovaries with **light-sheet fluorescence microscopy (SPIM)** and segmenting every individual oocyte with a deep learning model. The key steps of the pipeline are:
 
 #. **Whole-ovary SPIM imaging**: intact ovaries are cleared and imaged at single-cell resolution across the full organ, yielding large 3D fluorescence volumes (DDX4 channel marking oocyte cytoplasm).
 #. **3D instance segmentation with BiaPy**: a 3D residual U-Net (*ResU-Net*) is trained on manually curated oocyte labels using the **F + C + Dc** channel representation (Binary mask + Contour + Distance to the center), followed by marker-controlled watershed to recover individual instances.
@@ -43,19 +43,19 @@ Our publication :cite:`ovarianreserve2025` presents a pipeline to map the entire
          :align: center
          :figwidth: 300px
 
-         Paper Figure 1 from :cite:`ovarianreserve2025`: SPIM whole-ovary imaging and model-based oocyte segmentation workflow.
+         Paper Figure 1 from :cite:`ovarianreserve2026`: SPIM whole-ovary imaging and model-based oocyte segmentation workflow.
 
     - .. figure:: ../../img/tutorials/instance-segmentation/ovarian-reserve/F2.large.jpg
          :align: center
          :figwidth: 300px
 
-         Paper Figure 2 from :cite:`ovarianreserve2025`: age-resolved ovarian reserve quantification enabled by 3D oocyte segmentation.
+         Paper Figure 2 from :cite:`ovarianreserve2026`: age-resolved ovarian reserve quantification enabled by 3D oocyte segmentation.
 
 
 Data preparation
 ~~~~~~~~~~~~~~~~
 
-This tutorial uses two datasets. Note that they represent a **small but representative subset** of the full data described in :cite:`ovarianreserve2025` — the complete study involved many more labeled slices and full-ovary volumes. These subsets have been selected so that both training and inference (applying the model to new images to produce segmentations) can be completed in a **reasonable amount of time** on a standard GPU workstation.
+This tutorial uses two datasets. Note that they represent a **small but representative subset** of the full data described in :cite:`ovarianreserve2026` — the complete study involved many more labeled slices and full-ovary volumes. These subsets have been selected so that both training and inference (applying the model to new images to produce segmentations) can be completed in a **reasonable amount of time** on a standard GPU workstation.
 
 The datasets are presented in the natural order of the workflow: first the training data (used to learn the model), then the test data (used to evaluate it).
 
@@ -529,7 +529,7 @@ After segmentation, you can run the analysis scripts from the `Boke-Lab ovarian_
 * **oocyte density**: quantifies oocytes per volume.
 * **radial quantification**: measures the radial spatial distribution of oocytes.
 
-These scripts reproduce the quantitative analyses described in :cite:`ovarianreserve2025`.
+These scripts reproduce the quantitative analyses described in :cite:`ovarianreserve2026`.
 
 
 Citation
@@ -539,7 +539,7 @@ Please note that this tutorial is based on a publication. If you use it successf
 
 .. code-block:: text
 
-   3D Mapping of Intact Ovaries Reveals the Aging Dynamics of the Ovarian Reserve
+   Three-dimensional mapping of intact ovaries reveals the aging dynamics of the ovarian reserve
    Arturo D'Angelo, Daniel Franco-Barranco, Marco Musy, James Sharpe, Ignacio Arganda-Carreras,
    Elvan Böke
-   bioRxiv 2025.11.07.686728; doi: https://doi.org/10.1101/2025.11.07.686728
+   Nature Aging, 12 August 2026; doi: https://doi.org/10.1038/s43587-026-01178-z
