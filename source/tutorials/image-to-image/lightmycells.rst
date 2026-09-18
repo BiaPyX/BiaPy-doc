@@ -88,14 +88,14 @@ Then, you can train by you own those models or you can use directly our checkpoi
 
    .. tab:: Reuse our model
 
-        To use our checkpoints you need to first download them (soon avaialable under `Bioimage Model Zoo <https://bioimage.io/#/>`__):
+        Our checkpoints are hosted on the `BioImage Model Zoo <https://bioimage.io/#/>`__ and are downloaded automatically by BiaPy, so there is nothing to manually download:
 
-        - Nucleus `lightmycells_nucleus.pth <https://drive.google.com/file/d/1zcOtPhjpyFd1qU1rYBOwyCuQnoPsx1cJ/view?usp=sharing>`__  
-        - Mitochondria `lightmycells_mito.pth <https://drive.google.com/file/d/1WaeUyqIcsNoFE-i_RD9fbfasgFwIwcJI/view?usp=sharing>`__
-        - Actin `lightmycells_actin.pth <https://drive.google.com/file/d/1H2bn8xRaimETO90JJ1JYdiv_PrYDlyx4/view?usp=drive_link>`__
-        - Tubulin `lightmycells_tubulin.pth <https://drive.google.com/file/d/1WgjMJnxCINPRxaIaYRKewRshKsR50Vwq/view?usp=sharing>`__
+        - Nucleus: `serious-turtle <https://bioimage.io/#/artifacts/serious-turtle>`__
+        - Mitochondria: `plucky-koala <https://bioimage.io/#/artifacts/plucky-koala>`__
+        - Actin: `vengeful-zebra <https://bioimage.io/#/artifacts/vengeful-zebra>`__
+        - Tubulin: `clean-squid <https://bioimage.io/#/artifacts/clean-squid>`__
 
-        You need to update each setting with the location of each checkpoint so BiaPy can find it (use the ``PATHS.CHECKPOINT_FILE`` variable). For example, for the nucleus, you need to change ``PATHS.CHECKPOINT_FILE`` to the location of your nucleus checkpoint, like this: ``/home/user/Downloads/lightmycells_nucleus.pth``.
+        The templates linked above are already configured to pull the right model from the BioImage Model Zoo, by setting ``MODEL.SOURCE`` to ``bmz`` and ``MODEL.BMZ.SOURCE_MODEL_ID`` to the corresponding model nickname (e.g. for nucleus, ``MODEL.BMZ.SOURCE_MODEL_ID`` is set to ``serious-turtle``). You don't need to change anything else in the ``MODEL`` section for reusing our models.
 
         .. tabs::
 
