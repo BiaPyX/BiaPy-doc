@@ -63,9 +63,19 @@ extensions = [
     "sphinx_carousel.carousel",
     'numpydoc',
     "sphinxcontrib.googleanalytics",
+    "sphinx_llms_txt",
 ]
 
 googleanalytics_id = "G-N5K8QZNCY2"
+llms_txt_summary = (
+    "BiaPy is an open-source library for deep learning on bioimages. It provides 8 workflows for 2D "
+    "and 3D images: semantic segmentation, instance segmentation, object detection, denoising, single "
+    "image super-resolution, self-supervised learning, image classification and image-to-image "
+    "translation. Every BiaPy run is defined by a YAML configuration file that describes the data, the "
+    "model, the training and the test, and it can be run from the `biapy` command line, the Python API, "
+    "the graphical user interface (BiaPy-GUI) or the Jupyter/Colab notebooks."
+)
+llms_txt_exclude = ["API/*"]
 sphinx_tabs_disable_tab_closing = True
 
 napoleon_google_docstring = False
@@ -91,6 +101,8 @@ bibtex_default_style = 'plain'
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
+
+html_baseurl = "https://biapy.readthedocs.io/en/latest/"
 
 html_favicon = 'img/biapy_logo_icon.ico'
 
