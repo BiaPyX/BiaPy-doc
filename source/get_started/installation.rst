@@ -20,6 +20,7 @@ Prerequisites
 - If your system has one or more GPUs, ensure your `NVIDIA drivers <https://www.nvidia.com/download/index.aspx>`__ are up to date.
 - For Docker and graphical user interface (GUI) installations: Virtualization Technology must be enabled in your BIOS. Follow this `guide <https://support.bluestacks.com/hc/en-us/articles/4409279876621-How-to-enable-Virtualization-VT-on-Windows-11-for-BlueStacks-5#%E2%80%9CA%E2%80%9D>`__ for instructions on how to enable it.
 
+.. _choose-your-installation-method:
 
 Choose your installation method 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -123,7 +124,7 @@ Choose your installation method
 
    .. tab:: Galaxy
 
-          BiaPy is available as a tool in the `Galaxy <https://galaxyproject.org/>`__ platform, enabling users to run biomedical image analysis workflows through an intuitive, web-based interface without requiring any local installation. The tool can be accessed directly from the Galaxy ToolShed at this `link <https://imaging.usegalaxy.eu/?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fbiapy%2Fbiapy%2F3.6.5%2Bgalaxy0&version=latest>`__, and it can also be found by searching for 'biapy' in the Galaxy ToolShed interface here `here <https://usegalaxy.eu/>`__.
+          BiaPy is available as a tool in the `Galaxy <https://galaxyproject.org/>`__ platform, enabling users to run biomedical image analysis workflows through an intuitive, web-based interface without requiring any local installation. The tool can be accessed directly from the Galaxy ToolShed at this `link <https://imaging.usegalaxy.eu/?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fbiapy%2Fbiapy%2F3.6.5%2Bgalaxy0&version=latest>`__, and it can also be found by searching for 'biapy' in the Galaxy ToolShed interface `here <https://usegalaxy.eu/>`__.   
 
    .. tab:: Docker
 

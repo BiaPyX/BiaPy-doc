@@ -62,19 +62,29 @@ BiaPy offers several execution methods, designed to accommodate a range of exper
 
    .. tab:: Galaxy
 
-    **BiaPy integration into the Galaxy project**: Available as a dedicated tool within the Galaxy ecosystem.
+    **BiaPy integration into the Galaxy project**: Available as a dedicated tool within the `Galaxy ecosystem <https://galaxyproject.org/>`__. 
+    
+    The tool can be accessed directly from the Galaxy ToolShed at this `link <https://imaging.usegalaxy.eu/?tool_id=toolshed.g2.bx.psu.edu%2Frepos%2Fiuc%2Fbiapy%2Fbiapy%2F3.6.5%2Bgalaxy0&version=latest>`__, and it can also be found by searching for 'biapy' in the Galaxy ToolShed interface `here <https://usegalaxy.eu/>`__.
 
    .. tab:: Docker
 
     **Docker Containers**: Provide portable, consistent, and fully reproducible environments using Docker.
+    
+    We provide a Docker container for running BiaPy called ``biapyx/biapy:latest-11.8`` (`link to the container <https://hub.docker.com/layers/biapyx/biapy/latest-11.8/images/sha256-86cf198ab05a953ba950bb96fb74b18045d2ed7318afb8fa9b212c97c41be904?context=repo>`__.). It is based on Ubuntu ``22.04`` with `Pytorch <https://pytorch.org/get-started/locally/>`__ ``2.4.0`` and CUDA ``11.8`` support.
+
+    To install `Docker <https://docs.docker.com/>`__ in your operating system, follow the instructions under "Docker" in the  :ref:`installation section <choose-your-installation-method>`.
 
    .. tab:: CLI
 
     **Command-Line Interface (CLI)**: Designed for advanced users who prefer working directly with terminal commands.
 
+    To use BiaPy from the command line, follow the instructions under "CLI" in the :ref:`installation section <choose-your-installation-method>`.
+
    .. tab:: API
 
     **BiaPy's API**: Enables advanced users to integrate BiaPy functionalities seamlessly into their own codebases.
+
+    To use BiaPy from the API, follow the instructions under "API" in the :ref:`installation section <choose-your-installation-method>`.
 
 Limitations
 ***********
