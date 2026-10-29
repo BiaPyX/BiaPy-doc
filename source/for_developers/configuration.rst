@@ -596,22 +596,22 @@ Metric measurement
 
 You can configure the metrics to be measured during train and test with ``TRAIN.METRICS`` and ``TEST.METRICS`` variables, respectively. Each workflow have different type of metrics that can be configured. If empty, some default metrics will be configured automatically.
 
-During training these ones can be applied (all of them on each case are set by default):
+During training these ones can be applied (all of them on each case are set by default, except for semantic segmentation, instance segmentation and detection, where only ``"iou"`` is set by default):
 
-* Semantic segmentation: ``"iou"`` (called also Jaccard index).
-* Instance segmentation: automatically set depending on the channels selected (``PROBLEM.INSTANCE_SEG.DATA_CHANNELS``).
-* Detection: ``"iou"`` (called also Jaccard index).
+* Semantic segmentation: ``"iou"`` (called also Jaccard index), ``"dice"``, ``"accuracy"``.
+* Instance segmentation: ``"iou"``, ``"dice"``, ``"accuracy"``. They are measured on each binary channel selected in ``PROBLEM.INSTANCE_SEG.DATA_CHANNELS`` (and on the class channel, if any), while L1 is always measured on the regression channels (e.g. distances).
+* Detection: ``"iou"`` (called also Jaccard index), ``"dice"``, ``"accuracy"``.
 * Denoising: ``"mae"``, ``"mse"``.
 * Super-resolution: ``"psnr"``, ``"mae"``, ``"mse"``, ``"ssim"``.
 * Self-supervision: ``"psnr"``, ``"mae"``, ``"mse"``, ``"ssim"``.
 * Classification: ``'accuracy'``, ``"top-5-accuracy"``.
 * Image to image: ``"psnr"``, ``"mae"``, ``"mse"``, ``"ssim"``.
 
-During test these ones can be applied (all of them on each case are set by default):
+During test these ones can be applied (all of them on each case are set by default, except for semantic segmentation, instance segmentation and detection, where only ``"iou"`` is set by default):
 
-* Semantic segmentation: ``"iou"`` (called also Jaccard index).
-* Instance segmentation: automatically set depending on the channels selected (``PROBLEM.INSTANCE_SEG.DATA_CHANNELS``). Instance metrics will be always calculated.
-* Detection: ``"iou"`` (called also Jaccard index).
+* Semantic segmentation: ``"iou"`` (called also Jaccard index), ``"dice"``, ``"accuracy"``.
+* Instance segmentation: ``"iou"``, ``"dice"``, ``"accuracy"``, measured as during training. Instance metrics will be always calculated.
+* Detection: ``"iou"`` (called also Jaccard index), ``"dice"``, ``"accuracy"``. Detection metrics (precision, recall, F1...) will be always calculated.
 * Denoising: ``"mae"``, ``"mse"``.
 * Super-resolution: ``"psnr"``, ``"mae"``, ``"mse"``, ``"ssim"``. Additionally, if only if ``PROBLEM.NDIM`` is ``'2D'``, these can also be selected: ``"fid"``, ``"is"``, ``"lpips"``.
 * Self-supervision: ``"psnr"``, ``"mae"``, ``"mse"``, ``"ssim"``. Additionally, if only if ``PROBLEM.NDIM`` is ``'2D'``, these can also be selected: ``"fid"``, ``"is"``, ``"lpips"``.

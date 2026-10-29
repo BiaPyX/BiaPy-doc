@@ -1316,13 +1316,19 @@ The post-processing step works by performing a Voronoi tessellation using the ce
 Metrics
 *******
 
-During the inference phase the performance of the test data is measured using different metrics if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is ``True``. In the case of detection, the **Intersection over Union** (IoU) is measured after network prediction:
+During training, and during the inference phase if test masks were provided (i.e. ground truth) and, consequently, ``DATA.TEST.LOAD_GT`` is ``True``, the performance of the model is first measured on the predicted channels (``PROBLEM.INSTANCE_SEG.DATA_CHANNELS``), after the network prediction. On each binary channel (e.g. foreground ``F`` or contours ``C``), and on the class channel if ``DATA.N_CLASSES`` > 2, the following metrics can be measured (reported per channel, e.g. ``Dice (F channel)``):
 
-* **IoU**: also referred as the Jaccard index, is essentially a method to quantify the percent of overlap between the target mask and the prediction output. Depending on the configuration different values are calculated (as explained in :ref:`config_test` and :ref:`config_metric`). This values can vary a lot as stated in :cite:p:`Franco-Barranco2021`.
+* **IoU** (keyword: ``iou``), also referred as the Jaccard index, quantifies the overlap between the target mask and the prediction output: the size of their intersection divided by the size of their union.
+* **Dice** (keyword: ``dice``), also referred as the Dice coefficient or F1 score, is twice the size of the intersection divided by the sum of the sizes of the target mask and the prediction. It is closely related to the IoU (Dice = 2·IoU / (1 + IoU)) but weights the overlap more.
+* **Accuracy** (keyword: ``accuracy``), the fraction of pixels/voxels correctly classified.
 
-  * **Per patch**: IoU is calculated for each patch separately and then averaged. 
-  * **Reconstructed image**: IoU is calculated for each reconstructed image separately and then averaged. Notice that depending on the amount of overlap/padding selected the merged image can be different than just concatenating each patch. 
-  * **Full image**: IoU is calculated for each image separately and then averaged. The results may be slightly different from the reconstructed image. 
+In the binary case, IoU and Dice are measured over the foreground. With more than two classes (``DATA.N_CLASSES`` > 2) IoU and Dice are averaged over the classes, while the accuracy is the fraction of pixels/voxels whose class is correctly predicted. Only the IoU is calculated by default; the metrics to calculate are selected with ``TRAIN.METRICS`` and ``TEST.METRICS`` (e.g. ``['iou', 'dice', 'accuracy']``). The regression channels (e.g. distances such as ``Db``) are always measured with the L1 error. With EmbedSeg channels (``E_offset``) only the IoU is measured.
+
+Depending on the configuration different values are calculated (as explained in :ref:`config_test` and :ref:`config_metric`). This values can vary a lot as stated in :cite:p:`Franco-Barranco2021`.
+
+* **Per patch**: the metrics are calculated for each patch separately and then averaged. 
+* **Reconstructed image**: the metrics are calculated for each reconstructed image separately and then averaged. Notice that depending on the amount of overlap/padding selected the merged image can be different than just concatenating each patch. 
+* **Full image**: the metrics are calculated for each image separately and then averaged. The results may be slightly different from the reconstructed image. 
 
 Then, after creating the final instances from the predictions, **matching metrics** and **morphological measurements** are calculated:
 
