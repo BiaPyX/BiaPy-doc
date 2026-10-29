@@ -31,6 +31,7 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
    get_started/how_it_works
    get_started/select_workflow
    get_started/bmz
+   get_started/pretrained_models
    get_started/faq
 
 .. toctree::
