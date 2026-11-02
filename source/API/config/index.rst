@@ -16,7 +16,7 @@ Submodules
    * - Module
      - Description
    * - :mod:`biapy.config.config`
-     - Main configuration module. Defines the BiaPy class and handles parsing of configuration files and workflow setup.
+     - Main configuration module. Defines the ``Config`` class with the default values of every configuration variable, plus helpers to update dependencies and filter or clean configurations.
 
 **Links to package submodules:**
 

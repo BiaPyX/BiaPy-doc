@@ -1,8 +1,7 @@
-biapy.data.post_processing
+biapy.engine.chunked_tiles
 --------------------------
 
-.. automodule:: biapy.data.post_processing
+.. automodule:: biapy.engine.chunked_tiles
     :members:
     :undoc-members:
     :show-inheritance:
-
