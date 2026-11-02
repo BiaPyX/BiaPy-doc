@@ -206,7 +206,7 @@ Select the tab that matches the way you are running BiaPy:
             )
 
             # Predict all the images in a folder and write the results to result_dir
-            biapy.update_config({"TEST.ENABLE": True, "DATA.TEST.PATH": "/home/user/data/test/x"})
+            biapy.update_config({"TEST.ENABLE": True, "DATA.TEST.PATH": "/home/user/data/test/raw"})
             biapy.test()
 
         **Predict a single image in memory**. Omit ``result_dir`` to write nothing to disk. The result is returned as a NumPy array:
@@ -217,7 +217,7 @@ Select the tab that matches the way you are running BiaPy:
             from biapy import BiaPy
 
             biapy = BiaPy.load_workflow_from_model("affable-shark")  # BMZ model nickname or DOI
-            image = imread("/home/user/data/test/x/image_001.tif")
+            image = imread("/home/user/data/test/raw/image_001.tif")
             mask = biapy.predict(image)
 
         To fine-tune a loaded model instead, enable the training phase and set the training data with ``update_config()``, then call ``biapy.train()``. See `Fine-tune a trained model <../for_developers/python_api.html#fine-tune-a-trained-model>`__ for details.
