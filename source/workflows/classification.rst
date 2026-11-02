@@ -679,9 +679,9 @@ Many workflow-specific and general knobs can be tuned for classification. Below 
 
 * ``MODEL.SOURCE``: Model source. Options: ``biapy``, ``bmz``, ``torchvision``. Default: ``biapy``.
 
-* ``MODEL.VIT_MODEL``: ViT preset when using ``MODEL.ARCHITECTURE = vit``. Options: ``custom``, ``vit_base_patch16``, ``vit_large_patch16``, ``vit_huge_patch16``. Default: ``custom``.
+* ``MODEL.VIT_MODEL``: ViT backbone when using ``MODEL.ARCHITECTURE = vit``. Options: ``custom``, ``vit_base_patch16``, ``vit_large_patch16``, ``vit_huge_patch14``, ``sam3_vit``, ``celldino_vit``, ``dinov3_vit`` and ``dinov3_vitb`` (the last four 2D only, with pretrained weights through ``MODEL.VIT_PRETRAINED_WEIGHTS``; see the description of ``MODEL.VIT_MODEL`` in ``biapy/config/config.py``). Default: ``custom``.
 
-* ``LOSS.TYPE``: Classification loss. Semantic option for this workflow is ``CE`` (automatic when ``LOSS.TYPE`` is empty). Default in config: ``""`` (automatic selection).
+* ``LOSS.TYPE``: Classification loss. Only ``['CE']`` is available (automatic when empty).
 
 * ``LOSS.CLASS_REBALANCE`` and ``LOSS.CLASS_WEIGHTS``: Optional class rebalancing for class-imbalanced datasets. ``LOSS.CLASS_REBALANCE`` options: ``none`` or ``manual``. Defaults: ``none`` and ``[]``.
 
@@ -726,7 +726,9 @@ All files are placed in ``results`` folder under ``--result_dir`` directory with
               │   ├── my_2d_classification_1_*.png
               │   └── my_2d_classification_1_loss.png
               ├── train_logs
-              └── tensorboard
+              ├── tensorboard
+              ├── CITATIONS.md
+              └── citations.bib
 
 \
 
@@ -759,6 +761,8 @@ All files are placed in ``results`` folder under ``--result_dir`` directory with
     * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
 
     * ``tensorboard``: tensorboard logs.
+
+    * ``CITATIONS.md`` and ``citations.bib``: works to cite if you use these results (BiaPy, the model and the methods used), in Markdown and BibTeX.
 
     * ``test_results_metrics.csv``: a CSV file containing all the evaluation metrics obtained on each file of the test set if ground truth was provided.
 

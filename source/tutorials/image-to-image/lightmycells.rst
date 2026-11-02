@@ -311,5 +311,7 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
 .. figure:: ../../img/i2i/lightmycells_fig2.png
    :align: center                  
 
-   Results on the LightMyCells challenge of our approach. 
+   Results on the LightMyCells challenge of our approach.
+
+To measure the challenge metrics (MAE, MSE, SSIM, PSNR, PCC and the Euclidean and cosine distances) of these predictions against the ground truth, per image, sample and study, you can use the `calculate_lightmycells_metrics.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/calculate_lightmycells_metrics.py>`__ script. 
 

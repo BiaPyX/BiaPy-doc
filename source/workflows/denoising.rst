@@ -500,7 +500,7 @@ Many workflow-specific and general knobs can be tuned for denoising. Below is a 
 
 **General tuning parameters (very useful in practice)**
 
-* **Model architecture** (``MODEL.ARCHITECTURE``): Backbone network. Current options for denoising are ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet``, ``resunet_se``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``. Default: ``unet``.
+* **Model architecture** (``MODEL.ARCHITECTURE``): Backbone network. Current options for denoising are ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet``, ``stunet``, ``nafnet``, ``dpt`` and ``vit_readout`` (these last two 2D only). Default: ``unet``.
 
 * **Batch size** (``TRAIN.BATCH_SIZE``): Number of patches per optimization step. Increasing it can speed up training if memory allows; decreasing it lowers memory usage. Default: ``2``.
 
@@ -516,7 +516,7 @@ Many workflow-specific and general knobs can be tuned for denoising. Below is a 
 
 **Denoising-specific options**
 
-* ``LOSS.TYPE``: Denoising loss. Options are ``MAE`` and ``MSE`` (automatic default when empty is ``MSE``). Default in config: ``""`` (automatic selection).
+* ``LOSS.TYPE``: Denoising loss. ``['MSE']`` (default when empty) or, with the ``nafnet`` architecture, a list including an adversarial term (``BCE`` or ``HINGE``). See `Loss types <../for_developers/configuration.html#loss-types>`__.
 
 * ``PROBLEM.DENOISING.LOAD_GT_DATA``: Whether clean target images are explicitly loaded from GT data. Default: ``False``.
 
@@ -575,7 +575,9 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
               │   ├── .tif files
               │   └── .zarr files (or.h5)
               ├── train_logs
-              └── tensorboard
+              ├── tensorboard
+              ├── CITATIONS.md
+              └── citations.bib
 
 \
 
@@ -612,6 +614,8 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
     * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
 
     * ``tensorboard``: tensorboard logs.
+
+    * ``CITATIONS.md`` and ``citations.bib``: works to cite if you use these results (BiaPy, the model and the methods used), in Markdown and BibTeX.
 
 .. note:: 
 

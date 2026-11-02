@@ -640,7 +640,7 @@ Many workflow-specific knobs for instance segmentation are defined in ``PROBLEM.
 
 Before going into workflow-specific options, these **general training/inference parameters** are also very useful in practice:
 
-* **Model architecture** (``MODEL.ARCHITECTURE``): Selects the backbone network. For instance segmentation with BiaPy models, currently supported options are ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``. Default in ``config.py``: ``unet``.
+* **Model architecture** (``MODEL.ARCHITECTURE``): Selects the backbone network. For instance segmentation with BiaPy models, currently supported options are ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet``, ``stunet``, ``dpt`` and ``vit_readout`` (these last two 2D only). Default in ``config.py``: ``unet``.
 
 * **Batch size** (``TRAIN.BATCH_SIZE``): Number of patches processed per optimization step. Lower values reduce memory usage; larger values can speed up training if memory allows. Default in ``config.py``: ``2``.
 
@@ -736,7 +736,7 @@ These apply when using gradient-flow channels (``Gh``, ``Gv``, ``Gz`` in ``DATA_
 
 * ``PROBLEM.INSTANCE_SEG.CELLPOSE.DIAM_MEAN``: Reference training diameter used for scaling. Default: ``30.0``.
 
-* ``PROBLEM.INSTANCE_SEG.CELLPOSE.SCALE_RANGE``: Training-time random scale jitter around diameter normalization. Default: ``0.5``.
+* Random scale jitter around the diameter normalization: ``AUGMENTOR.ZOOM`` (Cellpose uses ``ZOOM_RANGE: (0.75, 1.25)`` and ``ZOOM_PROB: 1.0``).
 
 * ``PROBLEM.INSTANCE_SEG.CELLPOSE.TEST_DOUBLE_INFERENCE``: When diameter is automatic, run a first pass to estimate it per test image. Default: ``True``.
 
@@ -745,6 +745,20 @@ These apply when using gradient-flow channels (``Gh``, ``Gv``, ``Gz`` in ``DATA_
 * ``PROBLEM.INSTANCE_SEG.OMNIPOSE.FLOW_THRESHOLD``: Flow-consistency filter threshold for Omnipose masks. Default: ``0.4``.
 
 * ``PROBLEM.INSTANCE_SEG.OMNIPOSE.NITER``: Integration steps for Omnipose (``0`` means automatic). Default: ``0``.
+
+**Pretrained Cellpose-SAM and Cellpose-DINO**
+
+Cellpose 4's models can be used and fine-tuned without the ``cellpose`` package, with ``MODEL.ARCHITECTURE: vit_readout``:
+
+* Cellpose-SAM (template: ``templates/instance_segmentation/2d_cellpose_sam.yaml``): ``MODEL.VIT_MODEL: cellpose_sam_vit`` and ``MODEL.VIT_PRETRAINED_WEIGHTS: cpsam_v2`` (or ``cpsam``, or a checkpoint path). ``DATA.PATCH_SIZE: (256, 256, C)``.
+* Cellpose-DINO (template: ``templates/instance_segmentation/2d_cellpose_dino.yaml``): ``MODEL.VIT_MODEL: dinov3_vit`` with ``MODEL.VIT_PRETRAINED_WEIGHTS: cpdino`` (ViT-L), or ``dinov3_vitb`` with ``cpdino-vitb`` (ViT-B), and ``MODEL.VIT_TOKEN_STRIDE: 8``. ``DATA.PATCH_SIZE: (384, 384, C)``.
+
+With ``MODEL.VIT_READOUT.FEATURES: 3``, ``REFINE_LAYERS: 0``, ``INPUT_SKIP: False`` and ``DATA_CHANNELS: ['F', 'Gv', 'Gh']`` the whole network is loaded, ready for inference. Up to 3 channels (``C``); a grayscale image is equivalent to Cellpose's channel 0 with the rest set to zero. To match Cellpose:
+
+* ``DATA.NORMALIZATION.TYPE: 'scale_range'`` with ``SCALE_RANGE.LOWER_PERC: 1`` and ``UPPER_PERC: 99`` (no ``PERC_CLIP``).
+* ``PROBLEM.INSTANCE_SEG.CELLPOSE.DIAMETER: 30`` and ``DIAM_MEAN: 30`` (no rescaling).
+* ``DATA.TEST.PADDING: (8, 8)`` and ``DATA.TEST.FORCE_PADDING: True`` (zero padding, also for images of the patch size, so border cells are not lost). Set automatically when consuming a BMZ model that outputs Cellpose flows.
+* ``TEST.POST_PROCESSING.INSTANCE_REFINEMENT``: ``fill_holes`` and ``remove_small_objects`` (``14``), as Cellpose's ``min_size=15``.
 
 **Embedding-based instance creation (EmbedSeg style)**
 
@@ -1409,7 +1423,9 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
               │   ├── foreground.tif                
               │   └── watershed.tif
               ├── train_logs
-              └── tensorboard
+              ├── tensorboard
+              ├── CITATIONS.md
+              └── citations.bib
 
 \
 
@@ -1484,6 +1500,8 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
     * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
 
     * ``tensorboard``: tensorboard logs.
+
+    * ``CITATIONS.md`` and ``citations.bib``: works to cite if you use these results (BiaPy, the model and the methods used), in Markdown and BibTeX.
 
     * ``test_results_metrics.csv``: a CSV file containing all the evaluation metrics obtained on each file of the test set if ground truth was provided.
 

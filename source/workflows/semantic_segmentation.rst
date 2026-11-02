@@ -667,7 +667,7 @@ Many workflow-specific and general knobs can be tuned for semantic segmentation.
 
 **General tuning parameters (very useful in practice)**
 
-* **Model architecture** (``MODEL.ARCHITECTURE``): Backbone network. Current options for semantic segmentation are ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``. Default: ``unet``.
+* **Model architecture** (``MODEL.ARCHITECTURE``): Backbone network. Current options for semantic segmentation are ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet``, ``stunet``, ``dpt`` and ``vit_readout`` (these last two 2D only). Default: ``unet``.
 
 * **Batch size** (``TRAIN.BATCH_SIZE``): Number of patches per optimization step. Increasing it can speed up training if memory allows; decreasing it lowers memory usage. Default: ``2``.
 
@@ -689,13 +689,13 @@ Many workflow-specific and general knobs can be tuned for semantic segmentation.
 
 * ``PROBLEM.SEMANTIC_SEG.IGNORE_CLASS_ID``: Class id to ignore in training/metrics (relevant when more than 2 classes are used). Default: ``0``.
 
-* ``LOSS.TYPE``: Loss for semantic segmentation. Options include ``CE`` (default when empty), ``DICE`` and ``W_CE_DICE``. Default in config is empty (automatic semantic default is CE): ``""``.
+* ``LOSS.TYPE`` and ``LOSS.WEIGHTS``: Loss for semantic segmentation, as a list. Options: ``['CE']`` (default when empty), ``['DICE']`` or ``['DICE', 'CE']`` together, weighted with ``LOSS.WEIGHTS``. See `Loss types <../for_developers/configuration.html#loss-types>`__.
 
 * ``LOSS.CLASS_REBALANCE`` and ``LOSS.CLASS_WEIGHTS``: Optional class rebalancing (e.g. for imbalanced classes). ``LOSS.CLASS_REBALANCE`` options: ``none`` or ``manual``. Defaults: ``none`` and ``[]``.
 
-* ``DATA.TRAIN.EXTRACT_RANDOM_PATCH``: Enables random patch extraction from training images. Default: ``False``.
+* ``DATA.TRAIN.PATCH_SAMPLING``: How the training patches are taken from the images. Options: ``tiles``, ``random`` and ``foreground_oversampling`` (nnU-Net-like, recommended for small or rare classes; see ``DATA.TRAIN.FOREGROUND_OVERSAMPLING``). Default: ``tiles``. See :ref:`Data loading <semantic-data-loading>`.
 
-* ``DATA.TRAIN.PROBABILITY_MAP``: When random patches are enabled, bias sampling toward foreground-rich regions. Default: ``False``. Related weights: ``DATA.TRAIN.W_FOREGROUND`` (default ``0.94``) and ``DATA.TRAIN.W_BACKGROUND`` (default ``0.06``). See :ref:`Data loading <semantic-data-loading>` for usage context.
+* ``DATA.TRAIN.PROBABILITY_MAP``: With ``random`` patch sampling, bias sampling toward foreground-rich regions. Default: ``False``. Related weights: ``DATA.TRAIN.W_FOREGROUND`` (default ``0.94``) and ``DATA.TRAIN.W_BACKGROUND`` (default ``0.06``). See :ref:`Data loading <semantic-data-loading>` for usage context.
 
 * ``TEST.POST_PROCESSING.MEDIAN_FILTER``: Enables median-filter post-processing. Default: ``False``.
 
@@ -721,7 +721,7 @@ The **output** of a semantic segmentation workflow can be:
 Data loading
 ************
 
-If you want to select ``DATA.EXTRACT_RANDOM_PATCH`` you can also set ``DATA.PROBABILITY_MAP`` to create a probability map so the patches extracted will have a high probability of having an object in the middle of it. Useful to avoid extracting patches which no foreground class information. That map will be saved in ``PATHS.PROB_MAP_DIR``. Furthermore, in ``PATHS.DA_SAMPLES`` path, i.e. ``aug`` folder by default (see :ref:`semantic_segmentation_results`), two more images will be created so you can check how this probability map is working. These images will have painted a blue square and a red point in its middle, which correspond to the patch area extracted and the central point selected respectively. One image will be named as ``mark_x`` and the other one as ``mark_y``, which correspond to the input image and ground truth respectively.  
+The training patches are taken as set in ``DATA.TRAIN.PATCH_SAMPLING`` (see :ref:`data_management`). With ``foreground_oversampling`` a share of the patches is centred on a class chosen at random among those of the image, so rare classes are seen as often as common ones. With ``random`` you can also set ``DATA.TRAIN.PROBABILITY_MAP`` to create a probability map so the patches extracted will have a high probability of having an object in the middle of it. Useful to avoid extracting patches which no foreground class information. That map will be saved in ``<DATA.TRAIN.GT_PATH>_prob_maps``. Furthermore, in ``PATHS.DA_SAMPLES`` path, i.e. ``aug`` folder by default (see :ref:`semantic_segmentation_results`), two more images will be created so you can check how this probability map is working. These images will have painted a blue square and a red point in its middle, which correspond to the patch area extracted and the central point selected respectively. One image will be named as ``mark_x`` and the other one as ``mark_y``, which correspond to the input image and ground truth respectively.  
 
 Metrics
 *******
@@ -797,7 +797,9 @@ Following the example, you should see that the directory ``/home/user/exp_result
               ├── full_post_processing
               │   └── .tif files
               ├── tensorboard
-              └── train_logs
+              ├── train_logs
+              ├── CITATIONS.md
+              └── citations.bib
 
 \
 
@@ -846,6 +848,8 @@ Following the example, you should see that the directory ``/home/user/exp_result
     * ``tensorboard``: Tensorboard logs.
 
     * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
+
+    * ``CITATIONS.md`` and ``citations.bib``: works to cite if you use these results (BiaPy, the model and the methods used), in Markdown and BibTeX.
 
     * ``test_results_metrics.csv``: a CSV file containing all the evaluation metrics obtained on each file of the test set if ground truth was provided.
         

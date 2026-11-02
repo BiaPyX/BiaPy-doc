@@ -111,7 +111,7 @@ Command line
 Import
 ******
 
-To use a BMZ model via the command line, you need to set the ``MODEL.SOURCE`` parameter to ``"bmz"`` and specify the model with ``MODEL.BMZ.SOURCE_MODEL_ID``. This field can either be the DOI of the model or its nickname, such as `"affable-shark" <https://bioimage.io/#/?id=10.5281%2Fzenodo.5764892>`__.
+To use a BMZ model via the command line, you need to set the ``MODEL.SOURCE`` parameter to ``"bmz"`` and specify the model with ``MODEL.BMZ.SOURCE_MODEL_ID``. This field can be the DOI of the model, its nickname, such as `"affable-shark" <https://bioimage.io/#/?id=10.5281%2Fzenodo.5764892>`__, or the path to a local BMZ package (``.zip``, folder or ``rdf.yaml``).
 
 Export
 ******

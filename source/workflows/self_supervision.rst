@@ -525,9 +525,9 @@ Many workflow-specific and general knobs can be tuned for self-supervision. Belo
 
 * ``PROBLEM.SELF_SUPERVISED.NOISE``: Noise level injected in ``crappify``. Default: ``0.2``.
 
-* ``LOSS.TYPE``: For ``crappify``, supported options are ``MAE``, ``MSE``, ``SSIM``, ``W_MAE_SSIM`` and ``W_MSE_SSIM`` (automatic default is ``MAE`` when empty). For ``masking``, loss is set automatically by the workflow (MSE). Default in config: ``""`` (automatic selection).
+* ``LOSS.TYPE`` and ``LOSS.WEIGHTS``: For ``crappify``, a list of losses added up with their weights, e.g. ``['MAE', 'SSIM']`` and ``[0.7, 0.3]``. Options: ``MAE`` (default when empty), ``MSE``, ``SSIM``, ``PCC``, ``CHARBONNIER``, ``VGG``, ``LPIPS``, ``LAPLACIAN``, ``FFT``, ``RFFT`` and ``SWT``. For ``masking``, ``MSE`` is always used. See `Loss types <../for_developers/configuration.html#loss-types>`__.
 
-* ``MODEL.VIT_MODEL``: ViT preset used by transformer-based self-supervised backbones. Options: ``custom``, ``vit_base_patch16``, ``vit_large_patch16``, ``vit_huge_patch16``. Default: ``custom``.
+* ``MODEL.VIT_MODEL``: ViT backbone of the ``vit`` architecture (see the options in `Model definition <../for_developers/configuration.html#model-definition>`__). ``mae`` is always built from the ``MODEL.VIT_*`` variables. Default: ``custom``.
 
 * ``MODEL.MAE_MASK_TYPE`` and ``MODEL.MAE_MASK_RATIO``: MAE masking strategy and masking ratio (applied when using MAE-style training). Defaults: ``grid`` and ``0.5``.
 
@@ -598,7 +598,9 @@ Following the example, you should see that the directory ``/home/user/exp_result
               │   ├── .tif files
               │   └── .zarr files (or.h5)
               ├── tensorboard
-              └── train_logs
+              ├── train_logs
+              ├── CITATIONS.md
+              └── citations.bib
 
 \
 
@@ -645,6 +647,8 @@ Following the example, you should see that the directory ``/home/user/exp_result
     * ``tensorboard``: Tensorboard logs.
 
     * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
+
+    * ``CITATIONS.md`` and ``citations.bib``: works to cite if you use these results (BiaPy, the model and the methods used), in Markdown and BibTeX.
       
 .. note:: 
 

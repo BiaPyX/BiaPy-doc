@@ -34,11 +34,13 @@ This executes the workflow defined in the YAML file and stores the output in ``r
 Import
 ~~~~~~
 
-The API exposes one class, ``BiaPy``, plus a helper, ``build_config``:
+The API exposes one class, ``BiaPy``, plus two helpers, ``build_config`` and ``validate_config``:
 
 .. code-block:: python
 
-    from biapy import BiaPy, build_config
+    from biapy import BiaPy, build_config, validate_config
+
+``validate_config(config, check_data_paths=True)`` checks a configuration (YAML path, dict or ``CfgNode``) without running anything and returns it resolved, or raises an error naming the wrong key.
 
 
 Constructor options
@@ -178,8 +180,9 @@ The loaded checkpoint is already set as the starting weights, so ``train()`` fin
     biapy.print_config()       # the full resolved configuration
     biapy.print_train_info()   # training overview: model, patch, epochs, LR, optimizer, augmentations, files
     biapy.print_test_info()    # test overview: data path, GT, overlap/padding, post-processing, files
+    biapy.citations()          # works to cite for this job (BiaPy, the model, the methods used...)
 
-The ``print_*_info`` methods also list the log and config file paths being written (or note that file writing is disabled).
+The ``print_*_info`` methods also list the log and config file paths being written (or note that file writing is disabled). ``run_job`` writes the works to cite in ``CITATIONS.md`` and ``citations.bib`` in the results folder.
 
 
 8. Change the configuration — ``update_config``

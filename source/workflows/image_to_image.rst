@@ -622,7 +622,7 @@ Many workflow-specific and general knobs can be tuned for image-to-image tasks. 
 
 **General tuning parameters (very useful in practice)**
 
-* **Model architecture** (``MODEL.ARCHITECTURE``): Backbone network. Current options for image-to-image are ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``seunet``, ``resunet_se``, ``attention_unet``, ``unetr``, ``multiresunet``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``. Default: ``unet``.
+* **Model architecture** (``MODEL.ARCHITECTURE``): Backbone network. Current options for image-to-image are ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``seunet``, ``resunet_se``, ``attention_unet``, ``unetr``, ``multiresunet``, ``unext_v1``, ``unext_v2``, ``hrnet``, ``stunet``, ``nafnet``, ``rdbm`` (Residual Diffusion Bridge Model, options under ``MODEL.RDBM``), ``dpt`` and ``vit_readout`` (these last two 2D only). Default: ``unet``.
 
 * **Batch size** (``TRAIN.BATCH_SIZE``): Number of patches per optimization step. Increasing it can speed up training if memory allows; decreasing it lowers memory usage. Default: ``2``.
 
@@ -648,7 +648,11 @@ Many workflow-specific and general knobs can be tuned for image-to-image tasks. 
 
 * ``PROBLEM.IMAGE_TO_IMAGE.MULTIPLE_RAW_ONE_TARGET_LOADER``: Enable multi-input loaders when each sample has multiple raw inputs for one target. Default: ``False``. Find an example in the `LightMyCells tutorial <https://biapy.readthedocs.io/en/latest/tutorials/image-to-image/lightmycells.html>`__.
 
-* ``LOSS.TYPE``: Image-to-image loss. Supported options include ``MAE`` (automatic default when empty), ``MSE``, ``SSIM``, ``W_MAE_SSIM`` and ``W_MSE_SSIM``. Default in config: ``""`` (automatic selection).
+* ``PROBLEM.IMAGE_TO_IMAGE.BALANCE_GROUPS``: Draw the training samples balanced across groups (e.g. studies) read from the raw file names with ``REGEX`` (its first capture group is the group id). Each group is drawn with a probability proportional to its number of images to the power of ``ALPHA`` (``1`` keeps the data distribution, ``0`` weighs all groups equally). Defaults: ``ENABLE: False``, ``REGEX: "^(Study_\d+)_"`` and ``ALPHA: 0.5``.
+
+* ``DATA.NORMALIZATION.TARGET``: Normalize the target with its own settings (``TYPE``: ``zero_mean_unit_variance``, ``scale_range`` or ``div``; ``PERC_CLIP`` and ``ZERO_MEAN_UNIT_VAR`` as for the input). Statistics are computed per image unless fixed values are given, and only fixed values let the predictions be un-normalized at test time. Default: ``ENABLE: False`` (target normalized as the input).
+
+* ``LOSS.TYPE`` and ``LOSS.WEIGHTS``: Image-to-image loss, as a list of losses added up with their weights, e.g. ``['MAE', 'SSIM']`` and ``[0.7, 0.3]``. Options: ``MAE`` (default when empty), ``MSE``, ``SSIM``, ``PCC``, ``CHARBONNIER``, ``VGG``, ``LPIPS``, ``LAPLACIAN``, ``FFT``, ``RFFT`` and ``SWT``, plus an adversarial term (``BCE`` or ``HINGE``) with the ``nafnet`` architecture. See `Loss types <../for_developers/configuration.html#loss-types>`__.
 
 
 Metrics
@@ -706,7 +710,9 @@ Following the example, you should see that the directory ``/home/user/exp_result
               ├── full_image
               │   └── .tif files
               ├── train_logs
-              └── tensorboard
+              ├── tensorboard
+              ├── CITATIONS.md
+              └── citations.bib
 
 \
 
@@ -747,6 +753,8 @@ Following the example, you should see that the directory ``/home/user/exp_result
     * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
 
     * ``tensorboard``: tensorboard logs.
+
+    * ``CITATIONS.md`` and ``citations.bib``: works to cite if you use these results (BiaPy, the model and the methods used), in Markdown and BibTeX.
 
     * ``test_results_metrics.csv``: a CSV file containing all the evaluation metrics obtained on each file of the test set if ground truth was provided.
 

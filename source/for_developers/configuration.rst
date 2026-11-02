@@ -35,6 +35,8 @@ As an example, a full pipeline for semantic segmentation can be created using th
 
 In order to run BiaPy, a YAML configuration file must be created. Examples for each workflow can be found in the `templates <https://github.com/BiaPyX/BiaPy/tree/master/templates>`__ folder on the BiaPy GitHub repository. If you are unsure about which workflow is most suitable for your data, you can refer to the `Select Workflow <select_workflow.html>`__ page for guidance.
 
+To check a configuration file without running anything (no data is loaded and nothing is written) use ``biapy validate-config my_config.yaml``. It prints ``OK`` or the first error found, naming the wrong key. Add ``--no-data-check`` to skip the check that the data paths exist.
+
 The options for the configuration file can be found in the `config.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/config.py>`__ file on `the BiaPy GitHub repository <https://github.com/BiaPyX/BiaPy>`__. However, some of the most commonly used options are explained below:
 
 System
@@ -62,11 +64,13 @@ The ``DATA.PATCH_SIZE`` variable is used to specify the shape of the images that
 
         The paths for the training data are set using the ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` variables. 
 
-        There are two ways to work with the training data:
+        How the training patches are taken from the images is controlled by ``DATA.TRAIN.PATCH_SAMPLING``:
 
-        * In the default setting, each image is divided into patches of size ``DATA.PATCH_SIZE`` using ``DATA.TRAIN.OVERLAP`` and ``DATA.TRAIN.PADDING``. By default, the minimum overlap is used, and the patches will always cover the entire image. On each epoch all these patches are visited. 
+        * ``'tiles'`` (default): each image is divided into patches of size ``DATA.PATCH_SIZE`` using ``DATA.TRAIN.OVERLAP`` and ``DATA.TRAIN.PADDING``. By default, the minimum overlap is used, and the patches will always cover the entire image. On each epoch all these patches are visited, so large images weigh more.
 
-        * A random patch (of ``DATA.PATCH_SIZE`` size) from each image can be extracted if ``DATA.EXTRACT_RANDOM_PATCH`` is ``True``. This way, each epoch will only visit a patch within each training image, so it will be faster (but the amount of data seen by the network will be reduced too).
+        * ``'random'``: one patch at a random position of each image each time it is used (``DATA.TRAIN.REPLICATE`` sets how many patches are taken from each image per epoch). Every image weighs the same and the patches change every epoch, but small or scarce structures may be missed. With ``DATA.TRAIN.PROBABILITY_MAP`` the patch centres are drawn from a probability map so most patches have foreground in their middle (``DATA.TRAIN.W_FOREGROUND`` and ``DATA.TRAIN.W_BACKGROUND`` set the weight of the foreground and background voxels). The maps are stored next to the targets, in ``<DATA.TRAIN.GT_PATH>_prob_maps``.
+
+        * ``'foreground_oversampling'``: as ``'random'``, but a share of the patches is centred on the foreground, on a class chosen at random among the classes of the image (so rare classes appear as often as common ones), as nnU-Net does. Only for semantic segmentation, instance segmentation and detection. It is configured with ``DATA.TRAIN.FOREGROUND_OVERSAMPLING``: ``PERCENT`` (share of foreground patches, ``0.33`` as nnU-Net), ``PER_BATCH`` (place them at the end of every batch instead of drawing each one with probability ``PERCENT``), ``CENTER_JITTER``, ``BALANCE_OBJECTS`` (choose an object first so small objects are as likely as large ones) and ``MAX_LOCATIONS_PER_CLASS``. The class locations are computed once per image and stored in ``PATHS.CLASS_LOCATIONS``.
 
         The training data can be loaded into memory using ``DATA.TRAIN.IN_MEMORY`` to ``True``. In general, loading the data in memory is the fastest approach, but it relies on having enough memory available on the computer.
 
@@ -90,7 +94,7 @@ The ``DATA.PATCH_SIZE`` variable is used to specify the shape of the images that
 
           * Each image is divided into patches of size ``DATA.PATCH_SIZE`` using ``DATA.VAL.OVERLAP`` and ``DATA.VAL.PADDING``. By default, the minimum overlap is used, and the patches will always cover the entire image. On each epoch all these patches are visited. 
 
-          * A fixed patch, starting from the origin (0,0), of ``DATA.PATCH_SIZE`` size will be extracted from each image if ``DATA.EXTRACT_RANDOM_PATCH`` is ``True``. This way, each epoch will only visit a patch within each validation image, so it will be faster (but the amount of data seen by the network will be reduced too). 
+          * If ``DATA.TRAIN.PATCH_SAMPLING`` is not ``'tiles'``, a patch of ``DATA.PATCH_SIZE`` size is extracted from each image, at a random position that is kept the same in every epoch so the validation loss is comparable across epochs. This way, each epoch will only visit a patch within each validation image, so it will be faster (but the amount of data seen by the network will be reduced too).
 
         The validation data can be loaded into memory using ``DATA.VAL.IN_MEMORY`` to ``True``. In general, loading the data in memory is the fastest approach, but it relies on having enough memory available on the computer.
 
@@ -99,6 +103,15 @@ The ``DATA.PATCH_SIZE`` variable is used to specify the shape of the images that
         The paths for the test data are set using the ``DATA.TEST.PATH`` and ``DATA.TEST.GT_PATH`` variables. If this last is present and ``DATA.TEST.LOAD_GT`` is ``True`` the model prediction will be compared with this target/ground truth and some metrics calculated to evaluate the performance of the model. 
 
         For more information regarding the test data management go to :ref:`config_test`.
+
+OME-Zarr images
+***************
+
+Apart from TIFF, H5 and Zarr files, BiaPy reads `OME-Zarr <https://ngff.openmicroscopy.org>`__ images. Their axes order and voxel size are taken from their metadata, so ``DATA.*.INPUT_IMG_AXES_ORDER``, ``DATA.*.INPUT_MASK_AXES_ORDER`` and ``DATA.*.RESOLUTION`` are not used for them (a summary of what is used is printed when they are loaded). Set ``DATA.OME_ZARR.IGNORE_METADATA`` to ``True`` to use those variables instead, e.g. if the metadata is wrong. The ground truth can be a label image of the same OME-Zarr: set ``DATA.*.INPUT_ZARR_MULTIPLE_DATA`` to ``True``, leave ``DATA.*.INPUT_ZARR_MULTIPLE_DATA_RAW_PATH`` empty and set ``DATA.*.INPUT_ZARR_MULTIPLE_DATA_GT_PATH`` to the path of the label image, e.g. ``labels.nuclei``.
+
+All the Zarr files written by BiaPy (e.g. the predictions made by chunks) are OME-Zarr images with the voxel size of the input image. ``DATA.OME_ZARR.VERSION`` selects the OME-Zarr version, ``0.5`` (Zarr format 3, default) or ``0.4`` (Zarr format 2, for viewers that do not read the newer one yet), and ``DATA.OME_ZARR.PYRAMID_LEVELS`` the number of resolution levels written so viewers can show large images quickly (``1``, the default, writes only the full resolution).
+
+To convert your data, the `tif_to_zarr.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/tif_to_zarr.py>`__ and `h5_to_zarr.py <https://github.com/BiaPyX/BiaPy/blob/master/biapy/utils/scripts/h5_to_zarr.py>`__ scripts write OME-Zarr images by default.
 
 Data filtering
 **************
@@ -151,7 +164,7 @@ variables this way:
       FILTER_SAMPLES.VALUES: [[1000], [0.00001, 100]]
       FILTER_SAMPLES.SIGNS: [['gt'], ['lt', 'gt']]
 
-The ``DATA.FILTER_BY_IMAGE`` parameter determines how the filtering is applied: if set to ``True``, the entire image is processed (this is always the case if ``DATA.EXTRACT_RANDOM_PATCH`` is ``True``); if set to ``False``, the filtering is performed on a patch-by-patch basis.
+The ``DATA.FILTER_BY_IMAGE`` parameter determines how the filtering is applied: if set to ``True``, the entire image is processed (this is always the case if ``DATA.TRAIN.PATCH_SAMPLING`` is not ``'tiles'``); if set to ``False``, the filtering is performed on a patch-by-patch basis.
 
 .. seealso::
 
@@ -166,13 +179,13 @@ The ``DATA.FILTER_BY_IMAGE`` parameter determines how the filtering is applied: 
 Data normalization
 ~~~~~~~~~~~~~~~~~~
 
-Previous to normalization, you can choose to do a percentile clipping to remove outliers (by setting ``DATA.NORMALIZATION.PERC_CLIP.ENABLE`` to ``True``). Lower and upper bound for percentile clip are set with  ``DATA.NORMALIZATION.PERC_LOWER`` and ``DATA.NORMALIZATION.PERC_UPPER`` respectively. 
+Previous to normalization, you can choose to do a percentile clipping to remove outliers (by setting ``DATA.NORMALIZATION.PERC_CLIP.ENABLE`` to ``True``). Lower and upper bound for percentile clip are set with  ``DATA.NORMALIZATION.PERC_CLIP.LOWER_PERC`` and ``DATA.NORMALIZATION.PERC_CLIP.UPPER_PERC`` respectively (or with fixed values, ``DATA.NORMALIZATION.PERC_CLIP.LOWER_VALUE`` and ``DATA.NORMALIZATION.PERC_CLIP.UPPER_VALUE``). 
 
 The data normalization type is controlled by ``DATA.NORMALIZATION.TYPE`` and a few options are available:
 
-* ``'div'`` (default): normalizes the data to ``[0-1]`` range. The division is done using the maximum value of the data type. i.e. 255 for uint8 or 65535 if uint16.
-* ``'zero_mean_unit_variance'``: normalization substracting the mean and divide by std. The mean and std can be specified with ``DATA.NORMALIZATION.ZERO_MEAN_UNIT_VAR.MEAN_VAL`` and ``DATA.NORMALIZATION.ZERO_MEAN_UNIT_VAR.MEAN_VAL`` respectively.
-* ``'scale_range'``: normalizes the data to ``[0-1]`` range but, instead of dividing by the maximum value of the data type as in ``'div'``, it divides by the maximum value of each image.
+* ``'div'``: normalizes the data to ``[0-1]`` range. The division is done using the maximum value of the data type. i.e. 255 for uint8 or 65535 if uint16.
+* ``'zero_mean_unit_variance'`` (default): normalization substracting the mean and divide by std. The mean and std can be specified with ``DATA.NORMALIZATION.ZERO_MEAN_UNIT_VAR.MEAN_VAL`` and ``DATA.NORMALIZATION.ZERO_MEAN_UNIT_VAR.STD_VAL`` respectively (one value per channel, or ``-1`` to compute them from the data).
+* ``'scale_range'``: normalizes the data to ``[0-1]`` range but, instead of dividing by the maximum value of the data type as in ``'div'``, it maps the minimum and maximum of each image to 0 and 1, or the ``DATA.NORMALIZATION.SCALE_RANGE.LOWER_PERC``/``UPPER_PERC`` percentiles (default ``0``/``100``) without clipping.
 
 The normalization or clipping values can be derived either from the entire image or from individual patches. This behavior is controlled by the variable ``DATA.NORMALIZATION.MEASURE_BY``, which accepts either ``'image'`` or ``'patch'`` as its value. A very common configuration for normalization can be as follows:
 
@@ -183,15 +196,15 @@ The normalization or clipping values can be derived either from the entire image
       TYPE: zero_mean_unit_variance
       PERC_CLIP:
         ENABLE: True
-        LOWER: 0.1
-        UPPER: 99.8
+        LOWER_PERC: 0.1
+        UPPER_PERC: 99.8
 
 Pre-processing
 ~~~~~~~~~~~~~~
 
 There are a few pre-processing functions  (controlled by ``DATA.PREPROCESS``) that can be applied to the train (``DATA.PREPROCESS.TRAIN``), validation (``DATA.PREPROCESS.VAL``) or test data (``DATA.PREPROCESS.TEST``). So they can be applied the images need to be loaded in memory (``DATA.*.IN_MEMORY`` to ``True``). The pre-processing is done right after loading the images, when no normalization has been done yet. These is the list of available functions:
 
-* **Resize** (controlled by ``DATA.PREPROCESS.RESIZE``): to resize images to the desired shape. 
+* **Resize** (controlled by ``DATA.PREPROCESS.RESIZE``): to resize images to the desired shape. In test, the prediction is resized back to the original image shape, where the metrics are measured. When the test images are resized whole to the patch size, the training patches can be taken the same way with ``AUGMENTOR.ZOOM`` and ``AUGMENTOR.ZOOM_REFERENCE: 'image'``, where ``AUGMENTOR.ZOOM_RANGE`` is the fraction of the image area each patch covers, e.g. ``(0.7, 0.95)`` (2D only, requires ``DATA.TRAIN.PATCH_SAMPLING: 'random'``).
 
 * **Gaussian blur** (controlled by ``DATA.PREPROCESS.GAUSSIAN_BLUR``): to add gaussian blur.
 
@@ -237,21 +250,23 @@ BiaPy offers three different backends to be used to choose a model (controlled b
 
 - ``biapy``, which uses BiaPy as the backend for the model definition. Use ``MODEL.ARCHITECTURE`` to select the model. Different models for each workflow are implemented:
 
-  * Semantic segmentation: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``.
+  * Semantic segmentation: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet``, ``stunet``, ``dpt`` and ``vit_readout``.
 
-  * Instance segmentation: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``. 
+  * Instance segmentation: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet``, ``stunet``, ``dpt`` and ``vit_readout``. 
 
-  * Detection: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``.
+  * Detection: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet``, ``stunet``, ``dpt`` and ``vit_readout``.
 
-  * Denoising: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``.
+  * Denoising: ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet``, ``stunet``, ``nafnet``, ``dpt`` and ``vit_readout``.
 
-  * Super-resolution: ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``seunet``, ``resunet_se``, ``attention_unet``, ``multiresunet``, ``unext_v1`` and ``unext_v2``
+  * Super-resolution: ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``wavelettention``, ``unet``, ``resunet``, ``resunet++``, ``seunet``, ``resunet_se``, ``attention_unet``, ``multiresunet``, ``unext_v1`` and ``unext_v2``
 
   * Self-supervision: ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``seunet``, ``resunet_se``, ``unext_v1``, ``unext_v2``, ``multiresunet``, ``unetr``, ``vit`` and ``mae``.
 
   * Classification: ``simple_cnn``, ``efficientnet_b0``, ``efficientnet_b1``, ``efficientnet_b2``, ``efficientnet_b3``, ``efficientnet_b4``, ``efficientnet_b5``, ``efficientnet_b6``, ``efficientnet_b7``, ``vit``. 
 
-  * Image to image: ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``seunet``, ``resunet_se``, ``attention_unet``, ``unetr``, ``multiresunet``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``  
+  * Image to image: ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``seunet``, ``resunet_se``, ``attention_unet``, ``unetr``, ``multiresunet``, ``unext_v1``, ``unext_v2``, ``hrnet``, ``stunet``, ``nafnet``, ``rdbm``, ``dpt`` and ``vit_readout``.
+
+  ``wdsr``, ``dpt``, ``vit_readout`` and ``efficientnet_b*`` are 2D only.
 
   An example of a U-Net-like model configuration is as follows:
 
@@ -276,7 +291,15 @@ BiaPy offers three different backends to be used to choose a model (controlled b
         VARIANT: 'base'
         PRETRAINED: True
 
-- ``bmz``, which uses `Bioimage Model Zoo (bioimage.io) <https://bioimage.io/#/>`__ pretrained models. Use ``MODEL.BMZ.SOURCE_MODEL_ID`` to select the model. More a more models are added to the zoo so please check `Bioimage Model Zoo page <https://bioimage.io/#/>`__ to see available models. BiaPy can only consume models exported with `Pytorch state dict <https://pytorch.org/tutorials/recipes/recipes/what_is_state_dict.html#:~:text=A%20state_dict%20is%20an%20integral,to%20PyTorch%20models%20and%20optimizers.>`__. 
+  The transformer-based models ``vit``, ``unetr``, ``dpt`` and ``vit_readout`` take their ViT backbone from ``MODEL.VIT_MODEL`` (``MODEL.UNETR_VIT_MODEL`` for ``unetr``; ``mae`` is always built from the ``MODEL.VIT_*`` variables):
+
+  * ``custom``: built from the ``MODEL.VIT_*`` variables (e.g. ``MODEL.VIT_TOKEN_SIZE``, ``MODEL.VIT_EMBED_DIM``, ``MODEL.VIT_NUM_LAYERS``).
+  * ``vit_base_patch16``, ``vit_large_patch16`` and ``vit_huge_patch14`` (not for ``unetr``): ViT-B/16, ViT-L/16 and ViT-H/14.
+  * Pretrained backbones (2D only), whose weights are set with ``MODEL.VIT_PRETRAINED_WEIGHTS``: ``sam3_vit`` (SAM 3's image encoder, ``vit`` and ``unetr`` only, e.g. ``facebook/sam3``), ``celldino_vit`` (Cell-DINO's ViT-L/16, 1 channel, from a local checkpoint downloaded manually), ``dinov3_vit`` and ``dinov3_vitb`` (DINOv3's ViT-L/16 and ViT-B/16, e.g. ``facebook/dinov3-vitl16-pretrain-lvd1689m``, or Cellpose-DINO's ``cpdino`` and ``cpdino-vitb``) and ``cellpose_sam_vit`` (Cellpose-SAM's encoder, ``vit_readout`` only, ``cpsam`` or ``cpsam_v2``). SAM 3 and DINOv3 are gated models in Hugging Face: accept their license and authenticate (``hf auth login`` or ``HF_TOKEN``).
+
+  ``dpt`` (`Dense Prediction Transformer <https://arxiv.org/abs/2103.13413>`__, options under ``MODEL.DPT``) fuses four ViT layers into a feature pyramid, while ``vit_readout`` (as Cellpose 4, options under ``MODEL.VIT_READOUT``) turns each token of the last ViT layer directly into pixels. In both, ``MODEL.VIT_TOKEN_STRIDE`` makes the tokens overlap (more detail and compute), ``MODEL.VIT_DROP_PATH_RATE`` sets the stochastic depth and ``MODEL.VIT_GRAD_CHECKPOINTING`` saves memory when fine-tuning large ViTs (at ~30% more training time). Find how to use Cellpose-SAM and Cellpose-DINO in the `instance segmentation workflow <../workflows/instance_segmentation.html>`__.
+
+- ``bmz``, which uses `Bioimage Model Zoo (bioimage.io) <https://bioimage.io/#/>`__ pretrained models. Use ``MODEL.BMZ.SOURCE_MODEL_ID`` to select the model: its DOI, its nickname or the path to a local BMZ package (``.zip``, folder or ``rdf.yaml``). More a more models are added to the zoo so please check `Bioimage Model Zoo page <https://bioimage.io/#/>`__ to see available models. BiaPy can only consume models exported with `Pytorch state dict <https://pytorch.org/tutorials/recipes/recipes/what_is_state_dict.html#:~:text=A%20state_dict%20is%20an%20integral,to%20PyTorch%20models%20and%20optimizers.>`__. 
 
 - ``torchvision``, which uses models defined in `TorchVision <https://pytorch.org/vision/stable/models.html>`__. Use ``MODEL.TORCHVISION_MODEL_NAME`` to select the model. Notice that most of the models were trained in natural images (not biomedical) and most of them are for classification. On top of that, some use bounding-box-annotations, which are not supported in BiaPy so only inference/prediction/test can only be done. All the models will load by default the best pretrained weights offered. Currently, BiaPy supports the following models for each workflow: 
 
@@ -305,49 +328,35 @@ To train the network, you need to specify the number of epochs using the ``TRAIN
 Loss types 
 ~~~~~~~~~~
 
-Different loss functions can be set depending on the workflow: 
+``LOSS.TYPE`` is a list of losses that are added up, each multiplied by its weight in ``LOSS.WEIGHTS`` (a list of the same length; the weights don't need to sum ``1``). E.g. ``TYPE: ['MAE', 'SSIM']`` and ``WEIGHTS: [0.7, 0.3]``. Leave both empty to use the default of the workflow. Old single-string values, e.g. ``"W_MAE_SSIM"``, are still accepted and converted automatically. The losses available depend on the workflow:
 
 * Semantic segmentation:
 
-    * ``"CE"`` (default): `Cross entropy loss <https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html>`__. 
+    * ``"CE"`` (default): `Cross entropy loss <https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html>`__. Required when ``DATA.N_CLASSES`` > 2.
     * ``"DICE"``: `Dice loss <https://www.kaggle.com/code/bigironsphere/loss-function-library-keras-pytorch>`__.
-    * ``"W_CE_DICE"``: ``CE`` and ``Dice`` (with a weight term on each one that must sum ``1``). With ``LOSS.WEIGHTS`` the weights for each of the losses can be configured. `Reference link <https://www.kaggle.com/code/bigironsphere/loss-function-library-keras-pytorch>`__.
+    * ``['DICE', 'CE']``: both together, weighted with ``LOSS.WEIGHTS``.
 
 * Instance segmentation: automatically set depending on the channels selected (``PROBLEM.INSTANCE_SEG.DATA_CHANNELS``). There is no need to set it.
 
 * Detection: ``"CE"`` always used (`Cross entropy loss <https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html>`__). No other value can be set.
 
-* Denoising:
+* Classification: ``"CE"`` always used (`Cross entropy loss <https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html>`__). No other value can be set.
 
-    * ``"MSE"`` (default): `Mean Square Error <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__. 
+* Denoising: ``"MSE"`` (default, `Mean Square Error <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__), as a single loss. With the ``nafnet`` architecture, an adversarial term (``"BCE"`` or ``"HINGE"``) must be included too (see below).
 
-* Super-resolution:
-
-    * ``"MAE"`` (default): `Mean Absolute Error (MAE) <https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html#torch.nn.L1Loss>`__. 
-    * ``"MSE"``: `Mean Square Error (MSE) <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__. 
-    * ``"SSIM"``: `structural similarity index measure (SSIM) <https://lightning.ai/docs/torchmetrics/stable/image/structural_similarity.html#torchmetrics.image.StructuralSimilarityIndexMeasure>`__.
-    * ``"W_MAE_SSIM_loss"``: ``MAE`` and ``SSIM`` (with a weight term on each one that must sum ``1``). The weights are set with ``LOSS.WEIGHTS``. 
-    * ``"W_MSE_SSIM_loss"``: ``MSE`` and ``SSIM`` (with a weight term on each one that must sum ``1``). The weights are set with ``LOSS.WEIGHTS``. 
-
-* Self-supervision. These losses can only be set when ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK`` is ``"crappify"``. Otherwise it will be automatically set to ``"MSE"``, i.e when ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK`` is ``"masking"``. The options are:
+* Super-resolution, self-supervision and image to image: any combination of the following. In self-supervision they are only used when ``PROBLEM.SELF_SUPERVISED.PRETEXT_TASK`` is ``"crappify"``, as ``"masking"`` always uses ``"MSE"``.
 
     * ``"MAE"`` (default): `Mean Absolute Error (MAE) <https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html#torch.nn.L1Loss>`__.
-    * ``"MSE"``: `Mean Square Error (MSE) <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__. 
-    * ``"SSIM"``: `structural similarity index measure (SSIM) <https://lightning.ai/docs/torchmetrics/stable/image/structural_similarity.html#torchmetrics.image.StructuralSimilarityIndexMeasure>`__.
-    * ``"W_MAE_SSIM_loss"``: ``MAE`` and ``SSIM`` (with a weight term on each one that must sum ``1``). The weights are set with ``LOSS.WEIGHTS``. 
-    * ``"W_MSE_SSIM_loss"``: ``MSE`` and ``SSIM`` (with a weight term on each one that must sum ``1``). The weights are set with ``LOSS.WEIGHTS``. 
+    * ``"MSE"``: `Mean Square Error (MSE) <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__.
+    * ``"SSIM"``: ``1 -`` `structural similarity index measure (SSIM) <https://lightning.ai/docs/torchmetrics/stable/image/structural_similarity.html#torchmetrics.image.StructuralSimilarityIndexMeasure>`__.
+    * ``"PCC"``: ``1 -`` Pearson correlation coefficient.
+    * ``"CHARBONNIER"``: Charbonnier loss, a smooth L1.
+    * ``"VGG"`` and ``"LPIPS"``: perceptual losses, on VGG16 features and `LPIPS <https://github.com/richzhang/PerceptualSimilarity>`__ respectively.
+    * ``"LAPLACIAN"``: L1 between the Laplacian-filtered prediction and target, to preserve edges.
+    * ``"FFT"`` and ``"RFFT"``: frequency-domain losses that emphasize high-frequency details (``"RFFT"`` is computed on the cheaper real-input spectrum).
+    * ``"SWT"``: L1 on each stationary wavelet transform subband, as in Wavelettention.
 
-* Classification:
-
-    * ``"CE"`` (default): `Cross entropy loss <https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html>`__.
-
-* Image to image:
-
-    * ``"MAE"`` (default): `Mean Absolute Error (MAE) <https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html#torch.nn.L1Loss>`__.
-    * ``"MSE"``: `Mean Square Error (MSE) <https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss>`__. 
-    * ``"SSIM"``: `structural similarity index measure (SSIM) <https://lightning.ai/docs/torchmetrics/stable/image/structural_similarity.html#torchmetrics.image.StructuralSimilarityIndexMeasure>`__.
-    * ``"W_MAE_SSIM_loss"``: ``MAE`` and ``SSIM`` (with a weight term on each one that must sum ``1``). The weights are set with ``LOSS.WEIGHTS``. 
-    * ``"W_MSE_SSIM_loss"``: ``MSE`` and ``SSIM`` (with a weight term on each one that must sum ``1``). The weights are set with ``LOSS.WEIGHTS``. 
+  In image to image, ``"BCE"`` or ``"HINGE"`` can also be added as an adversarial term, which needs a discriminator, i.e. the ``nafnet`` architecture with ``MODEL.NAFNET.ARCHITECTURE_D`` (further options in ``LOSS.GAN``).
 
 .. _config_test:
 
@@ -359,7 +368,7 @@ This section outlines how to configure weighting across different tasks. Underst
 
 **Global Loss Weighting**. These variables represent the most basic level of configuration, typically introduced in the Semantic Segmentation workflow. They control how individual loss components are merged and how specific pixel values are handled:
 
-  * Combining multiple losses (``LOSS.WEIGHTS``): When using a combined loss (e.g., ``LOSS.TYPE = "W_CE_DICE"``), the library computes a weighted sum of the components. ``LOSS.WEIGHTS`` defines a multiplier for each specific loss. The length of the list must be equal to the number of losses being combined. In the case of ``LOSS.TYPE = "W_CE_DICE"``, the final loss will be: ``LOSS.WEIGHTS[0] * CE + LOSS.WEIGHTS[1] * DICE``.
+  * Combining multiple losses (``LOSS.WEIGHTS``): When ``LOSS.TYPE`` has several losses (e.g., ``LOSS.TYPE = ['CE', 'DICE']``), the library computes a weighted sum of them. ``LOSS.WEIGHTS`` defines a multiplier for each loss, so its length must be equal to the number of losses. In this example the final loss will be: ``LOSS.WEIGHTS[0] * CE + LOSS.WEIGHTS[1] * DICE``.
   * Excluding data (``LOSS.IGNORE_INDEX``): To exclude certain pixel values from contributing to the loss, you can set ``LOSS.IGNORE_INDEX`` to the desired value. This is particularly useful for ignoring unlabeled regions in semantic segmentation tasks. For instance, if your dataset uses a specific value (e.g., ``-1`` or ``255``) to denote unlabeled pixels, setting ``LOSS.IGNORE_INDEX`` to that value will ensure those pixels do not affect the loss calculation or the evaluation metrics like IoU.
   * Class rebalancing (``LOSS.CLASS_REBALANCE``): This variable controls how the loss function handles class imbalance. It can be set to ``'none'`` for no rebalancing or ``'manual'`` to use custom weights defined in ``LOSS.CLASS_WEIGHTS``. This is particularly important in scenarios where certain classes are underrepresented in the dataset, as it helps the model learn to focus on those classes.
 
@@ -422,7 +431,7 @@ This is the most common situation when working with large images or 3D volumes (
 
 To overcome this limitation, BiaPy crops the image into smaller patches. Each patch is processed independently by the model, reducing the amount of GPU memory required at any given moment. Once all patches have been predicted, their outputs are merged to reconstruct the prediction with the same spatial shape as the original image.
 
-Usually, patches are extracted with overlap and/or padding. This is done to reduce border artifacts, since predictions near the borders of a patch may be less accurate than predictions near the center. During reconstruction, overlapping regions are combined to produce a smoother final prediction.
+Usually, patches are extracted with overlap and/or padding. This is done to reduce border artifacts, since predictions near the borders of a patch may be less accurate than predictions near the center. During reconstruction, overlapping regions are combined to produce a smoother final prediction. Images of exactly ``DATA.PATCH_SIZE`` (or smaller) are predicted as a single patch without ``DATA.TEST.PADDING``, unless ``DATA.TEST.FORCE_PADDING`` is ``True``.
 
 This strategy addresses a **GPU memory limitation**, not a **machine/workstation RAM limitation**. The full image and the final reconstructed prediction are still kept in RAM, so they must fit in the available system memory. If they do not fit in RAM, a different chunked or out-of-memory strategy is needed.
 

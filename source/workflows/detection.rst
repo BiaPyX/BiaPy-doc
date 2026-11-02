@@ -651,7 +651,7 @@ Many workflow-specific and general knobs can be tuned for detection. Below is a 
 
 **General tuning parameters (very useful in practice)**
 
-* **Model architecture** (``MODEL.ARCHITECTURE``): Backbone network. Current options for detection are ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet`` and ``stunet``. Default: ``unet``.
+* **Model architecture** (``MODEL.ARCHITECTURE``): Backbone network. Current options for detection are ``unet``, ``resunet``, ``resunet++``, ``attention_unet``, ``multiresunet``, ``seunet``, ``resunet_se``, ``unetr``, ``unext_v1``, ``unext_v2``, ``hrnet``, ``stunet``, ``dpt`` and ``vit_readout`` (these last two 2D only). Default: ``unet``.
 
 * **Batch size** (``TRAIN.BATCH_SIZE``): Number of patches per optimization step. Increasing it can speed up training if memory allows; decreasing it lowers memory usage. Default: ``2``.
 
@@ -762,7 +762,7 @@ Then, after extracting the final points from the predictions, **precision**, **r
 
 * **F1**, is the harmonic mean of the precision and recall. More info `here <https://en.wikipedia.org/wiki/F-score>`__.
 
-The last three metrics, i.e. precision, recall and F1, use ``TEST.DET_TOLERANCE`` to determine when a point is considered as a true positive. In this process the test resolution is also taken into account. 
+The last three metrics, i.e. precision, recall and F1, use ``TEST.DET_TOLERANCE`` to determine when a point is considered as a true positive. In this process the test resolution (``DATA.TEST.RESOLUTION``) is also taken into account. To use a different resolution per image, set ``DATA.TEST.RESOLUTION_FROM_JSON`` to ``True`` and place a ``resolution.json`` file in the parent folder of ``DATA.TEST.PATH``, mapping each image name to its ``(z, y, x)`` resolution (images not listed use ``DATA.TEST.RESOLUTION``). For OME-Zarr images it is taken from their voxel size. 
 
 Post-processing
 ***************
@@ -833,7 +833,9 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
               │   ├── foreground.tif                
               │   └── watershed.tif
               ├── train_logs
-              └── tensorboard
+              ├── tensorboard
+              ├── CITATIONS.md
+              └── citations.bib
 
 \
 
@@ -904,6 +906,8 @@ The results are placed in ``results`` folder under ``--result_dir`` directory wi
     * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
         
     * ``tensorboard``: tensorboard logs.
+
+    * ``CITATIONS.md`` and ``citations.bib``: works to cite if you use these results (BiaPy, the model and the methods used), in Markdown and BibTeX.
 
     * ``test_results_metrics.csv``: a CSV file containing all the evaluation metrics obtained on each file of the test set if ground truth was provided.
 

@@ -654,7 +654,7 @@ Many workflow-specific and general knobs can be tuned for super-resolution. Belo
 
 **General tuning parameters (very useful in practice)**
 
-* **Model architecture** (``MODEL.ARCHITECTURE``): Backbone network. Current options for super-resolution are ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``unet``, ``resunet``, ``resunet++``, ``seunet``, ``resunet_se``, ``attention_unet``, ``multiresunet``, ``unext_v1`` and ``unext_v2``. Default: ``unet``.
+* **Model architecture** (``MODEL.ARCHITECTURE``): Backbone network. Current options for super-resolution are ``edsr``, ``rcan``, ``dfcan``, ``wdsr``, ``wavelettention`` (options under ``MODEL.WAVELETTENTION_*``), ``unet``, ``resunet``, ``resunet++``, ``seunet``, ``resunet_se``, ``attention_unet``, ``multiresunet``, ``unext_v1`` and ``unext_v2``. Default: ``unet``.
 
 * **Batch size** (``TRAIN.BATCH_SIZE``): Number of patches per optimization step. Increasing it can speed up training if memory allows; decreasing it lowers memory usage. Default: ``2``.
 
@@ -674,7 +674,7 @@ Many workflow-specific and general knobs can be tuned for super-resolution. Belo
 
 * ``MODEL.UNET_SR_UPSAMPLE_POSITION``: For U-Net-based SR backbones, controls where upsampling is applied. Options: ``pre`` or ``post``. Default: ``pre``.
 
-* ``LOSS.TYPE``: Super-resolution loss. Supported options include ``MAE`` (automatic default when empty), ``MSE``, ``SSIM``, ``W_MAE_SSIM`` and ``W_MSE_SSIM``. Default in config: ``""`` (automatic selection).
+* ``LOSS.TYPE`` and ``LOSS.WEIGHTS``: Super-resolution loss, as a list of losses added up with their weights, e.g. ``['MAE', 'SSIM']`` and ``[0.7, 0.3]``. Options: ``MAE`` (default when empty), ``MSE``, ``SSIM``, ``PCC``, ``CHARBONNIER``, ``VGG``, ``LPIPS``, ``LAPLACIAN``, ``FFT``, ``RFFT`` and ``SWT`` (the wavelet-subband loss ``wavelettention`` is trained with). See `Loss types <../for_developers/configuration.html#loss-types>`__.
 
 * ``MODEL.RCAN_RG_BLOCK_NUM``, ``MODEL.RCAN_RCAB_BLOCK_NUM``, ``MODEL.RCAN_CONV_FILTERS`` and ``MODEL.RCAN_REDUCTION_RATIO``: RCAN architecture capacity knobs (number of residual groups/blocks, channel width and attention reduction) when using ``MODEL.ARCHITECTURE = rcan``.
 
@@ -746,7 +746,9 @@ Following the example, you should see that the directory ``/home/user/exp_result
               │   ├── .tif files
               │   └── .zarr files (or.h5)
               ├── train_logs
-              └── tensorboard
+              ├── tensorboard
+              ├── CITATIONS.md
+              └── citations.bib
 
 \
 
@@ -783,6 +785,8 @@ Following the example, you should see that the directory ``/home/user/exp_result
     * ``train_logs``: each row represents a summary of each epoch stats. Only avaialable if training was done.
 
     * ``tensorboard``: Tensorboard logs.
+
+    * ``CITATIONS.md`` and ``citations.bib``: works to cite if you use these results (BiaPy, the model and the methods used), in Markdown and BibTeX.
 
     * ``test_results_metrics.csv``: a CSV file containing all the evaluation metrics obtained on each file of the test set if ground truth was provided.
 
