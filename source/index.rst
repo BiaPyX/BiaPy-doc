@@ -70,6 +70,7 @@ Find a comprehensive overview of BiaPy and its functionality in the following vi
    for_developers/configuration
    for_developers/python_api
    for_developers/api
+   for_developers/cli
    for_developers/cpu_vs_gpu
    for_developers/contribute
 

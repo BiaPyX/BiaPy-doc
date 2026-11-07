@@ -14,6 +14,9 @@ This section provides a comprehensive overview of the BiaPy library's public API
    * - :doc:`biapy <../API/biapy/biapy>`
      - Top-level package. Exposes the ``BiaPy`` class, ``build_config`` and ``validate_config`` 
        (entry points to define, validate and run workflows from Python) and the ``biapy`` command-line ``main``.
+   * - :doc:`BiaPy command-line interface <cli>`
+     - Reference for the installed ``biapy`` command and its ``validate-config``, ``check-data``,
+       ``list-workflows`` and ``inspect-image`` subcommands.
    * - :doc:`biapy.config <../API/config/index>`
      - Main configuration module. Contains the logic for parsing and managing 
        configuration files and the default values of every workflow.
