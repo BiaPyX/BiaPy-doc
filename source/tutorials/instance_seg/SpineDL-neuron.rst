@@ -102,7 +102,7 @@ You can use the pretrained SpineDL-Neuron model to predict new images using seve
 
 #. Decide which method you want to use to run BiaPy: GUI, Jupyter/Colab, Galaxy, Docker, CLI, or API. Based on that you will need to follow the installation instructions described in the :ref:`installation` section.
 
-#. Download the yaml configuration file for SpineDL-Neuron from `here <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/SpineDL_paper/spinedl-neuron.yaml>`__, which is already prepared to load the pretrained model, called `'proactive-snail' <https://bioimage.io/#/artifacts/proactive-snail>`__, from the BioImage Model Zoo. 
+#. Download the yaml configuration file for SpineDL-Neuron from `here <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/instance_segmentation/SpineDL_paper/spinedl-neuron.yaml>`__, which is already prepared to load the pretrained model, called `'proactive-snail' <https://bioimage.io/#/artifacts/proactive-snail>`__, from the BioImage Model Zoo. 
 
 #. Then follow the instructions corresponding to your selected method to run BiaPy with the downloaded configuration file.
 
@@ -305,7 +305,7 @@ Reproducing SpineDL-Neuron from scratch
 If you want to reproduce the results of SpineDL-Neuron using the provided dataset, you can follow the steps described below. We assume here some level of expertise so we describe it how to do it using the CLI and also assume you have already :ref:`installed BiaPy <installation>`.
 
 #. Download the dataset from `Zenodo <https://zenodo.org/records/19371462>`__ and extract it to a desired location.
-#. Download the yaml configuration file for SpineDL-Neuron from `here <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/SpineDL_paper/spinedl-neuron-training.yaml>`__. Notice that this configuration file is slightly different from the one used for inference, as it is prepared to train the model from scratch.
+#. Download the yaml configuration file for SpineDL-Neuron from `here <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/instance_segmentation/SpineDL_paper/spinedl-neuron-training.yaml>`__. Notice that this configuration file is slightly different from the one used for inference, as it is prepared to train the model from scratch.
 #. Modify the configuration file to set the correct paths to the training, validation, and test data included in the dataset. For example, if you extracted the dataset to ``/home/user/SpineDL/``, you will need to set the following paths in the configuration file:
 
    .. code-block:: yaml
@@ -347,7 +347,7 @@ If you want to reproduce the results of SpineDL-Neuron using the provided datase
    
    This will generate the results in ``/home/user/exp_results/my_spinedl_neuron_from_scratch/my_spinedl_neuron_from_scratch_1/results``. Specifically, in that folder you will find the predicted masks for the test images under ``per_image_instances`` and the post-processed images under ``per_image_post_processing``.  
 
-#. Finally, you can evaluate the predictions for test images using `this script <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/SpineDL_paper/agreement_manual_points_vs_SpineDL-neuron_instances.py>`__. You will need to provide the path to the predicted masks and the root folder containing the expert annotations for the test set. For example:
+#. Finally, you can evaluate the predictions for test images using `this script <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/instance_segmentation/SpineDL_paper/agreement_manual_points_vs_SpineDL-neuron_instances.py>`__. You will need to provide the path to the predicted masks and the root folder containing the expert annotations for the test set. For example:
 
    .. code-block:: bash
             
@@ -358,7 +358,7 @@ If you want to reproduce the results of SpineDL-Neuron using the provided datase
 
    This script will generate the Figure 6 of :cite:`ruiz2026automated` showing the agreement between manual and SpineDL-Neuron identifications with tolerance-aware matching.
 
-#. If you want to compare the performance of SpineDL-Neuron with CellSense, you can download the CellSense predictions from `here <https://drive.google.com/drive/folders/1fSDqNXJs2L4OSnAXvMHHI7o_O_8Xm0yI?usp=sharing>`__ and run the following `script <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/SpineDL_paper/agreement_manual_points_vs_SpineDL-neuron_vs_CellSense_instances.py>`__.:
+#. If you want to compare the performance of SpineDL-Neuron with CellSense, you can download the CellSense predictions from `here <https://drive.google.com/drive/folders/1fSDqNXJs2L4OSnAXvMHHI7o_O_8Xm0yI?usp=sharing>`__ and run the following `script <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/instance_segmentation/SpineDL_paper/agreement_manual_points_vs_SpineDL-neuron_vs_CellSense_instances.py>`__.:
 
    .. code-block:: bash
 

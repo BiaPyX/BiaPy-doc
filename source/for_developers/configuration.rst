@@ -33,7 +33,7 @@ As an example, a full pipeline for semantic segmentation can be created using th
       YZ_FILTERING: True
             
 
-In order to run BiaPy, a YAML configuration file must be created. Examples for each workflow can be found in the `templates <https://github.com/BiaPyX/BiaPy/tree/master/templates>`__ folder on the BiaPy GitHub repository. If you are unsure about which workflow is most suitable for your data, you can refer to the `Select Workflow <select_workflow.html>`__ page for guidance.
+In order to run BiaPy, a YAML configuration file must be created. Examples for each workflow can be found in the `templates <https://github.com/BiaPyX/BiaPy/tree/master/biapy/config/templates>`__ folder on the BiaPy GitHub repository. If you are unsure about which workflow is most suitable for your data, you can refer to the `Select Workflow <select_workflow.html>`__ page for guidance.
 
 To check a configuration file without running anything (no data is loaded and nothing is written) use ``biapy validate-config my_config.yaml``. It prints ``OK`` or the first error found, naming the wrong key. Add ``--no-data-check`` to skip the check that the data paths exist.
 For the full list of BiaPy command-line subcommands and options, see the :doc:`command-line reference <cli>`.

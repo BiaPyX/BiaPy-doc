@@ -549,7 +549,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
    .. tab:: Docker
             
-        If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. Then, you can use the `2d_semantic_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file (or your own file), and run the workflow as follows:
+        If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. Then, you can use the `2d_semantic_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file (or your own file), and run the workflow as follows:
 
         .. code-block:: bash                                                                                                    
 
@@ -601,7 +601,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
    .. tab:: Command line
 
-        `From a terminal <../get_started/faq.html#opening-a-terminal>`__, you can use the `2d_semantic_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file (or your own file), and run the workflow as follows:
+        `From a terminal <../get_started/faq.html#opening-a-terminal>`__, you can use the `2d_semantic_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file (or your own file), and run the workflow as follows:
 
         .. code-block:: bash
             
@@ -654,7 +654,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 Templates                                                                                                                 
 ~~~~~~~~~
 
-In the `templates/semantic_segmentation <https://github.com/BiaPyX/BiaPy/tree/master/templates/semantic_segmentation>`__ folder of BiaPy, you will find a few YAML configuration templates for this workflow. 
+In the `templates/semantic_segmentation <https://github.com/BiaPyX/BiaPy/tree/master/biapy/config/templates/semantic_segmentation>`__ folder of BiaPy, you will find a few YAML configuration templates for this workflow. 
 
 [Advanced] Special workflow configuration 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

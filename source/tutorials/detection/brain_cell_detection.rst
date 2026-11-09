@@ -35,7 +35,7 @@ Dataset preparation
 
    * **zarr_brain_test.tar.gz**: Test data with the same structure and dimensions.
 
-#. Download the configuration **template** for this task from `this link <https://github.com/BiaPyX/BiaPy/blob/master/templates/detection/3D_cell_detection_zarr_tutorial.yaml>`__ and update the following paths:
+#. Download the configuration **template** for this task from `this link <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/detection/3D_cell_detection_zarr_tutorial.yaml>`__ and update the following paths:
 
    * ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH``: Set these to the **x** and **y** folders inside `zarr_brain_train`.
    
