@@ -383,7 +383,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
    .. tab:: Docker
 
-        If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, you can use the `2d_denoising.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/denoising/2d_denoising.yaml>`__ template file (or your own YAML file), and then run the workflow as follows:
+        If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, you can use the `2d_denoising.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/denoising/2d_denoising.yaml>`__ template file (or your own YAML file), and then run the workflow as follows:
 
         .. code-block:: bash                                                                                                    
 
@@ -434,7 +434,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
    .. tab:: Command line
 
-        `From a terminal <../get_started/faq.html#opening-a-terminal>`__, you can for instance use the `2d_denoising.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/denoising/2d_denoising.yaml>`__ template (or your own YAML file)to run the workflow as follows:
+        `From a terminal <../get_started/faq.html#opening-a-terminal>`__, you can for instance use the `2d_denoising.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/denoising/2d_denoising.yaml>`__ template (or your own YAML file)to run the workflow as follows:
 
         .. code-block:: bash
             
@@ -486,7 +486,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 Templates                                                                                                                 
 ~~~~~~~~~~
 
-In the `templates/denoising <https://github.com/BiaPyX/BiaPy/tree/master/templates/denoising>`__ folder of BiaPy, you can find a few YAML configuration templates for this workflow. 
+In the `templates/denoising <https://github.com/BiaPyX/BiaPy/tree/master/biapy/config/templates/denoising>`__ folder of BiaPy, you can find a few YAML configuration templates for this workflow. 
 
 
 [Advanced] Special workflow configuration 

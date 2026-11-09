@@ -75,10 +75,10 @@ Run
 
 For that you need to download the templates of our four specialized models:
 
-- Nucleus `lightmycells_nucleus.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/lightmycells/lightmycells_nucleus.yaml>`__  
-- Mitochondria `lightmycells_mito.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/lightmycells/lightmycells_mito.yaml>`__
-- Actin `lightmycells_actin.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/lightmycells/lightmycells_actin.yaml>`__
-- Tubulin `lightmycells_tubulin.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/lightmycells/lightmycells_tubulin.yaml>`__
+- Nucleus `lightmycells_nucleus.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/image-to-image/lightmycells/lightmycells_nucleus.yaml>`__  
+- Mitochondria `lightmycells_mito.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/image-to-image/lightmycells/lightmycells_mito.yaml>`__
+- Actin `lightmycells_actin.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/image-to-image/lightmycells/lightmycells_actin.yaml>`__
+- Tubulin `lightmycells_tubulin.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/image-to-image/lightmycells/lightmycells_tubulin.yaml>`__
 
 Then you need to modify ``DATA.TRAIN.PATH`` with your training data microscopy image path, and ``DATA.TRAIN.GT_PATH`` with the path to the target images. In the same way, do it for the validation data with ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH``. We use 10% of the training samples as validation, taking one sample every ten, so all studies are covered, and saving it into a separated folder so they are not used for training. Regarding the test, by setting ``DATA.TEST.PATH``, you can use the same validation path. As an example, if you follow the data structure presented above ``DATA.TRAIN.PATH`` should be ``lightmycells_dataset/train/x`` and ``DATA.TRAIN.GT_PATH`` should be ``lightmycells_dataset/train/y``. 
 
@@ -192,7 +192,7 @@ Then, you can train by you own those models or you can use directly our checkpoi
         
         **1) Phase one: pretraining** 
         
-        The first stage consists in the self-supervised pretraining using mask autoencoder technique. For that, you can use `lightmycells_pretraining.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/image-to-image/lightmycells/lightmycells_pretraining.yaml>`__ configuration file. 
+        The first stage consists in the self-supervised pretraining using mask autoencoder technique. For that, you can use `lightmycells_pretraining.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/image-to-image/lightmycells/lightmycells_pretraining.yaml>`__ configuration file. 
         
         You will need to place all the images inside just one folder and NOT following the above data structure described, as that is for the main phase, which is the second one. Modify in the configuration file the ``DATA.TRAIN.PATH`` with the path to that folder. Currently BiaPy is not prepared to train without a validation data, so you can create a folder with a few training samples as a "fake" validation and set ``DATA.VAL.PATH`` with that folder's path. 
 

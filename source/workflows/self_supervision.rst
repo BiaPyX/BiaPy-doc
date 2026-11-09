@@ -386,7 +386,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
    .. tab:: Docker 
 
-        If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, you can use the `2d_self-supervised.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/self-supervision/2d_self-supervised.yaml>`__ template file (or your own YAML file), and then run the workflow as follows:
+        If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, you can use the `2d_self-supervised.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/self-supervision/2d_self-supervised.yaml>`__ template file (or your own YAML file), and then run the workflow as follows:
 
         .. code-block:: bash                                                                                                    
 
@@ -437,7 +437,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
    .. tab:: Command line 
 
-        `From a terminal <../get_started/faq.html#opening-a-terminal>`__, you can use `2d_self-supervised.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/self-supervised/2d_self-supervised.yaml>`__ template file (or your own YAML file)to run the workflow as follows:
+        `From a terminal <../get_started/faq.html#opening-a-terminal>`__, you can use `2d_self-supervised.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/self-supervised/2d_self-supervised.yaml>`__ template file (or your own YAML file)to run the workflow as follows:
 
         .. code-block:: bash
             
@@ -490,7 +490,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 Templates                                                                                                                 
 ~~~~~~~~~
 
-In the `templates/self-supervised <https://github.com/BiaPyX/BiaPy/tree/master/templates/self-supervised>`__ folder of BiaPy, you can find a few YAML configuration templates for this workflow. 
+In the `templates/self-supervised <https://github.com/BiaPyX/BiaPy/tree/master/biapy/config/templates/self-supervised>`__ folder of BiaPy, you can find a few YAML configuration templates for this workflow. 
 
 [Advanced] Special workflow configuration 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

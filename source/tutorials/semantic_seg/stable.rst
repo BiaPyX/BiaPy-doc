@@ -64,19 +64,19 @@ In case you are interested in reproducing one of the state-of-the-art works impl
 
 
 .. |cassercolablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-    :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/templates/sota_implementations/Casser_workflow.ipynb
+    :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/biapy/config/templates/sota_implementations/Casser_workflow.ipynb
 
 .. |chengcolablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-    :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/templates/sota_implementations/Cheng_2D_workflow.ipynb
+    :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/biapy/config/templates/sota_implementations/Cheng_2D_workflow.ipynb
 
 .. |cheng3dcolablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-    :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/templates/sota_implementations/Cheng_3D_workflow.ipynb
+    :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/biapy/config/templates/sota_implementations/Cheng_3D_workflow.ipynb
 
 .. |xiaocolablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-    :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/templates/sota_implementations/Xiao_workflow.ipynb
+    :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/biapy/config/templates/sota_implementations/Xiao_workflow.ipynb
 
 .. |oztelcolablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-    :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/templates/sota_implementations/Oztel_workflow.ipynb
+    :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/biapy/config/templates/sota_implementations/Oztel_workflow.ipynb
 
 How to run
 ~~~~~~~~~~
@@ -87,7 +87,7 @@ The procedure to run the library is slightly different as it is now for the last
 
    .. tab:: Command line
             
-        `Open a terminal <../../../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_semantic_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
+        `Open a terminal <../../../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. For instance, using `2d_semantic_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/semantic_segmentation/2d_semantic_segmentation.yaml>`__ template file, the code can be run as follows:
 
         .. code-block:: bash
             
@@ -120,7 +120,7 @@ The procedure to run the library is slightly different as it is now for the last
         You can use the following notebook: |colablink|
 
         .. |colablink| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/templates/notebooks/old_notebooks/v1.0_semantic_segmentation_workflow.ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/biapy/config/templates/notebooks/old_notebooks/v1.0_semantic_segmentation_workflow.ipynb
 
 Results
 ~~~~~~~
