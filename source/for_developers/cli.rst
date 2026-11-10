@@ -4,7 +4,7 @@ BiaPy command-line interface
 =============================
 
 After installing BiaPy, use the ``biapy`` command to run a workflow or perform
-standalone checks. This page documents the four utility subcommands. For the
+standalone checks. This page documents the utility subcommands. For the
 Python API, see :doc:`python_api`; for the command-line entry point in the API
 reference, see :doc:`api`.
 
@@ -98,3 +98,92 @@ The text report shows the stored shape, axes and data type, possible 2D and
 3D interpretations, and a suggested ``PROBLEM.NDIM`` when one can be
 determined. The command exits with status ``0`` on success and ``1`` if the
 image cannot be inspected.
+
+Get a configuration template
+----------------------------
+
+Print or save the basic configuration template of a workflow, the one in
+``biapy/config/templates``. Its data paths are placeholders (``/path/to/data``)
+to replace before running it:
+
+.. code-block:: console
+
+   biapy get-config-template --workflow WORKFLOW --ndim 2D_OR_3D [--store <file.yaml>] [--json]
+
+Arguments and options:
+
+* ``--workflow``: workflow type (the ``PROBLEM.TYPE`` value), such as
+  ``SEMANTIC_SEG``.
+* ``--ndim``: ``2D`` or ``3D``.
+* ``--store``: save the template to this YAML file, as it is (with its
+  comments).
+* ``--json``: print the template as JSON.
+
+Without ``--store`` nor ``--json``, the template is printed as YAML. The command
+exits with status ``0`` on success, ``1`` if the workflow or dimensionality is
+not valid, and ``2`` for invalid command-line arguments.
+
+Create a configuration from the data
+------------------------------------
+
+Create a configuration adapted to the data, as the wizard does, to train a
+model from scratch. The data is checked first, as ``check-data`` does; if it
+can be used, the configuration is planned from it (channels, classes, patch
+size, network, batch size for the available GPU, training length...):
+
+.. code-block:: console
+
+   biapy create-config --workflow WORKFLOW --ndim 2D_OR_3D --train-raw <folder> \
+       [--train-gt <folder>] [--test-raw <folder>] [--test-gt <folder>] \
+       [--quick] [--store <file.yaml>] [--json]
+
+Arguments and options:
+
+* ``--workflow``: workflow type (the ``PROBLEM.TYPE`` value), such as
+  ``SEMANTIC_SEG``.
+* ``--ndim``: ``2D`` or ``3D``.
+* ``--train-raw``: folder containing the training raw images.
+* ``--train-gt``: folder containing the training target/ground-truth data,
+  when the workflow uses it.
+* ``--test-raw``, ``--test-gt``: folders with the test raw images and their
+  targets, to also test the trained model.
+* ``--quick``: a short training, to check that everything works before a full
+  one.
+* ``--store``: save the configuration to this YAML file, with a summary of what
+  was decided on top.
+* ``--json``: print the full report as JSON (configuration, summary, errors and
+  warnings).
+
+Semantic segmentation, instance segmentation and detection are planned from the
+data; for the other workflows the configuration is valid but generic, and a
+warning says so. The command exits with status ``0`` when the configuration is
+created, ``1`` if the data cannot be used, and ``2`` for invalid command-line
+arguments.
+
+Search pretrained models in the BioImage Model Zoo
+--------------------------------------------------
+
+Search the `BioImage Model Zoo <https://bioimage.io>`__ for pretrained models
+that BiaPy can use. It needs internet and may take a minute:
+
+.. code-block:: console
+
+   biapy search-bmz-models [--workflow WORKFLOW] [--ndim 2D_OR_3D] \
+       [--nchannels N] [--nclasses N] [--query WORDS] [--json]
+
+Arguments and options (all optional; by default, all the models):
+
+* ``--workflow``: workflow type (the ``PROBLEM.TYPE`` value), such as
+  ``INSTANCE_SEG``.
+* ``--ndim``: ``2D`` or ``3D``.
+* ``--nchannels``: number of channels of the images (e.g. ``1`` for grayscale).
+* ``--nclasses``: number of classes of the data.
+* ``--query``: words that must appear in the model's name, description or tags,
+  such as ``nuclei``.
+* ``--json``: print the models as JSON.
+
+Each model is listed with its identifier (the value for
+``MODEL.BMZ.SOURCE_MODEL_ID``), workflow, dimensionality, channels, name and
+link to the BioImage Model Zoo. The command exits with status ``0`` when the
+search is done (even if no model is found) and ``1`` if it fails.
+
