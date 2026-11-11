@@ -10,6 +10,13 @@ reference, see :doc:`api`.
 
 You can ask a subcommand for its argument help with ``biapy <command> --help``.
 
+All the subcommands accept ``--json``, which prints the result as JSON, for use
+by scripts and agents. It always has ``ok`` (whether the command succeeded),
+``errors`` and ``warnings`` (lists of messages), plus the data of each command,
+described in its section. Progress messages go to the standard error, so the
+standard output only holds the result. The exit code is ``0`` on success, ``1``
+if the command fails, and ``2`` for invalid command-line arguments.
+
 Validate a configuration
 ------------------------
 
@@ -20,12 +27,15 @@ a model or writing output.
 
    biapy validate-config <config.yaml>
    biapy validate-config <config.yaml> --no-data-check
+   biapy validate-config <config.yaml> --json
 
 Arguments and options:
 
 * ``config.yaml``: path to the YAML configuration file.
 * ``--no-data-check``: validate the configuration without checking whether
   the data paths exist. Use this when the data is not available yet.
+* ``--json``: print the result as JSON, with the workflow (``workflow``) and
+  dimensionality (``ndim``) of the configuration.
 
 The command prints ``OK`` when the configuration is valid, or an error naming
 the first problem. It exits with status ``0`` on success, ``1`` if validation
@@ -57,7 +67,9 @@ Arguments and options:
   the workflow has target data.
 * ``--percentage``: percentage of each Zarr/H5 image to check; defaults to
   ``100``.
-* ``--json``: print the full report as JSON, for use by scripts and agents.
+* ``--json``: print the result as JSON, with what was found in each folder
+  (``folders``) and, in super-resolution, the upscaling of the targets
+  (``upscaling``).
 
 The configuration-file form and the direct-folder form are alternatives; do
 not combine them. The command exits with status ``0`` if the data is usable,
@@ -75,8 +87,8 @@ List the workflow types available in BiaPy (the values accepted for
    biapy list-workflows
    biapy list-workflows --json
 
-The ``--json`` option prints the list as JSON. Without it, each workflow is
-printed on its own line.
+The ``--json`` option prints the result as JSON, with the workflows in
+``workflows``. Without it, each workflow is printed on its own line.
 
 Inspect an image
 ----------------
@@ -92,7 +104,10 @@ type, and which problem dimensionality (2D or 3D) it suggests:
 Arguments and options:
 
 * ``path_to_image``: path to the image to inspect.
-* ``--json``: print the report as JSON.
+* ``--json``: print the result as JSON: the image as stored in the file
+  (``stored``), how BiaPy reads it in 2D and 3D (``2D`` and ``3D``), whether
+  the stored axes are known (``axes_known``) and the suggested dimensionality
+  (``suggested_ndim``).
 
 The text report shows the stored shape, axes and data type, possible 2D and
 3D interpretations, and a suggested ``PROBLEM.NDIM`` when one can be
@@ -117,7 +132,8 @@ Arguments and options:
 * ``--ndim``: ``2D`` or ``3D``.
 * ``--store``: save the template to this YAML file, as it is (with its
   comments).
-* ``--json``: print the template as JSON.
+* ``--json``: print the result as JSON, with the template in ``config`` and the
+  file it was saved to, if any, in ``stored_in``.
 
 Without ``--store`` nor ``--json``, the template is printed as YAML. The command
 exits with status ``0`` on success, ``1`` if the workflow or dimensionality is
@@ -151,8 +167,9 @@ Arguments and options:
   one.
 * ``--store``: save the configuration to this YAML file, with a summary of what
   was decided on top.
-* ``--json``: print the full report as JSON (configuration, summary, errors and
-  warnings).
+* ``--json``: print the result as JSON, with what was found in each folder
+  (``folders``), the configuration (``config``) and the summary of what was
+  decided (``summary``).
 
 Semantic segmentation, instance segmentation and detection are planned from the
 data; for the other workflows the configuration is valid but generic, and a
@@ -180,7 +197,7 @@ Arguments and options (all optional; by default, all the models):
 * ``--nclasses``: number of classes of the data.
 * ``--query``: words that must appear in the model's name, description or tags,
   such as ``nuclei``.
-* ``--json``: print the models as JSON.
+* ``--json``: print the result as JSON, with the models in ``models``.
 
 Each model is listed with its identifier (the value for
 ``MODEL.BMZ.SOURCE_MODEL_ID``), workflow, dimensionality, channels, name and
