@@ -11,11 +11,24 @@ reference, see :doc:`api`.
 You can ask a subcommand for its argument help with ``biapy <command> --help``.
 
 All the subcommands accept ``--json``, which prints the result as JSON, for use
-by scripts and agents. It always has ``ok`` (whether the command succeeded),
-``errors`` and ``warnings`` (lists of messages), plus the data of each command,
-described in its section. Progress messages go to the standard error, so the
-standard output only holds the result. The exit code is ``0`` on success, ``1``
-if the command fails, and ``2`` for invalid command-line arguments.
+by scripts and agents. It always has ``schema_version`` (the version of this
+format), ``ok`` (whether the command succeeded), ``errors`` and ``warnings``
+(lists of messages), and ``data``, with the data of each command described in
+its section. For example:
+
+.. code-block:: json
+
+   {
+     "schema_version": "1.0",
+     "ok": true,
+     "errors": [],
+     "warnings": [],
+     "data": {"workflows": ["SEMANTIC_SEG", "INSTANCE_SEG", "..."]}
+   }
+
+Progress messages go to the standard error, so the standard output only holds
+the result. The exit code is ``0`` on success, ``1`` if the command fails, and
+``2`` for invalid command-line arguments.
 
 Validate a configuration
 ------------------------
