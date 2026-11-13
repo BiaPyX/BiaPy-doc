@@ -41,6 +41,15 @@ Execution methods
 BiaPy offers several execution methods, designed to accommodate a range of expertise levels, from beginner to advanced:
 
 .. tabs::
+   .. tab:: Fiji plugin
+    **Biapy plugin for Fiji**: Integrates BiaPy functionalities directly into the Fiji image processing platform.
+    
+    The plugin allows users to leverage BiaPy's capabilities without leaving the Fiji environment, streamlining the workflow for image analysis tasks.
+
+        .. raw:: html
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/htIGUCJJlAk?si=LyMRpXgt7KDI3Glv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
    .. tab:: GUI
 
     **Graphical User Interface (GUI)**: A user-friendly, wizard-based interface ideal for beginners. Explore the main features in our quick GUI walkthrough video:
