@@ -113,7 +113,7 @@ You can use the pretrained SpineDL-Structure model to predict new images using s
 
 #. Decide which method you want to use to run BiaPy: GUI, Jupyter/Colab, Galaxy, Docker, CLI, or API. Based on that you will need to follow the installation instructions described in the :ref:`installation` section.
 
-#. Download the yaml configuration file for SpineDL-Structure from `here <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/SpineDL_paper/spinedl-structure.yaml>`__, which is already prepared to load the pretrained model, called `'greedy-deer' <https://bioimage.io/#/artifacts/greedy-deer>`__, from the BioImage Model Zoo. 
+#. Download the yaml configuration file for SpineDL-Structure from `here <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/semantic_segmentation/SpineDL_paper/spinedl-structure.yaml>`__, which is already prepared to load the pretrained model, called `'greedy-deer' <https://bioimage.io/#/artifacts/greedy-deer>`__, from the BioImage Model Zoo. 
 
 #. Then follow the instructions corresponding to your selected method to run BiaPy with the downloaded configuration file.
 
@@ -316,7 +316,7 @@ Reproducing SpineDL-Structure from scratch
 If you want to reproduce the results of SpineDL-Structure using the provided dataset, you can follow the steps described below. We assume here some level of expertise so we describe it how to do it using the CLI and also assume you have already :ref:`installed BiaPy <installation>`.
 
 #. Download the dataset from `Zenodo <https://zenodo.org/records/19371462>`__ and extract it to a desired location.
-#. Download the yaml configuration file for SpineDL-Structure from `here <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/SpineDL_paper/spinedl-structure-training.yaml>`__. Notice that this configuration file is slightly different from the one used for inference, as it is prepared to train the model from scratch.
+#. Download the yaml configuration file for SpineDL-Structure from `here <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/semantic_segmentation/SpineDL_paper/spinedl-structure-training.yaml>`__. Notice that this configuration file is slightly different from the one used for inference, as it is prepared to train the model from scratch.
 #. Modify the configuration file to set the correct paths to the training, validation, and test data included in the dataset. For example, if you extracted the dataset to ``/home/user/SpineDL/``, you will need to set the following paths in the configuration file:
 
    .. code-block:: yaml
@@ -358,7 +358,7 @@ If you want to reproduce the results of SpineDL-Structure using the provided dat
    
    This will generate the results in ``/home/user/exp_results/my_spinedl_structure_from_scratch/my_spinedl_structure_from_scratch_1/results``. Specifically, in that folder you will find the predicted masks for the test images under ``per_image_binarized``. 
 
-#. Finally, you can evaluate the predictions for test images using `this script <https://github.com/BiaPyX/BiaPy/blob/master/templates/semantic_segmentation/SpineDL_paper/semantic_seg_stats.py>`__. You will need to provide the path to the predicted masks and the root folder containing the expert annotations for the test set. For example:
+#. Finally, you can evaluate the predictions for test images using `this script <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/semantic_segmentation/SpineDL_paper/semantic_seg_stats.py>`__. You will need to provide the path to the predicted masks and the root folder containing the expert annotations for the test set. For example:
 
    .. code-block:: bash
             

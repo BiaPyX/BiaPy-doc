@@ -527,7 +527,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
    .. tab:: Docker 
 
-      If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. Then, you can use the `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file (or your own file), and run the workflow as follows:
+      If you installed BiaPy via Docker, `open a terminal <../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation`. Then, you can use the `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file (or your own file), and run the workflow as follows:
 
       .. code-block:: bash                                                                                                    
 
@@ -578,7 +578,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 
    .. tab:: Command line
 
-      `From a terminal <../get_started/faq.html#opening-a-terminal>`__, you can use the `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file (or your own file), and run the workflow as follows:
+      `From a terminal <../get_started/faq.html#opening-a-terminal>`__, you can use the `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/instance_segmentation/3d_instance_segmentation.yaml>`__ template file (or your own file), and run the workflow as follows:
 
       .. code-block:: bash
           
@@ -627,7 +627,7 @@ BiaPy offers different options to run workflows depending on your degree of comp
 Templates                                                                                                                 
 ~~~~~~~~~~
 
-In the `templates/instance_segmentation <https://github.com/BiaPyX/BiaPy/tree/master/templates/instance_segmentation>`__ folder of BiaPy, you will find a few YAML configuration templates for this workflow. 
+In the `templates/instance_segmentation <https://github.com/BiaPyX/BiaPy/tree/master/biapy/config/templates/instance_segmentation>`__ folder of BiaPy, you will find a few YAML configuration templates for this workflow. 
 
 [Advanced] Special workflow configuration 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -750,8 +750,8 @@ These apply when using gradient-flow channels (``Gh``, ``Gv``, ``Gz`` in ``DATA_
 
 Cellpose 4's models can be used and fine-tuned without the ``cellpose`` package, with ``MODEL.ARCHITECTURE: vit_readout``:
 
-* Cellpose-SAM (template: ``templates/instance_segmentation/2d_cellpose_sam.yaml``): ``MODEL.VIT_MODEL: cellpose_sam_vit`` and ``MODEL.VIT_PRETRAINED_WEIGHTS: cpsam_v2`` (or ``cpsam``, or a checkpoint path). ``DATA.PATCH_SIZE: (256, 256, C)``.
-* Cellpose-DINO (template: ``templates/instance_segmentation/2d_cellpose_dino.yaml``): ``MODEL.VIT_MODEL: dinov3_vit`` with ``MODEL.VIT_PRETRAINED_WEIGHTS: cpdino`` (ViT-L), or ``dinov3_vitb`` with ``cpdino-vitb`` (ViT-B), and ``MODEL.VIT_TOKEN_STRIDE: 8``. ``DATA.PATCH_SIZE: (384, 384, C)``.
+* Cellpose-SAM (template: ``biapy/config/templates/instance_segmentation/2d_cellpose_sam.yaml``): ``MODEL.VIT_MODEL: cellpose_sam_vit`` and ``MODEL.VIT_PRETRAINED_WEIGHTS: cpsam_v2`` (or ``cpsam``, or a checkpoint path). ``DATA.PATCH_SIZE: (256, 256, C)``.
+* Cellpose-DINO (template: ``biapy/config/templates/instance_segmentation/2d_cellpose_dino.yaml``): ``MODEL.VIT_MODEL: dinov3_vit`` with ``MODEL.VIT_PRETRAINED_WEIGHTS: cpdino`` (ViT-L), or ``dinov3_vitb`` with ``cpdino-vitb`` (ViT-B), and ``MODEL.VIT_TOKEN_STRIDE: 8``. ``DATA.PATCH_SIZE: (384, 384, C)``.
 
 With ``MODEL.VIT_READOUT.FEATURES: 3``, ``REFINE_LAYERS: 0``, ``INPUT_SKIP: False`` and ``DATA_CHANNELS: ['F', 'Gv', 'Gh']`` the whole network is loaded, ready for inference. Up to 3 channels (``C``); a grayscale image is equivalent to Cellpose's channel 0 with the rest set to zero. To match Cellpose:
 

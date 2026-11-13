@@ -47,7 +47,7 @@ You need to download NucMM dataset first from this `link <https://drive.google.c
 Configuration file
 ~~~~~~~~~~~~~~~~~~
 
-To create the YAML file you can use the template `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/3d_instance_segmentation.yaml>`_ which is prepared for this tutorial.
+To create the YAML file you can use the template `3d_instance_segmentation.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/instance_segmentation/3d_instance_segmentation.yaml>`_ which is prepared for this tutorial.
 
 How to run
 ~~~~~~~~~~

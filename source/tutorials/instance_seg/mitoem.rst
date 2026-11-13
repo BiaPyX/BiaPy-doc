@@ -67,7 +67,7 @@ Once you have donwloaded this data you need to create a directory tree as descri
 Configuration file
 ~~~~~~~~~~~~~~~~~~
 
-To reproduce the exact results of our manuscript you need to use `mitoem.yaml <https://github.com/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/MitoEM_paper/mitoem.yaml>`__ configuration file.  
+To reproduce the exact results of our manuscript you need to use `mitoem.yaml <https://github.com/BiaPyX/BiaPy/blob/master/biapy/config/templates/instance_segmentation/MitoEM_paper/mitoem.yaml>`__ configuration file.  
 
 Then you need to modify ``DATA.TRAIN.PATH`` and ``DATA.TRAIN.GT_PATH`` with your training data path of EM images and labels respectively. In the same way, do it for the validation data with ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH`` and for the test setting ``DATA.TEST.PATH``. 
 

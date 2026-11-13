@@ -225,7 +225,7 @@ The training of **model M1** and **model M2** is essentially the same, only the 
         An alternative is to use our **Google Colab** |colablink_train| notebook. Noteworthy, Google Colab standard account do not allow you to run a long number of epochs due to time limitations. Because of this, we set ``50`` epochs to train and patience to ``10`` while the original configuration they are set to ``1300`` and ``100`` respectively. In this case you do not need to donwload any data, as the notebook will do it for you. 
 
         .. |colablink_train| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Training%20workflow%20(Phases%202%20and%204)%20-%20Deprecated.ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/biapy/config/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Training%20workflow%20(Phases%202%20and%204)%20-%20Deprecated.ipynb
 
         .. warning::
           This option is **deprecated**, since we don't have control over the versions of the packages installed in Google Colab and there is no way to install the required version of BiaPy through pip (that option was created after the publication of CartoCell).
@@ -282,7 +282,7 @@ Once trained, the models can be applied to the test image volumes as follows:
         As an alternative to perform inference (testing) using a pretrained model, you can run our Google Colab |colablink_inference| notebook. 
 
         .. |colablink_inference| image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Inference%20workflow%20(Phase%205)%20-%20Deprecated.ipynb
+            :target: https://colab.research.google.com/github/BiaPyX/BiaPy/blob/master/biapy/config/templates/instance_segmentation/CartoCell_paper/CartoCell%20-%20Inference%20workflow%20(Phase%205)%20-%20Deprecated.ipynb
 
         .. warning::
           This option is **deprecated**, since we don't have control over the versions of the packages installed in Google Colab and there is no way to install the required version of BiaPy through pip (that option was created after the publication of CartoCell).
@@ -379,7 +379,7 @@ Model training
 .. tabs::
     .. tab:: GUI
 
-        First, download CartoCell's training configuration file (`cartocell_training_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/templates/instance_segmentation/CartoCell_paper/cartocell_training_latest.yaml>`__).
+        First, download CartoCell's training configuration file (`cartocell_training_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/biapy/config/templates/instance_segmentation/CartoCell_paper/cartocell_training_latest.yaml>`__).
         
         Next, in BiaPy's GUI, follow the following instructions:
 
@@ -437,7 +437,7 @@ Model training
 
     .. tab:: Docker     
       
-      First, download CartoCell's training configuration file (`cartocell_training_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/templates/instance_segmentation/CartoCell_paper/cartocell_training_latest.yaml>`__), and edit it to set the correct paths to the training and validation data folders (i.e., ``DATA.TRAIN.PATH``, ``DATA.TRAIN.GT_PATH``, ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH``).
+      First, download CartoCell's training configuration file (`cartocell_training_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/biapy/config/templates/instance_segmentation/CartoCell_paper/cartocell_training_latest.yaml>`__), and edit it to set the correct paths to the training and validation data folders (i.e., ``DATA.TRAIN.PATH``, ``DATA.TRAIN.GT_PATH``, ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH``).
 
       Then, `open a terminal <../../get_started/faq.html#opening-a-terminal>`__ as described in :ref:`installation` and execute the following commands: 
 
@@ -474,7 +474,7 @@ Model training
 
     .. tab:: Command line
 
-      First, download CartoCell's training configuration file (`cartocell_training_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/templates/instance_segmentation/CartoCell_paper/cartocell_training_latest.yaml>`__), and edit it to set the correct paths to the training and validation data folders (i.e., ``DATA.TRAIN.PATH``, ``DATA.TRAIN.GT_PATH``, ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH``).
+      First, download CartoCell's training configuration file (`cartocell_training_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/biapy/config/templates/instance_segmentation/CartoCell_paper/cartocell_training_latest.yaml>`__), and edit it to set the correct paths to the training and validation data folders (i.e., ``DATA.TRAIN.PATH``, ``DATA.TRAIN.GT_PATH``, ``DATA.VAL.PATH`` and ``DATA.VAL.GT_PATH``).
 
       Next, run the following commands `from a terminal <../../get_started/faq.html#opening-a-terminal>`__:
 
@@ -540,7 +540,7 @@ Again, **BiaPy** offers different options to run the **CartoCell** testing (also
 .. tabs::
     .. tab:: GUI
 
-        First, download CartoCell's inference configuration file (`cartocell_inference_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/templates/instance_segmentation/CartoCell_paper/cartocell_inference_latest.yaml>`__) and our M2 pretrained model (`cartocell_M2-checkpoint-best.pth <https://github.com/BiaPyX/BiaPy/raw/refs/heads/master/notebooks/instance_segmentation/CartoCell/model_weights/cartocell_M2-checkpoint-best.pth>`__).
+        First, download CartoCell's inference configuration file (`cartocell_inference_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/biapy/config/templates/instance_segmentation/CartoCell_paper/cartocell_inference_latest.yaml>`__) and our M2 pretrained model (`cartocell_M2-checkpoint-best.pth <https://github.com/BiaPyX/BiaPy/raw/refs/heads/master/notebooks/instance_segmentation/CartoCell/model_weights/cartocell_M2-checkpoint-best.pth>`__).
         
         Next, in BiaPy's GUI, follow the following instructions:
 
@@ -595,7 +595,7 @@ Again, **BiaPy** offers different options to run the **CartoCell** testing (also
 
     .. tab:: Docker     
       
-      First, download CartoCell's testing configuration file (`cartocell_inference_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/templates/instance_segmentation/CartoCell_paper/cartocell_inference_latest.yaml>`__) and our M2 pretrained model (`cartocell_M2-checkpoint-best.pth <https://github.com/BiaPyX/BiaPy/raw/refs/heads/master/notebooks/instance_segmentation/CartoCell/model_weights/cartocell_M2-checkpoint-best.pth>`__).
+      First, download CartoCell's testing configuration file (`cartocell_inference_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/biapy/config/templates/instance_segmentation/CartoCell_paper/cartocell_inference_latest.yaml>`__) and our M2 pretrained model (`cartocell_M2-checkpoint-best.pth <https://github.com/BiaPyX/BiaPy/raw/refs/heads/master/notebooks/instance_segmentation/CartoCell/model_weights/cartocell_M2-checkpoint-best.pth>`__).
       
       Next edit the configuration file to set the correct paths to the test data folders (i.e., ``DATA.TEST.PATH`` and ``DATA.TEST.GT_PATH``) and the pretrained model (``PATHS.CHECKPOINT_FILE``).
 
@@ -650,7 +650,7 @@ Again, **BiaPy** offers different options to run the **CartoCell** testing (also
 
     .. tab:: Command line
 
-      First, download CartoCell's testing configuration file (`cartocell_inference_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/templates/instance_segmentation/CartoCell_paper/cartocell_inference_latest.yaml>`__) and our M2 pretrained model (`cartocell_M2-checkpoint-best.pth <https://github.com/BiaPyX/BiaPy/raw/refs/heads/master/notebooks/instance_segmentation/CartoCell/model_weights/cartocell_M2-checkpoint-best.pth>`__).
+      First, download CartoCell's testing configuration file (`cartocell_inference_latest.yaml <https://raw.githubusercontent.com/BiaPyX/BiaPy/refs/heads/master/biapy/config/templates/instance_segmentation/CartoCell_paper/cartocell_inference_latest.yaml>`__) and our M2 pretrained model (`cartocell_M2-checkpoint-best.pth <https://github.com/BiaPyX/BiaPy/raw/refs/heads/master/notebooks/instance_segmentation/CartoCell/model_weights/cartocell_M2-checkpoint-best.pth>`__).
       
       Next edit the configuration file to set the correct paths to the test data folders (i.e., ``DATA.TEST.PATH`` and ``DATA.TEST.GT_PATH``) and the pretrained model (``PATHS.CHECKPOINT_FILE``).
 
