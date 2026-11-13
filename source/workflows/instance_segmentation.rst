@@ -466,6 +466,38 @@ How to run
 BiaPy offers different options to run workflows depending on your degree of computer expertise. Select whichever is more approppriate for you:
 
 .. tabs::
+   .. tab:: Fiji plugin
+        After starting Fiji, launch the plugin from:
+
+          **Plugins → BiaPy → Run BiaPy**
+
+        The BiaPy interface will open, displaying its main tabs. Click on the *First timers: talk to the Wizard!*, then follow the next instructions to select the instance segmentation workflow:
+
+        .. carousel::
+          :show_controls:
+          :show_captions_below:
+          :data-bs-interval: false
+          :show_dark:
+          :show_indicators:
+
+          .. figure:: ../img/fiji/wizard-select-configuration-folder-and-filename.png
+
+              Step 1: Choose a folder and file name to store your workflow configuration file, then click "Start".
+
+          .. figure:: ../img/fiji/wizard-select-image-dimensions.png
+
+              Step 2: Under Question 1, select the answer that best fits with your data dimensionality, then click "Continue".
+
+          .. figure:: ../img/fiji/wizard-select-instance-segmentation.png
+
+              Step 3: Under Question 2, select the answer "Generate masks of different objects/regions within the image", then click "Continue".
+
+          .. figure:: ../img/fiji/wizard-confirm-instance-segmentation.png
+
+              Step 4: A new window will pop up showing examples of an instance segmentation workflow, and asking for confirmation. Click "Keep it" and then "Continue".
+
+        The wizard 🧙 will then guide you through the remaining steps to configure and run the instance segmentation workflow.
+
    .. tab:: GUI
 
         In the BiaPy GUI, click on the *Wizard*, then follow the next instructions to select the instance segmentation workflow:
