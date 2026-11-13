@@ -98,7 +98,7 @@ BiaPy offers several execution methods, designed to accommodate a range of exper
 Limitations
 ***********
 
-While BiaPy covers a wide range of tasks such as segmentation, object detection, and super-resolution, it does not include functionalities for common tasks like image visualization, registration, tracking, or manual annotation. For these tasks, we recommend using other popular `tools in the bioimage analysis community <https://forum.image.sc/>`__.
+While BiaPy covers a wide range of tasks such as segmentation, object detection, and super-resolution, it does not include functionalities for common tasks like image visualization, registration, or manual annotation. For these tasks, we recommend using other popular `tools in the bioimage analysis community <https://forum.image.sc/>`__.
 
 For example, visualization is not natively supported in BiaPy. To address this, we have collaborated with the `Brainglobe project <https://brainglobe.info/>`__, an open-source initiative focused on computational neuroanatomy. In this partnership, BiaPy handles large-scale image processing, such as brain-wide cell detection, while Brainglobe's framework is used for visualizing and further analyzing the results.
 
