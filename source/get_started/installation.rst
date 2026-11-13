@@ -26,6 +26,84 @@ Choose your installation method
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tabs::
+   .. tab:: Fiji plugin
+          The BiaPy Fiji plugin can be installed on **Windows, macOS and Linux** through the Fiji Updater. Once the plugin is installed, BiaPy and its Python dependencies can be set up directly from the plugin interface with a single click.
+
+          Follow the steps below to get started.
+        
+          .. rubric:: 1. Download and install Fiji
+
+          If you do not already have Fiji installed, download it from the official website: `Fiji Downloads <https://imagej.net/software/fiji/downloads>`_
+
+          Choose the appropriate version for your operating system and computer architecture (Windows, macOS or Linux).
+
+          Fiji is distributed as a portable application, so no separate installer is required:
+
+               1. Download the archive corresponding to your operating system.
+               2. Extract the downloaded archive to a folder of your choice.
+               3. Start Fiji by launching the application inside the extracted folder.
+
+          
+          .. admonition:: Important notes
+               
+                    * **Windows:** We recommend extracting Fiji into a folder within your user directory (e.g. ``C:\Users\your_username\Fiji``) rather than ``C:\Program Files``, where Windows permissions may prevent Fiji from updating itself.
+                    * **macOS:** Extract Fiji and move the application to a suitable location, such as your Applications folder, if desired.
+                    * **Linux:** Extract Fiji and launch the application from the extracted directory.
+
+          For additional information, consult the
+          `official Fiji installation instructions <https://imagej.net/software/fiji/downloads>`_.
+
+          .. rubric:: 2. Enable the BiaPy update site
+
+          Fiji uses *update sites* to distribute and maintain plugins. To install BiaPy, you first need to enable its update site:
+
+               1. Start Fiji.
+               2. Open **Help → Update...** from the menu bar.
+               3. Click **Manage update sites**.
+               4. Find **BiaPy** in the list and tick its checkbox.
+               5. Click **Apply and Close**.
+               6. Back in the updater window, click **Apply Changes** to download and install the plugin.
+               7. Once the update is complete, restart Fiji.
+
+          .. figure:: ../img/fiji/biapy_update_site.png
+               :alt: Fiji Updater showing the BiaPy update site enabled
+               :align: center
+               :width: 85%
+
+          Fiji Updater: enable the BiaPy update site in the Manage update sites window.
+
+          If you cannot find the BiaPy update site in the list, try clicking **Update URLs** in the Manage update sites window to refresh the available update sites.
+
+          .. rubric:: 3. Install BiaPy and its dependencies
+
+          After restarting Fiji, launch the plugin from:
+
+          **Plugins → BiaPy → Run BiaPy**
+
+          The BiaPy interface will open, displaying its main tabs. To install BiaPy and all the required Python libraries:
+
+               1. Navigate to the **HOME** tab.
+               2. Click **Install BiaPy**.
+               3. Wait for the installation process to finish.
+
+          .. figure:: ../img/fiji/biapy_home_install.png
+               :alt: BiaPy plugin HOME tab showing the Install BiaPy button
+               :align: center
+               :width: 85%
+
+          The HOME tab provides access to the BiaPy installation process.
+
+          The installer automatically detects your operating system and available hardware, and configures a suitable Python environment and the required dependencies, including PyTorch and BiaPy itself.
+
+          .. admonition:: A few things to keep in mind
+
+               * An active internet connection is required during installation.
+               * The installation downloads several GB of dependencies, so make sure you have sufficient disk space.
+               * Installation may take some time, depending on your internet connection and computer.
+               * This process only needs to be performed once. Subsequent launches of the plugin will reuse the installed environment.
+
+          Once installation is complete, you are ready to start creating and running BiaPy workflows directly from Fiji!
+
    .. tab:: GUI
 
         Download the corresponding BiaPy GUI for you OS:
