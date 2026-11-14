@@ -145,13 +145,36 @@ Run inference on a single NumPy image without going through files. The model is 
 
 .. code-block:: python
 
-    mask = biapy.predict(image)                       # returns an ndarray, writes NO files
+    mask = biapy.predict(image)                       # returns the result, writes NO files
     mask = biapy.predict(image, gt=gt)                # gt is only used if metrics are enabled
     biapy.predict(image, verbose=True)                # show the inference output on the console
     biapy.predict(image, return_prediction=False)     # write the normal on-disk outputs, return None
 
+    probs = biapy.predict(image, output="raw")        # one output, by name
+    outs = biapy.predict(image, output=["raw", "final", "post"])   # several: a dict with those the workflow gives
+    outs["raw"], outs["final"]
+
 - ``return_prediction=True`` (default) captures the result in memory and skips all disk output.
 - ``return_prediction=False`` produces the normal output files instead, so it needs a writable ``result_dir`` (Section 1). The same applies to synapse detection and ``TEST.BY_CHUNKS`` workflows, which must write intermediate files to complete.
+
+``output`` chooses what is returned, by name:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 12 88
+
+   * - Name
+     - What it is
+   * - ``"raw"``
+     - The model's output: class probabilities (semantic segmentation), the instance channels (instance segmentation), the point probabilities (detection), the restored image (denoising, super-resolution, image to image, self-supervised learning).
+   * - ``"final"``
+     - The workflow's result: the classes (semantic segmentation), the instances (instance segmentation), the points as a ``pandas.DataFrame`` with ``axis-0``, ``axis-1`` (``axis-2`` in 3D, from Z to X) and ``probability`` columns (detection), or the class number (classification).
+   * - ``"post"``
+     - The post-processed prediction, only when post-processing is enabled (e.g. the instances after removing small objects).
+
+- Images come as BiaPy writes them: ``(Y, X, C)`` in 2D and ``(Z, Y, X, C)`` in 3D.
+- With no ``output`` (default), the last output produced is returned, the most processed one: e.g. the post-processed instances if there is post-processing, else the instances.
+- A name the workflow doesn't give raises a ``ValueError`` saying which it gives; in a list, it is simply left out of the dict.
 
 
 6. Fine-tune a trained model
