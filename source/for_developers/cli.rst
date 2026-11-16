@@ -217,3 +217,49 @@ Each model is listed with its identifier (the value for
 link to the BioImage Model Zoo. The command exits with status ``0`` when the
 search is done (even if no model is found) and ``1`` if it fails.
 
+Inspect the results of a job
+----------------------------
+
+Describe what a job left in its folder: whether it finished, how the training
+went, the test metrics, the checkpoints and the outputs. The job's folder is
+``<result_dir>/<name>``, the ``--result_dir`` and ``--name`` it was run with:
+
+.. code-block:: console
+
+   biapy inspect-results <job_folder> [--run-id N] [--json]
+
+Arguments and options:
+
+* ``job_folder``: folder of the job, ``<result_dir>/<name>``.
+* ``--run-id``: run to describe, the ``--run_id`` it was run with. By default,
+  the one run last.
+* ``--json``: print the result as JSON, with:
+
+  * ``job`` and ``run_id``: the run described.
+  * ``finished``: whether it finished.
+  * ``log`` and ``config``: the log and the configuration of its last execution,
+    with its workflow and dimensionality.
+  * ``training``: the epochs reached of the planned ones, whether it stopped by
+    early stopping, and the values of the last epoch and of the best one (the
+    one with the lowest validation loss, saved in the best checkpoint). As in
+    BiaPy's training log, ``test_*`` values are the validation ones and epochs
+    count from 0.
+  * ``test``: the test metrics BiaPy printed at the end of the test of its last
+    execution, named as it prints them (e.g. ``PSNR (merge patches)``), and the
+    CSV file with the metrics of each image. The matching metrics of instance
+    segmentation (precision, recall, F1... by IoU threshold) are only in the
+    CSV file.
+  * ``checkpoints``: the best one and all of them.
+  * ``predictions``: the output folders and their number of files (in
+    classification, the ``predictions.csv`` file).
+  * ``charts``: the plots of the training.
+
+A run that is still running, or that stopped with an error, is not finished;
+its error is in the output of the command that ran it. Jobs run with the Python
+API (``train()``, ``test()``) are never finished: only ``biapy --config ...``
+marks the end of the job in its log. Parts the job didn't do, such as the
+training of a job that only tested, are ``null``.
+
+The command exits with status ``0`` when the job is described (even if it
+didn't finish), ``1`` if the folder doesn't exist or holds no run, and ``2``
+for invalid command-line arguments.
