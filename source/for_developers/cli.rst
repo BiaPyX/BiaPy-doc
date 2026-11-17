@@ -263,3 +263,49 @@ training of a job that only tested, are ``null``.
 The command exits with status ``0`` when the job is described (even if it
 didn't finish), ``1`` if the folder doesn't exist or holds no run, and ``2``
 for invalid command-line arguments.
+
+Plan a job
+----------
+
+Describe what running a configuration would do, without running it: nothing
+is trained, no model is built and nothing is written. Use it to check a job
+before launching it, which can take hours of GPU or write over an existing
+job:
+
+.. code-block:: console
+
+   biapy plan <config.yaml> [--result_dir DIR [--name NAME] [--run_id N]] \
+       [--percentage PERCENT] [--json]
+
+Arguments and options:
+
+* ``config.yaml``: path to the YAML configuration file.
+* ``--result_dir``, ``--name`` and ``--run_id``: optional, the ones the job
+  would be run with (``biapy --config ...``), to also check where it would
+  write and whether that run already exists. Give them before launching a job.
+  ``--name`` defaults to ``unknown_job`` and ``--run_id`` to ``1``.
+* ``--percentage``: percentage of each Zarr/H5 image to check; defaults to
+  ``100``.
+* ``--json``: print the result as JSON, with:
+
+  * ``workflow``, ``ndim`` and ``phases``: whether the job would train and
+    test.
+  * ``job``: the job's folder and run, whether that run already ``exists``
+    (running it would write over its outputs) and the folders it would write;
+    ``null`` without ``--result_dir``.
+  * ``data``: for each data folder, what ``check-data`` finds (number of files,
+    channels, classes) and the smallest and largest shape of its images, when
+    known.
+  * ``model``: the architecture, its source and the checkpoint it would load.
+  * ``training``: epochs, batch size, optimizer, learning rate, patience and
+    patch size.
+  * ``hardware``: the NVIDIA GPUs and the RAM of this computer.
+  * ``estimates``: the RAM to train and to test and the disk space the job
+    would need, as ``create-config`` estimates them. They are estimates, not
+    guarantees, and ``null`` when they can't be made. The GPU memory is not
+    estimated.
+
+The data is checked as ``check-data`` does, and its problems are the plan's
+errors. That the run already exists is a warning. The command exits with
+status ``0`` if the job can be run, ``1`` if the configuration is not valid or
+its data can't be used, and ``2`` for invalid command-line arguments.
