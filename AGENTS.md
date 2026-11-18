@@ -17,7 +17,7 @@ pip install -r source/requirements.txt --extra-index-url https://download.pytorc
 make html   # output in build/html/
 ```
 - Run `make html` after every change and fix any new Sphinx warnings (broken refs, bad directives, orphan pages).
-- Read the Docs builds with Python 3.10 (`.readthedocs.yaml`); avoid syntax or dependencies that need newer.
+- The local Python version must match `.readthedocs.yaml` (currently 3.11); update both together.
 
 ## Conventions
 - Register every new page in a `toctree` (`index.rst` or the parent index), or it will warn as orphaned.
