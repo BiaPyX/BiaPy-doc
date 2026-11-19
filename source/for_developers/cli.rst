@@ -309,3 +309,123 @@ The data is checked as ``check-data`` does, and its problems are the plan's
 errors. That the run already exists is a warning. The command exits with
 status ``0`` if the job can be run, ``1`` if the configuration is not valid or
 its data can't be used, and ``2`` for invalid command-line arguments.
+
+Run a job in the background
+---------------------------
+
+Run a job and return at once, while it keeps running in the background. Follow
+it with ``job-status`` and stop it with ``stop-job``, from this or any other
+terminal. It is the job ``biapy --config ...`` would run, but it is first
+checked as ``plan`` does:
+
+.. code-block:: console
+
+   biapy run <config.yaml> --result_dir DIR [--name NAME] [--run_id N] \
+       [--gpu GPU] [--overwrite] [--json]
+
+Arguments and options:
+
+* ``config.yaml``: path to the YAML configuration file.
+* ``--result_dir``, ``--name`` and ``--run_id``: where the job writes, as in
+  ``biapy --config ...``. ``--name`` defaults to ``unknown_job`` and
+  ``--run_id`` to ``1``.
+* ``--gpu``: GPU to use, such as ``0``, or ``mps`` on Apple Silicon. Several
+  GPUs, such as ``0,1``, run one process per GPU with
+  ``torch.distributed.run``, which BiaPy supports on Linux. By default, the job
+  runs on the CPU.
+* ``--overwrite``: run it even if the run already exists, writing over its
+  outputs.
+* ``--json``: print the result as JSON, with:
+
+  * ``job_dir``, ``job`` and ``run_id``: the job's folder,
+    ``<result_dir>/<name>``, and its run.
+  * ``pid``: the process of the job.
+  * ``command``: the command it was run with.
+  * ``output``: the file with everything the job prints, errors included.
+
+The job is not run if its configuration is not valid or its data can't be used
+(the errors of ``plan``), if that run is already running, or if it already
+exists and ``--overwrite`` is not given. Closing the terminal doesn't stop it.
+
+The job's state and output are saved in the ``jobs`` folder of the job's
+folder: ``jobs/<name>_<run_id>.json`` and ``jobs/<name>_<run_id>.out``.
+
+The command exits with status ``0`` when the job is started, ``1`` when it is
+not, and ``2`` for invalid command-line arguments.
+
+Follow a job
+------------
+
+Say whether a job is running, where it is (the training epoch, the test images
+processed) and, if it failed, why:
+
+.. code-block:: console
+
+   biapy job-status <job_folder> [--run-id N] [--json]
+
+Arguments and options:
+
+* ``job_folder``: folder of the job, ``<result_dir>/<name>``.
+* ``--run-id``: run to describe. By default, the one started last with
+  ``biapy run``, or else the one run last.
+* ``--json``: print the result as JSON, with:
+
+  * ``job`` and ``run_id``: the run described.
+  * ``state``: one of:
+
+    * ``starting``: it is loading the data or building the model;
+    * ``training`` or ``testing``: it is training or testing;
+    * ``completed``: it finished;
+    * ``stopped``: it was stopped with ``stop-job``;
+    * ``failed``: it ended with an error;
+    * ``unknown``: it was not started with ``biapy run`` and didn't finish, so
+      it may be running or have stopped.
+
+  * ``pid``: its process, or ``null`` if it is not running.
+  * ``progress``: the ``phase`` (``train`` or ``test``), the ``epoch`` it is in
+    of the ``epochs`` planned (counted from 1), the training time ``elapsed``
+    and the ``estimated_total``, as BiaPy prints them after each epoch, the
+    ``test_images`` processed (not known in classification), and the values of
+    the ``last`` epoch, as in ``inspect-results``.
+  * ``resources``: the CPU, RAM and GPU memory it uses now, or ``null`` if it
+    is not running. The GPU memory is only known for NVIDIA GPUs.
+  * ``error``: if it failed, the end of its output, with the error.
+  * ``output``: the file with everything it printed or, if it was not started
+    with ``biapy run``, its log.
+
+For jobs started otherwise, such as with ``biapy --config ...`` or BiaPy-GUI,
+only their log is known: whether they finished and where they are.
+
+The command exits with status ``0`` when the state is given (even if the job
+failed), ``1`` if the folder doesn't exist or holds no run, and ``2`` for
+invalid command-line arguments.
+
+Stop a job
+----------
+
+Stop a job started with ``biapy run``, and the processes it started:
+
+.. code-block:: console
+
+   biapy stop-job <job_folder> [--run-id N] [--timeout SECONDS] [--json]
+
+Arguments and options:
+
+* ``job_folder``: folder of the job, ``<result_dir>/<name>``.
+* ``--run-id``: run to stop. By default, the one started last.
+* ``--timeout``: seconds to wait for it to end before killing it; defaults to
+  ``30``.
+* ``--json``: print the result as JSON, with:
+
+  * ``job`` and ``run_id``: the run stopped.
+  * ``was_running``: whether it was running. If not, nothing is done, with a
+    warning.
+  * ``killed``: whether it had to be killed because it didn't end in time.
+
+BiaPy saves nothing when it is stopped: the checkpoints are the ones it saved
+before, and one being written at that moment may be left incomplete. After it,
+``job-status`` says ``stopped``.
+
+The command exits with status ``0`` when the job is stopped or was not
+running, ``1`` if no job of that folder was started with ``biapy run``, and
+``2`` for invalid command-line arguments.
