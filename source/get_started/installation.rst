@@ -425,6 +425,13 @@ Choose your installation method
 
                     pip install -e .
 
+               ** Alternative: Using uv for development ** ::
+
+                    git clone https://github.com/BiaPyX/BiaPy.git
+                    cd BiaPy
+                    uv python pin 3.11
+                    uv sync
+
    .. tab:: API
 
         If you want to use BiaPy as a library in your own Python scripts, you can install it via `pip <https://pypi.org/project/pip/>`__: ::
