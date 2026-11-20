@@ -326,6 +326,38 @@ Choose your installation method
                     mamba create -n BiaPy_env -c conda-forge python=3.11 biapy
                     mamba activate BiaPy_env
 
+          .. tab:: uv
+
+               .. _installation_command_line_uv:
+
+               Before you begin, ensure you have `uv <https://docs.astral.sh/uv/getting-started/installation/>`__ installed. uv is a fast Python package and environment manager.
+
+               Choose one of the following options based on your machine capabilities:
+
+               **A. GPU-capable machine (NVIDIA GPU)** ::
+
+                    uv venv --python 3.11 BiaPy_env
+                    source BiaPy_env/bin/activate        # Windows: BiaPy_env\Scripts\activate
+                    uv pip install biapy --torch-backend=auto
+
+               Verify GPU at runtime: ::
+
+                    python -c 'import torch; print(torch.cuda.is_available())'
+                    >>> True
+
+               **B. CPU-only machine** ::
+
+                    uv venv --python 3.11 BiaPy_env
+                    source BiaPy_env/bin/activate        # Windows: BiaPy_env\Scripts\activate
+                    uv pip install biapy --torch-backend=cpu
+
+               **C. Quick run without creating an environment** ::
+
+                    uvx --python 3.11 --torch-backend=auto biapy --config my_config.yaml --result_dir results --name my_experiment --run_id 1
+
+               The first run downloads BiaPy and PyTorch (several GB) into uv's cache, and later runs reuse it.
+               Note that the biapy version is not pinned, so your run might not be reproducible if a new biapy version is released. To pin the version, use ``--from biapy==3.6.8``.
+
           .. tab:: Developer
 
                .. _installation_command_line_dev:
