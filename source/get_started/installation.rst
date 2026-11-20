@@ -442,6 +442,10 @@ Choose your installation method
         .. important::
              Do not install PyTorch without pinning a version (e.g. plain ``pip install torch torchvision``). It installs the newest release, which is often outside the range BiaPy expects and can break the install or raise a ``ResolutionImpossible`` error.
 
+        or via uv: ::
+
+            uv pip install biapy --torch-backend=auto
+
         After that you can import BiaPy in your Python scripts: ::
 
             import biapy
