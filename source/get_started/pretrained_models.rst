@@ -30,14 +30,25 @@ Select the tab that matches the way you are running BiaPy:
    .. tab:: Fiji plugin
         In the Fiji plugin, you can select a pretrained model either when setting up the full workflow (under **Plugins → BiaPy → Run BiaPy**) or directly on your open image (under **Plugins → BiaPy → Apply model**).
         
-        **Run BiaPy**
+        **Plugins → BiaPy → Run BiaPy**
             
-        After choosing the configuration file, image dimensions, and workflow, you will be prompted to select a pretrained model. You can either choose a previously trained BiaPy model (``.pth`` file) or check for available BioImage Model Zoo models compatible with your workflow and dimensions.
+        Following the Wizard instructions, after choosing the configuration file, image dimensions, and workflow, you will be prompted to select a pretrained model. 
 
+        .. figure:: ../img/fiji/wizard-question-pretrained-model.png
+               :alt: BiaPy Fiji plugin showing the pretrained model selection (Question 4 of the wizard)
+               :align: center
+               :width: 85%
         
-        **Apply model**
+        You can either choose a previously trained BiaPy model (``.pth`` file) or check for available BioImage Model Zoo models compatible with your workflow and dimensions.
+
+        **Plugins → BiaPy → Apply model**
             
-        You can also apply a pretrained model directly to your open image. Select the model you want to use, either a previously trained BiaPy model (``.pth`` file) or a BioImage Model Zoo model, and the plugin will set the required variables for you.
+        You can also apply a pretrained model directly to your open image with the "Apply model" plugin. Select the model you want to use, either a previously trained BiaPy model (``.pth`` file) or a BioImage Model Zoo model, and the plugin will set the required variables for you.
+
+        .. raw:: html
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/JOdaSDS_rvA?si=jUSDuMbu-Synnbxu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
         
    .. tab:: GUI
 
