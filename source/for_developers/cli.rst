@@ -258,9 +258,10 @@ Arguments and options:
   * ``statistics``: statistics of the predictions, computed as ``check-data``
     computes them for the data, so they have the same keys and can be compared
     with those of the test data: the fraction of each class (semantic
-    segmentation), the objects by image (instance segmentation), the points by
-    image (detection), the intensity of the predicted images (the other
-    workflows), and the images by predicted and true class (classification).
+    segmentation), the objects by image (instance segmentation, before its
+    post-processing), the points by image (detection), the intensity of the
+    predicted images (the other workflows), and the images by predicted and
+    true class (classification).
   * ``charts``: the plots of the training.
 
 The ``warnings`` say what is plainly wrong in the results, such as a NaN loss,
