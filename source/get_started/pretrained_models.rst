@@ -27,7 +27,18 @@ The variables to set depend on the source of the model:
 Select the tab that matches the way you are running BiaPy:
 
 .. tabs::
+   .. tab:: Fiji plugin
+        In the Fiji plugin, you can select a pretrained model either when setting up the full workflow (under **Plugins → BiaPy → Run BiaPy**) or directly on your open image (under **Plugins → BiaPy → Apply model**).
+        
+        **Run BiaPy**
+            
+        After choosing the configuration file, image dimensions, and workflow, you will be prompted to select a pretrained model. You can either choose a previously trained BiaPy model (``.pth`` file) or check for available BioImage Model Zoo models compatible with your workflow and dimensions.
 
+        
+        **Apply model**
+            
+        You can also apply a pretrained model directly to your open image. Select the model you want to use, either a previously trained BiaPy model (``.pth`` file) or a BioImage Model Zoo model, and the plugin will set the required variables for you.
+        
    .. tab:: GUI
 
         In the GUI, the Wizard asks whether you want to use a pretrained model. Start the Wizard as described in the `BioImage Model Zoo page <bmz.html#graphical-user-interface>`__ (choose the configuration file, the image dimensions and the workflow), then answer the question **"Do you want to use a pre-trained model?"** with one of these options:
