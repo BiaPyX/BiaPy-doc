@@ -221,7 +221,8 @@ Inspect the results of a job
 ----------------------------
 
 Describe what a job left in its folder: whether it finished, how the training
-went, the test metrics, the checkpoints and the outputs. The job's folder is
+went, the test metrics, statistics of its predictions, the checkpoints and the
+outputs, and warnings about what is plainly wrong in them. The job's folder is
 ``<result_dir>/<name>``, the ``--result_dir`` and ``--name`` it was run with:
 
 .. code-block:: console
@@ -240,25 +241,40 @@ Arguments and options:
   * ``log`` and ``config``: the log and the configuration of its last execution,
     with its workflow and dimensionality.
   * ``training``: the epochs reached of the planned ones, whether it stopped by
-    early stopping, and the values of the last epoch and of the best one (the
-    one with the lowest validation loss, saved in the best checkpoint). As in
-    BiaPy's training log, ``test_*`` values are the validation ones and epochs
-    count from 0.
+    early stopping, the values of the last epoch and of the best one (the one
+    with the lowest validation loss, saved in the best checkpoint), and the
+    ``history`` of the losses, one value by epoch. As in BiaPy's training log,
+    ``test_*`` values are the validation ones and epochs count from 0.
   * ``test``: the test metrics BiaPy printed at the end of the test of its last
-    execution, named as it prints them (e.g. ``PSNR (merge patches)``), and the
-    CSV file with the metrics of each image. The matching metrics of instance
-    segmentation (precision, recall, F1... by IoU threshold) are only in the
-    CSV file.
+    execution, named as it prints them (e.g. ``PSNR (merge patches)``), the CSV
+    file with the metrics of each image, and those metrics summarized by image
+    (``per_image``: for each metric, its mean, lowest and highest values and the
+    images that have them). The matching metrics of instance segmentation are
+    named by IoU threshold and way of computing them, e.g.
+    ``f1 (IoU 0.5, merge patches)``.
   * ``checkpoints``: the best one and all of them.
   * ``predictions``: the output folders and their number of files (in
     classification, the ``predictions.csv`` file).
+  * ``statistics``: statistics of the predictions, computed as ``check-data``
+    computes them for the data, so they have the same keys and can be compared
+    with those of the test data: the fraction of each class (semantic
+    segmentation), the objects by image (instance segmentation, before its
+    post-processing), the points by image (detection), the intensity of the
+    predicted images (the other workflows), and the images by predicted and
+    true class (classification).
   * ``charts``: the plots of the training.
 
+The ``warnings`` say what is plainly wrong in the results, such as a NaN loss,
+test images predicted as only background or without objects, or classes never
+predicted. They don't judge whether the results are good: that depends on the
+data and on what is expected.
+
 A run that is still running, or that stopped with an error, is not finished;
-its error is in the output of the command that ran it. Jobs run with the Python
-API (``train()``, ``test()``) are never finished: only ``biapy --config ...``
-marks the end of the job in its log. Parts the job didn't do, such as the
-training of a job that only tested, are ``null``.
+its error is in the output of the command that ran it (for jobs started with
+``biapy run``, ``job-status`` shows it). Jobs run with the Python API
+(``train()``, ``test()``) are never finished: only ``biapy --config ...`` marks
+the end of the job in its log. Parts the job didn't do, such as the training of
+a job that only tested, are ``null``.
 
 The command exits with status ``0`` when the job is described (even if it
 didn't finish), ``1`` if the folder doesn't exist or holds no run, and ``2``
