@@ -9,6 +9,79 @@ BiaPy is proud to be a Community Partner of the `BioImage Model Zoo (BMZ) <https
 
 Depending on how you're using BiaPy, you can access these models in the following ways:
 
+Fiji plugin
+~~~~~~~~~~~
+
+Import
+******
+
+In BiaPy's Fiji plugin, you can explore and **import** compatible models through the Wizard. From the home screen, you can start the Wizard by clicking on the **Wizard** tab on the left side of the plugin, or by clicking the **First timers: talk to the Wizard!** button at the bottom of the screen:
+
+.. figure:: ../img/fiji/biapy_wizard_selection.png
+   :alt: BiaPy Fiji plugin showing the Wizard selection
+   :align: center
+   :width: 85%
+
+Once in the Wizard, follow these steps:
+
+#. Specify the path and name of your configuration file and click on **"Start"**.
+#. Answer whether your images are in 2D/3D (Question 1).
+#. Select the workflow you want to create by answering Question 2.
+#. Specify if you have a time-lapse sequence (Question 3).
+#. Select if you want to train and/or apply a model (Question 4).
+#. Depending on your choice in the previous step, you will be prompted to introduce different paths for your training and/or test images.
+#. You'll then encounter the **"Do you want to use a pre-trained model?"** prompt. Select **"Yes, I want to check if there is a pretrained model I can use"**.
+#. Click on the **"Find models"** button to initiate the search for models compatible with BiaPy. The search process requires an internet connection and may take a few minutes.
+#. While the search is being performed, a list of models available for use in BiaPy will be displayed below, filtered by the selected workflow and image dimensions.
+#. Click on the "Select" of the model to select it.
+
+Find a depiction of these steps below:
+
+.. carousel::
+  :show_controls:
+  :show_captions_below:
+  :data-bs-interval: false
+  :show_indicators:
+  :show_dark:
+
+  .. figure:: ../img/fiji/wizard-select-configuration-folder-and-filename-ubuntu.png
+
+      Step 0: Specify the path and name of your configuration file and click on "Start".
+
+  .. figure:: ../img/fiji/wizard-question-image-dimensions-ubuntu.png
+
+      Step 1: Answer whether your images are in 3D.
+
+  .. figure:: ../img/fiji/wizard-question-workflow-ubuntu.png
+
+      Step 2: Select the workflow you want to create.
+
+  .. figure:: ../img/fiji/wizard-question-time-lapse-ubuntu.png
+
+      Step 3: Specify if you have a time-lapse sequence.
+
+  .. figure:: ../img/fiji/wizard-question-train-apply-ubuntu.png
+
+      Step 4: Specify if you want to train and/or apply a model.
+
+  .. figure:: ../img/fiji/wizard-question-pretrained-model-ubuntu.png
+
+      Step 5: Select that you want to check if there is a pretrained model you can use.
+  
+  .. figure:: ../img/fiji/wizard-find-models-ubuntu.png
+
+      Step 6: Click on the "Find models" button to initiate the search for models compatible with BiaPy.
+
+  .. figure:: ../img/fiji/wizard-select-model-ubuntu.png
+
+      Step 7: Select the model you want to use from the list.
+
+
+Export
+******
+
+In the current Fiji plugin, BMZ model export is not configured through a dedicated plugin or command.
+
 Graphical user interface
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
