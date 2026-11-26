@@ -463,4 +463,20 @@ Choose your installation method
 
           * `API documentation <https://biapy.readthedocs.io/en/latest/for_developers/api.html>`__ for more information on how to use BiaPy as a library in your own Python scripts.  
 
+   .. tab:: AI agents (MCP)
+
+        If you want to use BiaPy from an AI agent, such as Claude Code, Codex or Cursor, install BiaPy with its MCP server: ::
+
+            pip install "biapy[mcp]"
+
+        Then add the server to your agent (once), from the environment where BiaPy is installed: ::
+
+            biapy mcp --setup claude    # Claude Code
+            biapy mcp --setup codex     # Codex
+            biapy mcp --setup print     # the configuration for any other agent (Claude Desktop, Cursor...)
+
+        Open a new conversation in the agent: it starts the server by itself and can use BiaPy's tools to inspect your images, create and check configurations, run jobs, follow them and inspect their results. In Claude Code, ``/mcp`` shows ``biapy`` as connected.
+
+        You can find how it works and the list of tools in :doc:`../for_developers/mcp`.
+
 The next step consists in `selecting the specific workflow <select_workflow.html>`_ that aligns with your intended use.
